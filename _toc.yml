@@ -1,0 +1,46 @@
+format: jb-book
+root: about.md
+
+parts:  
+  - caption: Course overview 
+    chapters:
+    - title: Objectives
+      file: content/Course/overview.md
+
+  - caption: Getting started    
+    chapters:
+    - file: content/Reference/installing_anaconda.md
+    - file: content/Reference/python_jupyter.md
+      sections:
+      #- file: notebooks/Jupyter_Python_intro/5300_Jupyter_Python_intro_01.ipynb
+      - file: notebooks/Reference/Jupyter_Python_intro_01.ipynb
+    - title: "Advanced topics"
+      file: content/Reference/advanced.md
+      sections:
+      - file: content/Reference/using_github.md
+      - file: notebooks/Reference/Jupyter_Python_intro_02.ipynb
+      - title: "Widgets in Jupyter"
+        file: notebooks/Reference/Simple_widgets_v1.ipynb
+
+  - caption: Complex variables notebooks
+    chapters:
+    - file: content/Taylor/Taylor_chapters_1to4.md
+      sections:
+      - file: notebooks/Taylor_problems/Taylor_problem_1.39.ipynb
+      
+  - caption: Reference material
+    #numbered: True
+    chapters:
+    - file: content/zbibliography
+    - file: content/related_topics.md
+    # - file: content/Reference/installing_anaconda.md
+    # - file: content/Reference/using_github.md
+    # - file: content/Reference/python_jupyter.md
+    #   sections:
+    #   - file: notebooks/Reference/Jupyter_Python_intro_01.ipynb
+    #   - file: notebooks/Reference/Jupyter_Python_intro_02.ipynb
+    #   - file: notebooks/Simple_widgets_v1.ipynb
+   # - title: "Related topics"
+   #   file: content/related_topics.md
+    - title: "Examples: Jupyter jb-book"
+      file: content/jb_tests.md
