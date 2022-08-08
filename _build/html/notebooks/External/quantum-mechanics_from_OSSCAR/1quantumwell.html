@@ -1,0 +1,1017 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Numerical Solution of the Schrödinger Equation for a One Dimensional Quantum Well &#8212; Quantum Mechanics I</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"tex": {"macros": {"N": "\\mathbb{N}", "avec": ["\\boldsymbol{a}"], "floor": ["\\lfloor#1\\rfloor", 1], "bmat": ["\\left[\\begin{array}"], "emat": ["\\end{array}\\right]"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <link rel="author" title="About these documents" href="../../../about.html" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Complex Numbers and Trigonometry" href="../Quantitative_Economics_with_Python_complex_numbers_and_trig.html" />
+    <link rel="prev" title="QM notebooks from OSSCAR" href="../../../content/External/OSSCAR_notebooks.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Quantum Mechanics I</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../about.html">
+                    About Physics 7501: Quantum Mechanics I
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Course overview
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../content/Course/overview.html">
+   Objectives
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Notebooks for 7501
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../Numerical_derivative_tests.html">
+   Exponentiating operators
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  External QM notebooks
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Example_Quantum_Calculations_sympy.html">
+   QM with Sympy
+  </a>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="../../../content/External/OSSCAR_notebooks.html">
+   QM notebooks from OSSCAR
+  </a>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     <strong>
+      Numerical Solution of the Schrödinger Equation for a One Dimensional Quantum Well
+     </strong>
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Math notebooks
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Quantitative_Economics_with_Python_complex_numbers_and_trig.html">
+   Complex Numbers and Trigonometry
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Quantitative_Economics_with_Python_linear_algebra.html">
+   Linear Algebra
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Quantitative_Economics_with_Python_svd_intro.html">
+   Singular Value Decomposition (SVD)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Getting started with Python
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../content/Reference/installing_anaconda.html">
+   Using Anaconda
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../content/Reference/python_jupyter.html">
+   Python and Jupyter notebooks
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../Reference/Jupyter_Python_intro_01.html">
+     Python and Jupyter notebooks: part 01
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../Reference/Jupyter_Python_intro_02.html">
+     Python and Jupyter notebooks: part 02
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../../content/Reference/advanced.html">
+   Advanced topics
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../../content/Reference/using_github.html">
+     Using GitHub
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Reference material
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../content/zbibliography.html">
+   Bibliography
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../content/jb_tests.html">
+   Examples: Jupyter jb-book
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/furnstahl/7501-JB/main?urlpath=tree/./notebooks/External/quantum-mechanics_from_OSSCAR/1quantumwell.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/furnstahl/7501-JB"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/furnstahl/7501-JB/issues/new?title=Issue%20on%20page%20%2Fnotebooks/External/quantum-mechanics_from_OSSCAR/1quantumwell.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../../_sources/notebooks/External/quantum-mechanics_from_OSSCAR/1quantumwell.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#goals">
+   <strong>
+    Goals
+   </strong>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#background-theory">
+   <strong>
+    Background theory
+   </strong>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tasks-and-exercises">
+   <strong>
+    Tasks and exercises
+   </strong>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#interactive-visualization">
+   <strong>
+    Interactive visualization
+   </strong>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#legend">
+   <strong>
+    Legend
+   </strong>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#controls">
+     Controls
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#interactive-figure">
+     Interactive figure
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Numerical Solution of the Schrödinger Equation for a One Dimensional Quantum Well</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#goals">
+   <strong>
+    Goals
+   </strong>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#background-theory">
+   <strong>
+    Background theory
+   </strong>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tasks-and-exercises">
+   <strong>
+    Tasks and exercises
+   </strong>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#interactive-visualization">
+   <strong>
+    Interactive visualization
+   </strong>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#legend">
+   <strong>
+    Legend
+   </strong>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#controls">
+     Controls
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#interactive-figure">
+     Interactive figure
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="numerical-solution-of-the-schrodinger-equation-for-a-one-dimensional-quantum-well">
+<h1><strong>Numerical Solution of the Schrödinger Equation for a One Dimensional Quantum Well</strong><a class="headerlink" href="#numerical-solution-of-the-schrodinger-equation-for-a-one-dimensional-quantum-well" title="Permalink to this headline">#</a></h1>
+<p><strong>Authors:</strong> Dou Du, Taylor James Baird and Giovanni Pizzi</p>
+<p><i class="fa fa-home fa-2x"></i><a href="../index.ipynb" style="font-size: 20px"> Go back to index</a></p>
+<p><strong>Source code:</strong> <a class="reference external" href="https://github.com/osscar-org/quantum-mechanics/blob/master/notebook/quantum-mechanics/1quantumwell.ipynb">https://github.com/osscar-org/quantum-mechanics/blob/master/notebook/quantum-mechanics/1quantumwell.ipynb</a></p>
+<p>This notebook solves numerically the quantum-mechanical problem of a single rectangular one-dimensional quantum well, and displays interactively the eigenfunctions (plotted at the height of the corresponding eigenvalues).</p>
+<hr style="height:1px;border:none;color:#cccccc;background-color:#cccccc;" /><section id="goals">
+<h2><strong>Goals</strong><a class="headerlink" href="#goals" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>Investigate quantum confinement by manipulating the depth and width of a finite one-dimensional quantum well.</p></li>
+<li><p>Learn how to solve the Schrödinger equation by matrix diagonalization.</p></li>
+<li><p>Understand quantum tunnelling in regions where the energy is lower than the potential.</p></li>
+</ul>
+</section>
+<section id="background-theory">
+<h2><strong>Background theory</strong><a class="headerlink" href="#background-theory" title="Permalink to this headline">#</a></h2>
+<p><a class="reference internal" href="theory/theory_1quantumwell.html"><span class="doc std std-doc">More on the background theory.</span></a></p>
+</section>
+<section id="tasks-and-exercises">
+<h2><strong>Tasks and exercises</strong><a class="headerlink" href="#tasks-and-exercises" title="Permalink to this headline">#</a></h2>
+<ol>
+<li><p>Keep the depth at the default value (-0.2) and move the slider of the width from the
+smallest value (0.1) to the largest value (2.0). Do you see any change for the number
+of the states? How does the eigenvalue of the ground state (the lowest eigenstate) change
+with the increasing of the width of the quantum well and why?</p>
+ <details>
+ <summary style="color: red">Solution</summary>
+     The wider the well potential is, the more (bound state) wavefunctions you will obtain. The reason for this can be traced back to the relationship between the eigenenergies of the bound states and the width of the well: $E_n \propto \frac{1}{L^2}$. Therefore, increasing the width of the well decreases the values of the various eigenergies. A different explanation for the decreased energy of the bound states with increasing well width can be found by appealing to Heisenberg's uncertainty principle: the less confined a particle is (and thus the less certain we are of its position), the more certain we are of its momentum. This smaller spread in momentum values translates into smaller values for the particle's kinetic energy. In addition, there are consequently more states which satisfy $ E_n < V$ (where $V$ is the well depth) and this leads to an increase in the number of bound states.  
+     Note that the "zero" of the wavefunction is shifted, for every wavefunction, at the energy of the corresponding eigenvalue.
+ </details>
+</li>
+<li><p>Keep the width at the default value (1.2) and move the slider of the depth from
+the smallest value (-1.0) to the largest value (0.0). Do you see any change for the
+number of the states? How does the eigenvalue of the ground state (the lowest eigenstate)
+change with the increasing of the depth of the quantum well and why?</p>
+ <details>
+ <summary style="color: red">Solution</summary>
+     The deeper the well potential is, the more wavefunctions you will obtain. Mathematically, the explanation for this lies in the relationship between the values of the eigenergies and the potential depth. This is a transcendental relationship and has to be solved numerically or graphically but one may note that by increasing the well depth, the values of the various energy eigenvalues are increased.Some important remarks are that, regardless of the well depth, there is always at least one bound solution in one dimension and that as the depth is made progressively larger, the energy levels shall approach those of the infinite square well. For more information see 
+             <a href="https://en.wikipedia.org/wiki/Finite_potential_well">Wikipedia</a>.
+     Note that the "zero" of the wavefunction is shifted, for every wavefunction, 
+     at the energy of the corresponding eigenvalue.
+ </details>
+</li>
+<li><p>Investigate the role played by quantum confinement in this 1D potential well system by varying the width of the well via the “width” slider and observing the spacing of the energy levels of the system.</p>
+ <details>
+ <summary style="color: red">Solution</summary>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span> When the dimension of the confining potential becomes comparable to the de Broglie wavelength of the confined particle then we begin to observe so-called confinement effects. These manifest as a discretization of the bound state energy levels (when the de Broglie wavelength and well width are not comparable the particle behaves essentially like a free particle, with a continuous energy spectrum). As mentioned in task 1, the relationship between the energy levels and the width of the well is $E_n \propto \frac{1}{L^2}$; consequently, as we decrease the width of the well, the spacing of the energy levels becomes larger and larger. As an application of this effect we note that in a nanostructure the effect of increased confinement (reducing the size of the structure) is to increase the band gap of that structure. This can be leveraged to manipulate the opto-electronic properties of the nanostructure. 
+ Furthermore, we note that in a classical potential, the lowest energy state would be at the bottom of the well. In quantum mechanics, the lowest energy state has a higher energy 
+ than the bottom of the quantum well, as you can see in the figure below. 
+ The reason for this energy difference is what is typically called the quantum 
+ confinement effect. Observe also how the lowest energy state changes with 
+ the width of the well potential. 
+</pre></div>
+</div>
+ </details>
+</li>
+<li><p>Keeping the sliders for the width and the height of the well at their default values and selecting the “Probability density” option, investigate the probability of a previously confined particle tunnelling through the potential well.</p></li>
+</ol>
+  <details>
+    <summary style="color: red">Solution</summary>
+       One can see that even although the potential outside the well is greater than the energy of the particle, there exists a non-zero probability of finding said particle at a position outside the well. This possibility of the particle "tunnelling" through the potential barrier in this way is a purely quantum mechanical effect. In the classical picture of this system one would never expect to observe the particle outside the confines of the potential well. 
+    </details>
+<ol>
+<li><p>Please read the background theory section and try to understand the core of the
+numerical algorithm. Why is the diagonalization of the Hamiltonian matrix key to
+solve the Schrödinger equation?</p>
+ <details>
+ <summary style="color: red">Solution</summary>
+     As shown in the background theory section, the Schrödinger equation is an 
+     eigenvalue equation. In mathematics, diagonalization of the matrix allows us
+     to obtain its eigenvalues and eigenfunctions. You can read more 
+     about the theory on 
+     <a href="https://en.wikipedia.org/wiki/Diagonalizable_matrix">Wikipedia</a>.
+ </details>
+</li>
+</ol>
+<hr style="height:1px;border:none;color:#cccccc;background-color:#cccccc;" /></section>
+<section id="interactive-visualization">
+<h2><strong>Interactive visualization</strong><a class="headerlink" href="#interactive-visualization" title="Permalink to this headline">#</a></h2>
+<p>(be patient, it might take a few seconds to load)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> widget
+
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">linspace</span><span class="p">,</span> <span class="n">sqrt</span><span class="p">,</span> <span class="n">ones</span><span class="p">,</span> <span class="n">arange</span><span class="p">,</span> <span class="n">diag</span><span class="p">,</span> <span class="n">argsort</span><span class="p">,</span> <span class="n">zeros</span>
+<span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="kn">import</span> <span class="n">eigh_tridiagonal</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">FloatSlider</span><span class="p">,</span> <span class="n">jslink</span><span class="p">,</span> <span class="n">VBox</span><span class="p">,</span> <span class="n">HBox</span><span class="p">,</span> <span class="n">Button</span><span class="p">,</span> <span class="n">Label</span><span class="p">,</span> <span class="n">RadioButtons</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;#a6cee3&#39;</span><span class="p">,</span><span class="s1">&#39;#1f78b4&#39;</span><span class="p">,</span><span class="s1">&#39;#b2df8a&#39;</span><span class="p">,</span><span class="s1">&#39;#33a02c&#39;</span><span class="p">,</span><span class="s1">&#39;#fb9a99&#39;</span><span class="p">,</span><span class="s1">&#39;#e31a1c&#39;</span><span class="p">,</span><span class="s1">&#39;#fdbf6f&#39;</span><span class="p">,</span><span class="s1">&#39;#ff7f00&#39;</span><span class="p">,</span><span class="s1">&#39;#cab2d6&#39;</span><span class="p">,</span><span class="s1">&#39;#6a3d9a&#39;</span><span class="p">,</span><span class="s1">&#39;#ffff99&#39;</span><span class="p">,</span><span class="s1">&#39;#b15928&#39;</span><span class="p">]</span>
+<span class="n">ixx</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">def</span> <span class="nf">singlewell_potential</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">depth</span><span class="p">):</span>
+    <span class="n">x1</span> <span class="o">=</span> <span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="o">-</span> <span class="n">width</span><span class="o">/</span><span class="mf">2.0</span> <span class="ow">and</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">width</span><span class="o">/</span><span class="mf">2.0</span><span class="p">:</span>
+            <span class="n">x1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">depth</span>
+    <span class="k">return</span> <span class="n">x1</span>
+    
+
+<span class="k">def</span> <span class="nf">diagonalization</span><span class="p">(</span><span class="n">hbar</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">pot</span><span class="o">=</span><span class="n">singlewell_potential</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">depth</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Calculate sorted eigenvalues and eigenfunctions by diagonalization of the Hamiltonian matrix. </span>
+
+<span class="sd">       Input:</span>
+<span class="sd">         hbar: reduced Planck constant</span>
+<span class="sd">         L: set discretized interval as [-L,L] </span>
+<span class="sd">         N: number of grid points, i.e., size of the H matrix </span>
+<span class="sd">         pot: python function returning the value of the potential energy</span>
+<span class="sd">         x0: center of the quantum well</span>
+<span class="sd">         width: the width of the quantum well</span>
+<span class="sd">         depth: the depth of the quantum well</span>
+<span class="sd">       Ouput:</span>
+<span class="sd">         ew: sorted eigenvalues (array of length N)</span>
+<span class="sd">         ef: sorted eigenfunctions, ef[:,i] (size N*N)</span>
+<span class="sd">         x:  grid points (array of length N)</span>
+<span class="sd">         dx: grid spacing (called Delta in the theory above)</span>
+<span class="sd">         V:  values of the potential discretized on the grid x (array of length N)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">L</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">N</span><span class="o">+</span><span class="mi">2</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="n">N</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>                 <span class="c1"># grid points</span>
+    <span class="n">dx</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>                                <span class="c1"># grid spacing</span>
+    <span class="n">V</span> <span class="o">=</span> <span class="n">pot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">depth</span><span class="p">)</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">hbar</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span><span class="mf">2.0</span><span class="o">/</span><span class="n">dx</span><span class="o">**</span><span class="mi">2</span>                         <span class="c1"># coefficient</span>
+
+    <span class="n">ew</span><span class="p">,</span> <span class="n">ef</span> <span class="o">=</span> <span class="n">eigh_tridiagonal</span><span class="p">(</span><span class="n">V</span><span class="o">+</span><span class="mf">2.0</span><span class="o">*</span><span class="n">z</span><span class="p">,</span> <span class="o">-</span><span class="n">z</span><span class="o">*</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">ew</span> <span class="o">=</span> <span class="n">ew</span><span class="o">.</span><span class="n">real</span>                                    <span class="c1"># real part of the eigenvalues</span>
+    <span class="n">ind</span> <span class="o">=</span> <span class="n">argsort</span><span class="p">(</span><span class="n">ew</span><span class="p">)</span>                               <span class="c1"># Indices f. sort. Array</span>
+    <span class="n">ew</span> <span class="o">=</span> <span class="n">ew</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span>                                    <span class="c1"># Sort the ew by ind</span>
+    <span class="n">ef</span> <span class="o">=</span> <span class="n">ef</span><span class="p">[:,</span> <span class="n">ind</span><span class="p">]</span>                                 <span class="c1"># Sort the columns </span>
+    <span class="n">ef</span> <span class="o">=</span> <span class="n">ef</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="n">dx</span><span class="p">)</span>                                <span class="c1"># Correct standardization </span>
+    <span class="k">return</span> <span class="n">ew</span><span class="p">,</span> <span class="n">ef</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">V</span>
+
+
+<span class="k">def</span> <span class="nf">plot_eigenfunctions</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">ew</span><span class="p">,</span> <span class="n">ef</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">Emax</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">fak</span><span class="o">=</span> <span class="mf">5.0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Create the full plot.</span>
+<span class="sd">    </span>
+<span class="sd">    Plot the lowest squared eigenfunctions &#39;ef&#39; at the level of the eigenvalues</span>
+<span class="sd">    &#39;ew&#39; in the plot area &#39;ax&#39;, and the potential &#39;V(x)&#39;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">psi_x</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;Wavefunction&quot;</span><span class="p">:</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Numerical Solution ($\psi$) of One Dimension Schrödinger Equation&#39;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">13</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Numerical Solution ($\psi^2$) of One Dimension Schrödinger Equation&#39;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">13</span><span class="p">)</span>
+        
+    <span class="n">fak</span> <span class="o">=</span> <span class="n">fak</span><span class="o">/</span><span class="mf">100.0</span>
+    
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axhspan</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">Emax</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;lightgrey&#39;</span><span class="p">)</span>
+    
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="nb">min</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="p">)])</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="nb">min</span><span class="p">(</span><span class="n">V</span><span class="p">)</span><span class="o">-</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">Emax</span><span class="p">])</span>
+    
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x/a$&#39;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$V(x)$ and squared eigenfunctions&#39;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+    
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="nb">min</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="p">)])</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="nb">min</span><span class="p">(</span><span class="n">V</span><span class="p">)</span><span class="o">-</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">Emax</span><span class="p">])</span>
+    
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_label_position</span><span class="p">(</span><span class="s2">&quot;right&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">tick_right</span><span class="p">()</span>
+    
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">get_xaxis</span><span class="p">()</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\rm{\ Eigenvalues}$&#39;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+    
+    <span class="n">indmax</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">ew</span><span class="o">&lt;=</span><span class="mf">0.0</span><span class="p">)</span>                       
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="s2">&quot;__iter__&quot;</span><span class="p">):</span>           
+        <span class="n">width</span> <span class="o">=</span> <span class="n">width</span><span class="o">*</span><span class="n">ones</span><span class="p">(</span><span class="n">indmax</span><span class="p">)</span>               
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">arange</span><span class="p">(</span><span class="n">indmax</span><span class="p">):</span>                     
+        <span class="k">if</span> <span class="n">psi_x</span><span class="o">.</span><span class="n">value</span> <span class="o">==</span> <span class="s2">&quot;Wavefunction&quot;</span><span class="p">:</span>
+            <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fak</span><span class="o">*</span><span class="p">(</span><span class="n">ef</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span><span class="o">+</span><span class="n">ew</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="n">width</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="mf">.1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="o">%</span><span class="k">len</span>(colors)])
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fak</span><span class="o">*</span><span class="nb">abs</span><span class="p">(</span><span class="n">ef</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="n">ew</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="n">width</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="mf">.1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="o">%</span><span class="k">len</span>(colors)])
+
+        <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="o">*</span><span class="mf">0.0</span><span class="o">+</span><span class="n">ew</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="n">width</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">i</span><span class="o">%</span><span class="k">len</span>(colors)])
+        
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.6</span><span class="p">)</span>
+    
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mu</span> <span class="o">=</span> <span class="mf">0.06</span>                                            <span class="c1"># Potential parameter</span>
+<span class="n">L</span> <span class="o">=</span> <span class="mf">1.5</span>                                              <span class="c1"># x range [-L,L]</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">200</span>                                              <span class="c1"># Number of grid points</span>
+<span class="n">hbar</span> <span class="o">=</span> <span class="mf">0.06</span>                                          <span class="c1"># Reduced Planck constant</span>
+<span class="n">sigma_x</span> <span class="o">=</span> <span class="mf">0.1</span>                                        <span class="c1"># Width of the Gaussian function</span>
+<span class="n">zeiten</span> <span class="o">=</span> <span class="n">linspace</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">,</span> <span class="mi">400</span><span class="p">)</span>                    <span class="c1"># time</span>
+
+
+<span class="n">swidth</span> <span class="o">=</span> <span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span> <span class="o">=</span> <span class="mf">1.2</span><span class="p">,</span> <span class="nb">min</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> <span class="nb">max</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;Width: &#39;</span><span class="p">)</span>
+<span class="n">sdepth</span> <span class="o">=</span> <span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="nb">min</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="nb">max</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s1">&#39;Depth: &#39;</span><span class="p">)</span>
+<span class="n">sfak</span> <span class="o">=</span> <span class="n">FloatSlider</span><span class="p">(</span><span class="n">value</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="nb">min</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="nb">max</span> <span class="o">=</span> <span class="mf">10.0</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">description</span> <span class="o">=</span> <span class="sa">r</span><span class="s1">&#39;Zoom factor: &#39;</span><span class="p">)</span>
+<span class="n">update</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Show all&quot;</span><span class="p">)</span>
+<span class="n">psi_x</span> <span class="o">=</span> <span class="n">RadioButtons</span><span class="p">(</span><span class="n">options</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Wavefunction&quot;</span><span class="p">,</span> <span class="s2">&quot;Probability density&quot;</span><span class="p">],</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;Wavefunction&quot;</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Show:&quot;</span><span class="p">)</span>
+
+<span class="n">width</span> <span class="o">=</span> <span class="mf">1.2</span>
+<span class="n">depth</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.2</span>
+<span class="n">fak</span> <span class="o">=</span> <span class="mf">5.0</span>
+
+<span class="n">ew</span><span class="p">,</span> <span class="n">ef</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">diagonalization</span><span class="p">(</span><span class="n">hbar</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="n">width</span><span class="p">,</span> <span class="n">depth</span> <span class="o">=</span> <span class="n">depth</span><span class="p">)</span>
+    
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="n">gridspec_kw</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;width_ratios&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">]})</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">header_visible</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="s2">&quot;750px&quot;</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Numerical Solution ($\psi^2$) of the Schrödinger Equation for a 1D Quantum Well&#39;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">12</span><span class="p">)</span>
+<span class="n">plot_eigenfunctions</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">ew</span><span class="p">,</span> <span class="n">ef</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">V</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">on_update_click</span><span class="p">(</span><span class="n">b</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lines</span><span class="p">:</span>
+        <span class="n">i</span><span class="o">.</span><span class="n">set_alpha</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lines</span><span class="p">:</span>
+        <span class="n">i</span><span class="o">.</span><span class="n">set_alpha</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">ann</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+        <span class="n">ann1</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+<span class="k">def</span> <span class="nf">on_width_change</span><span class="p">(</span><span class="n">change</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">ew</span><span class="p">,</span> <span class="n">ef</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">V</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">ann</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+        <span class="n">ann1</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="n">ew</span><span class="p">,</span> <span class="n">ef</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">diagonalization</span><span class="p">(</span><span class="n">hbar</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="n">swidth</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">depth</span> <span class="o">=</span> <span class="n">sdepth</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+    <span class="n">plot_eigenfunctions</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">ew</span><span class="p">,</span> <span class="n">ef</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">fak</span> <span class="o">=</span> <span class="n">sfak</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">on_depth_change</span><span class="p">(</span><span class="n">change</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">ew</span><span class="p">,</span> <span class="n">ef</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">V</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">ann</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+        <span class="n">ann1</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="n">ew</span><span class="p">,</span> <span class="n">ef</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">diagonalization</span><span class="p">(</span><span class="n">hbar</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="n">swidth</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">depth</span> <span class="o">=</span> <span class="n">sdepth</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+    <span class="n">plot_eigenfunctions</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">ew</span><span class="p">,</span> <span class="n">ef</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">fak</span> <span class="o">=</span> <span class="n">sfak</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+    
+<span class="k">def</span> <span class="nf">on_xfak_change</span><span class="p">(</span><span class="n">change</span><span class="p">):</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">ann</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+        <span class="n">ann1</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">pass</span>
+
+    <span class="n">plot_eigenfunctions</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">ew</span><span class="p">,</span> <span class="n">ef</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">fak</span> <span class="o">=</span> <span class="n">sfak</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">on_press</span><span class="p">(</span><span class="n">event</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">ann</span><span class="p">,</span> <span class="n">ann1</span><span class="p">,</span> <span class="n">ixx</span>
+    
+    <span class="n">ixx</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">ew</span><span class="p">),</span> <span class="n">key</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">event</span><span class="o">.</span><span class="n">ydata</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lines</span><span class="p">)):</span>
+        <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lines</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_alpha</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+        <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lines</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_alpha</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+        <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lines</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">set_linewidth</span><span class="p">(</span><span class="mf">1.1</span><span class="p">)</span>
+        
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lines</span><span class="p">[</span><span class="n">ixx</span><span class="p">]</span><span class="o">.</span><span class="n">set_alpha</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lines</span><span class="p">[</span><span class="n">ixx</span><span class="p">]</span><span class="o">.</span><span class="n">set_alpha</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lines</span><span class="p">[</span><span class="n">ixx</span><span class="p">]</span><span class="o">.</span><span class="n">set_linewidth</span><span class="p">(</span><span class="mf">2.0</span><span class="p">)</span>
+    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">ann</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+        <span class="n">ann1</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">pass</span>
+    
+    <span class="n">ann</span> <span class="o">=</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;n = &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ixx</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span> <span class="n">xy</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ew</span><span class="p">[</span><span class="n">ixx</span><span class="p">]),</span> <span class="n">xytext</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">ew</span><span class="p">[</span><span class="n">ixx</span><span class="p">]),</span> <span class="n">xycoords</span> <span class="o">=</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+    <span class="n">ann1</span> <span class="o">=</span> <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">s</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{:.3f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ew</span><span class="p">[</span><span class="n">ixx</span><span class="p">])),</span> <span class="n">xy</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ew</span><span class="p">[</span><span class="n">ixx</span><span class="p">]),</span> <span class="n">xytext</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">1.2</span><span class="p">,</span> <span class="n">ew</span><span class="p">[</span><span class="n">ixx</span><span class="p">]</span><span class="o">+</span><span class="mf">0.005</span><span class="p">),</span> <span class="n">xycoords</span> <span class="o">=</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+
+<span class="n">cid</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">mpl_connect</span><span class="p">(</span><span class="s1">&#39;button_press_event&#39;</span><span class="p">,</span> <span class="n">on_press</span><span class="p">)</span>
+
+<span class="n">swidth</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="n">on_width_change</span><span class="p">,</span> <span class="n">names</span> <span class="o">=</span> <span class="s1">&#39;value&#39;</span><span class="p">)</span>
+<span class="n">sdepth</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="n">on_depth_change</span><span class="p">,</span> <span class="n">names</span> <span class="o">=</span> <span class="s1">&#39;value&#39;</span><span class="p">)</span>
+<span class="n">sfak</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="n">on_xfak_change</span><span class="p">,</span> <span class="n">names</span> <span class="o">=</span> <span class="s1">&#39;value&#39;</span><span class="p">)</span>
+<span class="n">update</span><span class="o">.</span><span class="n">on_click</span><span class="p">(</span><span class="n">on_update_click</span><span class="p">)</span>
+<span class="n">psi_x</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="n">on_width_change</span><span class="p">,</span> <span class="n">names</span> <span class="o">=</span> <span class="s1">&#39;value&#39;</span><span class="p">)</span>
+
+<span class="n">label1</span> <span class="o">=</span> <span class="n">Label</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s2">&quot;(click on a state to select it)&quot;</span><span class="p">);</span>
+
+<span class="n">display</span><span class="p">(</span><span class="n">HBox</span><span class="p">([</span><span class="n">swidth</span><span class="p">,</span> <span class="n">sdepth</span><span class="p">]),</span> <span class="n">sfak</span><span class="p">,</span> <span class="n">HBox</span><span class="p">([</span><span class="n">psi_x</span><span class="p">,</span> <span class="n">update</span><span class="p">,</span> <span class="n">label1</span><span class="p">]))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "93131fd50d6c4561918c215f8b2f8f2c", "version_major": 2, "version_minor": 0}
+</script><script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "08dbd9ad1d4445d497b486c265493813", "version_major": 2, "version_minor": 0}
+</script><script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "1c726af1f3224d81a41df0a0157d57cc", "version_major": 2, "version_minor": 0}
+</script><script type="application/vnd.jupyter.widget-view+json">
+{"model_id": "c8353eded327479dab29aa16ec13d1a0", "version_major": 2, "version_minor": 0}
+</script></div>
+</div>
+<ul class="simple">
+<li><p><strong>Width:</strong> the width of the quantum well.</p></li>
+<li><p><strong>Depth:</strong> the depth of the quantum well.</p></li>
+<li><p><strong>Zoom factor:</strong> the zoom factor for the magnitude of the eigenfunctions.</p></li>
+</ul>
+<hr style="height:1px;border:none;color:#cccccc;background-color:#cccccc;" />
+</section>
+<section id="legend">
+<h2><strong>Legend</strong><a class="headerlink" href="#legend" title="Permalink to this headline">#</a></h2>
+<p>(How to use the interactive visualization)</p>
+<section id="controls">
+<h3>Controls<a class="headerlink" href="#controls" title="Permalink to this headline">#</a></h3>
+<p>There are three sliders you can tune interactively. Two of them can adjust
+the width and depth of the potential well. The zoom factor slider is used
+to adjust the normalization factor of the wavefunctions. This factor is used for visualization
+purposes only, to avoid overlap of the wavefunctions whilst simultaneously preventing the wavefunctions from being so narrow that you cannot appreciate their shape.</p>
+</section>
+<section id="interactive-figure">
+<h3>Interactive figure<a class="headerlink" href="#interactive-figure" title="Permalink to this headline">#</a></h3>
+<p>In the main visualization part, there are two subplots. The wide figure on
+the left shows the well potential and the square moduli of the eigenfunctions
+<span class="math notranslate nohighlight">\(|\psi|^2\)</span> of different states, plotted at the energy of the corresponding
+eigenvalues. The narrow figure on the right shows the eigenvalues.
+You can select either an eigenfunction or an eigenvalue by clicking on
+it in one of the two subplots. The eigenfunction and corresponding eigenvalue
+will be highlighted, and the corresponding eigenenergy and value of the index
+<span class="math notranslate nohighlight">\(n\)</span> will be shown. All other eigenstates will fade out. By clicking the “Show all”
+button, you can reset the plot and show all states again.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "furnstahl/7501-JB",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./notebooks/External/quantum-mechanics_from_OSSCAR"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="../../../content/External/OSSCAR_notebooks.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">QM notebooks from OSSCAR</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../Quantitative_Economics_with_Python_complex_numbers_and_trig.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Complex Numbers and Trigonometry</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Dick Furnstahl<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
