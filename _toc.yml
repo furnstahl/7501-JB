@@ -22,10 +22,14 @@ parts:
         file: notebooks/External/quantum-mechanics_from_OSSCAR/1quantumwell.ipynb
       - title: One-D 2 finite wells
         file: notebooks/External/quantum-mechanics_from_OSSCAR/2quantumwells.ipynb
-      - file: notebooks/External/quantum-mechanics_from_OSSCAR/asymmetricwell.ipynb
-      - file: notebooks/External/quantum-mechanics_from_OSSCAR/soft.ipynb
-      - file: notebooks/External/quantum-mechanics_from_OSSCAR/msoft.ipynb
-      - file: notebooks/External/quantum-mechanics_from_OSSCAR/shooting_method.ipynb  
+      - title: Avoided crossing  
+        file: notebooks/External/quantum-mechanics_from_OSSCAR/asymmetricwell.ipynb
+      - title: 1D time-dependent S-eqn
+        file: notebooks/External/quantum-mechanics_from_OSSCAR/soft.ipynb
+      - title: MSOFT method  
+        file: notebooks/External/quantum-mechanics_from_OSSCAR/msoft.ipynb
+      - title: Shooting method
+        file: notebooks/External/quantum-mechanics_from_OSSCAR/shooting_method.ipynb  
 
   - caption: Math notebooks
     chapters:
