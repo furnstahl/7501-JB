@@ -11,4 +11,4 @@
 
 ## Objectives
 
-This is the first semester of a "Spins First" treatment of quantum mechanics for graduate students.
+Physics 7501 is the first semester of a "Spins First" treatment of quantum mechanics for graduate students. This Jupyter Book is being built with Python notebooks to help visualize, explore, and extend the classroom content.
