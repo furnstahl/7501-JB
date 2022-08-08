@@ -2,16 +2,23 @@ format: jb-book
 root: about.md
 
 parts:  
+
 - caption: Course overview 
   chapters:
   - title: Objectives
     file: content/Course/overview.md
+
 - caption: Notebooks for 7501
   chapters:
   - title: Exponentiating operators  
     file: notebooks/Numerical_derivative_tests.ipynb
+  - title: Path integral explorations
+    file: notebooks/Lepage_Lattice_QCD_for_Novices_code_selfcontained.ipynb
+
 - caption: External QM notebooks
   chapters:
+  - file: notebooks/External/harmonic_oscillator_Jendrzejewski.ipynb
+    title: Harmonic oscillator
   - title: QM with Sympy
     file: notebooks/External/Example_Quantum_Calculations_sympy.ipynb  
   - file: content/External/OSSCAR_notebooks.md
