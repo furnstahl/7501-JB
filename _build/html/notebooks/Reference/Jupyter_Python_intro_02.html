@@ -55,8 +55,8 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Bibliography" href="../../content/zbibliography.html" />
-    <link rel="prev" title="Using GitHub" href="../../content/Reference/using_github.html" />
+    <link rel="next" title="Advanced installation and Python" href="../../content/Reference/advanced.html" />
+    <link rel="prev" title="Python and Jupyter notebooks: part 01" href="Jupyter_Python_intro_01.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -125,7 +125,31 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  Getting started
+  Notebooks for 7501
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Numerical_derivative_tests.html">
+   Exponentiating operators
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  External QM notebooks
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../External/Example_Quantum_Calculations_sympy.html">
+   Solving Common Introductory Quantum Mechanics Problems using Sympy
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Getting started with Python
  </span>
 </p>
 <ul class="current nav bd-sidenav">
@@ -134,41 +158,41 @@ const thebe_selector_output = ".output, .cell_output"
    Using Anaconda
   </a>
  </li>
- <li class="toctree-l1 has-children">
+ <li class="toctree-l1 current active has-children">
   <a class="reference internal" href="../../content/Reference/python_jupyter.html">
    Python and Jupyter notebooks
   </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
   <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="Jupyter_Python_intro_01.html">
-     Python and Jupyter notebooks: part 01
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 current active has-children">
-  <a class="reference internal" href="../../content/Reference/advanced.html">
-   Advanced topics
-  </a>
-  <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
    <i class="fas fa-chevron-down">
    </i>
   </label>
   <ul class="current">
    <li class="toctree-l2">
-    <a class="reference internal" href="../../content/Reference/using_github.html">
-     Using GitHub
+    <a class="reference internal" href="Jupyter_Python_intro_01.html">
+     Python and Jupyter notebooks: part 01
     </a>
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
      Python and Jupyter notebooks: part 02
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../content/Reference/advanced.html">
+   Advanced topics
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/Reference/using_github.html">
+     Using GitHub
     </a>
    </li>
   </ul>
@@ -475,7 +499,7 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="python-and-jupyter-notebooks-part-02">
 <h1>Python and Jupyter notebooks: part 02<a class="headerlink" href="#python-and-jupyter-notebooks-part-02" title="Permalink to this headline">#</a></h1>
-<p>Last revised: 31-Dec-2021 by Dick Furnstahl [furnstahl.1&#64;osu.edu]</p>
+<p>Last revised: 07-Aug-2022 by Dick Furnstahl [furnstahl.1&#64;osu.edu]</p>
 <p>In this notebook we continue the tour of Python and Jupyter notebooks started in <code class="docutils literal notranslate"><span class="pre">Jupyter_Python_intro_01.ipynb</span></code>.</p>
 <section id="numpy-linear-algebra">
 <h2>Numpy linear algebra<a class="headerlink" href="#numpy-linear-algebra" title="Permalink to this headline">#</a></h2>
@@ -507,7 +531,7 @@ title="Print to PDF"
 </div>
 </div>
 </div>
-<p>We can continue this was by printing out other columns or rows. The example here prints out the second column</p>
+<p>We can continue this was by printing out other columns or rows. The example here prints out the second row</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">,</span> <span class="mf">11.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">]</span> <span class="p">]))</span>
@@ -895,17 +919,17 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="../../content/Reference/using_github.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="Jupyter_Python_intro_01.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Using GitHub</p>
+            <p class="prev-next-title">Python and Jupyter notebooks: part 01</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="../../content/zbibliography.html" title="next page">
+    <a class='right-next' id="next-link" href="../../content/Reference/advanced.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Bibliography</p>
+        <p class="prev-next-title">Advanced installation and Python</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

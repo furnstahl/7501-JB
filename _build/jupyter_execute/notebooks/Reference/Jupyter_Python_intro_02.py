@@ -3,7 +3,7 @@
 
 # # Python and Jupyter notebooks: part 02
 # 
-# Last revised: 31-Dec-2021 by Dick Furnstahl [furnstahl.1@osu.edu]
+# Last revised: 07-Aug-2022 by Dick Furnstahl [furnstahl.1@osu.edu]
 
 # In this notebook we continue the tour of Python and Jupyter notebooks started in `Jupyter_Python_intro_01.ipynb`.
 
@@ -37,7 +37,7 @@ A = np.log(np.array([ [4.0, 7.0, 8.0], [3.0, 10.0, 11.0], [4.0, 5.0, 7.0] ]))
 print(A[:,0])
 
 
-# We can continue this was by printing out other columns or rows. The example here prints out the second column
+# We can continue this was by printing out other columns or rows. The example here prints out the second row
 
 # In[ ]:
 
