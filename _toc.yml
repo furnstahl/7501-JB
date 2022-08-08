@@ -13,7 +13,7 @@ parts:
   - title: Exponentiating operators  
     file: notebooks/Numerical_derivative_tests.ipynb
   - title: Path integral explorations
-    file: notebooks/Lepage_Lattice_QCD_for_Novices_code_selfcontained.ipynb
+    file: notebooks/Path_integrals/Lepage_Lattice_QCD_for_Novices_code_selfcontained.ipynb
 
 - caption: External QM notebooks
   chapters:
