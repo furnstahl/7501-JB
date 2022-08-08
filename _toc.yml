@@ -2,22 +2,20 @@ format: jb-book
 root: about.md
 
 parts:  
-  - caption: Course overview 
-    chapters:
-    - title: Objectives
-      file: content/Course/overview.md
-
-  - caption: Notebooks for 7501
-    chapters:
-    - title: Exponentiating operators  
-      file: notebooks/Numerical_derivative_tests.ipynb
-
-  - caption: External QM notebooks
-    chapters:
-    - title: QM with Sympy
-      file: notebooks/External/Example_Quantum_Calculations_sympy.ipynb  
-    - file: content/External/OSSCAR_notebooks.md
-      sections:
+- caption: Course overview 
+  chapters:
+  - title: Objectives
+    file: content/Course/overview.md
+- caption: Notebooks for 7501
+  chapters:
+  - title: Exponentiating operators  
+    file: notebooks/Numerical_derivative_tests.ipynb
+- caption: External QM notebooks
+  chapters:
+  - title: QM with Sympy
+    file: notebooks/External/Example_Quantum_Calculations_sympy.ipynb  
+  - file: content/External/OSSCAR_notebooks.md
+    sections:
       - file: notebooks/External/quantum-mechanics_from_OSSCAR/1quantumwell.ipynb
         title: Finite well in 1D
       - file: notebooks/External/quantum-mechanics_from_OSSCAR/2quantumwells.ipynb
@@ -29,42 +27,34 @@ parts:
       - file: notebooks/External/quantum-mechanics_from_OSSCAR/msoft.ipynb
         title: MSOFT method  
       - file: notebooks/External/quantum-mechanics_from_OSSCAR/asymmetricwell.ipynb
-        title: Avoided crossing       
+        title: Avoided crossing  
+    
+- caption: Math notebooks
+  chapters:
+  - file: notebooks/External/Quantitative_Economics_with_Python_complex_numbers_and_trig.ipynb 
+  - file: notebooks/External/Quantitative_Economics_with_Python_linear_algebra.ipynb 
+  - file: notebooks/External/Quantitative_Economics_with_Python_svd_intro.ipynb 
 
-  - caption: Math notebooks
-    chapters:
-    - file: notebooks/External/Quantitative_Economics_with_Python_complex_numbers_and_trig.ipynb 
-    - file: notebooks/External/Quantitative_Economics_with_Python_linear_algebra.ipynb 
-    - file: notebooks/External/Quantitative_Economics_with_Python_svd_intro.ipynb 
-
-  - caption: Getting started with Python    
-    chapters:
-    - file: content/Reference/installing_anaconda.md
-    - file: content/Reference/python_jupyter.md
-      sections:
-      #- file: notebooks/Jupyter_Python_intro/5300_Jupyter_Python_intro_01.ipynb
+- caption: Getting started with Python    
+  chapters:
+  - file: content/Reference/installing_anaconda.md
+  - file: content/Reference/python_jupyter.md
+    sections:
       - file: notebooks/Reference/Jupyter_Python_intro_01.ipynb
       - file: notebooks/Reference/Jupyter_Python_intro_02.ipynb
-    - title: "Advanced topics"
-      file: content/Reference/advanced.md
-      sections:
-      - file: content/Reference/using_github.md
-      - title: "Widgets in Jupyter"
-        file: notebooks/Reference/Simple_widgets_v1.ipynb
-
-  - caption: Reference material
-    #numbered: True
-    chapters:
-    - file: content/zbibliography
-    - file: content/related_topics.md
-    # - file: content/Reference/installing_anaconda.md
-    # - file: content/Reference/using_github.md
-    # - file: content/Reference/python_jupyter.md
-    #   sections:
-    #   - file: notebooks/Reference/Jupyter_Python_intro_01.ipynb
-    #   - file: notebooks/Reference/Jupyter_Python_intro_02.ipynb
-    #   - file: notebooks/Simple_widgets_v1.ipynb
-   # - title: "Related topics"
-   #   file: content/related_topics.md
-    - title: "Examples: Jupyter jb-book"
-      file: content/jb_tests.md
+      - title: "Advanced topics"
+        file: content/Reference/advanced.md
+        
+- caption: Reference material
+  #numbered: True
+  chapters:
+  - file: content/zbibliography
+  - file: content/related_topics.md
+  #- file: content/Reference/installing_anaconda.md
+  - file: content/Reference/using_github.md
+  #- file: content/Reference/python_jupyter.md
+  #  sections:
+  #    - file: notebooks/Reference/Jupyter_Python_intro_01.ipynb
+  #    - file: notebooks/Reference/Jupyter_Python_intro_02.ipynb
+  - title: "Examples: Jupyter jb-book"
+    file: content/jb_tests.md  
