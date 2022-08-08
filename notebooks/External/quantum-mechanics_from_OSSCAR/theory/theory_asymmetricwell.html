@@ -6,55 +6,55 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Overview of Theoretical and Computational Mechanics &#8212; Quantum Mechanics I</title>
+    <title>Background Theory: Avoided Crossing in One Dimensional Asymmetric Quantum Well &#8212; Quantum Mechanics I</title>
     
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
-    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+    href="../../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
   <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+    href="../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
   <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+    href="../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
-    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/clipboard.min.js"></script>
-    <script src="../../_static/copybutton.js"></script>
-    <script src="../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/clipboard.min.js"></script>
+    <script src="../../../../_static/copybutton.js"></script>
+    <script src="../../../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../../_static/togglebutton.js"></script>
+    <script src="../../../../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../../_static/design-tabs.js"></script>
+    <script src="../../../../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
 const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
-    <script async="async" src="../../_static/sphinx-thebe.js"></script>
-    <link rel="author" title="About these documents" href="../../about.html" />
-    <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Tests of exponentiating derivative operators" href="../../notebooks/Numerical_derivative_tests.html" />
-    <link rel="prev" title="About Physics 7501: Quantum Mechanics I" href="../../about.html" />
+    <script async="async" src="../../../../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"tex": {"macros": {"N": "\\mathbb{N}", "avec": ["\\boldsymbol{a}"], "floor": ["\\lfloor#1\\rfloor", 1], "bmat": ["\\left[\\begin{array}"], "emat": ["\\end{array}\\right]"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <link rel="author" title="About these documents" href="../../../../about.html" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -89,14 +89,14 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="bd-sidebar noprint" id="site-navigation">
     <div class="bd-sidebar__content">
         <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../../index.html">
+    <a class="navbar-brand text-wrap" href="../../../../index.html">
       
       
       
       <h1 class="site-logo" id="site-title">Quantum Mechanics I</h1>
       
     </a>
-</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+</div><form class="bd-search d-flex align-items-center" action="../../../../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
@@ -104,7 +104,7 @@ const thebe_selector_output = ".output, .cell_output"
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
-                <a class="reference internal" href="../../about.html">
+                <a class="reference internal" href="../../../../about.html">
                     About Physics 7501: Quantum Mechanics I
                 </a>
             </li>
@@ -114,9 +114,9 @@ const thebe_selector_output = ".output, .cell_output"
   Course overview
  </span>
 </p>
-<ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../content/Course/overview.html">
    Objectives
   </a>
  </li>
@@ -128,7 +128,7 @@ const thebe_selector_output = ".output, .cell_output"
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../../notebooks/Numerical_derivative_tests.html">
+  <a class="reference internal" href="../../../Numerical_derivative_tests.html">
    Exponentiating operators
   </a>
  </li>
@@ -140,12 +140,12 @@ const thebe_selector_output = ".output, .cell_output"
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../../notebooks/External/Example_Quantum_Calculations_sympy.html">
+  <a class="reference internal" href="../../Example_Quantum_Calculations_sympy.html">
    QM with Sympy
   </a>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../External/OSSCAR_notebooks.html">
+  <a class="reference internal" href="../../../../content/External/OSSCAR_notebooks.html">
    QM notebooks from OSSCAR
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
@@ -155,7 +155,7 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../notebooks/External/quantum-mechanics_from_OSSCAR/1quantumwell.html">
+    <a class="reference internal" href="../1quantumwell.html">
      <strong>
       Numerical Solution of the Schrödinger Equation for a One Dimensional Quantum Well
      </strong>
@@ -171,17 +171,17 @@ const thebe_selector_output = ".output, .cell_output"
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../../notebooks/External/Quantitative_Economics_with_Python_complex_numbers_and_trig.html">
+  <a class="reference internal" href="../../Quantitative_Economics_with_Python_complex_numbers_and_trig.html">
    Complex Numbers and Trigonometry
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../../notebooks/External/Quantitative_Economics_with_Python_linear_algebra.html">
+  <a class="reference internal" href="../../Quantitative_Economics_with_Python_linear_algebra.html">
    Linear Algebra
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../../notebooks/External/Quantitative_Economics_with_Python_svd_intro.html">
+  <a class="reference internal" href="../../Quantitative_Economics_with_Python_svd_intro.html">
    Singular Value Decomposition (SVD)
   </a>
  </li>
@@ -193,12 +193,12 @@ const thebe_selector_output = ".output, .cell_output"
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../Reference/installing_anaconda.html">
+  <a class="reference internal" href="../../../../content/Reference/installing_anaconda.html">
    Using Anaconda
   </a>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../Reference/python_jupyter.html">
+  <a class="reference internal" href="../../../../content/Reference/python_jupyter.html">
    Python and Jupyter notebooks
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
@@ -208,19 +208,19 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../notebooks/Reference/Jupyter_Python_intro_01.html">
+    <a class="reference internal" href="../../../Reference/Jupyter_Python_intro_01.html">
      Python and Jupyter notebooks: part 01
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../notebooks/Reference/Jupyter_Python_intro_02.html">
+    <a class="reference internal" href="../../../Reference/Jupyter_Python_intro_02.html">
      Python and Jupyter notebooks: part 02
     </a>
    </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../Reference/advanced.html">
+  <a class="reference internal" href="../../../../content/Reference/advanced.html">
    Advanced topics
   </a>
   <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
@@ -230,7 +230,7 @@ const thebe_selector_output = ".output, .cell_output"
   </label>
   <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../Reference/using_github.html">
+    <a class="reference internal" href="../../../../content/Reference/using_github.html">
      Using GitHub
     </a>
    </li>
@@ -244,12 +244,12 @@ const thebe_selector_output = ".output, .cell_output"
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="../zbibliography.html">
+  <a class="reference internal" href="../../../../content/zbibliography.html">
    Bibliography
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="../jb_tests.html">
+  <a class="reference internal" href="../../../../content/jb_tests.html">
    Examples: Jupyter jb-book
   </a>
  </li>
@@ -304,6 +304,53 @@ title="Toggle navigation"
         
     </div>
     <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/furnstahl/7501-JB/main?urlpath=tree/./notebooks/External/quantum-mechanics_from_OSSCAR/theory/theory_asymmetricwell.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
 <button onclick="toggleFullScreen()"
   class="headerbtn"
   data-toggle="tooltip"
@@ -343,7 +390,7 @@ title="Source repository"
       </li>
       
       <li>
-        <a href="https://github.com/furnstahl/7501-JB/issues/new?title=Issue%20on%20page%20%2Fcontent/Course/overview.html&body=Your%20issue%20content%20here."
+        <a href="https://github.com/furnstahl/7501-JB/issues/new?title=Issue%20on%20page%20%2Fnotebooks/External/quantum-mechanics_from_OSSCAR/theory/theory_asymmetricwell.html&body=Your%20issue%20content%20here."
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -371,7 +418,7 @@ title="Open an issue"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../../_sources/content/Course/overview.md"
+        <a href="../../../../_sources/notebooks/External/quantum-mechanics_from_OSSCAR/theory/theory_asymmetricwell.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -382,7 +429,7 @@ title="Download source file"
 <span class="headerbtn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="headerbtn__text-container">.md</span>
+<span class="headerbtn__text-container">.ipynb</span>
 </a>
 
       </li>
@@ -431,13 +478,10 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#instructors">
-   Instructors
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#objectives">
-   Objectives
+  <a class="reference internal nav-link" href="#introduction">
+   <strong>
+    Introduction
+   </strong>
   </a>
  </li>
 </ul>
@@ -449,7 +493,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Overview of Theoretical and Computational Mechanics</h1>
+                <h1>Background Theory: Avoided Crossing in One Dimensional Asymmetric Quantum Well</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -460,13 +504,10 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#instructors">
-   Instructors
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#objectives">
-   Objectives
+  <a class="reference internal nav-link" href="#introduction">
+   <strong>
+    Introduction
+   </strong>
   </a>
  </li>
 </ul>
@@ -479,23 +520,45 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="overview-of-theoretical-and-computational-mechanics">
-<h1>Overview of Theoretical and Computational Mechanics<a class="headerlink" href="#overview-of-theoretical-and-computational-mechanics" title="Permalink to this headline">#</a></h1>
-<section id="instructors">
-<h2>Instructors<a class="headerlink" href="#instructors" title="Permalink to this headline">#</a></h2>
-<ul class="simple">
-<li><p><em>Lecturer</em>: Dick Furnstahl</p>
-<ul>
-<li><p><em>Email</em>: <a class="reference external" href="mailto:furnstahl&#46;1&#37;&#52;&#48;osu&#46;edu">furnstahl<span>&#46;</span>1<span>&#64;</span>osu<span>&#46;</span>edu</a></p></li>
-<li><p><em>Office</em>: OSU Department of Physics, PRB, room M2048</p></li>
-</ul>
-</li>
-</ul>
-<!-- !split -->
-</section>
-<section id="objectives">
-<h2>Objectives<a class="headerlink" href="#objectives" title="Permalink to this headline">#</a></h2>
-<p>The goal of this class is to deepen our understanding of classical mechanics and physics areas that build on its intuition, which will include exploiting numerical simulations and computer visualizations using Python in Jupyter notebooks.  No previous experience with Python or Jupyter is assumed, but some experience in programming (e.g., a class in C++) is assumed. We will begin by applying simulations to familiar problems formulated with Newtonian mechanics before turning to  the Lagrangian formulation of mechanics, which provides a powerful alternative to Newton’s laws. We will apply it to complex mechanical systems, including coupled oscillations, nonlinear phenomena (chaos!), and the mechanics of continuous media.  We will also consider the Hamiltonian formulation of mechanics and some aspects of collision theory.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="background-theory-avoided-crossing-in-one-dimensional-asymmetric-quantum-well">
+<h1><strong>Background Theory</strong>: Avoided Crossing in One Dimensional Asymmetric Quantum Well<a class="headerlink" href="#background-theory-avoided-crossing-in-one-dimensional-asymmetric-quantum-well" title="Permalink to this headline">#</a></h1>
+<p><i class="fa fa-book fa-2x"></i><a href="../asymmetricwell.ipynb" style="font-size: 20px"> Go back to the interactive notebook</a></p>
+<p><strong>Source code:</strong> <a class="reference external" href="https://github.com/osscar-org/quantum-mechanics/blob/master/notebook/quantum-mechanics/theory/theory_asymmetricwell.ipynb">https://github.com/osscar-org/quantum-mechanics/blob/master/notebook/quantum-mechanics/theory/theory_asymmetricwell.ipynb</a></p>
+<hr style="height:1px;border:none;color:#cccccc;background-color:#cccccc;" /><section id="introduction">
+<h2><strong>Introduction</strong><a class="headerlink" href="#introduction" title="Permalink to this headline">#</a></h2>
+<p>In quantum physics and quantum chemistry, an avoided crossing is the phenomenon
+where two eigenvalues of a Hermitian matrix representing a quantum observable,
+and depending on N continuous real parameters, cannot become equal in value
+(“cross”) except on a manifold of N-2 dimensions. Please read the
+<a class="reference external" href="https://en.wikipedia.org/wiki/Avoided_crossing">Wikipedia page</a>
+on the avoided crossing for more information.</p>
+<p>In this notebook, we solve the Schrödinger equation for a 1D
+potential. The formula of the potential is:</p>
+<div class="math notranslate nohighlight">
+\[\large V(x) = x^4 - 0.6x^2 + \mu x\]</div>
+<p>where, <span class="math notranslate nohighlight">\(x\)</span> is the position, and <span class="math notranslate nohighlight">\(\mu\)</span> is the potential parameter
+(which can be tuned using a slider in the interactive notebook) that determines the symmetry
+of the two quantum wells.</p>
+<summary style="font-size: 20px">Two-state system</summary>
+Consider a quantum system which has only two states E$_1$ and E$_2$.
+It is a good model to study a variety of physical systems. The two-state
+Hamiltonian H can be formulated in matrix form:
+<div class="math notranslate nohighlight">
+\[\begin{split}H = \begin{pmatrix} E_1 &amp; 0 \\ 0 &amp; E_2 \end{pmatrix} \quad (1)\end{split}\]</div>
+<p>When a perturbation is introduced, the Hamiltonian of the perturbed
+system H’ is written as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}H' = H + P = \begin{pmatrix} E_1 &amp; 0 \\ 0 &amp; E_2 \end{pmatrix}
++ \begin{pmatrix} 0 &amp; W \\ W^* &amp; 0 \end{pmatrix}
+= \begin{pmatrix} E_1 &amp; W \\ W^* &amp; E_2 \end{pmatrix} \quad (2)\end{split}\]</div>
+<p>The new eigenvalues are calculated as:</p>
+<div class="math notranslate nohighlight">
+\[E_+ = \frac{1}{2}(E_1+E_2) + \frac{1}{2}\sqrt{(E_1-E_2)^2+4|W|^2} \quad (4)\]</div>
+<div class="math notranslate nohighlight">
+\[E_- = \frac{1}{2}(E_1+E_2) - \frac{1}{2}\sqrt{(E_1-E_2)^2+4|W|^2} \quad (5)\]</div>
+<p>One can see that E<span class="math notranslate nohighlight">\(_+\)</span> is always bigger than E<span class="math notranslate nohighlight">\(_-\)</span>.
+The energy difference <span class="math notranslate nohighlight">\(E_+ - E_-\)</span> is <span class="math notranslate nohighlight">\(\sqrt{(E_1-E_2)^2+4|W|^2}\)</span>.
+Hence, the perturbation prevents the two energy states from crossing.</p>
 </section>
 </section>
 
@@ -512,7 +575,7 @@ title="Print to PDF"
         },
         kernelOptions: {
             kernelName: "python3",
-            path: "./content/Course"
+            path: "./notebooks/External/quantum-mechanics_from_OSSCAR/theory"
         },
         predefinedOutput: true
     }
@@ -526,20 +589,6 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="../../about.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">About Physics 7501: Quantum Mechanics I</p>
-        </div>
-    </a>
-    <a class='right-next' id="next-link" href="../../notebooks/Numerical_derivative_tests.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Tests of exponentiating derivative operators</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
 </div>
             </footer>
         </div>
@@ -561,7 +610,7 @@ title="Print to PDF"
     </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
 
 
   </body>
