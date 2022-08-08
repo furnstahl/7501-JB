@@ -18,18 +18,18 @@ parts:
       file: notebooks/External/Example_Quantum_Calculations_sympy.ipynb  
     - file: content/External/OSSCAR_notebooks.md
       sections:
-      - title: One-D finite well
-        file: notebooks/External/quantum-mechanics_from_OSSCAR/1quantumwell.ipynb
-      - title: One-D 2 finite wells
-        file: notebooks/External/quantum-mechanics_from_OSSCAR/2quantumwells.ipynb
-      - title: Avoided crossing  
-        file: notebooks/External/quantum-mechanics_from_OSSCAR/asymmetricwell.ipynb
-      - title: 1D time-dependent S-eqn
-        file: notebooks/External/quantum-mechanics_from_OSSCAR/soft.ipynb
-      - title: MSOFT method  
-        file: notebooks/External/quantum-mechanics_from_OSSCAR/msoft.ipynb
-      - title: Shooting method
-        file: notebooks/External/quantum-mechanics_from_OSSCAR/shooting_method.ipynb  
+      - file: notebooks/External/quantum-mechanics_from_OSSCAR/1quantumwell.ipynb
+        title: Finite well in 1D
+      - file: notebooks/External/quantum-mechanics_from_OSSCAR/2quantumwells.ipynb
+        title: Two finite wells in 1D
+      - file: notebooks/External/quantum-mechanics_from_OSSCAR/shooting_method.ipynb
+        title: Shooting method
+      - file: notebooks/External/quantum-mechanics_from_OSSCAR/soft.ipynb
+        title: Time-dependent S-eqn in 1D
+      - file: notebooks/External/quantum-mechanics_from_OSSCAR/msoft.ipynb
+        title: MSOFT method  
+      - file: notebooks/External/quantum-mechanics_from_OSSCAR/asymmetricwell.ipynb
+        title: Avoided crossing       
 
   - caption: Math notebooks
     chapters:
