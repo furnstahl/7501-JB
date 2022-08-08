@@ -85,7 +85,7 @@
 # ## Interactive visualization
 # (be patient, it might take a few seconds to load)
 
-# In[ ]:
+# In[1]:
 
 
 get_ipython().run_line_magic('matplotlib', 'widget')
@@ -96,7 +96,7 @@ import matplotlib.pyplot as plt
 from ipywidgets import FloatSlider, jslink, VBox, HBox, Button, Label, RadioButtons
 
 
-# In[ ]:
+# In[2]:
 
 
 colors = ['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#ffff33','#a65628','#f781bf']
@@ -194,7 +194,7 @@ def plot_eigenfunctions(ax, ew, ef, x, V, width=1, Emax=0.05, fak=2.0, single = 
     ax[0].plot(x, V, c='k', linewidth=1.6)
 
 
-# In[ ]:
+# In[3]:
 
 
 L = 1.5                                              # x range [-L,L]
