@@ -1,0 +1,1142 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Complex Numbers and Trigonometry &#8212; Quantum Mechanics I</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"tex": {"macros": {"N": "\\mathbb{N}", "avec": ["\\boldsymbol{a}"], "floor": ["\\lfloor#1\\rfloor", 1], "bmat": ["\\left[\\begin{array}"], "emat": ["\\end{array}\\right]"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Linear Algebra" href="Quantitative_Economics_with_Python_linear_algebra.html" />
+    <link rel="prev" title="QM with Sympy" href="Example_Quantum_Calculations_sympy.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Quantum Mechanics I</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../about.html">
+                    About Physics 7501: Quantum Mechanics I
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Course overview
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/Course/overview.html">
+   Objectives
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Notebooks for 7501
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Numerical_derivative_tests.html">
+   Exponentiating operators
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  External QM notebooks
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Example_Quantum_Calculations_sympy.html">
+   QM with Sympy
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Math notebooks
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Complex Numbers and Trigonometry
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Quantitative_Economics_with_Python_linear_algebra.html">
+   Linear Algebra
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Quantitative_Economics_with_Python_svd_intro.html">
+   Singular Value Decomposition (SVD)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Getting started with Python
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/Reference/installing_anaconda.html">
+   Using Anaconda
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../content/Reference/python_jupyter.html">
+   Python and Jupyter notebooks
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Reference/Jupyter_Python_intro_01.html">
+     Python and Jupyter notebooks: part 01
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Reference/Jupyter_Python_intro_02.html">
+     Python and Jupyter notebooks: part 02
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../content/Reference/advanced.html">
+   Advanced topics
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/Reference/using_github.html">
+     Using GitHub
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Reference material
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/zbibliography.html">
+   Bibliography
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/jb_tests.html">
+   Examples: Jupyter jb-book
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/furnstahl/7501-JB/main?urlpath=tree/./notebooks/External/Quantitative_Economics_with_Python_complex_numbers_and_trig.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/furnstahl/7501-JB"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/furnstahl/7501-JB/issues/new?title=Issue%20on%20page%20%2Fnotebooks/External/Quantitative_Economics_with_Python_complex_numbers_and_trig.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/notebooks/External/Quantitative_Economics_with_Python_complex_numbers_and_trig.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#contents">
+   Contents
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#overview">
+   Overview
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#complex-numbers">
+     Complex Numbers
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#an-example">
+     An Example
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#de-moivres-theorem">
+   De Moivre’s Theorem
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#applications-of-de-moivres-theorem">
+   Applications of de Moivre’s Theorem
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-1">
+     Example 1
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-2">
+     Example 2
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-3">
+     Example 3
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#trigonometric-identities">
+     Trigonometric Identities
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#trigonometric-integrals">
+     Trigonometric Integrals
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#exercises">
+     Exercises
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Complex Numbers and Trigonometry</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#contents">
+   Contents
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#overview">
+   Overview
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#complex-numbers">
+     Complex Numbers
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#an-example">
+     An Example
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#de-moivres-theorem">
+   De Moivre’s Theorem
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#applications-of-de-moivres-theorem">
+   Applications of de Moivre’s Theorem
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-1">
+     Example 1
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-2">
+     Example 2
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-3">
+     Example 3
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#trigonometric-identities">
+     Trigonometric Identities
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#trigonometric-integrals">
+     Trigonometric Integrals
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#exercises">
+     Exercises
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <p><a id='complex-and-trig'></a></p>
+<p><a id='index-0'></a></p>
+<section class="tex2jax_ignore mathjax_ignore" id="complex-numbers-and-trigonometry">
+<h1>Complex Numbers and Trigonometry<a class="headerlink" href="#complex-numbers-and-trigonometry" title="Permalink to this headline">#</a></h1>
+<section id="contents">
+<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="#Complex-Numbers-and-Trigonometry">Complex Numbers and Trigonometry</a></p>
+<ul>
+<li><p><a class="reference external" href="#Overview">Overview</a></p></li>
+<li><p><a class="reference external" href="#De-Moivre%E2%80%99s-Theorem">De Moivre’s Theorem</a></p></li>
+<li><p><a class="reference external" href="#Applications-of-de-Moivre%E2%80%99s-Theorem">Applications of de Moivre’s Theorem</a></p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">#</a></h2>
+<p>This lecture introduces some elementary mathematics and trigonometry.</p>
+<p>Useful and interesting in its own right, these concepts reap substantial rewards when studying dynamics generated
+by linear difference equations or linear differential equations.</p>
+<p>For example, these tools are keys to understanding outcomes attained by Paul
+Samuelson (1939) [<a class="reference external" href="https://python.quantecon.org/zreferences.html#id84">Sam39</a>] in his classic paper on interactions
+between the investment accelerator and the Keynesian consumption function, our
+topic in the lecture <a class="reference external" href="https://python.quantecon.org/samuelson.html">Samuelson Multiplier Accelerator</a>.</p>
+<p>In addition to providing foundations for Samuelson’s work and extensions of
+it, this lecture can be read as a stand-alone quick reminder of key results
+from elementary high school trigonometry.</p>
+<p>So let’s dive in.</p>
+<section id="complex-numbers">
+<h3>Complex Numbers<a class="headerlink" href="#complex-numbers" title="Permalink to this headline">#</a></h3>
+<p>A complex number has a <strong>real part</strong> <span class="math notranslate nohighlight">\( x \)</span> and a purely <strong>imaginary part</strong> <span class="math notranslate nohighlight">\( y \)</span>.</p>
+<p>The Euclidean, polar, and trigonometric forms of a complex number <span class="math notranslate nohighlight">\( z \)</span> are:</p>
+<div class="math notranslate nohighlight">
+\[
+z = x + iy = re^{i\theta} = r(\cos{\theta} + i \sin{\theta})
+\]</div>
+<p>The second equality above is known as <strong>Euler’s formula</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Leonhard_Euler">Euler</a> contributed many other formulas too!</p></li>
+</ul>
+<p>The complex conjugate <span class="math notranslate nohighlight">\( \bar z \)</span> of <span class="math notranslate nohighlight">\( z \)</span> is defined as</p>
+<div class="math notranslate nohighlight">
+\[
+\bar z = x - iy = r e^{-i \theta} = r (\cos{\theta} - i \sin{\theta} )
+\]</div>
+<p>The value <span class="math notranslate nohighlight">\( x \)</span> is the <strong>real</strong> part of <span class="math notranslate nohighlight">\( z \)</span> and <span class="math notranslate nohighlight">\( y \)</span> is the
+<strong>imaginary</strong> part of <span class="math notranslate nohighlight">\( z \)</span>.</p>
+<p>The symbol <span class="math notranslate nohighlight">\( | z | \)</span> = <span class="math notranslate nohighlight">\( \sqrt{\bar{z}\cdot z} = r \)</span> represents the <strong>modulus</strong> of <span class="math notranslate nohighlight">\( z \)</span>.</p>
+<p>The value <span class="math notranslate nohighlight">\( r \)</span> is the Euclidean distance of vector <span class="math notranslate nohighlight">\( (x,y) \)</span> from the
+origin:</p>
+<div class="math notranslate nohighlight">
+\[
+r = |z| = \sqrt{x^2 + y^2}
+\]</div>
+<p>The value <span class="math notranslate nohighlight">\( \theta \)</span> is the angle of <span class="math notranslate nohighlight">\( (x,y) \)</span> with respect to the real axis.</p>
+<p>Evidently, the tangent of <span class="math notranslate nohighlight">\( \theta \)</span> is <span class="math notranslate nohighlight">\( \left(\frac{y}{x}\right) \)</span>.</p>
+<p>Therefore,</p>
+<div class="math notranslate nohighlight">
+\[
+\theta = \tan^{-1} \Big( \frac{y}{x} \Big)
+\]</div>
+<p>Three elementary trigonometric functions are</p>
+<div class="math notranslate nohighlight">
+\[
+\cos{\theta} = \frac{x}{r} = \frac{e^{i\theta} + e^{-i\theta}}{2} , \quad
+\sin{\theta} = \frac{y}{r} = \frac{e^{i\theta} - e^{-i\theta}}{2i} , \quad
+\tan{\theta} = \frac{y}{x}
+\]</div>
+<p>We’ll need the following imports:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;figure.figsize&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>  <span class="c1">#set default figure size</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="an-example">
+<h3>An Example<a class="headerlink" href="#an-example" title="Permalink to this headline">#</a></h3>
+<p>Consider the complex number <span class="math notranslate nohighlight">\( z = 1 + \sqrt{3} i \)</span>.</p>
+<p>For <span class="math notranslate nohighlight">\( z = 1 + \sqrt{3} i \)</span>, <span class="math notranslate nohighlight">\( x = 1 \)</span>, <span class="math notranslate nohighlight">\( y = \sqrt{3} \)</span>.</p>
+<p>It follows that <span class="math notranslate nohighlight">\( r = 2 \)</span> and
+<span class="math notranslate nohighlight">\( \theta = \tan^{-1}(\sqrt{3}) = \frac{\pi}{3} = 60^o \)</span>.</p>
+<p>Let’s use Python to plot the trigonometric form of the complex number
+<span class="math notranslate nohighlight">\( z = 1 + \sqrt{3} i \)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Abbreviate useful values and functions</span>
+<span class="n">π</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+
+
+<span class="c1"># Set parameters</span>
+<span class="n">r</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">θ</span> <span class="o">=</span> <span class="n">π</span><span class="o">/</span><span class="mi">3</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">r</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">θ</span><span class="p">)</span>
+<span class="n">x_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="n">θ_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">θ</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+
+<span class="c1"># Plot</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">,</span> <span class="n">projection</span><span class="o">=</span><span class="s1">&#39;polar&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="n">θ</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">r</span><span class="p">),</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>          <span class="c1"># Plot r</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">x_range</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span> <span class="n">x_range</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>       <span class="c1"># Plot x</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">θ_range</span><span class="p">,</span> <span class="n">x</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">θ_range</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>        <span class="c1"># Plot y</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">θ_range</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">θ_range</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>  <span class="c1"># Plot θ</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">margins</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># Let the plot starts at origin</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Trigonometry of complex numbers&quot;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span>
+    <span class="n">fontsize</span><span class="o">=</span><span class="s1">&#39;x-large&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_rmax</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_rticks</span><span class="p">((</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>  <span class="c1"># Less radial ticks</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_rlabel_position</span><span class="p">(</span><span class="o">-</span><span class="mf">88.5</span><span class="p">)</span>    <span class="c1"># Get radial labels away from plotted line</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">θ</span><span class="p">,</span> <span class="n">r</span><span class="o">+</span><span class="mf">0.01</span> <span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$z = x + iy = 1 + \sqrt</span><span class="si">{3}</span><span class="s1">\, i$&#39;</span><span class="p">)</span>   <span class="c1"># Label z</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">θ</span><span class="o">+</span><span class="mf">0.2</span><span class="p">,</span> <span class="mi">1</span> <span class="p">,</span> <span class="s1">&#39;$r = 2$&#39;</span><span class="p">)</span>                             <span class="c1"># Label r</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">0</span><span class="o">-</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s1">&#39;$x = 1$&#39;</span><span class="p">)</span>                            <span class="c1"># Label x</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$y = \sqrt</span><span class="si">{3}</span><span class="s1">$&#39;</span><span class="p">)</span>                      <span class="c1"># Label y</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\theta = 60^o$&#39;</span><span class="p">)</span>                   <span class="c1"># Label θ</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="de-moivres-theorem">
+<h2>De Moivre’s Theorem<a class="headerlink" href="#de-moivres-theorem" title="Permalink to this headline">#</a></h2>
+<p>de Moivre’s theorem states that:</p>
+<div class="math notranslate nohighlight">
+\[
+(r(\cos{\theta} + i \sin{\theta}))^n =
+r^n e^{in\theta} =
+r^n(\cos{n\theta} + i \sin{n\theta})
+\]</div>
+<p>To prove de Moivre’s theorem, note that</p>
+<div class="math notranslate nohighlight">
+\[
+(r(\cos{\theta} + i \sin{\theta}))^n = \big( re^{i\theta} \big)^n
+\]</div>
+<p>and compute.</p>
+</section>
+<section id="applications-of-de-moivres-theorem">
+<h2>Applications of de Moivre’s Theorem<a class="headerlink" href="#applications-of-de-moivres-theorem" title="Permalink to this headline">#</a></h2>
+<section id="example-1">
+<h3>Example 1<a class="headerlink" href="#example-1" title="Permalink to this headline">#</a></h3>
+<p>We can use de Moivre’s theorem to show that
+<span class="math notranslate nohighlight">\( r = \sqrt{x^2 + y^2} \)</span>.</p>
+<p>We have</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+1 &amp;= e^{i\theta} e^{-i\theta} \\
+&amp;= (\cos{\theta} + i \sin{\theta})(\cos{(\text{-}\theta)} + i \sin{(\text{-}\theta)}) \\
+&amp;= (\cos{\theta} + i \sin{\theta})(\cos{\theta} - i \sin{\theta}) \\
+&amp;= \cos^2{\theta} + \sin^2{\theta} \\
+&amp;= \frac{x^2}{r^2} + \frac{y^2}{r^2}
+\end{aligned}
+\end{split}\]</div>
+<p>and thus</p>
+<div class="math notranslate nohighlight">
+\[
+x^2 + y^2 = r^2
+\]</div>
+<p>We recognize this as a theorem of <strong>Pythagoras</strong>.</p>
+</section>
+<section id="example-2">
+<h3>Example 2<a class="headerlink" href="#example-2" title="Permalink to this headline">#</a></h3>
+<p>Let <span class="math notranslate nohighlight">\( z = re^{i\theta} \)</span> and <span class="math notranslate nohighlight">\( \bar{z} = re^{-i\theta} \)</span> so that <span class="math notranslate nohighlight">\( \bar{z} \)</span> is the <strong>complex conjugate</strong> of <span class="math notranslate nohighlight">\( z \)</span>.</p>
+<p><span class="math notranslate nohighlight">\( (z, \bar z) \)</span> form a <strong>complex conjugate pair</strong> of complex numbers.</p>
+<p>Let <span class="math notranslate nohighlight">\( a = pe^{i\omega} \)</span> and <span class="math notranslate nohighlight">\( \bar{a} = pe^{-i\omega} \)</span> be
+another complex conjugate pair.</p>
+<p>For each element of a sequence of integers <span class="math notranslate nohighlight">\( n = 0, 1, 2, \ldots, \)</span>.</p>
+<p>To do so, we can apply de Moivre’s formula.</p>
+<p>Thus,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+x_n &amp;= az^n + \bar{a}\bar{z}^n \\
+&amp;= p e^{i\omega} (re^{i\theta})^n + p e^{-i\omega} (re^{-i\theta})^n \\
+&amp;= pr^n e^{i (\omega + n\theta)} + pr^n e^{-i (\omega + n\theta)} \\
+&amp;= pr^n [\cos{(\omega + n\theta)} + i \sin{(\omega + n\theta)} +
+         \cos{(\omega + n\theta)} - i \sin{(\omega + n\theta)}] \\
+&amp;= 2 pr^n \cos{(\omega + n\theta)}
+\end{aligned}
+\end{split}\]</div>
+</section>
+<section id="example-3">
+<h3>Example 3<a class="headerlink" href="#example-3" title="Permalink to this headline">#</a></h3>
+<p>This example provides  machinery that is at the heard of Samuelson’s analysis of his multiplier-accelerator model [<a class="reference external" href="https://python.quantecon.org/zreferences.html#id84">Sam39</a>].</p>
+<p>Thus, consider a <strong>second-order linear difference equation</strong></p>
+<div class="math notranslate nohighlight">
+\[
+x_{n+2} = c_1 x_{n+1} + c_2 x_n
+\]</div>
+<p>whose <strong>characteristic polynomial</strong> is</p>
+<div class="math notranslate nohighlight">
+\[
+z^2 - c_1 z - c_2 = 0
+\]</div>
+<p>or</p>
+<div class="math notranslate nohighlight">
+\[
+(z^2 - c_1 z - c_2 ) = (z - z_1)(z- z_2) = 0
+\]</div>
+<p>has roots <span class="math notranslate nohighlight">\( z_1, z_1 \)</span>.</p>
+<p>A <strong>solution</strong>  is a sequence <span class="math notranslate nohighlight">\( \{x_n\}_{n=0}^\infty \)</span> that satisfies
+the difference equation.</p>
+<p>Under the following circumstances, we can apply our example 2 formula to
+solve the difference equation</p>
+<ul class="simple">
+<li><p>the roots <span class="math notranslate nohighlight">\( z_1, z_2 \)</span> of the characteristic polynomial of the
+difference equation form a complex conjugate pair</p></li>
+<li><p>the values <span class="math notranslate nohighlight">\( x_0, x_1 \)</span> are given initial conditions</p></li>
+</ul>
+<p>To solve the difference equation, recall from example 2 that</p>
+<div class="math notranslate nohighlight">
+\[
+x_n = 2 pr^n \cos{(\omega + n\theta)}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( \omega, p \)</span> are coefficients to be determined from
+information encoded in the initial conditions <span class="math notranslate nohighlight">\( x_1, x_0 \)</span>.</p>
+<p>Since
+<span class="math notranslate nohighlight">\( x_0 = 2 p \cos{\omega} \)</span> and <span class="math notranslate nohighlight">\( x_1 = 2 pr \cos{(\omega + \theta)} \)</span>
+the ratio of <span class="math notranslate nohighlight">\( x_1 \)</span> to <span class="math notranslate nohighlight">\( x_0 \)</span> is</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{x_1}{x_0} = \frac{r \cos{(\omega + \theta)}}{\cos{\omega}}
+\]</div>
+<p>We can solve this equation for <span class="math notranslate nohighlight">\( \omega \)</span> then solve for <span class="math notranslate nohighlight">\( p \)</span> using <span class="math notranslate nohighlight">\( x_0 = 2 pr^0 \cos{(\omega + n\theta)} \)</span>.</p>
+<p>With the <code class="docutils literal notranslate"><span class="pre">sympy</span></code> package in Python, we are able to solve and plot the
+dynamics of <span class="math notranslate nohighlight">\( x_n \)</span> given different values of <span class="math notranslate nohighlight">\( n \)</span>.</p>
+<p>In this example, we set the initial values: - <span class="math notranslate nohighlight">\( r = 0.9 \)</span> -
+<span class="math notranslate nohighlight">\( \theta = \frac{1}{4}\pi \)</span> - <span class="math notranslate nohighlight">\( x_0 = 4 \)</span> -
+<span class="math notranslate nohighlight">\( x_1 = r \cdot 2\sqrt{2} = 1.8 \sqrt{2} \)</span>.</p>
+<p>We first numerically solve for <span class="math notranslate nohighlight">\( \omega \)</span> and <span class="math notranslate nohighlight">\( p \)</span> using
+<code class="docutils literal notranslate"><span class="pre">nsolve</span></code> in the <code class="docutils literal notranslate"><span class="pre">sympy</span></code> package based on the above initial
+condition:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set parameters</span>
+<span class="n">r</span> <span class="o">=</span> <span class="mf">0.9</span>
+<span class="n">θ</span> <span class="o">=</span> <span class="n">π</span><span class="o">/</span><span class="mi">4</span>
+<span class="n">x0</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">x1</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">r</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Define symbols to be calculated</span>
+<span class="n">ω</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;ω p&#39;</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Solve for ω</span>
+<span class="c1">## Note: we choose the solution near 0</span>
+<span class="n">eq1</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">x1</span><span class="o">/</span><span class="n">x0</span> <span class="o">-</span> <span class="n">r</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">ω</span><span class="o">+</span><span class="n">θ</span><span class="p">)</span> <span class="o">/</span> <span class="n">cos</span><span class="p">(</span><span class="n">ω</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">ω</span> <span class="o">=</span> <span class="n">nsolve</span><span class="p">(</span><span class="n">eq1</span><span class="p">,</span> <span class="n">ω</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">ω</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">(</span><span class="n">ω</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;ω = </span><span class="si">{</span><span class="n">ω</span><span class="si">:</span><span class="s1">1.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="c1"># Solve for p</span>
+<span class="n">eq2</span> <span class="o">=</span> <span class="n">Eq</span><span class="p">(</span><span class="n">x0</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">ω</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">nsolve</span><span class="p">(</span><span class="n">eq2</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;p = </span><span class="si">{</span><span class="n">p</span><span class="si">:</span><span class="s1">1.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Using the code above, we compute that
+<span class="math notranslate nohighlight">\( \omega = 0 \)</span> and <span class="math notranslate nohighlight">\( p = 2 \)</span>.</p>
+<p>Then we plug in the values we solve for <span class="math notranslate nohighlight">\( \omega \)</span> and <span class="math notranslate nohighlight">\( p \)</span>
+and plot the dynamic.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define range of n</span>
+<span class="n">max_n</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_n</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">)</span>
+
+<span class="c1"># Define x_n</span>
+<span class="n">x</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">n</span><span class="p">:</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">p</span> <span class="o">*</span> <span class="n">r</span><span class="o">**</span><span class="n">n</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">ω</span> <span class="o">+</span> <span class="n">n</span> <span class="o">*</span> <span class="n">θ</span><span class="p">)</span>
+
+<span class="c1"># Plot</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">x</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">max_n</span><span class="p">),</span> <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">xlabel</span><span class="o">=</span><span class="s1">&#39;$n$&#39;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s1">&#39;$x_n$&#39;</span><span class="p">)</span>
+
+<span class="c1"># Set x-axis in the middle of the plot</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;bottom&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_position</span><span class="p">(</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="s1">&#39;none&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_ticks_position</span><span class="p">(</span><span class="s1">&#39;bottom&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_ticks_position</span><span class="p">(</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+
+<span class="n">ticklab</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">get_ticklabels</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># Set x-label position</span>
+<span class="n">trans</span> <span class="o">=</span> <span class="n">ticklab</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_label_coords</span><span class="p">(</span><span class="mi">31</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">trans</span><span class="p">)</span>
+
+<span class="n">ticklab</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">get_ticklabels</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># Set y-label position</span>
+<span class="n">trans</span> <span class="o">=</span> <span class="n">ticklab</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_label_coords</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">trans</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="trigonometric-identities">
+<h3>Trigonometric Identities<a class="headerlink" href="#trigonometric-identities" title="Permalink to this headline">#</a></h3>
+<p>We can obtain a complete suite of trigonometric identities by
+appropriately manipulating polar forms of complex numbers.</p>
+<p>We’ll get many of them by deducing implications of the equality</p>
+<div class="math notranslate nohighlight">
+\[
+e^{i(\omega + \theta)} = e^{i\omega} e^{i\theta}
+\]</div>
+<p>For example, we’ll calculate identities for</p>
+<p><span class="math notranslate nohighlight">\( \cos{(\omega + \theta)} \)</span> and <span class="math notranslate nohighlight">\( \sin{(\omega + \theta)} \)</span>.</p>
+<p>Using the sine and cosine formulas presented at the beginning of this
+lecture, we have:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\cos{(\omega + \theta)} = \frac{e^{i(\omega + \theta)} + e^{-i(\omega + \theta)}}{2} \\
+\sin{(\omega + \theta)} = \frac{e^{i(\omega + \theta)} - e^{-i(\omega + \theta)}}{2i}
+\end{aligned}
+\end{split}\]</div>
+<p>We can also obtain the trigonometric identities as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\cos{(\omega + \theta)} + i \sin{(\omega + \theta)}
+&amp;= e^{i(\omega + \theta)} \\
+&amp;= e^{i\omega} e^{i\theta} \\
+&amp;= (\cos{\omega} + i \sin{\omega})(\cos{\theta} + i \sin{\theta}) \\
+&amp;= (\cos{\omega}\cos{\theta} - \sin{\omega}\sin{\theta}) +
+i (\cos{\omega}\sin{\theta} + \sin{\omega}\cos{\theta})
+\end{aligned}
+\end{split}\]</div>
+<p>Since both real and imaginary parts of the above formula should be
+equal, we get:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\cos{(\omega + \theta)} = \cos{\omega}\cos{\theta} - \sin{\omega}\sin{\theta} \\
+\sin{(\omega + \theta)} = \cos{\omega}\sin{\theta} + \sin{\omega}\cos{\theta}
+\end{aligned}
+\end{split}\]</div>
+<p>The equations above are also known as the <strong>angle sum identities</strong>. We
+can verify the equations using the <code class="docutils literal notranslate"><span class="pre">simplify</span></code> function in the
+<code class="docutils literal notranslate"><span class="pre">sympy</span></code> package:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define symbols</span>
+<span class="n">ω</span><span class="p">,</span> <span class="n">θ</span> <span class="o">=</span> <span class="n">symbols</span><span class="p">(</span><span class="s1">&#39;ω θ&#39;</span><span class="p">,</span> <span class="n">real</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Verify</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;cos(ω)cos(θ) - sin(ω)sin(θ) =&quot;</span><span class="p">,</span>
+    <span class="n">simplify</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">ω</span><span class="p">)</span><span class="o">*</span><span class="n">cos</span><span class="p">(</span><span class="n">θ</span><span class="p">)</span> <span class="o">-</span> <span class="n">sin</span><span class="p">(</span><span class="n">ω</span><span class="p">)</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">θ</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;cos(ω)sin(θ) + sin(ω)cos(θ) =&quot;</span><span class="p">,</span>
+    <span class="n">simplify</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">ω</span><span class="p">)</span><span class="o">*</span><span class="n">sin</span><span class="p">(</span><span class="n">θ</span><span class="p">)</span> <span class="o">+</span> <span class="n">sin</span><span class="p">(</span><span class="n">ω</span><span class="p">)</span> <span class="o">*</span> <span class="n">cos</span><span class="p">(</span><span class="n">θ</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="trigonometric-integrals">
+<h3>Trigonometric Integrals<a class="headerlink" href="#trigonometric-integrals" title="Permalink to this headline">#</a></h3>
+<p>We can also compute the trigonometric integrals using polar forms of
+complex numbers.</p>
+<p>For example, we want to solve the following integral:</p>
+<div class="math notranslate nohighlight">
+\[
+\int_{-\pi}^{\pi} \cos(\omega) \sin(\omega) \, d\omega
+\]</div>
+<p>Using Euler’s formula, we have:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\int \cos(\omega) \sin(\omega) \, d\omega
+&amp;=
+\int
+\frac{(e^{i\omega} + e^{-i\omega})}{2}
+\frac{(e^{i\omega} - e^{-i\omega})}{2i}
+\, d\omega  \\
+&amp;=
+\frac{1}{4i}
+\int
+e^{2i\omega} - e^{-2i\omega}
+\, d\omega  \\
+&amp;=
+\frac{1}{4i}
+\bigg( \frac{-i}{2} e^{2i\omega} - \frac{i}{2} e^{-2i\omega} + C_1 \bigg) \\
+&amp;=
+-\frac{1}{8}
+\bigg[ \bigg(e^{i\omega}\bigg)^2 + \bigg(e^{-i\omega}\bigg)^2 - 2 \bigg] + C_2 \\
+&amp;=
+-\frac{1}{8}  (e^{i\omega} - e^{-i\omega})^2  + C_2 \\
+&amp;=
+\frac{1}{2} \bigg( \frac{e^{i\omega} - e^{-i\omega}}{2i} \bigg)^2 + C_2 \\
+&amp;= \frac{1}{2} \sin^2(\omega) + C_2
+\end{aligned}
+\end{split}\]</div>
+<p>and thus:</p>
+<div class="math notranslate nohighlight">
+\[
+\int_{-\pi}^{\pi} \cos(\omega) \sin(\omega) \, d\omega =
+\frac{1}{2}\sin^2(\pi) - \frac{1}{2}\sin^2(-\pi) = 0
+\]</div>
+<p>We can verify the analytical as well as numerical results using
+<code class="docutils literal notranslate"><span class="pre">integrate</span></code> in the <code class="docutils literal notranslate"><span class="pre">sympy</span></code> package:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set initial printing</span>
+<span class="n">init_printing</span><span class="p">()</span>
+
+<span class="n">ω</span> <span class="o">=</span> <span class="n">Symbol</span><span class="p">(</span><span class="s1">&#39;ω&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The analytical solution for integral of cos(ω)sin(ω) is:&#39;</span><span class="p">)</span>
+<span class="n">integrate</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">ω</span><span class="p">)</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">ω</span><span class="p">),</span> <span class="n">ω</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The numerical solution for the integral of cos(ω)sin(ω) </span><span class="se">\</span>
+<span class="s1">from -π to π is:&#39;</span><span class="p">)</span>
+<span class="n">integrate</span><span class="p">(</span><span class="n">cos</span><span class="p">(</span><span class="n">ω</span><span class="p">)</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span><span class="n">ω</span><span class="p">),</span> <span class="p">(</span><span class="n">ω</span><span class="p">,</span> <span class="o">-</span><span class="n">π</span><span class="p">,</span> <span class="n">π</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercises">
+<h3>Exercises<a class="headerlink" href="#exercises" title="Permalink to this headline">#</a></h3>
+<p>We invite the reader to verify analytically and with the <code class="docutils literal notranslate"><span class="pre">sympy</span></code> package the following two equalities:</p>
+<div class="math notranslate nohighlight">
+\[
+\int_{-\pi}^{\pi} \cos (\omega)^2 \, d\omega = \frac{\pi}{2}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+\int_{-\pi}^{\pi} \sin (\omega)^2 \, d\omega = \frac{\pi}{2}
+\]</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "furnstahl/7501-JB",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./notebooks/External"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="Example_Quantum_Calculations_sympy.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">QM with Sympy</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="Quantitative_Economics_with_Python_linear_algebra.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Linear Algebra</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Dick Furnstahl<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
