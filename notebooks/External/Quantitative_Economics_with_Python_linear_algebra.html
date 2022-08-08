@@ -158,18 +158,18 @@ const thebe_selector_output = ".output, .cell_output"
   <ul>
    <li class="toctree-l2">
     <a class="reference internal" href="quantum-mechanics_from_OSSCAR/1quantumwell.html">
-     One-D finite well
+     Finite well in 1D
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="quantum-mechanics_from_OSSCAR/2quantumwells.html">
-     One-D 2 finite wells
+     Two finite wells in 1D
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="quantum-mechanics_from_OSSCAR/asymmetricwell.html">
+    <a class="reference internal" href="quantum-mechanics_from_OSSCAR/shooting_method.html">
      <strong>
-      Avoided Crossing in One Dimensional Asymmetric Quantum Well
+      Shooting Method with Numerov Algorithm to Solve the Time Independent Schrödinger Equation for 1D Quantum Well
      </strong>
     </a>
    </li>
@@ -188,9 +188,9 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
    </li>
    <li class="toctree-l2">
-    <a class="reference internal" href="quantum-mechanics_from_OSSCAR/shooting_method.html">
+    <a class="reference internal" href="quantum-mechanics_from_OSSCAR/asymmetricwell.html">
      <strong>
-      Shooting Method with Numerov Algorithm to Solve the Time Independent Schrödinger Equation for 1D Quantum Well
+      Avoided Crossing in One Dimensional Asymmetric Quantum Well
      </strong>
     </a>
    </li>
@@ -1388,20 +1388,20 @@ resulting matrix <span class="math notranslate nohighlight">\( A B \)</span> is 
 <p><a id='equation-la-atx'></a>
 $$
 A x =</p>
-<div class="amsmath math notranslate nohighlight" id="equation-893a744b-419b-41df-aa59-f03e8b9ab670">
-<span class="eqno">(1)<a class="headerlink" href="#equation-893a744b-419b-41df-aa59-f03e8b9ab670" title="Permalink to this equation">#</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-341713b6-26c9-4d1b-bda2-0f9c95c3fd18">
+<span class="eqno">(1)<a class="headerlink" href="#equation-341713b6-26c9-4d1b-bda2-0f9c95c3fd18" title="Permalink to this equation">#</a></span>\[\begin{bmatrix}
     a_{11} &amp;  \cdots &amp; a_{1k} \\
     \vdots &amp; \vdots  &amp; \vdots \\
     a_{n1} &amp;  \cdots &amp; a_{nk}
 \end{bmatrix}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-f5f89965-ef0d-4eb6-802c-b31b4182e2fa">
-<span class="eqno">(2)<a class="headerlink" href="#equation-f5f89965-ef0d-4eb6-802c-b31b4182e2fa" title="Permalink to this equation">#</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-d7b44462-89b4-45a9-9240-f17de2a13684">
+<span class="eqno">(2)<a class="headerlink" href="#equation-d7b44462-89b4-45a9-9240-f17de2a13684" title="Permalink to this equation">#</a></span>\[\begin{bmatrix}
     x_{1}  \\
     \vdots  \\
     x_{k}
 \end{bmatrix}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-e42418a2-75d6-4119-b5d8-fa0284bb05ff">
-<span class="eqno">(3)<a class="headerlink" href="#equation-e42418a2-75d6-4119-b5d8-fa0284bb05ff" title="Permalink to this equation">#</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-16bdd44b-e72a-4fa4-b327-9a8e176828c5">
+<span class="eqno">(3)<a class="headerlink" href="#equation-16bdd44b-e72a-4fa4-b327-9a8e176828c5" title="Permalink to this equation">#</a></span>\[\begin{bmatrix}
     a_{11} x_1 + \cdots + a_{1k} x_k \\
     \vdots \\
     a_{n1} x_1 + \cdots + a_{nk} x_k
