@@ -1,0 +1,895 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Path integrals for quantum mechanics with MCMC libraries &#8212; Quantum Mechanics I</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"tex": {"macros": {"N": "\\mathbb{N}", "avec": ["\\boldsymbol{a}"], "floor": ["\\lfloor#1\\rfloor", 1], "bmat": ["\\left[\\begin{array}"], "emat": ["\\end{array}\\right]"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Quantum Mechanics I</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../about.html">
+                    About Physics 7501: Quantum Mechanics I
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Course overview
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/Course/overview.html">
+   Objectives
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Notebooks for 7501
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Numerical_derivative_tests.html">
+   Exponentiating operators
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Lepage_Lattice_QCD_for_Novices_code_selfcontained.html">
+   Path integral explorations
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  External QM notebooks
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../External/harmonic_oscillator_Jendrzejewski.html">
+   Quantum harmonic oscillator
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../External/Example_Quantum_Calculations_sympy.html">
+   QM with Sympy
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../content/External/OSSCAR_notebooks.html">
+   QM notebooks from OSSCAR
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../External/quantum-mechanics_from_OSSCAR/1quantumwell.html">
+     Finite well in 1D
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../External/quantum-mechanics_from_OSSCAR/2quantumwells.html">
+     Two finite wells in 1D
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../External/quantum-mechanics_from_OSSCAR/shooting_method.html">
+     Shooting Method with Numerov Algorithm
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../External/quantum-mechanics_from_OSSCAR/soft.html">
+     TD S-eqn using SOFT
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../External/quantum-mechanics_from_OSSCAR/msoft.html">
+     TD S-eqn using MSOFT
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../External/quantum-mechanics_from_OSSCAR/asymmetricwell.html">
+     Avoided crossing example
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Math notebooks
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../External/Quantitative_Economics_with_Python_complex_numbers_and_trig.html">
+   Complex Numbers and Trigonometry
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../External/Quantitative_Economics_with_Python_linear_algebra.html">
+   Linear Algebra
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../External/Quantitative_Economics_with_Python_svd_intro.html">
+   Singular Value Decomposition (SVD)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Getting started with Python
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/Reference/installing_anaconda.html">
+   Using Anaconda
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../content/Reference/python_jupyter.html">
+   Python and Jupyter notebooks
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Reference/Jupyter_Python_intro_01.html">
+     Python and Jupyter notebooks: part 01
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Reference/Jupyter_Python_intro_02.html">
+     Python and Jupyter notebooks: part 02
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/Reference/advanced.html">
+     Advanced topics
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Reference material
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/zbibliography.html">
+   Bibliography
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/Reference/using_github.html">
+   Using GitHub
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/jb_tests.html">
+   Examples: Jupyter jb-book
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/furnstahl/7501-JB/main?urlpath=tree/./notebooks/Path_integrals/Lepage_Lattice_QCD_for_Novices_lectures_background.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/furnstahl/7501-JB"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/furnstahl/7501-JB/issues/new?title=Issue%20on%20page%20%2Fnotebooks/Path_integrals/Lepage_Lattice_QCD_for_Novices_lectures_background.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/notebooks/Path_integrals/Lepage_Lattice_QCD_for_Novices_lectures_background.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#path-integral-basics">
+   Path integral basics
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#formal-aspects">
+     Formal aspects
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#numerical-implementation">
+     Numerical implementation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#other-matrix-elements">
+     Other matrix elements
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#numerical-evaluation-with-mcmc">
+     Numerical evaluation with MCMC
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#bootstrap-and-binning">
+     Bootstrap and binning
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#higher-order-discretization">
+     Higher-order discretization
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Path integrals for quantum mechanics with MCMC libraries</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#path-integral-basics">
+   Path integral basics
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#formal-aspects">
+     Formal aspects
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#numerical-implementation">
+     Numerical implementation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#other-matrix-elements">
+     Other matrix elements
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#numerical-evaluation-with-mcmc">
+     Numerical evaluation with MCMC
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#bootstrap-and-binning">
+     Bootstrap and binning
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#higher-order-discretization">
+     Higher-order discretization
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="path-integrals-for-quantum-mechanics-with-mcmc-libraries">
+<h1>Path integrals for quantum mechanics with MCMC libraries<a class="headerlink" href="#path-integrals-for-quantum-mechanics-with-mcmc-libraries" title="Permalink to this headline">#</a></h1>
+<p>The original reference here is Peter Lepage’s lectures entitled <em>Lattice QCD for Novices</em>, available as <a class="reference external" href="https://arxiv.org/abs/hep-lat/0506036">arXiv:hep-lat/0506036</a>. The starting point is one-dimensional quantum mechanics and that is where we focus our attention. The aim is to implement the calculations outlined by Lepage (updating some of the included Python code) and then switch to using some of the standard libraries for Markov Chain Monte Carlo (MCMC) designed for Bayesian inference.</p>
+<p>To preview where we are going, the basic idea is that we can think of a discretized path in imaginary time <span class="math notranslate nohighlight">\(x(\tau)\rightarrow \{x(\tau_0), x(\tau_1), \ldots, x(\tau_{N-1})\}\)</span> as a set of <span class="math notranslate nohighlight">\(N\)</span> parameters and the path integral weighting factor <span class="math notranslate nohighlight">\(e^{-S[x(\tau)]}\)</span> as an unnormalized likelihood. We’ll combine with a uniform prior to make a posterior. If we sample the posterior with MCMC methods, we are sampling the paths according to the weighting by the action. We can use the samples to take quantum mechanical expectation values.</p>
+<section id="path-integral-basics">
+<h2>Path integral basics<a class="headerlink" href="#path-integral-basics" title="Permalink to this headline">#</a></h2>
+<section id="formal-aspects">
+<h3>Formal aspects<a class="headerlink" href="#formal-aspects" title="Permalink to this headline">#</a></h3>
+<p>We start with a path integral representation for an imaginary-time evolution between position eigenstates:</p>
+<div class="math notranslate nohighlight">
+\[
+  \langle x_f | e^{-\widehat H(\tau_f - \tau_i)} | x_i \rangle = \int \mathcal{D}x(\tau)\, e^{-S[x(\tau)]}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\tau = it\)</span> and</p>
+<div class="math notranslate nohighlight">
+\[
+  \mathcal{D}x(\tau) \longrightarrow \mbox{sum over paths } \{x(\tau) \mbox{ where } \tau_i \leq \tau \leq \tau_f\}
+  \mbox{ with } x_i = x(\tau_i),\ x_f = x(\tau_f) .
+\]</div>
+<p>The Hamiltonian is <span class="math notranslate nohighlight">\(\widehat H\)</span> and <span class="math notranslate nohighlight">\(S[x(\tau)]\)</span> is the classical action evaluated for path <span class="math notranslate nohighlight">\(x(\tau)\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+  S[x(\tau)] \equiv \int_{\tau_i}^{\tau_f} d\tau\, L(x,\dot x; \tau)
+    = \int_{\tau_i}^{\tau_f} d\tau\, \biggl[\frac{1}{2}m \dot x(\tau)^2 + V(x(\tau))\biggr] .
+\]</div>
+<p>This is the <em>Euclidean</em> version of <span class="math notranslate nohighlight">\(S\)</span> and the Lagrangian <span class="math notranslate nohighlight">\(L\)</span>, which is why the relative sign of the kinetic and potential terms is positive (i.e., <span class="math notranslate nohighlight">\(L = T_E + V\)</span> rather than <span class="math notranslate nohighlight">\(L = T - V\)</span>).</p>
+<p>If we insert on the left side a complete set of exact eigenstates of <span class="math notranslate nohighlight">\(\widehat H\)</span> (labeled by <span class="math notranslate nohighlight">\(n\)</span>), namely</p>
+<div class="math notranslate nohighlight">
+\[
+   \mathbb{1} = \sum_n |E_n\rangle \langle E_n| 
+   \quad\mbox{where}\quad \widehat H |E_n\rangle = E_n |E_n\rangle ,
+\]</div>
+<p>then we can use <span class="math notranslate nohighlight">\(e^{-\widehat H (\tau_f - \tau_i)}|E_n\rangle = e^{-E_n(\tau_f-\tau_i)}|E_n\rangle\)</span> (which follows after a power series expansion of the exponential) to obtain</p>
+<div class="math notranslate nohighlight">
+\[
+  \langle x_f | e^{-\widehat H(\tau_f - \tau_i)} | x_i \rangle 
+     = \sum_n \langle x_f |E_n\rangle e^{-E_n(\tau_f-\tau_i)} \langle E_n | x_i\rangle ,
+\]</div>
+<p>which involves both the wave functions and energy eigenvalues. Because <span class="math notranslate nohighlight">\(E_0 &lt; E_{n\neq 0}\)</span>, we can take <span class="math notranslate nohighlight">\(T \equiv \tau_f - \tau_i \rightarrow \infty\)</span> to isolate the first terms (all the others are suppressed exponentially relative to the first). We have the freedom to take <span class="math notranslate nohighlight">\(x_f = x_i \equiv x\)</span>, which yields in the large time limit:</p>
+<div class="math notranslate nohighlight">
+\[
+  \langle x | e^{-\widehat H T} | x \rangle \overset{T\rightarrow\infty}{\longrightarrow}
+    e^{-E_0 T} |\langle x | E_0\rangle|^2 .
+\]</div>
+<p>The wavefunction <span class="math notranslate nohighlight">\(\psi_{E_0}(x) = \langle x|E_0\rangle\)</span> is normalized, so</p>
+<div class="math notranslate nohighlight">
+\[
+  \int_{-\infty}^{\infty} \langle x | e^{-\widehat H T} | x \rangle \overset{T\rightarrow\infty}{\longrightarrow}
+    e^{-E_0 T} 
+\]</div>
+<p>and we get the energy (then we can go back and divide out this factor to get the wave function squared).</p>
+<p>To derive the path integral formerly, we divide up the Euclidean time interval from <span class="math notranslate nohighlight">\(\tau_i\)</span> to <span class="math notranslate nohighlight">\(\tau_f\)</span> into little intervals of width <span class="math notranslate nohighlight">\(\Delta \tau\)</span> and insert a complete set of <span class="math notranslate nohighlight">\(x\)</span> states in each time. This enables us to approximate <span class="math notranslate nohighlight">\(e^{-\widehat H\Delta\tau}\)</span> in each interval. In a full derivation we would insert both momentum and coordinate states and evaluate the matrix element of <span class="math notranslate nohighlight">\(\widehat H(\hat p,\hat x)\)</span>. The small <span class="math notranslate nohighlight">\(\Delta\tau\)</span> lets us neglect the commutator between <span class="math notranslate nohighlight">\(\hat p\)</span> and <span class="math notranslate nohighlight">\(\hat x\)</span> as higher order (proportional to <span class="math notranslate nohighlight">\(\Delta\tau^2\)</span>) If we then do all the momentum integrals, we get the path integral over <span class="math notranslate nohighlight">\(\mathcal{D}x(\tau)\)</span>.</p>
+</section>
+<section id="numerical-implementation">
+<h3>Numerical implementation<a class="headerlink" href="#numerical-implementation" title="Permalink to this headline">#</a></h3>
+<p>In the formal discussion of path integrals, a path is defined at every continuous point in Euclidan time <span class="math notranslate nohighlight">\(\tau\)</span>, but to represent this on a computer (and actually make a sensible definition), we discretize the time:</p>
+<div class="math notranslate nohighlight">
+\[  
+  \tau_i \leq \tau \leq \tau_f \quad\longrightarrow\quad \tau_j = \tau_i + j a \ \mbox{for }j = 0,\ldots,N
+\]</div>
+<p>with grid (mesh) spacing <span class="math notranslate nohighlight">\(a\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+   a \equiv \frac{\tau_f - \tau_i}{N} .
+\]</div>
+<p>A path is then a list of numbers:</p>
+<div class="math notranslate nohighlight">
+\[
+   x(\tau)\rightarrow \{x(\tau_0), x(\tau_1), \ldots, x(\tau_{N-1})\}
+\]</div>
+<p>and the integration over all paths becomes a conventional multiple integral over the values of <span class="math notranslate nohighlight">\(x_j\)</span> at each <span class="math notranslate nohighlight">\(\tau_j\)</span> for <span class="math notranslate nohighlight">\(1 \leq j \leq N-1\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+   \int \mathcal{D}x(\tau) \longrightarrow A \int_{-\infty}^{\infty} dx_1 \int_{-\infty}^{\infty} dx_2
+     \cdots \int_{-\infty}^{\infty} dx_{N-1} .
+\]</div>
+<p>The endpoints <span class="math notranslate nohighlight">\(x_0\)</span> and <span class="math notranslate nohighlight">\(x_N\)</span> are determined by the boundary conditions (e.g., <span class="math notranslate nohighlight">\(x_0 = x_N = x\)</span> as used above). If we need the normalization <span class="math notranslate nohighlight">\(A\)</span> (which we often won’t because it will drop out), then for the one-dimensional problems here it is</p>
+<div class="math notranslate nohighlight">
+\[
+    A = \left(\frac{m}{2\pi a}\right)^{N/2} .
+\]</div>
+<p>We will need an approximation to the action. Here is one choice for <span class="math notranslate nohighlight">\(\tau_{j} \leq \tau \leq \tau_{j+1}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+  \int_{\tau_{j}}^{\tau_{j+1}} d\tau\, L \approx
+    a \left[ \frac{m}{2} \left(\frac{x_{j+1}-x_{j}}{a}\right)^2 
+             + \frac{1}{2} \bigl( V(x_{j+1}) + V(x_{j}) \bigr)
+      \right]
+\]</div>
+<p>Now we have</p>
+<div class="math notranslate nohighlight">
+\[
+  \langle x | e^{-\widehat H \tau} | x \rangle \approx
+    A \int_{-\infty}^{\infty} dx_1 \int_{-\infty}^{\infty} dx_2
+     \cdots \int_{-\infty}^{\infty} dx_{N-1} e^{-S_{\rm lat}[x]}
+\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[
+   S_{\rm lat}[x] \equiv \sum_{j=0}^{N-1} 
+     \left[  
+      \frac{m}{2a}(x_{j+1}-x_{j})^2 + a V(x_j)
+     \right]
+\]</div>
+<p>with <span class="math notranslate nohighlight">\(x_0 = x_N = x\)</span> and <span class="math notranslate nohighlight">\(a = T/N\)</span>.</p>
+<p>Comments:</p>
+<ul class="simple">
+<li><p>One might worry about the discretization of the derivatives, because of the range of the <span class="math notranslate nohighlight">\(x_{j}\)</span>’s: adjacent points can be arbitrarily far away (the paths can be arbitrarily “rough”).</p></li>
+</ul>
+</section>
+<section id="other-matrix-elements">
+<h3>Other matrix elements<a class="headerlink" href="#other-matrix-elements" title="Permalink to this headline">#</a></h3>
+<p>Suppose we wanted a Euclidean expectation value:</p>
+<div class="math notranslate nohighlight">
+\[
+  \langle\langle x(\tau_2)x(\tau_1) \rangle\rangle
+   \equiv \frac{\int \mathcal{D}x(\tau)\, x(\tau_2)x(\tau_1)\,e^{-S[x]}}{\int \mathcal{D}x(\tau)\, e^{-S[x]}}
+\]</div>
+<p>where there is an integration over <span class="math notranslate nohighlight">\(x_i = x_f = x\)</span> as well as over the intermediate <span class="math notranslate nohighlight">\(x(t)\)</span>’s. Note that we are calculating a weighted average of <span class="math notranslate nohighlight">\(x(\tau_2)x(\tau_1)\)</span> over all paths, where the weighting factor is <span class="math notranslate nohighlight">\(e^{-S[x]}\)</span>. This means that for every path, we take the values of <span class="math notranslate nohighlight">\(x\)</span> at <span class="math notranslate nohighlight">\(\tau_2\)</span> and <span class="math notranslate nohighlight">\(\tau_1\)</span> and multiply them together, with the weight <span class="math notranslate nohighlight">\(e^{-S[x]}\)</span> that involves the entire path.</p>
+<p>In the continuum form, the right side is</p>
+<div class="math notranslate nohighlight">
+\[
+  \int dx\, \langle x| e^{-\widehat H(\tau_f-\tau_2)} \hat x e^{-\widehat H(\tau_2-\tau_1)}
+    \hat x e^{-\widehat H(\tau_1-\tau_i)} | x \rangle ,
+\]</div>
+<p>so with <span class="math notranslate nohighlight">\(T = \tau_f - \tau_i\)</span> and <span class="math notranslate nohighlight">\(\tau = \tau_2 - \tau_1\)</span>, we can insert our complete set of eigenstates to derive</p>
+<div class="math notranslate nohighlight">
+\[
+    \langle\langle x(\tau_2)x(\tau_1) \rangle\rangle =
+    \frac{\sum_n e^{-E_n T} \langle E_n | \hat x e^{-(\widehat H-E_n)\tau}\hat x | E_n\rangle}{\sum_n e^{-E_n T}}
+\]</div>
+<p>Once again, for large <span class="math notranslate nohighlight">\(T\)</span> the ground state will dominate the sums, so</p>
+<div class="math notranslate nohighlight">
+\[
+  G(\tau) \equiv \langle\langle x(\tau_2)x(\tau_1) \rangle\rangle \longrightarrow
+     \langle E_0 | \hat x e^{-(\widehat H - E_0)\tau} \hat x | E_0 \rangle .
+\]</div>
+<p>But what state propagates in the middle? It could be any created by <span class="math notranslate nohighlight">\(\hat x\)</span> acting on the ground state. But this doesn’t <em>include</em> the ground state because <span class="math notranslate nohighlight">\(\hat x\)</span> switches the parity of the state (from even to odd). We can insert a complete set of states again, and if <span class="math notranslate nohighlight">\(\tau \ll T\)</span> is large itself, then the first excited state <span class="math notranslate nohighlight">\(|E_1\rangle\)</span> will be projected out:</p>
+<div class="math notranslate nohighlight">
+\[
+  G(\tau) \overset{\tau\ {\rm large}}{\longrightarrow} |\langle E_0 | \hat x | E_1 \rangle|^2
+    e^{-(E_1-E_0)\tau} .
+\]</div>
+<p>Given <span class="math notranslate nohighlight">\(G(\tau)\)</span>, we can use the <span class="math notranslate nohighlight">\(\tau\)</span> dependence of the exponential (and <span class="math notranslate nohighlight">\(\tau\)</span> independence of the squared matrix element) to isolate the excitation energy and then the matrix element:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}
+  \log(G(\tau)/G(\tau+a) &amp;\overset{\tau\ {\rm large}}{\longrightarrow} (E_1 - E_0)a \\
+  |\langle E_0 | \hat x | E_1 \rangle|^2 &amp;\overset{\tau\ {\rm large}}{\longrightarrow} G(\tau)e^{+(E_1-E_0)\tau} 
+\end{align}\end{split}\]</div>
+<p>We can, in principle, generalize to an arbitrary function of <span class="math notranslate nohighlight">\(x\)</span>, call it <span class="math notranslate nohighlight">\(\Gamma[x]\)</span>, and compute any physical property of the excited states. We can also compute thermal averages at finite <span class="math notranslate nohighlight">\(T\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+  \langle\langle \Gamma[x] \rangle\rangle = 
+    \frac{\sum_n e^{-E_n T} \langle E_n | \Gamma[\hat x] | E_n\rangle}{\sum_n e^{-E_n T}}
+    \quad\mbox{with } T \rightarrow \beta \equiv \frac{1}{k_B T_{\rm temp}} .
+\]</div>
+</section>
+<section id="numerical-evaluation-with-mcmc">
+<h3>Numerical evaluation with MCMC<a class="headerlink" href="#numerical-evaluation-with-mcmc" title="Permalink to this headline">#</a></h3>
+<p>The idea of the Monte Carlo evaluation of</p>
+<div class="math notranslate nohighlight">
+\[
+ \langle\langle \Gamma[x] \rangle\rangle = 
+   \frac{\int\mathcal{D}x(\tau)\, \Gamma[x]e^{-S[x]}}{\int\mathcal{D}x(\tau)\, e^{-S[x]}}
+\]</div>
+<p>is that this is a weighted average of <span class="math notranslate nohighlight">\(\Gamma[x]\)</span> over paths, so if we generate a set of paths that are distributed according to <span class="math notranslate nohighlight">\(e^{-S[x]}\)</span> (that is, the relative probability of a given path is proportional to this factor), then we can just do a direct average of <span class="math notranslate nohighlight">\(\Gamma[x]\)</span> over this set.</p>
+<p>To be explicit, we will generate a large number <span class="math notranslate nohighlight">\(N_{\rm cf}\)</span> of random paths (“configurations” or cf)</p>
+<div class="math notranslate nohighlight">
+\[
+    x^{(\alpha)} \equiv \{ x_0^{(\alpha)}, x_1^{(\alpha)}, \ldots, x_{N-1}^{(\alpha)} \}
+      \quad \alpha = 1,2,\ldots N_{\rm cf}
+\]</div>
+<p>on the time grid such that the probability of getting a particular path <span class="math notranslate nohighlight">\(x^{(\alpha)}\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[
+     P[x^{(\alpha)}] \propto e^{-S[x^{(\alpha)}]} .
+\]</div>
+<p>Then</p>
+<div class="math notranslate nohighlight">
+\[
+   \langle\langle \Gamma[x] \rangle\rangle \approx \overline\Gamma \equiv
+       \frac{1}{N_{\rm cf}}\sum_{\alpha=1}^{N_{\rm cf}} \Gamma[x^{(\alpha)}] .
+\]</div>
+<p>This is equivalent to approximating the probability distribution as</p>
+<div class="math notranslate nohighlight">
+\[
+     P[x] \approx \frac{1}{N_{\rm cf}}\sum_{\alpha=1}^{N_{\rm cf}} \delta(x - x^{(\alpha)}) . 
+\]</div>
+<p>where the delta function is the product of delta functions for each of the <span class="math notranslate nohighlight">\(x_j\)</span>’s. Note that this representation is automatically normalized simply by including the <span class="math notranslate nohighlight">\(1/N_{\rm cf}\)</span> factor.</p>
+<p>How good is the estimate? With a finite number of paths <span class="math notranslate nohighlight">\(N_{\rm cf}\)</span> there is clearly a statistical error <span class="math notranslate nohighlight">\(\sigma_{\overline\Gamma}\)</span>, which he can estimate by calculating the variance using are set of paths:</p>
+<div class="math notranslate nohighlight">
+\[
+  \sigma_{\overline\Gamma}^2 = \frac{\langle\langle \Gamma^2 \rangle\rangle - \langle\langle  \Gamma\rangle\rangle^2}{N_{\rm cf}}
+  \approx \frac{1}{N_{\rm cf}} \left\{  
+      \frac{1}{N_{\rm cf}} \sum_{\alpha=1}^{N_{\rm cf}} \Gamma^2[x^{(\alpha)}] - \overline\Gamma^2
+  \right\} .
+\]</div>
+<p>The numerator for large <span class="math notranslate nohighlight">\(N_{\rm cf}\)</span> is independent of <span class="math notranslate nohighlight">\(N_{\rm cf}\)</span> (e.g., it can be calculated directly, in principle, from quantum mechanics), so the error decreases as <span class="math notranslate nohighlight">\(\sigma_{\overline\Gamma} \propto 1/\sqrt{N_{\rm cf}}\)</span> with increasing <span class="math notranslate nohighlight">\(N_{\rm cf}\)</span>.</p>
+<p>We can use Markov Chain Monte Carlo (MCMC) to generate our sample of paths, first by the Metropolis algorithm and then by more sophisticated methods. Starting from an arbitrary path <span class="math notranslate nohighlight">\(x^{(0)}\)</span>, we generate a series of subsequent paths by considering each lattice site in turn, randomizing the <span class="math notranslate nohighlight">\(x_j\)</span>’s at these sites according to the algorithm, to generate a new path, and then repeat until we have <span class="math notranslate nohighlight">\(N_{\rm cf}\)</span> random paths. The Metropolis algorithm applied to <span class="math notranslate nohighlight">\(x_j\)</span> at the <span class="math notranslate nohighlight">\(j^{\rm th}\)</span> site is:</p>
+<ul class="simple">
+<li><p>generate a random number <span class="math notranslate nohighlight">\(\zeta \sim U(-\epsilon,\epsilon)\)</span>, that is <span class="math notranslate nohighlight">\(\zeta\)</span> is uniformly distributed from <span class="math notranslate nohighlight">\(-\zeta\)</span> to <span class="math notranslate nohighlight">\(+\zeta\)</span>, for a constant <em>step size</em> <span class="math notranslate nohighlight">\(\epsilon\)</span> (see later);</p></li>
+<li><p>replace <span class="math notranslate nohighlight">\(x_j \rightarrow x_j + \zeta\)</span> and compute the change <span class="math notranslate nohighlight">\(\Delta S\)</span> in the action as a result of this replacement (local Lagrangian means this only requires considering a few terms);</p></li>
+<li><p>if <span class="math notranslate nohighlight">\(\Delta S &lt; 0\)</span> (action reduced) then retain new <span class="math notranslate nohighlight">\(x_j\)</span> and move to the next site;</p></li>
+<li><p>if <span class="math notranslate nohighlight">\(\Delta S &gt; 0\)</span>, generate a random number <span class="math notranslate nohighlight">\(\eta \sim U(0,1)\)</span> (uniform from 0 to 1) and retain the new <span class="math notranslate nohighlight">\(x_j\)</span> if <span class="math notranslate nohighlight">\(e^{-\Delta S} &gt; \eta\)</span>, else restore the old <span class="math notranslate nohighlight">\(x_j\)</span>; move to the next site.</p></li>
+</ul>
+<p>Comments:</p>
+<ul class="simple">
+<li><p>Whether or not many of the <span class="math notranslate nohighlight">\(x_j\)</span>’s do not change in successive paths depends a lot on <span class="math notranslate nohighlight">\(\epsilon\)</span>. If <span class="math notranslate nohighlight">\(\epsilon\)</span> is very large, then the changes in <span class="math notranslate nohighlight">\(x_j\)</span> are large and many or most will be rejected; if <span class="math notranslate nohighlight">\(\epsilon\)</span> is very small, then the changes in <span class="math notranslate nohighlight">\(x_j\)</span> are small and most will be accepted, but the path will be close to the same.</p></li>
+<li><p>Neither situation is good: both slow down the exploration of the space of important paths.</p></li>
+<li><p>Claim: usually tune <span class="math notranslate nohighlight">\(\epsilon\)</span> so 40% to 60% of the <span class="math notranslate nohighlight">\(x_j\)</span>’s change on each sweep. This implies that <span class="math notranslate nohighlight">\(\epsilon\)</span> is the same order as the typical quantum fluctuations expected.</p></li>
+<li><p>Because the paths take time to get decorrelated, we should only keep every <span class="math notranslate nohighlight">\(N_{\rm cor}\)</span> path. The optimal value can be determined empirically; here the optimal <span class="math notranslate nohighlight">\(N_{\rm cor}\)</span> depends on <span class="math notranslate nohighlight">\(a\)</span> as <span class="math notranslate nohighlight">\(1/a^2\)</span>.</p></li>
+<li><p>When starting the algorithm, the first configuration is atypical (usually). So we should have a thermalization period where the first paths are discarded. Recommendation: five to ten times <span class="math notranslate nohighlight">\(N_{\rm cor}\)</span> should be discarded.</p></li>
+</ul>
+</section>
+<section id="bootstrap-and-binning">
+<h3>Bootstrap and binning<a class="headerlink" href="#bootstrap-and-binning" title="Permalink to this headline">#</a></h3>
+</section>
+<section id="higher-order-discretization">
+<h3>Higher-order discretization<a class="headerlink" href="#higher-order-discretization" title="Permalink to this headline">#</a></h3>
+<p>Suppose we rewrite the action for one-dimensional quantum mechanics by integrating the kinetic term by parts (assuming <span class="math notranslate nohighlight">\(x(\tau_i)=x(\tau_f)=x\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+  S[x] \equiv \int_{\tau_i}^{\tau_f} d\tau\, \bigl[-\frac{1}{2}m x(\tau)\ddot x(\tau) + V(x(\tau))\bigr]
+\]</div>
+<p>The discretization is</p>
+<div class="math notranslate nohighlight">
+\[
+  \ddot x(t) \longrightarrow \Delta^{(2)}x_j \equiv \frac{x_{j+1}-2x_{j}+x_{j-1}}{a^2}
+\]</div>
+<p>where the <span class="math notranslate nohighlight">\(x_j\)</span>’s wrap around at the ends: <span class="math notranslate nohighlight">\(x_0 = x_{N}\)</span>, <span class="math notranslate nohighlight">\(x_{-1} = x_{N-1}\)</span>, and so on.</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "furnstahl/7501-JB",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./notebooks/Path_integrals"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Dick Furnstahl<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
