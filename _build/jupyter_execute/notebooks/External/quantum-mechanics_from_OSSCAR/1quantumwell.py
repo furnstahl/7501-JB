@@ -62,7 +62,8 @@
 #     </details>
 #     
 # 4. Keeping the sliders for the width and the height of the well at their default values and selecting the "Probability density" option, investigate the probability of a previously confined particle tunnelling through the potential well.
-#   <details>
+# 
+#     <details>
 #     <summary style="color: red">Solution</summary>
 #        One can see that even although the potential outside the well is greater than the energy of the particle, there exists a non-zero probability of finding said particle at a position outside the well. This possibility of the particle "tunnelling" through the potential barrier in this way is a purely quantum mechanical effect. In the classical picture of this system one would never expect to observe the particle outside the confines of the potential well. 
 #     </details>
