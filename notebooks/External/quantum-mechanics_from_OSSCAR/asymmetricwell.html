@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Avoided Crossing in One Dimensional Asymmetric Quantum Well &#8212; Quantum Mechanics I</title>
+    <title>Avoided crossing example &#8212; Quantum Mechanics I</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -56,7 +56,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <link rel="next" title="Complex Numbers and Trigonometry" href="../Quantitative_Economics_with_Python_complex_numbers_and_trig.html" />
-    <link rel="prev" title="The Multiple Split Operator Fourier Transform (MSOFT) method" href="msoft.html" />
+    <link rel="prev" title="TD S-eqn using MSOFT" href="msoft.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -168,30 +168,22 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="shooting_method.html">
-     <strong>
-      Shooting Method with Numerov Algorithm to Solve the Time Independent Schrödinger Equation for 1D Quantum Well
-     </strong>
+     Shooting Method with Numerov Algorithm
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="soft.html">
-     <strong>
-      Numerical Solution of 1D Time Dependent Schrödinger Equation by Split Operator Fourier Transform (SOFT) Method
-     </strong>
+     TD S-eqn using SOFT
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="msoft.html">
-     <strong>
-      The Multiple Split Operator Fourier Transform (MSOFT) method
-     </strong>
+     TD S-eqn using MSOFT
     </a>
    </li>
    <li class="toctree-l2 current active">
     <a class="current reference internal" href="#">
-     <strong>
-      Avoided Crossing in One Dimensional Asymmetric Quantum Well
-     </strong>
+     Avoided crossing example
     </a>
    </li>
   </ul>
@@ -250,21 +242,9 @@ const thebe_selector_output = ".output, .cell_output"
      Python and Jupyter notebooks: part 02
     </a>
    </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../../content/Reference/advanced.html">
-   Advanced topics
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../../content/Reference/using_github.html">
-     Using GitHub
+    <a class="reference internal" href="../../../content/Reference/advanced.html">
+     Advanced topics
     </a>
    </li>
   </ul>
@@ -279,6 +259,11 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="../../../content/zbibliography.html">
    Bibliography
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../content/Reference/using_github.html">
+   Using GitHub
   </a>
  </li>
  <li class="toctree-l1">
@@ -512,9 +497,7 @@ title="Print to PDF"
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#">
-   <strong>
-    Avoided Crossing in One Dimensional Asymmetric Quantum Well
-   </strong>
+   Avoided crossing example
   </a>
   <ul class="visible nav section-nav flex-column">
    <li class="toc-h2 nav-item toc-entry">
@@ -571,7 +554,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Avoided Crossing in One Dimensional Asymmetric Quantum Well</h1>
+                <h1>Avoided crossing example</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -583,9 +566,7 @@ title="Print to PDF"
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#">
-   <strong>
-    Avoided Crossing in One Dimensional Asymmetric Quantum Well
-   </strong>
+   Avoided crossing example
   </a>
   <ul class="visible nav section-nav flex-column">
    <li class="toc-h2 nav-item toc-entry">
@@ -643,8 +624,8 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="avoided-crossing-in-one-dimensional-asymmetric-quantum-well">
-<h1><strong>Avoided Crossing in One Dimensional Asymmetric Quantum Well</strong><a class="headerlink" href="#avoided-crossing-in-one-dimensional-asymmetric-quantum-well" title="Permalink to this headline">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="avoided-crossing-example">
+<h1>Avoided crossing example<a class="headerlink" href="#avoided-crossing-example" title="Permalink to this headline">#</a></h1>
 <p><strong>Authors:</strong> Dou Du, Taylor James Baird and Giovanni Pizzi</p>
 <p><i class="fa fa-home fa-2x"></i><a href="../index.ipynb" style="font-size: 20px"> Go back to index</a></p>
 <p><strong>Source code:</strong> <a class="reference external" href="https://github.com/osscar-org/quantum-mechanics/blob/master/notebook/quantum-mechanics/asymmetricwell.ipynb">https://github.com/osscar-org/quantum-mechanics/blob/master/notebook/quantum-mechanics/asymmetricwell.ipynb</a></p>
@@ -1035,7 +1016,7 @@ see all states again. Additionally, there is a radio button which enables one to
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><strong>The Multiple Split Operator Fourier Transform (MSOFT) method</strong></p>
+            <p class="prev-next-title">TD S-eqn using MSOFT</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="../Quantitative_Economics_with_Python_complex_numbers_and_trig.html" title="next page">

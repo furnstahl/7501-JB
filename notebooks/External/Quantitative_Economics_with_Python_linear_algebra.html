@@ -168,30 +168,22 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="quantum-mechanics_from_OSSCAR/shooting_method.html">
-     <strong>
-      Shooting Method with Numerov Algorithm to Solve the Time Independent Schrödinger Equation for 1D Quantum Well
-     </strong>
+     Shooting Method with Numerov Algorithm
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="quantum-mechanics_from_OSSCAR/soft.html">
-     <strong>
-      Numerical Solution of 1D Time Dependent Schrödinger Equation by Split Operator Fourier Transform (SOFT) Method
-     </strong>
+     TD S-eqn using SOFT
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="quantum-mechanics_from_OSSCAR/msoft.html">
-     <strong>
-      The Multiple Split Operator Fourier Transform (MSOFT) method
-     </strong>
+     TD S-eqn using MSOFT
     </a>
    </li>
    <li class="toctree-l2">
     <a class="reference internal" href="quantum-mechanics_from_OSSCAR/asymmetricwell.html">
-     <strong>
-      Avoided Crossing in One Dimensional Asymmetric Quantum Well
-     </strong>
+     Avoided crossing example
     </a>
    </li>
   </ul>
@@ -250,21 +242,9 @@ const thebe_selector_output = ".output, .cell_output"
      Python and Jupyter notebooks: part 02
     </a>
    </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../../content/Reference/advanced.html">
-   Advanced topics
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-  <label for="toctree-checkbox-3">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
    <li class="toctree-l2">
-    <a class="reference internal" href="../../content/Reference/using_github.html">
-     Using GitHub
+    <a class="reference internal" href="../../content/Reference/advanced.html">
+     Advanced topics
     </a>
    </li>
   </ul>
@@ -279,6 +259,11 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="../../content/zbibliography.html">
    Bibliography
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/Reference/using_github.html">
+   Using GitHub
   </a>
  </li>
  <li class="toctree-l1">
@@ -1388,20 +1373,20 @@ resulting matrix <span class="math notranslate nohighlight">\( A B \)</span> is 
 <p><a id='equation-la-atx'></a>
 $$
 A x =</p>
-<div class="amsmath math notranslate nohighlight" id="equation-09711142-95b3-4e58-a484-0e7968d8f084">
-<span class="eqno">(1)<a class="headerlink" href="#equation-09711142-95b3-4e58-a484-0e7968d8f084" title="Permalink to this equation">#</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-c1de3d93-c259-4736-8272-d2e70d492a3a">
+<span class="eqno">(1)<a class="headerlink" href="#equation-c1de3d93-c259-4736-8272-d2e70d492a3a" title="Permalink to this equation">#</a></span>\[\begin{bmatrix}
     a_{11} &amp;  \cdots &amp; a_{1k} \\
     \vdots &amp; \vdots  &amp; \vdots \\
     a_{n1} &amp;  \cdots &amp; a_{nk}
 \end{bmatrix}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-76b2df68-f337-43cb-903b-41b2fb32dedc">
-<span class="eqno">(2)<a class="headerlink" href="#equation-76b2df68-f337-43cb-903b-41b2fb32dedc" title="Permalink to this equation">#</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-18c61470-f1fa-4168-97e9-33cc322dc3a0">
+<span class="eqno">(2)<a class="headerlink" href="#equation-18c61470-f1fa-4168-97e9-33cc322dc3a0" title="Permalink to this equation">#</a></span>\[\begin{bmatrix}
     x_{1}  \\
     \vdots  \\
     x_{k}
 \end{bmatrix}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-31fb1c37-634c-4bab-8cc5-d8ec74566d5a">
-<span class="eqno">(3)<a class="headerlink" href="#equation-31fb1c37-634c-4bab-8cc5-d8ec74566d5a" title="Permalink to this equation">#</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-5cee0a33-a4a9-418e-b2d0-f15445b65437">
+<span class="eqno">(3)<a class="headerlink" href="#equation-5cee0a33-a4a9-418e-b2d0-f15445b65437" title="Permalink to this equation">#</a></span>\[\begin{bmatrix}
     a_{11} x_1 + \cdots + a_{1k} x_k \\
     \vdots \\
     a_{n1} x_1 + \cdots + a_{nk} x_k
