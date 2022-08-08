@@ -1,0 +1,1469 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Path integrals for quantum mechanics with MCMC libraries &#8212; Quantum Mechanics I</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"tex": {"macros": {"N": "\\mathbb{N}", "avec": ["\\boldsymbol{a}"], "floor": ["\\lfloor#1\\rfloor", 1], "bmat": ["\\left[\\begin{array}"], "emat": ["\\end{array}\\right]"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Quantum Mechanics I</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../about.html">
+                    About Physics 7501: Quantum Mechanics I
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Course overview
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/Course/overview.html">
+   Objectives
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Notebooks for 7501
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Numerical_derivative_tests.html">
+   Exponentiating operators
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Lepage_Lattice_QCD_for_Novices_code_selfcontained.html">
+   Path integral explorations
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  External QM notebooks
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../External/harmonic_oscillator_Jendrzejewski.html">
+   Quantum harmonic oscillator
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../External/Example_Quantum_Calculations_sympy.html">
+   QM with Sympy
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../content/External/OSSCAR_notebooks.html">
+   QM notebooks from OSSCAR
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../External/quantum-mechanics_from_OSSCAR/1quantumwell.html">
+     Finite well in 1D
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../External/quantum-mechanics_from_OSSCAR/2quantumwells.html">
+     Two finite wells in 1D
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../External/quantum-mechanics_from_OSSCAR/shooting_method.html">
+     Shooting Method with Numerov Algorithm
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../External/quantum-mechanics_from_OSSCAR/soft.html">
+     TD S-eqn using SOFT
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../External/quantum-mechanics_from_OSSCAR/msoft.html">
+     TD S-eqn using MSOFT
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../External/quantum-mechanics_from_OSSCAR/asymmetricwell.html">
+     Avoided crossing example
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Math notebooks
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../External/Quantitative_Economics_with_Python_complex_numbers_and_trig.html">
+   Complex Numbers and Trigonometry
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../External/Quantitative_Economics_with_Python_linear_algebra.html">
+   Linear Algebra
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../External/Quantitative_Economics_with_Python_svd_intro.html">
+   Singular Value Decomposition (SVD)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Getting started with Python
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/Reference/installing_anaconda.html">
+   Using Anaconda
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../content/Reference/python_jupyter.html">
+   Python and Jupyter notebooks
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Reference/Jupyter_Python_intro_01.html">
+     Python and Jupyter notebooks: part 01
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Reference/Jupyter_Python_intro_02.html">
+     Python and Jupyter notebooks: part 02
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/Reference/advanced.html">
+     Advanced topics
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Reference material
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/zbibliography.html">
+   Bibliography
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/Reference/using_github.html">
+   Using GitHub
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/jb_tests.html">
+   Examples: Jupyter jb-book
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/furnstahl/7501-JB/main?urlpath=tree/./notebooks/Path_integrals/Lepage_Lattice_QCD_for_Novices_code.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/furnstahl/7501-JB"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/furnstahl/7501-JB/issues/new?title=Issue%20on%20page%20%2Fnotebooks/Path_integrals/Lepage_Lattice_QCD_for_Novices_code.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/notebooks/Path_integrals/Lepage_Lattice_QCD_for_Novices_code.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#python-imports">
+   Python imports
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#d-potentials">
+   1-d potentials
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#make-some-plots-of-harmonic-oscillator">
+     Make some plots of harmonic oscillator
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#metropolis-calculation-section-2-2-of-lepage-lectures">
+   Metropolis calculation (section 2.2 of Lepage lectures)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#class-for-path-integral">
+   Class for path integral
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discretize-time">
+     Discretize time
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#set-the-number-of-configurations-to-generate-nconfig-and-the-correlation-time-ncorr">
+     Set the number of configurations to generate (Nconfig) and the correlation time (Ncorr)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#set-up-the-metropolis-procedure-for-the-energy">
+     Set up the Metropolis procedure for the energy
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#test-of-emcee">
+     Test of emcee
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#try-with-zeus">
+     Try with zeus
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#trying-a-larger-lattice-spacing-a">
+     Trying a larger lattice spacing a
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Path integrals for quantum mechanics with MCMC libraries</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#python-imports">
+   Python imports
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#d-potentials">
+   1-d potentials
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#make-some-plots-of-harmonic-oscillator">
+     Make some plots of harmonic oscillator
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#metropolis-calculation-section-2-2-of-lepage-lectures">
+   Metropolis calculation (section 2.2 of Lepage lectures)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#class-for-path-integral">
+   Class for path integral
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#discretize-time">
+     Discretize time
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#set-the-number-of-configurations-to-generate-nconfig-and-the-correlation-time-ncorr">
+     Set the number of configurations to generate (Nconfig) and the correlation time (Ncorr)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#set-up-the-metropolis-procedure-for-the-energy">
+     Set up the Metropolis procedure for the energy
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#test-of-emcee">
+     Test of emcee
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#try-with-zeus">
+     Try with zeus
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#trying-a-larger-lattice-spacing-a">
+     Trying a larger lattice spacing a
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="path-integrals-for-quantum-mechanics-with-mcmc-libraries">
+<h1>Path integrals for quantum mechanics with MCMC libraries<a class="headerlink" href="#path-integrals-for-quantum-mechanics-with-mcmc-libraries" title="Permalink to this headline">#</a></h1>
+<section id="python-imports">
+<h2>Python imports<a class="headerlink" href="#python-imports" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">load_ext</span> autoreload
+<span class="o">%</span><span class="k">autoreload</span> 2
+<span class="o">%</span><span class="k">matplotlib</span> inline
+
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">uniform</span><span class="p">,</span> <span class="n">normal</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">integrate</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span><span class="p">;</span> <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;darkgrid&quot;</span><span class="p">);</span> <span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;talk&quot;</span><span class="p">)</span>
+
+
+<span class="kn">from</span> <span class="nn">Potential</span> <span class="kn">import</span> <span class="n">Potential</span><span class="p">,</span> <span class="n">V_HO</span><span class="p">,</span> <span class="n">V_aHO</span>
+<span class="kn">from</span> <span class="nn">Lepage</span> <span class="kn">import</span> <span class="n">PathIntegral</span><span class="p">,</span> <span class="n">bootstrap</span><span class="p">,</span> <span class="n">binning</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="d-potentials">
+<h2>1-d potentials<a class="headerlink" href="#d-potentials" title="Permalink to this headline">#</a></h2>
+<section id="make-some-plots-of-harmonic-oscillator">
+<h3>Make some plots of harmonic oscillator<a class="headerlink" href="#make-some-plots-of-harmonic-oscillator" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Instantiate a harmonic oscillator potential </span>
+<span class="n">mass</span> <span class="o">=</span> <span class="mf">1.</span>  
+<span class="n">k_osc</span> <span class="o">=</span> <span class="mf">1.</span>  <span class="c1"># oscillator constant </span>
+<span class="n">hbar</span> <span class="o">=</span> <span class="mf">1.</span> 
+
+<span class="n">test_ho</span> <span class="o">=</span> <span class="n">V_HO</span><span class="p">(</span><span class="n">k_osc</span><span class="p">,</span> <span class="n">hbar</span><span class="p">,</span> <span class="n">mass</span><span class="p">)</span>    <span class="c1"># harmonic oscillator</span>
+<span class="n">test_aho</span> <span class="o">=</span> <span class="n">V_aHO</span><span class="p">(</span><span class="n">k_osc</span><span class="p">,</span> <span class="n">hbar</span><span class="p">,</span> <span class="n">mass</span><span class="p">)</span>  <span class="c1"># aharmonic oscillator</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check the wave function and potential</span>
+<span class="n">x_pts_all</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mf">4.</span><span class="p">,</span> <span class="mf">4.</span><span class="p">,</span> <span class="mf">.01</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="c1">#ax.set_ylabel(r&#39;g(x)&#39;)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">4.</span><span class="p">,</span> <span class="mf">4.</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dotted&#39;</span><span class="p">)</span>
+
+<span class="n">test_ho</span><span class="o">.</span><span class="n">plot_V</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">x_pts_all</span><span class="p">,</span> <span class="n">V_label</span><span class="o">=</span><span class="s1">&#39;HO potential&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_pts_all</span><span class="p">,</span> <span class="n">test_ho</span><span class="o">.</span><span class="n">wf_gs</span><span class="p">(</span><span class="n">x_pts_all</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;gs wf&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">test_ho</span><span class="o">.</span><span class="n">V_string</span><span class="si">}</span><span class="s1"> with k_osc = </span><span class="si">{</span><span class="n">k_osc</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">, mass = </span><span class="si">{</span><span class="n">mass</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_6_0.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_6_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Normalization check of wave function squared</span>
+<span class="n">integrate</span><span class="o">.</span><span class="n">simps</span><span class="p">(</span><span class="n">test_ho</span><span class="o">.</span><span class="n">wf_gs</span><span class="p">(</span><span class="n">x_pts_all</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">x_pts_all</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9999999839221155
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="metropolis-calculation-section-2-2-of-lepage-lectures">
+<h2>Metropolis calculation (section 2.2 of Lepage lectures)<a class="headerlink" href="#metropolis-calculation-section-2-2-of-lepage-lectures" title="Permalink to this headline">#</a></h2>
+<p>Now instead of an integration over all paths, we want to select a representative sampling of the “paths” that are distributed according to <span class="math notranslate nohighlight">\(e^{-S[x]}\)</span>.  If we succeed, we can take an unweighted average over these paths to approximate the weighted average over uniformly distributed paths.</p>
+<p>We will use the Metropolis algorithm to generate a sequence of paths.</p>
+<p>Define a function to initialize the first path, which is set to zero at each of the Npts times:</p>
+<p>We update the path following the Metropolis algorithm:</p>
+<ol class="simple">
+<li><p>Step through each time point from j = 0 to Npts-1</p></li>
+<li><p>Save the value of the path at current time point j</p></li>
+<li><p>Calculate the current value of the action (only considering contributions that depend on j with speed)</p></li>
+<li><p>Generate a random number xi from -epsilon to epsilon and consider x_j –&gt; x_j + xi</p></li>
+<li><p>Find Delta S (change in the action) for this change:<br />
+a. If Delta S &lt; 0 (action reduced), keep new x_j and go to next value of j.<br />
+b. If Delta S &gt; 0 (action increased), generate eta between 0 and 1. Keep new x_j if exp(-Delta S) &gt; eta, otherwise keep old value and move on to the next j.</p></li>
+<li><p>In general we keep track of the “success” rate and adjust epsilon so that it is about 50% successes.</p></li>
+</ol>
+<p>Define a function to do this update and print the new path at the end.</p>
+<p>Define a function to calculate the contribution to the Hamiltonian (the energy) from time point j:</p>
+<p>To do:</p>
+<ul class="simple">
+<li><p>Check for equilibration</p></li>
+<li><p>Check for autocorrelation</p></li>
+<li><p>Histogram the energy calculations and compare to the expected error</p></li>
+</ul>
+</section>
+<section id="class-for-path-integral">
+<h2>Class for path integral<a class="headerlink" href="#class-for-path-integral" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Modules needed for example: emcee is for MCMCsampling, corner for plotting</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+<span class="kn">import</span> <span class="nn">emcee</span>
+<span class="kn">import</span> <span class="nn">corner</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="discretize-time">
+<h3>Discretize time<a class="headerlink" href="#discretize-time" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Delta_T</span> <span class="o">=</span> <span class="mf">0.25</span>           <span class="c1"># DeltaT --&gt; &quot;a&quot; in Lepage</span>
+<span class="n">N_pts</span> <span class="o">=</span> <span class="mi">20</span>              <span class="c1"># N_pts --&gt; &quot;N&quot; in Lepage </span>
+<span class="n">Tmax</span> <span class="o">=</span> <span class="n">Delta_T</span> <span class="o">*</span> <span class="n">N_pts</span>   <span class="c1"># Tmax --&gt; &quot;T&quot; in Lepage</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="set-the-number-of-configurations-to-generate-nconfig-and-the-correlation-time-ncorr">
+<h3>Set the number of configurations to generate (Nconfig) and the correlation time (Ncorr)<a class="headerlink" href="#set-the-number-of-configurations-to-generate-nconfig-and-the-correlation-time-ncorr" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N_config</span> <span class="o">=</span> <span class="mi">100</span>   <span class="c1"># We&#39;ll want to try 25, 100, 1000, 10000 </span>
+<span class="n">N_corr</span> <span class="o">=</span> <span class="mi">20</span>      <span class="c1"># Lepage recommends 20 or so </span>
+<span class="n">eps</span> <span class="o">=</span> <span class="mf">1.4</span>        <span class="c1"># suggested epsilon</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="set-up-the-metropolis-procedure-for-the-energy">
+<h3>Set up the Metropolis procedure for the energy<a class="headerlink" href="#set-up-the-metropolis-procedure-for-the-energy" title="Permalink to this headline">#</a></h3>
+<p>Here is the basic plan:</p>
+<ol class="simple">
+<li><p>Initialize the first path to all zeros for x_j.</p></li>
+<li><p>Do (5-10)*Ncorr updates to thermalize the path.</p></li>
+<li><p>Update Ncorr times, keep that path (or do the calculation of the energy with that path).</p></li>
+<li><p>Repeat the last step Nconfig times.</p></li>
+<li><p>Average the Nconfig values of the energy to get the estimate.</p></li>
+</ol>
+<p>Ok, let’s set it up!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Instantiate a harmonic oscillator potential</span>
+<span class="n">mass</span> <span class="o">=</span> <span class="mf">1.</span>  
+<span class="n">k_osc</span> <span class="o">=</span> <span class="mf">1.</span>  <span class="c1"># oscillator constant </span>
+<span class="n">hbar</span> <span class="o">=</span> <span class="mf">1.</span> 
+
+<span class="n">test_ho</span> <span class="o">=</span> <span class="n">V_HO</span><span class="p">(</span><span class="n">k_osc</span><span class="p">,</span> <span class="n">hbar</span><span class="p">,</span> <span class="n">mass</span><span class="p">)</span>
+<span class="n">test_aho</span> <span class="o">=</span> <span class="n">V_aHO</span><span class="p">(</span><span class="n">k_osc</span><span class="p">,</span> <span class="n">hbar</span><span class="p">,</span> <span class="n">mass</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">testPI</span> <span class="o">=</span> <span class="n">PathIntegral</span><span class="p">(</span><span class="n">V_pot</span><span class="o">=</span><span class="n">test_ho</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_path</span> <span class="o">=</span> <span class="n">testPI</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">eps</span><span class="o">=</span><span class="mf">.1</span><span class="p">)</span>
+<span class="n">testPI</span><span class="o">.</span><span class="n">display_x_path</span><span class="p">(</span><span class="n">x_path</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[-0.17826508  0.0192446   0.06089165 -0.00111553 -0.03090047  0.0318631
+  0.11237734 -0.00446076  0.03626776 -0.1232189  -0.06187099 -0.05295375
+  0.18363028 -0.02503797 -0.01463466 -0.21276804  0.1804236  -0.10948478
+  0.09849947 -0.00396124]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">testPI</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">x_path</span><span class="p">)</span>
+<span class="n">testPI</span><span class="o">.</span><span class="n">display_x_path</span><span class="p">(</span><span class="n">x_path</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[-0.11069629  0.0192446   0.31992098 -0.00111553 -0.15912881  0.0318631
+  0.40915769 -0.00446076  0.03626776 -0.1232189  -0.06187099 -0.05295375
+ -0.22951558 -0.21468307 -0.01463466 -0.21276804  0.1804236  -0.10948478
+  0.09849947 -0.00396124]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Delta_T</span> <span class="o">=</span> <span class="mf">0.25</span>           <span class="c1"># Delta_T --&gt; &quot;a&quot; in Lepage</span>
+<span class="n">N_pts</span> <span class="o">=</span> <span class="mi">20</span>               <span class="c1"># N_pts --&gt; &quot;N&quot; in Lepage </span>
+<span class="n">Tmax</span> <span class="o">=</span> <span class="n">Delta_T</span> <span class="o">*</span> <span class="n">N_pts</span>   <span class="c1"># Tmax --&gt; &quot;T&quot; in Lepage</span>
+
+<span class="n">N_config</span> <span class="o">=</span> <span class="mi">4000</span>  <span class="c1"># We&#39;ll want to try 25, 100, 1000, 10000 </span>
+<span class="n">N_corr</span> <span class="o">=</span> <span class="mi">20</span>      <span class="c1"># Lepage recommends 20 or so </span>
+<span class="n">eps</span> <span class="o">=</span> <span class="mf">1.4</span>        <span class="c1"># suggested epsilon</span>
+
+<span class="n">new_PI</span> <span class="o">=</span> <span class="n">PathIntegral</span><span class="p">(</span><span class="n">Delta_T</span><span class="o">=</span><span class="n">Delta_T</span><span class="p">,</span> <span class="n">N_pts</span><span class="o">=</span><span class="n">N_pts</span><span class="p">,</span> <span class="n">N_config</span><span class="o">=</span><span class="n">N_config</span><span class="p">,</span> 
+                      <span class="n">N_corr</span><span class="o">=</span><span class="n">N_corr</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="n">eps</span><span class="p">,</span> <span class="n">V_pot</span><span class="o">=</span><span class="n">test_ho</span><span class="p">)</span>
+
+<span class="n">list_of_paths</span> <span class="o">=</span> <span class="n">new_PI</span><span class="o">.</span><span class="n">MC_paths</span><span class="p">()</span>
+
+<span class="c1">#print(f&#39;Energy = {E_mean:.5f} +/- {E_sem:.5f}&#39;)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">list_of_paths</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">E_avg</span> <span class="o">=</span> <span class="n">new_PI</span><span class="o">.</span><span class="n">E_avg_over_paths</span><span class="p">(</span><span class="n">list_of_paths</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Average over </span><span class="si">{</span><span class="n">N_config</span><span class="si">}</span><span class="s1"> configurations is </span><span class="si">{</span><span class="n">E_avg</span><span class="si">:</span><span class="s1">.5f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(4000, 20)
+Average over 4000 configurations is 0.49919
+</pre></div>
+</div>
+</div>
+</div>
+<p>At this point we could increase Nconfig to get a better answer or run it many times and average:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_PI</span> <span class="o">=</span> <span class="n">PathIntegral</span><span class="p">(</span><span class="n">Delta_T</span><span class="o">=</span><span class="n">Delta_T</span><span class="p">,</span> <span class="n">N_pts</span><span class="o">=</span><span class="n">N_pts</span><span class="p">,</span> <span class="n">N_config</span><span class="o">=</span><span class="n">N_config</span><span class="p">,</span> 
+                      <span class="n">N_corr</span><span class="o">=</span><span class="n">N_corr</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="n">eps</span><span class="p">,</span> <span class="n">V_pot</span><span class="o">=</span><span class="n">test_ho</span><span class="p">)</span>
+
+<span class="n">list_of_paths</span> <span class="o">=</span> <span class="n">new_PI</span><span class="o">.</span><span class="n">MC_paths</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">energy_avg</span><span class="p">(</span><span class="n">N_trials</span><span class="p">,</span> <span class="n">N_config_each</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the mean and standard deviation of N_trials of the energy</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">my_PI</span> <span class="o">=</span> <span class="n">PathIntegral</span><span class="p">(</span><span class="n">Delta_T</span><span class="o">=</span><span class="n">Delta_T</span><span class="p">,</span> <span class="n">N_pts</span><span class="o">=</span><span class="n">N_pts</span><span class="p">,</span> <span class="n">N_config</span><span class="o">=</span><span class="n">N_config_each</span><span class="p">,</span> 
+                      <span class="n">N_corr</span><span class="o">=</span><span class="n">N_corr</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="n">eps</span><span class="p">,</span> <span class="n">V_pot</span><span class="o">=</span><span class="n">test_ho</span><span class="p">)</span>
+    <span class="n">E_list</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N_trials</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N_trials</span><span class="p">):</span>
+        <span class="n">short_list</span> <span class="o">=</span> <span class="n">my_PI</span><span class="o">.</span><span class="n">MC_paths</span><span class="p">()</span>
+        <span class="n">E_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">my_PI</span><span class="o">.</span><span class="n">E_avg_over_paths</span><span class="p">(</span><span class="n">short_list</span><span class="p">)</span>
+    <span class="c1">#print(E_list)</span>
+    <span class="n">E_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">E_list</span><span class="p">)</span>
+    <span class="n">E_std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">E_list</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">E_mean</span><span class="p">,</span> <span class="n">E_std</span><span class="p">,</span> <span class="n">E_std</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">N_trials</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">E_mean</span><span class="p">,</span> <span class="n">E_std</span><span class="p">,</span> <span class="n">E_sem</span> <span class="o">=</span> <span class="n">energy_avg</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Energy = </span><span class="si">{</span><span class="n">E_mean</span><span class="si">:</span><span class="s1">.5f</span><span class="si">}</span><span class="s1"> +/- </span><span class="si">{</span><span class="n">E_sem</span><span class="si">:</span><span class="s1">.5f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Energy = 0.49968 +/- 0.00411
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">energy_means</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">energy_stds</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">energy_sems</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">N_trials</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N_trials</span><span class="p">):</span>
+    <span class="c1"># energy_avg()</span>
+    <span class="n">E_mean</span><span class="p">,</span> <span class="n">E_std</span><span class="p">,</span> <span class="n">E_sem</span> <span class="o">=</span> <span class="n">energy_avg</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span> <span class="c1"># average over 10 </span>
+    <span class="c1">#print(E_mean)</span>
+    <span class="n">energy_means</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">energy_means</span><span class="p">,</span> <span class="n">E_mean</span><span class="p">)</span>
+    <span class="n">energy_stds</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">energy_stds</span><span class="p">,</span> <span class="n">E_std</span><span class="p">)</span>    
+    <span class="n">energy_sems</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">energy_sems</span><span class="p">,</span> <span class="n">E_sem</span><span class="p">)</span>    
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make a histogram plot of the energy and compare to expected width</span>
+<span class="n">expect_std</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">energy_sems</span><span class="p">)</span>
+<span class="n">actual_std</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">energy_means</span><span class="p">)</span>
+
+<span class="n">mean_of_means</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">energy_means</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;The mean of the energy means is </span><span class="si">{</span><span class="n">mean_of_means</span><span class="si">:</span><span class="s1">.5f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$100 \times (E_{\rm gs} - 0.5) $&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;# of counts&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">fr</span><span class="s1">&#39;$100 \times$ (Expected std = </span><span class="si">{</span><span class="n">expect_std</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">; actual std = </span><span class="si">{</span><span class="n">actual_std</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="mi">100</span><span class="o">*</span><span class="p">(</span><span class="n">energy_means</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">),</span> <span class="n">bins</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;energy&#39;</span><span class="p">)</span>
+
+<span class="c1"># ax.axhline(0., color=&#39;black&#39;, alpha=0.5, linestyle=&#39;dotted&#39;)</span>
+<span class="c1"># ax.plot(x_pts_all, V_HO(x_pts_all), color=&#39;blue&#39;, alpha=1, label=&#39;HO potential&#39;)</span>
+<span class="c1"># ax.plot(x_pts_all, HO_gs_wf(x_pts_all), color=&#39;red&#39;, alpha=1, label=&#39;gs wf&#39;)</span>
+<span class="c1"># ax.set_title(f&#39;Harmonic oscillator with k_osc = {k_osc:.1f}, mass = {mass:.1f}&#39;)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The mean of the energy means is 0.50054
+</pre></div>
+</div>
+<img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_33_1.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_33_1.png" />
+</div>
+</div>
+</section>
+<section id="test-of-emcee">
+<h3>Test of emcee<a class="headerlink" href="#test-of-emcee" title="Permalink to this headline">#</a></h3>
+<p>We’ll take <span class="math notranslate nohighlight">\(\theta\)</span> to be the values of <span class="math notranslate nohighlight">\(x\)</span> at each of the <code class="docutils literal notranslate"><span class="pre">N_pts</span></code> time points. We’ll choose the prior to be uniform in a reasonable range of <span class="math notranslate nohighlight">\(x\)</span>. Lepage suggests <span class="math notranslate nohighlight">\(-5 \leq x \leq +5\)</span> is large enough to have negligible effect. Here <code class="docutils literal notranslate"><span class="pre">X</span></code> will be data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_min</span> <span class="o">=</span> <span class="o">-</span><span class="mf">5.</span>
+<span class="n">x_max</span> <span class="o">=</span> <span class="o">+</span><span class="mf">5.</span>
+<span class="n">min_theta</span> <span class="o">=</span> <span class="n">x_min</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N_pts</span><span class="p">)</span>
+<span class="n">max_theta</span> <span class="o">=</span> <span class="n">x_max</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N_pts</span><span class="p">)</span>
+<span class="n">volume_theta</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">max_theta</span><span class="o">-</span><span class="n">min_theta</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">log_prior</span><span class="p">(</span><span class="n">theta</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Log prior for parameter array theta&#39;&#39;&#39;</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span><span class="o">==</span><span class="n">N_pts</span><span class="p">,</span> <span class="s2">&quot;Parameter vector must have length N_pts.&quot;</span>
+    <span class="c1"># flat prior </span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">logical_and</span><span class="p">(</span><span class="n">min_theta</span><span class="o">&lt;=</span><span class="n">theta</span><span class="p">,</span> <span class="n">theta</span><span class="o">&lt;=</span><span class="n">max_theta</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">():</span> 
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">volume_theta</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+
+<span class="k">def</span> <span class="nf">log_likelihood</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">path_integral</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Log likelihood for path integral given parameter array theta</span>
+<span class="sd">        is given by minus the action for that path.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="o">-</span><span class="n">path_integral</span><span class="o">.</span><span class="n">S_lattice</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+
+<span class="k">def</span> <span class="nf">log_posterior</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">path_integral</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Log posterior for path integral given parameter array theta&#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">log_prior</span><span class="p">(</span><span class="n">theta</span><span class="p">)</span> <span class="o">+</span> <span class="n">log_likelihood</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">path_integral</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">path_integral</span> <span class="o">=</span> <span class="n">new_PI</span>
+<span class="n">N_corr</span> <span class="o">=</span> <span class="mi">20</span>      <span class="c1"># Lepage recommends 20 or so </span>
+
+<span class="n">ndim</span> <span class="o">=</span> <span class="n">N_pts</span>  <span class="c1"># number of parameters in the model</span>
+<span class="n">nwalkers</span> <span class="o">=</span> <span class="mi">50</span>  <span class="c1"># number of MCMC walkers</span>
+<span class="n">nburn</span> <span class="o">=</span> <span class="mi">50</span> <span class="o">*</span> <span class="n">N_corr</span>  <span class="c1"># &quot;burn-in&quot; period to let chains stabilize</span>
+<span class="n">nsteps</span> <span class="o">=</span> <span class="mi">20000</span>  <span class="c1"># number of MCMC steps to take</span>
+
+<span class="c1"># we&#39;ll start at random locations within the prior volume</span>
+<span class="c1"># we&#39;ll change this to normal distribution</span>
+<span class="c1"># starting_guesses = min_theta + \</span>
+<span class="c1">#                    (max_theta - min_theta) * np.random.rand(nwalkers,ndim)</span>
+<span class="n">starting_guesses</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_max</span><span class="o">/</span><span class="mi">10</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">nwalkers</span><span class="p">,</span><span class="n">ndim</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MCMC sampling using emcee (affine-invariant ensamble sampler) with </span><span class="si">{</span><span class="n">nwalkers</span><span class="si">}</span><span class="s2"> walkers&quot;</span><span class="p">)</span>
+<span class="n">sampler</span> <span class="o">=</span> <span class="n">emcee</span><span class="o">.</span><span class="n">EnsembleSampler</span><span class="p">(</span><span class="n">nwalkers</span><span class="p">,</span> <span class="n">ndim</span><span class="p">,</span> <span class="n">log_posterior</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">path_integral</span><span class="p">])</span>
+
+<span class="c1"># &quot;burn-in&quot; period; save final positions and then reset</span>
+<span class="n">pos</span><span class="p">,</span> <span class="n">prob</span><span class="p">,</span> <span class="n">state</span> <span class="o">=</span> <span class="n">sampler</span><span class="o">.</span><span class="n">run_mcmc</span><span class="p">(</span><span class="n">starting_guesses</span><span class="p">,</span> <span class="n">nburn</span><span class="p">)</span>
+<span class="n">sampler</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+
+<span class="c1"># sampling period</span>
+<span class="n">sampler</span><span class="o">.</span><span class="n">run_mcmc</span><span class="p">(</span><span class="n">pos</span><span class="p">,</span> <span class="n">nsteps</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Mean acceptance fraction: </span><span class="si">{0:.3f}</span><span class="s2"> (in total </span><span class="si">{1}</span><span class="s2"> steps)&quot;</span>
+                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sampler</span><span class="o">.</span><span class="n">acceptance_fraction</span><span class="p">),</span><span class="n">nwalkers</span><span class="o">*</span><span class="n">nsteps</span><span class="p">))</span>
+
+<span class="c1"># discard burn-in points and flatten the walkers; the shape of samples is (nwalkers*nsteps, ndim)</span>
+<span class="n">samples</span> <span class="o">=</span> <span class="n">sampler</span><span class="o">.</span><span class="n">chain</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">ndim</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MCMC sampling using emcee (affine-invariant ensamble sampler) with 50 walkers
+Mean acceptance fraction: 0.299 (in total 1000000 steps)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># tau = sampler.get_autocorr_time()</span>
+<span class="c1"># print(tau)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">samples</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">E_avg</span> <span class="o">=</span> <span class="n">new_PI</span><span class="o">.</span><span class="n">E_avg_over_paths</span><span class="p">(</span><span class="n">samples</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Average over </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">nwalkers</span><span class="o">*</span><span class="n">nsteps</span><span class="p">)</span><span class="si">}</span><span class="s1"> configurations is </span><span class="si">{</span><span class="n">E_avg</span><span class="si">:</span><span class="s1">.5f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1000000, 20)
+Average over 1000000 configurations is 0.49964
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">samples_thinned</span> <span class="o">=</span> <span class="n">sampler</span><span class="o">.</span><span class="n">get_chain</span><span class="p">(</span><span class="n">discard</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">flat</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">thin</span><span class="o">=</span><span class="n">N_corr</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">samples_thinned</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">E_avg</span> <span class="o">=</span> <span class="n">new_PI</span><span class="o">.</span><span class="n">E_avg_over_paths</span><span class="p">(</span><span class="n">samples_thinned</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Average over </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">nwalkers</span><span class="o">*</span><span class="n">nsteps</span><span class="o">/</span><span class="n">N_corr</span><span class="p">)</span><span class="si">}</span><span class="s1"> configurations is </span><span class="si">{</span><span class="n">E_avg</span><span class="si">:</span><span class="s1">.5f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(50000, 20)
+Average over 50000 configurations is 0.49938
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># make a corner plot with the posterior distribution</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">str</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="nb">str</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N_pts</span><span class="p">)]</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">corner</span><span class="o">.</span><span class="n">corner</span><span class="p">(</span><span class="n">samples_thinned</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span>
+                    <span class="n">quantiles</span><span class="o">=</span><span class="p">[</span><span class="mf">0.16</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.84</span><span class="p">],</span>
+                    <span class="n">show_titles</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">title_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;fontsize&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_40_0.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_40_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check the wave function and potential</span>
+<span class="n">x_pts_all</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mf">4.</span><span class="p">,</span> <span class="mf">4.</span><span class="p">,</span> <span class="mf">.01</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="c1">#ax.set_ylabel(r&#39;g(x)&#39;)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">4.</span><span class="p">,</span> <span class="mf">4.</span><span class="p">)</span>
+<span class="c1">#ax.set_ylim(-0.1, 1.)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dotted&#39;</span><span class="p">)</span>
+
+<span class="c1">#test_ho.plot_V(ax, x_pts_all, V_label=&#39;HO potential&#39;)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_pts_all</span><span class="p">,</span> <span class="n">test_ho</span><span class="o">.</span><span class="n">wf_gs</span><span class="p">(</span><span class="n">x_pts_all</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">fr</span><span class="s1">&#39;(gs wf)$</span><span class="se">{{}}</span><span class="s1">^2$&#39;</span><span class="p">)</span>
+<span class="c1">#ax.hist(samples[:,3], bins=np.arange(x_min, x_max, .1), density=True)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">samples</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span> <span class="mf">.1</span><span class="p">),</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1">#ax.hist(samples[:,1], bins=100, density=True)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">test_ho</span><span class="o">.</span><span class="n">V_string</span><span class="si">}</span><span class="s1"> with k_osc = </span><span class="si">{</span><span class="n">k_osc</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">, mass = </span><span class="si">{</span><span class="n">mass</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_41_0.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_41_0.png" />
+</div>
+</div>
+</section>
+<section id="try-with-zeus">
+<h3>Try with zeus<a class="headerlink" href="#try-with-zeus" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">zeus</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">path_integral</span> <span class="o">=</span> <span class="n">new_PI</span>
+<span class="n">N_corr</span> <span class="o">=</span> <span class="mi">20</span>      <span class="c1"># Lepage recommends 20 or so </span>
+
+<span class="n">ndim</span> <span class="o">=</span> <span class="n">N_pts</span>  <span class="c1"># number of parameters in the model</span>
+<span class="n">nwalkers</span> <span class="o">=</span> <span class="mi">50</span>  <span class="c1"># number of MCMC walkers</span>
+<span class="n">nburn</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">N_corr</span>  <span class="c1"># &quot;burn-in&quot; period to let chains stabilize</span>
+<span class="n">nsteps</span> <span class="o">=</span> <span class="mi">1000</span>  <span class="c1"># number of MCMC steps to take</span>
+
+<span class="c1"># we&#39;ll start at random locations within the prior volume</span>
+<span class="c1"># we&#39;ll change this to normal distribution</span>
+<span class="c1"># starting_guesses = min_theta + \</span>
+<span class="c1">#                    (max_theta - min_theta) * np.random.rand(nwalkers,ndim)</span>
+<span class="n">starting_guesses</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_max</span><span class="o">/</span><span class="mi">10</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">nwalkers</span><span class="p">,</span><span class="n">ndim</span><span class="p">)</span>
+<span class="c1">#starting_guesses = (x_max/100) * np.random.randn(nwalkers,ndim)</span>
+
+<span class="c1"># Do the burn-in with nburn steps</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;MCMC sampling using zeus (ensamble slice sampler) with </span><span class="si">{</span><span class="n">nwalkers</span><span class="si">}</span><span class="s2"> walkers&quot;</span><span class="p">)</span>
+<span class="n">sampler</span> <span class="o">=</span> <span class="n">zeus</span><span class="o">.</span><span class="n">EnsembleSampler</span><span class="p">(</span><span class="n">nwalkers</span><span class="p">,</span> <span class="n">ndim</span><span class="p">,</span> <span class="n">log_posterior</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">path_integral</span><span class="p">])</span>
+<span class="n">sampler</span><span class="o">.</span><span class="n">run_mcmc</span><span class="p">(</span><span class="n">starting_guesses</span><span class="p">,</span> <span class="n">nburn</span><span class="p">)</span>
+
+<span class="c1"># Get the burn-in samples</span>
+<span class="n">burnin</span> <span class="o">=</span> <span class="n">sampler</span><span class="o">.</span><span class="n">get_chain</span><span class="p">()</span>
+
+<span class="c1"># reset the start</span>
+<span class="n">starting_guesses</span> <span class="o">=</span> <span class="n">burnin</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># now do the post-burn-in sampling with nsteps steps</span>
+<span class="n">sampler</span> <span class="o">=</span> <span class="n">zeus</span><span class="o">.</span><span class="n">EnsembleSampler</span><span class="p">(</span><span class="n">nwalkers</span><span class="p">,</span> <span class="n">ndim</span><span class="p">,</span> <span class="n">log_posterior</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">path_integral</span><span class="p">])</span>
+<span class="n">sampler</span><span class="o">.</span><span class="n">run_mcmc</span><span class="p">(</span><span class="n">starting_guesses</span><span class="p">,</span> <span class="n">nsteps</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Initialising ensemble of 50 walkers...
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MCMC sampling using zeus (ensamble slice sampler) with 50 walkers
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling progress : 100%|████████████████████| 200/200 [00:01&lt;00:00, 102.29it/s]
+Initialising ensemble of 50 walkers...
+Sampling progress : 100%|██████████████████| 1000/1000 [00:09&lt;00:00, 104.90it/s]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">chain_thinned</span> <span class="o">=</span> <span class="n">sampler</span><span class="o">.</span><span class="n">get_chain</span><span class="p">(</span><span class="n">discard</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">flat</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">thin</span><span class="o">=</span><span class="n">N_corr</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">chain_thinned</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">E_avg</span> <span class="o">=</span> <span class="n">new_PI</span><span class="o">.</span><span class="n">E_avg_over_paths</span><span class="p">(</span><span class="n">chain_thinned</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Average over </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">nwalkers</span><span class="o">*</span><span class="n">nsteps</span><span class="o">/</span><span class="n">N_corr</span><span class="p">)</span><span class="si">}</span><span class="s1"> configurations is </span><span class="si">{</span><span class="n">E_avg</span><span class="si">:</span><span class="s1">.5f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(2500, 20)
+Average over 2500 configurations is 0.50135
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">chain</span> <span class="o">=</span> <span class="n">sampler</span><span class="o">.</span><span class="n">get_chain</span><span class="p">(</span><span class="n">flat</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">discard</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">thin</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">chain</span><span class="o">.</span><span class="n">shape</span>
+
+<span class="n">E_avg</span> <span class="o">=</span> <span class="n">new_PI</span><span class="o">.</span><span class="n">E_avg_over_paths</span><span class="p">(</span><span class="n">chain</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Average over </span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">nwalkers</span><span class="o">*</span><span class="n">nsteps</span><span class="p">)</span><span class="si">}</span><span class="s1"> configurations is </span><span class="si">{</span><span class="n">E_avg</span><span class="si">:</span><span class="s1">.5f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Average over 50000 configurations is 0.50074
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mf">1.5</span><span class="o">*</span><span class="n">ndim</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ndim</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot2grid</span><span class="p">((</span><span class="n">ndim</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">sampler</span><span class="o">.</span><span class="n">get_chain</span><span class="p">()[:,:,</span><span class="n">n</span><span class="p">],</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="c1">#plt.plot(chain[:,n],alpha=0.5)</span>
+    <span class="c1">#plt.axhline(y=mu[n])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_48_0.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_48_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mf">1.5</span><span class="o">*</span><span class="n">ndim</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ndim</span><span class="p">):</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">subplot2grid</span><span class="p">((</span><span class="n">ndim</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="c1">#plt.plot(sampler.get_chain()[:,:,n],alpha=0.5)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">chain</span><span class="p">[:,</span><span class="n">n</span><span class="p">],</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="c1">#plt.axhline(y=mu[n])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_49_0.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_49_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># make a corner plot with the posterior distribution</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">corner</span><span class="o">.</span><span class="n">corner</span><span class="p">(</span><span class="n">chain</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span>
+                    <span class="n">quantiles</span><span class="o">=</span><span class="p">[</span><span class="mf">0.16</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.84</span><span class="p">],</span>
+                    <span class="n">show_titles</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">title_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;fontsize&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_50_0.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_50_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># # Try the zeus corner plot routine, using every 10</span>
+<span class="c1"># fig, axes = zeus.cornerplot(chain[::10], size=(8,8))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="trying-a-larger-lattice-spacing-a">
+<h3>Trying a larger lattice spacing a<a class="headerlink" href="#trying-a-larger-lattice-spacing-a" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Delta_T</span> <span class="o">=</span> <span class="mf">0.50</span>           <span class="c1"># Delta_T --&gt; &quot;a&quot; in Lepage</span>
+<span class="n">N_pts</span> <span class="o">=</span> <span class="mi">20</span>               <span class="c1"># N_pts --&gt; &quot;N&quot; in Lepage </span>
+<span class="n">Tmax</span> <span class="o">=</span> <span class="n">Delta_T</span> <span class="o">*</span> <span class="n">N_pts</span>   <span class="c1"># Tmax --&gt; &quot;T&quot; in Lepage</span>
+
+<span class="n">N_config</span> <span class="o">=</span> <span class="mi">4000</span>  <span class="c1"># We&#39;ll want to try 25, 100, 1000, 10000 </span>
+<span class="n">N_corr</span> <span class="o">=</span> <span class="mi">20</span>      <span class="c1"># Lepage recommends 20 or so </span>
+<span class="n">eps</span> <span class="o">=</span> <span class="mf">1.4</span>        <span class="c1"># suggested epsilon</span>
+
+<span class="n">new_PI</span> <span class="o">=</span> <span class="n">PathIntegral</span><span class="p">(</span><span class="n">Delta_T</span><span class="o">=</span><span class="n">Delta_T</span><span class="p">,</span> <span class="n">N_pts</span><span class="o">=</span><span class="n">N_pts</span><span class="p">,</span> <span class="n">N_config</span><span class="o">=</span><span class="n">N_config</span><span class="p">,</span> 
+                      <span class="n">N_corr</span><span class="o">=</span><span class="n">N_corr</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="n">eps</span><span class="p">,</span> <span class="n">V_pot</span><span class="o">=</span><span class="n">test_ho</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">list_of_paths</span> <span class="o">=</span> <span class="n">new_PI</span><span class="o">.</span><span class="n">MC_paths</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">list_of_paths</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">E_avg</span> <span class="o">=</span> <span class="n">new_PI</span><span class="o">.</span><span class="n">E_avg_over_paths</span><span class="p">(</span><span class="n">list_of_paths</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Average over </span><span class="si">{</span><span class="n">N_config</span><span class="si">}</span><span class="s1"> configurations is </span><span class="si">{</span><span class="n">E_avg</span><span class="si">:</span><span class="s1">.5f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(4000, 20)
+Average over 4000 configurations is 0.49988
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">E_avg_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">new_PI</span><span class="o">.</span><span class="n">Gamma_avg_over_paths</span><span class="p">(</span><span class="n">new_PI</span><span class="o">.</span><span class="n">H_lattice_j</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">list_of_paths</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N_pts</span><span class="p">)])</span>
+    
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Average over </span><span class="si">{</span><span class="n">N_config</span><span class="si">}</span><span class="s1"> configurations at each n: &#39;</span><span class="p">,</span> <span class="n">E_avg_test</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Mean: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">E_avg_test</span><span class="p">)</span><span class="si">:</span><span class="s1">.5f</span><span class="si">}</span><span class="s1"> +/- </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">E_avg_test</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">N_pts</span><span class="p">)</span><span class="si">:</span><span class="s1">.5f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Average over 4000 configurations at each n:  [0.50536495 0.50560835 0.48944631 0.50431955 0.50410722 0.49256258
+ 0.50217984 0.49675278 0.51357079 0.48634919 0.50117443 0.48684838
+ 0.4930489  0.48926241 0.49615487 0.48830834 0.51098903 0.50612392
+ 0.51746337 0.50800539]
+
+Mean: 0.49988 +/- 0.00204
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g_avg_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">new_PI</span><span class="o">.</span><span class="n">Gamma_avg_over_paths</span><span class="p">(</span><span class="n">new_PI</span><span class="o">.</span><span class="n">compute_G</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">list_of_paths</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N_pts</span><span class="p">)])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">g_avg_test</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.48437591 0.29498188 0.1784622  0.10814157 0.06687427 0.04331064
+ 0.0290784  0.01750599 0.01006227 0.00772905 0.00748672 0.00772905
+ 0.01006227 0.01750599 0.0290784  0.04331064 0.06687427 0.10814157
+ 0.1784622  0.29498188]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">DeltaE</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">g_avg_test</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">/</span> <span class="n">g_avg_test</span><span class="p">[</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">Delta_T</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N_pts</span><span class="o">-</span><span class="mi">1</span><span class="p">)])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">DeltaE</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[ 0.99189468  1.00507423  1.00187131  0.96125387  0.86883188  0.79680548
+  1.01490443  1.10750051  0.52761485  0.06370989 -0.06370989 -0.52761485
+ -1.10750051 -1.01490443 -0.79680548 -0.86883188 -0.96125387 -1.00187131
+ -1.00507423]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check the wave function and potential</span>
+<span class="n">t_pts_all</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="n">N_pts</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">Delta_T</span><span class="p">,</span> <span class="n">Delta_T</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\tau$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\Delta E(\tau)$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">3.7</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dotted&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">t_pts_all</span><span class="p">,</span> <span class="n">DeltaE</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+<span class="c1">#ax.legend()</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_58_0.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_58_0.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "furnstahl/7501-JB",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./notebooks/Path_integrals"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Dick Furnstahl<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
