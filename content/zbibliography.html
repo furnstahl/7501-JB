@@ -54,7 +54,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Tests of Jupyter Book features" href="jb_tests.html" />
-    <link rel="prev" title="Python and Jupyter notebooks: part 02" href="../notebooks/Reference/Jupyter_Python_intro_02.html" />
+    <link rel="prev" title="Using GitHub" href="Reference/using_github.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -123,7 +123,31 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  Getting started
+  Notebooks for 7501
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../notebooks/Numerical_derivative_tests.html">
+   Exponentiating operators
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  External QM notebooks
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../notebooks/External/Example_Quantum_Calculations_sympy.html">
+   Solving Common Introductory Quantum Mechanics Problems using Sympy
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Getting started with Python
  </span>
 </p>
 <ul class="nav bd-sidenav">
@@ -147,6 +171,11 @@ const thebe_selector_output = ".output, .cell_output"
      Python and Jupyter notebooks: part 01
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../notebooks/Reference/Jupyter_Python_intro_02.html">
+     Python and Jupyter notebooks: part 02
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toctree-l1 has-children">
@@ -162,11 +191,6 @@ const thebe_selector_output = ".output, .cell_output"
    <li class="toctree-l2">
     <a class="reference internal" href="Reference/using_github.html">
      Using GitHub
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../notebooks/Reference/Jupyter_Python_intro_02.html">
-     Python and Jupyter notebooks: part 02
     </a>
    </li>
   </ul>
@@ -369,13 +393,32 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="bibliography">
 <h1>Bibliography<a class="headerlink" href="#bibliography" title="Permalink to this headline">#</a></h1>
-<p>This is a partial list of good references.</p>
-<p>The textbook will be John R. Taylor, <a class="reference external" href="https://library.ohio-state.edu/search/i?SEARCH=189138922">Classical Mechanics</a>, ISBN 1-891389-22-X. We will not be covering every section but the course will follow the book in large parts and reading and problem assignments will be given from the book.</p>
-<p>There are many books on Python programming and using Jupyter notebooks.  We will supply references elsewhere.  Of particular interest for our topic is (although our treatment will be more advanced):</p>
-<p>Other textbooks that you may want to have a look at as resources to supplement how our main book presents the material are</p>
+<p>This is a partial list of good references for 7501.</p>
+<p>There is no single text for the course, but the ordering and emphasis of the presentation will be in the “Spins First” spirit of Dirac’s classic text, as opposed to the “Wave Mechanics” approach (as in the widely used undergraduate QM text by Griffiths). The guiding graduate-level text will be</p>
 <ul class="simple">
-<li><p>Reinhard Hentschke, <a class="reference external" href="https://library.ohio-state.edu/search~S7?/aHentscke/ahentscke/-3%2C0%2C0%2CB/frameset&amp;FF=ahentschke+reinhard&amp;1%2C%2C5/indexsort=-">Classical Mechanics: including an introduction to the theory of elasticity</a> [click on SpringerLink for a downloadable pdf]</p></li>
+<li><p>Sakurai and Napolitano, <a class="reference external" href="https://www.amazon.com/Modern-Quantum-Mechanics-J-Sakurai/dp/1108473229/ref=asc_df_1108473229/?tag=hyprod-20&amp;linkCode=df0&amp;hvadid=459638379039&amp;hvpos=&amp;hvnetw=g&amp;hvrand=9443109611879288746&amp;hvpone=&amp;hvptwo=&amp;hvqmt=&amp;hvdev=c&amp;hvdvcmdl=&amp;hvlocint=&amp;hvlocphy=9014989&amp;hvtargid=pla-917614751646&amp;psc=1">Modern Quantum Mechanics (3rd edition)</a>;</p></li>
 </ul>
+<p>with regular reference to (e.g., for the thorough treatment of linear algebra)</p>
+<ul class="simple">
+<li><p>Shankar, <a class="reference external" href="https://link.springer.com/book/10.1007/978-1-4757-0576-8">Principles of Quantum Mechanics</a> (1994).</p></li>
+</ul>
+<p>Sakurai and Napolitano assume already a strong background in math and quantum mechanics, which not everyone will have, so we will also refer to texts that follow the same Spins First philosophy but at a more relaxed pace and filling in more details:</p>
+<ul class="simple">
+<li><p>Townsend, <a class="reference external" href="https://www.amazon.com/Modern-Approach-Quantum-Mechanics/dp/1891389785">A Modern Approach to Quantum Mechanics</a>;</p></li>
+<li><p>McIntyre, <a class="reference external" href="https://www.amazon.com/Quantum-Mechanics-Paradigms-David-McIntyre/dp/0321765796/ref=asc_df_0321765796/?tag=hyprod-20&amp;linkCode=df0&amp;hvadid=330583280114&amp;hvpos=&amp;hvnetw=g&amp;hvrand=14995948134173161693&amp;hvpone=&amp;hvptwo=&amp;hvqmt=&amp;hvdev=c&amp;hvdvcmdl=&amp;hvlocint=&amp;hvlocphy=9014989&amp;hvtargid=pla-571888386908&amp;psc=1">Quantum Mechanics: A Paradigms Approach</a>;</p></li>
+<li><p>Feynman, <a class="reference external" href="https://www.feynmanlectures.caltech.edu/III_toc.html">Lecture on Physics, Volume III</a>.</p></li>
+</ul>
+<p>An idiosyncratic text that complements Sakurai and Napolitano while offering clear insight into topics such as Bell’s Theorem is</p>
+<ul class="simple">
+<li><p>Susskind and Friedman, <a class="reference external" href="https://www.amazon.com/Quantum-Mechanics-Theoretical-Leonard-Susskind/dp/0465062903">Quantum Mechanics: The Theoretical Minimum</a>.</p></li>
+</ul>
+<p>Texts on quantum computing and/or entanglement that are also very good introductions to the basic principles of QM are</p>
+<ul class="simple">
+<li><p>Nielsen and Chuang, <a class="reference external" href="https://www.amazon.com/Quantum-Computation-Information-10th-Anniversary/dp/1107002176">Quantum Computation and Quantum Information</a></p></li>
+<li><p>Brody, <a class="reference external" href="https://www.amazon.com/Quantum-Entanglement-Press-Essential-Knowledge/dp/026253844X">Quantum Entanglement</a>;</p></li>
+<li><p>Rieffel and Polak, <a class="reference external" href="https://www.amazon.com/Quantum-Computing-Introduction-Engineering-Computation/dp/0262526670">Quantum Computing: A Gentle Introduction</a>.</p></li>
+</ul>
+<p>There are many books on Python programming and using Jupyter notebooks.</p>
 <span class="target" id="id1"></span></section>
 
     <script type="text/x-thebe-config">
@@ -405,11 +448,11 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="../notebooks/Reference/Jupyter_Python_intro_02.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="Reference/using_github.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Python and Jupyter notebooks: part 02</p>
+            <p class="prev-next-title">Using GitHub</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="jb_tests.html" title="next page">
