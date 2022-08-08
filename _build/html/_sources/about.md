@@ -1,6 +1,6 @@
 # About Physics 7501: Quantum Mechanics I
 
-## About these lecture notes and notebooks
+## About these Jupyter notebooks
 
 This material was  authored by [Dick Furnstahl](https://physics.osu.edu/people/furnstahl.1) and is released under a [Creative Commons BY-NC license](https://creativecommons.org/licenses/by-nc/4.0/). The book format is powered by [Jupyter Book](https://jupyterbook.org/).
 
