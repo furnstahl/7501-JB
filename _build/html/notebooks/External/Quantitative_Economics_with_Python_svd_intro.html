@@ -1,0 +1,1859 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Singular Value Decomposition (SVD) &#8212; Quantum Mechanics I</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"tex": {"macros": {"N": "\\mathbb{N}", "avec": ["\\boldsymbol{a}"], "floor": ["\\lfloor#1\\rfloor", 1], "bmat": ["\\left[\\begin{array}"], "emat": ["\\end{array}\\right]"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Using Anaconda" href="../../content/Reference/installing_anaconda.html" />
+    <link rel="prev" title="Linear Algebra" href="Quantitative_Economics_with_Python_linear_algebra.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Quantum Mechanics I</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../about.html">
+                    About Physics 7501: Quantum Mechanics I
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Course overview
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/Course/overview.html">
+   Objectives
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Notebooks for 7501
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Numerical_derivative_tests.html">
+   Exponentiating operators
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  External QM notebooks
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Example_Quantum_Calculations_sympy.html">
+   QM with Sympy
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Math notebooks
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Quantitative_Economics_with_Python_complex_numbers_and_trig.html">
+   Complex Numbers and Trigonometry
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Quantitative_Economics_with_Python_linear_algebra.html">
+   Linear Algebra
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Singular Value Decomposition (SVD)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Getting started with Python
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/Reference/installing_anaconda.html">
+   Using Anaconda
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../content/Reference/python_jupyter.html">
+   Python and Jupyter notebooks
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Reference/Jupyter_Python_intro_01.html">
+     Python and Jupyter notebooks: part 01
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../Reference/Jupyter_Python_intro_02.html">
+     Python and Jupyter notebooks: part 02
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../../content/Reference/advanced.html">
+   Advanced topics
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../../content/Reference/using_github.html">
+     Using GitHub
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Reference material
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/zbibliography.html">
+   Bibliography
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../content/jb_tests.html">
+   Examples: Jupyter jb-book
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/furnstahl/7501-JB/main?urlpath=tree/./notebooks/External/Quantitative_Economics_with_Python_svd_intro.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/furnstahl/7501-JB"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/furnstahl/7501-JB/issues/new?title=Issue%20on%20page%20%2Fnotebooks/External/Quantitative_Economics_with_Python_svd_intro.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../../_sources/notebooks/External/Quantitative_Economics_with_Python_svd_intro.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#overview">
+   Overview
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-setup">
+   The Setup
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#singular-value-decomposition">
+   Singular Value Decomposition
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#properties-of-full-and-reduced-svds">
+   Properties of Full and Reduced SVD’s
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#digression-polar-decomposition">
+   Digression:  Polar Decomposition
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#principal-components-analysis-pca">
+   Principal Components Analysis (PCA)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#relationship-of-pca-to-svd">
+   Relationship of PCA to SVD
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#pca-with-eigenvalues-and-eigenvectors">
+   PCA with Eigenvalues and Eigenvectors
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#connections">
+   Connections
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dynamic-mode-decomposition-dmd">
+   Dynamic Mode Decomposition (DMD)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#representation-1">
+   Representation 1
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#representation-2">
+   Representation 2
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#representation-3">
+   Representation 3
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#decoder-of-x-as-a-linear-projection">
+     Decoder of
+     <span class="math notranslate nohighlight">
+      \( X \)
+     </span>
+     as a linear projection
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#a-useful-approximation">
+     A useful approximation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-fewer-modes">
+     Using Fewer Modes
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#source-for-some-python-code">
+   Source for Some Python Code
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Singular Value Decomposition (SVD)</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#overview">
+   Overview
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-setup">
+   The Setup
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#singular-value-decomposition">
+   Singular Value Decomposition
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#properties-of-full-and-reduced-svds">
+   Properties of Full and Reduced SVD’s
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#digression-polar-decomposition">
+   Digression:  Polar Decomposition
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#principal-components-analysis-pca">
+   Principal Components Analysis (PCA)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#relationship-of-pca-to-svd">
+   Relationship of PCA to SVD
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#pca-with-eigenvalues-and-eigenvectors">
+   PCA with Eigenvalues and Eigenvectors
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#connections">
+   Connections
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dynamic-mode-decomposition-dmd">
+   Dynamic Mode Decomposition (DMD)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#representation-1">
+   Representation 1
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#representation-2">
+   Representation 2
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#representation-3">
+   Representation 3
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#decoder-of-x-as-a-linear-projection">
+     Decoder of
+     <span class="math notranslate nohighlight">
+      \( X \)
+     </span>
+     as a linear projection
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#a-useful-approximation">
+     A useful approximation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-fewer-modes">
+     Using Fewer Modes
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#source-for-some-python-code">
+   Source for Some Python Code
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="singular-value-decomposition-svd">
+<h1>Singular Value Decomposition (SVD)<a class="headerlink" href="#singular-value-decomposition-svd" title="Permalink to this headline">#</a></h1>
+<p>In addition to regular packages contained in Anaconda by default, this lecture also requires:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!pip install quandl
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">numpy.linalg</span> <span class="k">as</span> <span class="nn">LA</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+<span class="kn">import</span> <span class="nn">quandl</span> <span class="k">as</span> <span class="nn">ql</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">#</a></h2>
+<p>The <strong>singular value decomposition</strong> is a work-horse in applications of least squares projection that
+form  foundations for important machine learning methods.</p>
+<p>This lecture describes the singular value decomposition and two of its uses:</p>
+<ul class="simple">
+<li><p>principal components analysis (PCA)</p></li>
+<li><p>dynamic mode decomposition (DMD)</p></li>
+</ul>
+<p>Each of these can be thought of as a data-reduction procedure  designed to capture salient patterns by projecting data onto a limited set of factors.</p>
+</section>
+<section id="the-setup">
+<h2>The Setup<a class="headerlink" href="#the-setup" title="Permalink to this headline">#</a></h2>
+<p>Let <span class="math notranslate nohighlight">\( X \)</span> be an <span class="math notranslate nohighlight">\( m \times n \)</span> matrix of rank <span class="math notranslate nohighlight">\( p \)</span>.</p>
+<p>Necessarily, <span class="math notranslate nohighlight">\( p \leq \min(m,n) \)</span>.</p>
+<p>In this lecture, we’ll think of <span class="math notranslate nohighlight">\( X \)</span> as a matrix of <strong>data</strong>.</p>
+<ul class="simple">
+<li><p>each column is an <strong>individual</strong> – a time period or person, depending on the application</p></li>
+<li><p>each row is a <strong>random variable</strong> describing an attribute of a time period or a person, depending on the application</p></li>
+</ul>
+<p>We’ll be interested in  two  cases</p>
+<ul class="simple">
+<li><p>A <strong>short and fat</strong> case in which <span class="math notranslate nohighlight">\( m &lt;&lt; n \)</span>, so that there are many more columns (individuals) than rows (attributes).</p></li>
+<li><p>A  <strong>tall and skinny</strong> case in which <span class="math notranslate nohighlight">\( m &gt;&gt; n \)</span>, so that there are many more rows  (attributes) than columns (individuals).</p></li>
+</ul>
+<p>We’ll apply a <strong>singular value decomposition</strong> of <span class="math notranslate nohighlight">\( X \)</span> in both situations.</p>
+<p>In the first case in which there are many more individuals <span class="math notranslate nohighlight">\( n \)</span> than attributes <span class="math notranslate nohighlight">\( m \)</span>, we learn sample moments of  a joint distribution  by taking averages  across observations of functions of the observations.</p>
+<p>In this <span class="math notranslate nohighlight">\( m &lt; &lt; n \)</span> case,  we’ll look for <strong>patterns</strong> by using a <strong>singular value decomposition</strong> to do a <strong>principal components analysis</strong> (PCA).</p>
+<p>In the <span class="math notranslate nohighlight">\( m &gt; &gt; n \)</span>  case in which there are many more attributes <span class="math notranslate nohighlight">\( m \)</span> than individuals <span class="math notranslate nohighlight">\( n \)</span>, we’ll proceed in a different way.</p>
+<p>We’ll again use a <strong>singular value decomposition</strong>,  but now to construct a <strong>dynamic mode decomposition</strong> (DMD)</p>
+</section>
+<section id="singular-value-decomposition">
+<h2>Singular Value Decomposition<a class="headerlink" href="#singular-value-decomposition" title="Permalink to this headline">#</a></h2>
+<p>A <strong>singular value decomposition</strong> of an <span class="math notranslate nohighlight">\( m \times n \)</span> matrix <span class="math notranslate nohighlight">\( X \)</span> of rank <span class="math notranslate nohighlight">\( p \leq \min(m,n) \)</span> is</p>
+<div class="math notranslate nohighlight">
+\[
+X  = U \Sigma V^T
+\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{aligned}
+UU^T &amp;  = I  &amp;  \quad U^T U = I \cr    
+VV^T &amp; = I &amp; \quad V^T V = I
+\end{aligned}
+\]</div>
+<p>where</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( U \)</span> is an <span class="math notranslate nohighlight">\( m \times m \)</span> matrix whose columns are eigenvectors of <span class="math notranslate nohighlight">\( X^T X \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( V \)</span> is an <span class="math notranslate nohighlight">\( n \times n \)</span> matrix whose columns are eigenvectors of <span class="math notranslate nohighlight">\( X X^T \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( \Sigma \)</span> is an <span class="math notranslate nohighlight">\( m \times n \)</span> matrix in which the first <span class="math notranslate nohighlight">\( p \)</span> places on its main diagonal are positive numbers <span class="math notranslate nohighlight">\( \sigma_1, \sigma_2, \ldots, \sigma_p \)</span> called <strong>singular values</strong>; remaining entries of <span class="math notranslate nohighlight">\( \Sigma \)</span> are all zero</p></li>
+<li><p>The <span class="math notranslate nohighlight">\( p \)</span> singular values are square roots of the eigenvalues of the <span class="math notranslate nohighlight">\( m \times m \)</span> matrix  <span class="math notranslate nohighlight">\( X X^T \)</span> and the <span class="math notranslate nohighlight">\( n \times n \)</span> matrix <span class="math notranslate nohighlight">\( X^T X \)</span></p></li>
+<li><p>When <span class="math notranslate nohighlight">\( U \)</span> is a complex valued matrix, <span class="math notranslate nohighlight">\( U^T \)</span> denotes the <strong>conjugate-transpose</strong> or <strong>Hermitian-transpose</strong> of <span class="math notranslate nohighlight">\( U \)</span>, meaning that
+<span class="math notranslate nohighlight">\( U_{ij}^T \)</span> is the complex conjugate of <span class="math notranslate nohighlight">\( U_{ji} \)</span>.</p></li>
+<li><p>Similarly, when <span class="math notranslate nohighlight">\( V \)</span> is a complex valued matrix, <span class="math notranslate nohighlight">\( V^T \)</span> denotes the <strong>conjugate-transpose</strong> or <strong>Hermitian-transpose</strong> of <span class="math notranslate nohighlight">\( V \)</span></p></li>
+</ul>
+<p>In what is called a <strong>full</strong> SVD, the  shapes of <span class="math notranslate nohighlight">\( U \)</span>, <span class="math notranslate nohighlight">\( \Sigma \)</span>, and <span class="math notranslate nohighlight">\( V \)</span> are <span class="math notranslate nohighlight">\( \left(m, m\right) \)</span>, <span class="math notranslate nohighlight">\( \left(m, n\right) \)</span>, <span class="math notranslate nohighlight">\( \left(n, n\right) \)</span>, respectively.</p>
+<p>There is also an alternative shape convention called an <strong>economy</strong> or <strong>reduced</strong> SVD .</p>
+<p>Thus, note that because we assume that <span class="math notranslate nohighlight">\( X \)</span> has rank <span class="math notranslate nohighlight">\( p \)</span>, there are only <span class="math notranslate nohighlight">\( p \)</span> nonzero singular values, where <span class="math notranslate nohighlight">\( p=\textrm{rank}(X)\leq\min\left(m, n\right) \)</span>.</p>
+<p>A <strong>reduced</strong> SVD uses this fact to express <span class="math notranslate nohighlight">\( U \)</span>, <span class="math notranslate nohighlight">\( \Sigma \)</span>, and <span class="math notranslate nohighlight">\( V \)</span> as matrices with shapes <span class="math notranslate nohighlight">\( \left(m, p\right) \)</span>, <span class="math notranslate nohighlight">\( \left(p, p\right) \)</span>, <span class="math notranslate nohighlight">\( \left( n, p\right) \)</span>.</p>
+</section>
+<section id="properties-of-full-and-reduced-svds">
+<h2>Properties of Full and Reduced SVD’s<a class="headerlink" href="#properties-of-full-and-reduced-svds" title="Permalink to this headline">#</a></h2>
+<p>You can read about reduced and full SVD here
+<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.linalg.svd.html">https://numpy.org/doc/stable/reference/generated/numpy.linalg.svd.html</a></p>
+<p>For a full SVD,</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{aligned}
+UU^T &amp;  = I  &amp;  \quad U^T U = I \cr    
+VV^T &amp; = I &amp; \quad V^T V = I
+\end{aligned}
+\]</div>
+<p>But these properties don’t hold for a  <strong>reduced</strong> SVD.</p>
+<p>Which properties hold depend on whether we are in a <strong>tall-skinny</strong> case or a <strong>short-fat</strong> case.</p>
+<ul class="simple">
+<li><p>In a <strong>tall-skinny</strong> case in which <span class="math notranslate nohighlight">\( m &gt; &gt; n \)</span>, for a <strong>reduced</strong> SVD</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\begin{aligned}
+UU^T &amp;  \neq I  &amp;  \quad U^T U = I \cr    
+VV^T &amp; = I &amp; \quad V^T V = I
+\end{aligned}
+\]</div>
+<ul class="simple">
+<li><p>In a <strong>short-fat</strong> case in which <span class="math notranslate nohighlight">\( m &lt; &lt; n \)</span>, for a <strong>reduced</strong> SVD</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+\begin{aligned}
+UU^T &amp;  = I  &amp;  \quad U^T U = I \cr    
+VV^T &amp; = I &amp; \quad V^T V \neq I
+\end{aligned}
+\]</div>
+<p>When we study Dynamic Mode Decomposition below, we shall want to remember this caveat because sometimes we’ll be using reduced SVD’s to compute key objects.</p>
+<p>Let’s do an  exercise  to compare <strong>full</strong> and <strong>reduced</strong> SVD’s.</p>
+<p>To review,</p>
+<ul class="simple">
+<li><p>in a <strong>full</strong> SVD</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\( U \)</span> is <span class="math notranslate nohighlight">\( m \times m \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( \Sigma \)</span> is <span class="math notranslate nohighlight">\( m \times n \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( V \)</span> is <span class="math notranslate nohighlight">\( n \times n \)</span></p></li>
+</ul>
+</li>
+<li><p>in a <strong>reduced</strong> SVD</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\( U \)</span> is <span class="math notranslate nohighlight">\( m \times p \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( \Sigma \)</span> is <span class="math notranslate nohighlight">\( p\times p \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( V \)</span> is <span class="math notranslate nohighlight">\( n \times p \)</span></p></li>
+</ul>
+</li>
+</ul>
+<p>First, let’s study a case in which <span class="math notranslate nohighlight">\( m = 5 &gt; n = 2 \)</span>.</p>
+<p>(This is a small example of the <strong>tall-skinny</strong> case that will concern us when we study <strong>Dynamic Mode Decompositions</strong> below.)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">full_matrices</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># full SVD</span>
+<span class="n">Uhat</span><span class="p">,</span> <span class="n">Shat</span><span class="p">,</span> <span class="n">Vhat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">full_matrices</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="c1"># economy SVD</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;U, S, V =&#39;</span><span class="p">),</span> <span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">V</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Uhat, Shat, Vhat = &#39;</span><span class="p">),</span> <span class="n">Uhat</span><span class="p">,</span> <span class="n">Shat</span><span class="p">,</span> <span class="n">Vhat</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">matrix_rank</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;rank of X - &#39;</span><span class="p">),</span> <span class="n">rr</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Properties:</strong></p>
+<ul class="simple">
+<li><p>Where <span class="math notranslate nohighlight">\( U \)</span> is constructed via a full SVD, <span class="math notranslate nohighlight">\( U^T U = I_{p\times p} \)</span> and  <span class="math notranslate nohighlight">\( U U^T = I_{m \times m} \)</span></p></li>
+<li><p>Where <span class="math notranslate nohighlight">\( \hat U \)</span> is constructed via a reduced SVD, although <span class="math notranslate nohighlight">\( \hat U^T \hat U = I_{p\times p} \)</span> it happens that  <span class="math notranslate nohighlight">\( \hat U \hat U^T \neq I_{m \times m} \)</span></p></li>
+</ul>
+<p>We illustrate these properties for our example with the following code cells.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">UTU</span> <span class="o">=</span> <span class="n">U</span><span class="o">.</span><span class="n">T</span><span class="nd">@U</span>
+<span class="n">UUT</span> <span class="o">=</span> <span class="n">U</span><span class="nd">@U</span><span class="o">.</span><span class="n">T</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;UUT, UTU = &#39;</span><span class="p">),</span> <span class="n">UUT</span><span class="p">,</span> <span class="n">UTU</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">UhatUhatT</span> <span class="o">=</span> <span class="n">Uhat</span><span class="nd">@Uhat</span><span class="o">.</span><span class="n">T</span>
+<span class="n">UhatTUhat</span> <span class="o">=</span> <span class="n">Uhat</span><span class="o">.</span><span class="n">T</span><span class="nd">@Uhat</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;UhatUhatT, UhatTUhat= &#39;</span><span class="p">),</span> <span class="n">UhatUhatT</span><span class="p">,</span> <span class="n">UhatTUhat</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Remarks:</strong></p>
+<p>The cells above illustrate application of the  <code class="docutils literal notranslate"><span class="pre">fullmatrices=True</span></code> and <code class="docutils literal notranslate"><span class="pre">full-matrices=False</span></code> options.
+Using <code class="docutils literal notranslate"><span class="pre">full-matrices=False</span></code> returns a reduced singular value decomposition.</p>
+<p>This option implements an optimal reduced rank approximation of a matrix, in the sense of  minimizing the Frobenius
+norm of the discrepancy between the approximating matrix and the matrix being approximated.</p>
+<p>Optimality in this sense is  established in the celebrated Eckart–Young theorem. See <a class="reference external" href="https://en.wikipedia.org/wiki/Low-rank_approximation">https://en.wikipedia.org/wiki/Low-rank_approximation</a>.</p>
+<p>When we study Dynamic Mode Decompositions below, it  will be important for us to remember the preceding properties of full and reduced SVD’s in such tall-skinny cases.</p>
+<p>Now let’s turn to a short-fat case.</p>
+<p>To illustrate this case,  we’ll set <span class="math notranslate nohighlight">\( m = 2 &lt; 5 = n \)</span></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">full_matrices</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># full SVD</span>
+<span class="n">Uhat</span><span class="p">,</span> <span class="n">Shat</span><span class="p">,</span> <span class="n">Vhat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">full_matrices</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="c1"># economy SVD</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;U, S, V =&#39;</span><span class="p">),</span> <span class="n">U</span><span class="p">,</span> <span class="n">S</span><span class="p">,</span> <span class="n">V</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Uhat, Shat, Vhat = &#39;</span><span class="p">),</span> <span class="n">Uhat</span><span class="p">,</span> <span class="n">Shat</span><span class="p">,</span> <span class="n">Vhat</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">matrix_rank</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;rank X = &#39;</span><span class="p">),</span> <span class="n">rr</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="digression-polar-decomposition">
+<h2>Digression:  Polar Decomposition<a class="headerlink" href="#digression-polar-decomposition" title="Permalink to this headline">#</a></h2>
+<p>A singular value decomposition (SVD) of <span class="math notranslate nohighlight">\( X \)</span> is related to a <strong>polar decomposition</strong> of <span class="math notranslate nohighlight">\( X \)</span></p>
+<div class="math notranslate nohighlight">
+\[
+X  = SQ
+\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{aligned}
+ S &amp; = U\Sigma U^T \cr
+Q &amp; = U V^T 
+\end{aligned}
+\]</div>
+<p>and <span class="math notranslate nohighlight">\( S \)</span> is evidently a symmetric matrix and <span class="math notranslate nohighlight">\( Q \)</span> is an orthogonal matrix.</p>
+</section>
+<section id="principal-components-analysis-pca">
+<h2>Principal Components Analysis (PCA)<a class="headerlink" href="#principal-components-analysis-pca" title="Permalink to this headline">#</a></h2>
+<p>Let’s begin with a case in which <span class="math notranslate nohighlight">\( n &gt;&gt; m \)</span>, so that we have many  more individuals <span class="math notranslate nohighlight">\( n \)</span> than attributes <span class="math notranslate nohighlight">\( m \)</span>.</p>
+<p>The  matrix <span class="math notranslate nohighlight">\( X \)</span> is <strong>short and fat</strong>  in an  <span class="math notranslate nohighlight">\( n &gt;&gt; m \)</span> case as opposed to a <strong>tall and skinny</strong> case with <span class="math notranslate nohighlight">\( m &gt; &gt; n \)</span> to be discussed later.</p>
+<p>We regard  <span class="math notranslate nohighlight">\( X \)</span> as an  <span class="math notranslate nohighlight">\( m \times n \)</span> matrix of <strong>data</strong>:</p>
+<div class="math notranslate nohighlight">
+\[
+X =  \begin{bmatrix} X_1 \mid X_2 \mid \cdots \mid X_n\end{bmatrix}
+\]</div>
+<p>where for <span class="math notranslate nohighlight">\( j = 1, \ldots, n \)</span> the column vector <span class="math notranslate nohighlight">\( X_j = \begin{bmatrix}X_{1j}\\X_{2j}\\\vdots\\X_{mj}\end{bmatrix} \)</span> is a  vector of observations on variables <span class="math notranslate nohighlight">\( \begin{bmatrix}x_1\\x_2\\\vdots\\x_m\end{bmatrix} \)</span>.</p>
+<p>In a <strong>time series</strong> setting, we would think of columns <span class="math notranslate nohighlight">\( j \)</span> as indexing different <strong>times</strong> at which random variables are observed, while rows index different random variables.</p>
+<p>In a <strong>cross section</strong> setting, we would think of columns <span class="math notranslate nohighlight">\( j \)</span> as indexing different <strong>individuals</strong> for  which random variables are observed, while rows index different <strong>attributes</strong>.</p>
+<p>The number of positive singular values equals the rank of  matrix <span class="math notranslate nohighlight">\( X \)</span>.</p>
+<p>Arrange the singular values  in decreasing order.</p>
+<p>Arrange   the positive singular values on the main diagonal of the matrix <span class="math notranslate nohighlight">\( \Sigma \)</span> of into a vector <span class="math notranslate nohighlight">\( \sigma_R \)</span>.</p>
+<p>Set all other entries of <span class="math notranslate nohighlight">\( \Sigma \)</span> to zero.</p>
+</section>
+<section id="relationship-of-pca-to-svd">
+<h2>Relationship of PCA to SVD<a class="headerlink" href="#relationship-of-pca-to-svd" title="Permalink to this headline">#</a></h2>
+<p>To relate a SVD to a PCA (principal component analysis) of data set <span class="math notranslate nohighlight">\( X \)</span>, first construct  the  SVD of the data matrix <span class="math notranslate nohighlight">\( X \)</span>:</p>
+<p><a id='equation-eq-pca1'></a>
+$<span class="math notranslate nohighlight">\(
+X = U \Sigma V^T = \sigma_1 U_1 V_1^T + \sigma_2 U_2 V_2^T + \cdots + \sigma_p U_p V_p^T \tag{7.1}
+\)</span>$</p>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[
+U=\begin{bmatrix}U_1|U_2|\ldots|U_m\end{bmatrix}
+\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+V^T = \begin{bmatrix}V_1^T\\V_2^T\\\ldots\\V_n^T\end{bmatrix}
+\end{split}\]</div>
+<p>In equation <a class="reference external" href="#equation-eq-pca1">(7.1)</a>, each of the <span class="math notranslate nohighlight">\( m \times n \)</span> matrices <span class="math notranslate nohighlight">\( U_{j}V_{j}^T \)</span> is evidently
+of rank <span class="math notranslate nohighlight">\( 1 \)</span>.</p>
+<p>Thus, we have</p>
+<p><a id='equation-eq-pca2'></a>
+$<span class="math notranslate nohighlight">\(
+X = \sigma_1 \begin{pmatrix}U_{11}V_{1}^T\\U_{21}V_{1}^T\\\cdots\\U_{m1}V_{1}^T\\\end{pmatrix} + \sigma_2\begin{pmatrix}U_{12}V_{2}^T\\U_{22}V_{2}^T\\\cdots\\U_{m2}V_{2}^T\\\end{pmatrix}+\ldots + \sigma_p\begin{pmatrix}U_{1p}V_{p}^T\\U_{2p}V_{p}^T\\\cdots\\U_{mp}V_{p}^T\\\end{pmatrix} \tag{7.2}
+\)</span>$</p>
+<p>Here is how we would interpret the objects in the  matrix equation <a class="reference external" href="#equation-eq-pca2">(7.2)</a> in
+a time series context:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( \textrm{for each} \   k=1, \ldots, n \)</span>, the object <span class="math notranslate nohighlight">\( \lbrace V_{kj} \rbrace_{j=1}^n \)</span> is a time series   for the <span class="math notranslate nohighlight">\( k \)</span>th <strong>principal component</strong></p></li>
+<li><p><span class="math notranslate nohighlight">\( U_j = \begin{bmatrix}U_{1k}\\U_{2k}\\\ldots\\U_{mk}\end{bmatrix} \  k=1, \ldots, m \)</span>
+is a vector of <strong>loadings</strong> of variables <span class="math notranslate nohighlight">\( X_i \)</span> on the <span class="math notranslate nohighlight">\( k \)</span>th principal component,  <span class="math notranslate nohighlight">\( i=1, \ldots, m \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( \sigma_k \)</span> for each <span class="math notranslate nohighlight">\( k=1, \ldots, p \)</span> is the strength of <span class="math notranslate nohighlight">\( k \)</span>th <strong>principal component</strong>, where strength means contribution to the overall covariance of <span class="math notranslate nohighlight">\( X \)</span>.</p></li>
+</ul>
+</section>
+<section id="pca-with-eigenvalues-and-eigenvectors">
+<h2>PCA with Eigenvalues and Eigenvectors<a class="headerlink" href="#pca-with-eigenvalues-and-eigenvectors" title="Permalink to this headline">#</a></h2>
+<p>We now  use an eigen decomposition of a sample covariance matrix to do PCA.</p>
+<p>Let <span class="math notranslate nohighlight">\( X_{m \times n} \)</span> be our <span class="math notranslate nohighlight">\( m \times n \)</span> data matrix.</p>
+<p>Let’s assume that sample means of all variables are zero.</p>
+<p>We can assure  this  by <strong>pre-processing</strong> the data by subtracting sample means.</p>
+<p>Define a sample covariance matrix <span class="math notranslate nohighlight">\( \Omega \)</span> as</p>
+<div class="math notranslate nohighlight">
+\[
+\Omega = XX^T
+\]</div>
+<p>Then use an eigen decomposition to represent <span class="math notranslate nohighlight">\( \Omega \)</span> as follows:</p>
+<div class="math notranslate nohighlight">
+\[
+\Omega =P\Lambda P^T
+\]</div>
+<p>Here</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( P \)</span> is <span class="math notranslate nohighlight">\( m×m \)</span> matrix of eigenvectors of <span class="math notranslate nohighlight">\( \Omega \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( \Lambda \)</span> is a diagonal matrix of eigenvalues of <span class="math notranslate nohighlight">\( \Omega \)</span></p></li>
+</ul>
+<p>We can then represent <span class="math notranslate nohighlight">\( X \)</span> as</p>
+<div class="math notranslate nohighlight">
+\[
+X=P\epsilon
+\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[
+\epsilon = P^{-1} X
+\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[
+\epsilon\epsilon^T=\Lambda .
+\]</div>
+<p>We can verify that</p>
+<p><a id='equation-eq-xxo'></a>
+$<span class="math notranslate nohighlight">\(
+XX^T=P\Lambda P^T . \tag{7.3}
+\)</span>$</p>
+<p>It follows that we can represent the data matrix <span class="math notranslate nohighlight">\( X \)</span>  as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{equation*}
+X=\begin{bmatrix}X_1|X_2|\ldots|X_m\end{bmatrix} =\begin{bmatrix}P_1|P_2|\ldots|P_m\end{bmatrix}
+\begin{bmatrix}\epsilon_1\\\epsilon_2\\\ldots\\\epsilon_m\end{bmatrix} 
+= P_1\epsilon_1+P_2\epsilon_2+\ldots+P_m\epsilon_m
+\end{equation*}
+\end{split}\]</div>
+<p>To reconcile the preceding representation with the PCA that we had obtained earlier through the SVD, we first note that <span class="math notranslate nohighlight">\( \epsilon_j^2=\lambda_j\equiv\sigma^2_j \)</span>.</p>
+<p>Now define  <span class="math notranslate nohighlight">\( \tilde{\epsilon_j} = \frac{\epsilon_j}{\sqrt{\lambda_j}} \)</span>,
+which  implies that <span class="math notranslate nohighlight">\( \tilde{\epsilon}_j\tilde{\epsilon}_j^T=1 \)</span>.</p>
+<p>Therefore</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+X&amp;=\sqrt{\lambda_1}P_1\tilde{\epsilon_1}+\sqrt{\lambda_2}P_2\tilde{\epsilon_2}+\ldots+\sqrt{\lambda_m}P_m\tilde{\epsilon_m}\\
+&amp;=\sigma_1P_1\tilde{\epsilon_2}+\sigma_2P_2\tilde{\epsilon_2}+\ldots+\sigma_mP_m\tilde{\epsilon_m} ,
+\end{aligned}
+\end{split}\]</div>
+<p>which  agrees with</p>
+<div class="math notranslate nohighlight">
+\[
+X=\sigma_1U_1{V_1}^{T}+\sigma_2 U_2{V_2}^{T}+\ldots+\sigma_{r} U_{r}{V_{r}}^{T}
+\]</div>
+<p>provided that  we set</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( U_j=P_j \)</span> (a vector of  loadings of variables on principal component <span class="math notranslate nohighlight">\( j \)</span>)</p></li>
+<li><p><span class="math notranslate nohighlight">\( {V_k}^{T}=\tilde{\epsilon_k} \)</span> (the <span class="math notranslate nohighlight">\( k \)</span>th principal component)</p></li>
+</ul>
+<p>Because  there are alternative algorithms for  computing  <span class="math notranslate nohighlight">\( P \)</span> and <span class="math notranslate nohighlight">\( U \)</span> for  given a data matrix <span class="math notranslate nohighlight">\( X \)</span>, depending on  algorithms used, we might have sign differences or different orders between eigenvectors.</p>
+<p>We can resolve such ambiguities about  <span class="math notranslate nohighlight">\( U \)</span> and <span class="math notranslate nohighlight">\( P \)</span> by</p>
+<ol class="simple">
+<li><p>sorting eigenvalues and singular values in descending order</p></li>
+<li><p>imposing positive diagonals on <span class="math notranslate nohighlight">\( P \)</span> and <span class="math notranslate nohighlight">\( U \)</span> and adjusting signs in <span class="math notranslate nohighlight">\( V^T \)</span> accordingly</p></li>
+</ol>
+</section>
+<section id="connections">
+<h2>Connections<a class="headerlink" href="#connections" title="Permalink to this headline">#</a></h2>
+<p>To pull things together, it is useful to assemble and compare some formulas presented above.</p>
+<p>First, consider an  SVD of an <span class="math notranslate nohighlight">\( m \times n \)</span> matrix:</p>
+<div class="math notranslate nohighlight">
+\[
+X = U\Sigma V^T
+\]</div>
+<p>Compute:</p>
+<p><a id='equation-eq-xxcompare'></a>
+$<span class="math notranslate nohighlight">\(
+\begin{aligned}
+XX^T&amp;=U\Sigma V^TV\Sigma^T U^T\cr
+&amp;\equiv U\Sigma\Sigma^TU^T\cr
+&amp;\equiv U\Lambda U^T
+\end{aligned} \tag{7.4}
+\)</span>$</p>
+<p>Compare representation <a class="reference external" href="#equation-eq-xxcompare">(7.4)</a> with equation <a class="reference external" href="#equation-eq-xxo">(7.3)</a> above.</p>
+<p>Evidently, <span class="math notranslate nohighlight">\( U \)</span> in the SVD is the matrix <span class="math notranslate nohighlight">\( P \)</span>  of
+eigenvectors of <span class="math notranslate nohighlight">\( XX^T \)</span> and <span class="math notranslate nohighlight">\( \Sigma \Sigma^T \)</span> is the matrix <span class="math notranslate nohighlight">\( \Lambda \)</span> of eigenvalues.</p>
+<p>Second, let’s compute</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+X^TX &amp;=V\Sigma^T U^TU\Sigma V^T\\
+&amp;=V\Sigma^T{\Sigma}V^T
+\end{aligned}
+\end{split}\]</div>
+<p>Thus, the matrix <span class="math notranslate nohighlight">\( V \)</span> in the SVD is the matrix of eigenvectors of <span class="math notranslate nohighlight">\( X^TX \)</span></p>
+<p>Summarizing and fitting things together, we have the eigen decomposition of the sample
+covariance matrix</p>
+<div class="math notranslate nohighlight">
+\[
+X X^T = P \Lambda P^T
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( P \)</span> is an orthogonal matrix.</p>
+<p>Further, from the SVD of <span class="math notranslate nohighlight">\( X \)</span>, we know that</p>
+<div class="math notranslate nohighlight">
+\[
+X X^T = U \Sigma \Sigma^T U^T
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( U \)</span> is an orthonal matrix.</p>
+<p>Thus, <span class="math notranslate nohighlight">\( P = U \)</span> and we have the representation of <span class="math notranslate nohighlight">\( X \)</span></p>
+<div class="math notranslate nohighlight">
+\[
+X = P \epsilon = U \Sigma V^T
+\]</div>
+<p>It follows that</p>
+<div class="math notranslate nohighlight">
+\[
+U^T X = \Sigma V^T = \epsilon
+\]</div>
+<p>Note that the preceding implies that</p>
+<div class="math notranslate nohighlight">
+\[
+\epsilon \epsilon^T = \Sigma V^T V \Sigma^T = \Sigma \Sigma^T = \Lambda ,
+\]</div>
+<p>so that everything fits together.</p>
+<p>Below we define a class <code class="docutils literal notranslate"><span class="pre">DecomAnalysis</span></code> that wraps  PCA and SVD for a given a data matrix <code class="docutils literal notranslate"><span class="pre">X</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">DecomAnalysis</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class for conducting PCA and SVD.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">n_component</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">X</span> <span class="o">=</span> <span class="n">X</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">Ω</span> <span class="o">=</span> <span class="p">(</span><span class="n">X</span> <span class="o">@</span> <span class="n">X</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">m</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">r</span> <span class="o">=</span> <span class="n">LA</span><span class="o">.</span><span class="n">matrix_rank</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">n_component</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">n_component</span> <span class="o">=</span> <span class="n">n_component</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">n_component</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">m</span>
+
+    <span class="k">def</span> <span class="nf">pca</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">𝜆</span><span class="p">,</span> <span class="n">P</span> <span class="o">=</span> <span class="n">LA</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Ω</span><span class="p">)</span>    <span class="c1"># columns of P are eigenvectors</span>
+
+        <span class="n">ind</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">𝜆</span><span class="o">.</span><span class="n">size</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">𝜆</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># sort by eigenvalues</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">𝜆</span> <span class="o">=</span> <span class="n">𝜆</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span>
+        <span class="n">P</span> <span class="o">=</span> <span class="n">P</span><span class="p">[:,</span> <span class="n">ind</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">P</span> <span class="o">=</span> <span class="n">P</span> <span class="o">@</span> <span class="n">diag_sign</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">Λ</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">𝜆</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">explained_ratio_pca</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">𝜆</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">𝜆</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+        <span class="c1"># compute the N by T matrix of principal components </span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">𝜖</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">P</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">X</span>
+
+        <span class="n">P</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">P</span><span class="p">[:,</span> <span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">n_component</span><span class="p">]</span>
+        <span class="n">𝜖</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">𝜖</span><span class="p">[:</span><span class="bp">self</span><span class="o">.</span><span class="n">n_component</span><span class="p">,</span> <span class="p">:]</span>
+
+        <span class="c1"># transform data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X_pca</span> <span class="o">=</span> <span class="n">P</span> <span class="o">@</span> <span class="n">𝜖</span>
+
+    <span class="k">def</span> <span class="nf">svd</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="n">U</span><span class="p">,</span> <span class="n">𝜎</span><span class="p">,</span> <span class="n">VT</span> <span class="o">=</span> <span class="n">LA</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">X</span><span class="p">)</span>
+
+        <span class="n">ind</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">𝜎</span><span class="o">.</span><span class="n">size</span><span class="p">),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">𝜎</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># sort by eigenvalues</span>
+        <span class="n">d</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">m</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">𝜎</span> <span class="o">=</span> <span class="n">𝜎</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span>
+        <span class="n">U</span> <span class="o">=</span> <span class="n">U</span><span class="p">[:,</span> <span class="n">ind</span><span class="p">]</span>
+        <span class="n">D</span> <span class="o">=</span> <span class="n">diag_sign</span><span class="p">(</span><span class="n">U</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">U</span> <span class="o">=</span> <span class="n">U</span> <span class="o">@</span> <span class="n">D</span>
+        <span class="n">VT</span><span class="p">[:</span><span class="n">d</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">D</span> <span class="o">@</span> <span class="n">VT</span><span class="p">[</span><span class="n">ind</span><span class="p">,</span> <span class="p">:]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">VT</span> <span class="o">=</span> <span class="n">VT</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">Σ</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">m</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Σ</span><span class="p">[:</span><span class="n">d</span><span class="p">,</span> <span class="p">:</span><span class="n">d</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">𝜎</span><span class="p">)</span>
+
+        <span class="n">𝜎_sq</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">𝜎</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">explained_ratio_svd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">𝜎_sq</span><span class="p">)</span> <span class="o">/</span> <span class="n">𝜎_sq</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+        <span class="c1"># slicing matrices by the number of components to use</span>
+        <span class="n">U</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">[:,</span> <span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">n_component</span><span class="p">]</span>
+        <span class="n">Σ</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Σ</span><span class="p">[:</span><span class="bp">self</span><span class="o">.</span><span class="n">n_component</span><span class="p">,</span> <span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">n_component</span><span class="p">]</span>
+        <span class="n">VT</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">VT</span><span class="p">[:</span><span class="bp">self</span><span class="o">.</span><span class="n">n_component</span><span class="p">,</span> <span class="p">:]</span>
+
+        <span class="c1"># transform data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X_svd</span> <span class="o">=</span> <span class="n">U</span> <span class="o">@</span> <span class="n">Σ</span> <span class="o">@</span> <span class="n">VT</span>
+
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_component</span><span class="p">):</span>
+
+        <span class="c1"># pca</span>
+        <span class="n">P</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">P</span><span class="p">[:,</span> <span class="p">:</span><span class="n">n_component</span><span class="p">]</span>
+        <span class="n">𝜖</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">𝜖</span><span class="p">[:</span><span class="n">n_component</span><span class="p">,</span> <span class="p">:]</span>
+
+        <span class="c1"># transform data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X_pca</span> <span class="o">=</span> <span class="n">P</span> <span class="o">@</span> <span class="n">𝜖</span>
+
+        <span class="c1"># svd</span>
+        <span class="n">U</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">[:,</span> <span class="p">:</span><span class="n">n_component</span><span class="p">]</span>
+        <span class="n">Σ</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">Σ</span><span class="p">[:</span><span class="n">n_component</span><span class="p">,</span> <span class="p">:</span><span class="n">n_component</span><span class="p">]</span>
+        <span class="n">VT</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">VT</span><span class="p">[:</span><span class="n">n_component</span><span class="p">,</span> <span class="p">:]</span>
+
+        <span class="c1"># transform data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X_svd</span> <span class="o">=</span> <span class="n">U</span> <span class="o">@</span> <span class="n">Σ</span> <span class="o">@</span> <span class="n">VT</span>
+
+<span class="k">def</span> <span class="nf">diag_sign</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+    <span class="s2">&quot;Compute the signs of the diagonal of matrix A&quot;</span>
+
+    <span class="n">D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">A</span><span class="p">)))</span>
+
+    <span class="k">return</span> <span class="n">D</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We also define a function that prints out information so that we can compare  decompositions
+obtained by different algorithms.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compare_pca_svd</span><span class="p">(</span><span class="n">da</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compare the outcomes of PCA and SVD.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">da</span><span class="o">.</span><span class="n">pca</span><span class="p">()</span>
+    <span class="n">da</span><span class="o">.</span><span class="n">svd</span><span class="p">()</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Eigenvalues and Singular values</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;λ = </span><span class="si">{</span><span class="n">da</span><span class="o">.</span><span class="n">λ</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;σ^2 = </span><span class="si">{</span><span class="n">da</span><span class="o">.</span><span class="n">σ</span><span class="o">**</span><span class="mi">2</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="c1"># loading matrices</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;loadings&#39;</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">da</span><span class="o">.</span><span class="n">P</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;P&#39;</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;m&#39;</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">da</span><span class="o">.</span><span class="n">U</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;U&#39;</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;m&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="c1"># principal components</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">axs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;principal components&#39;</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">da</span><span class="o">.</span><span class="n">ε</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;ε&#39;</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">da</span><span class="o">.</span><span class="n">VT</span><span class="p">[:</span><span class="n">da</span><span class="o">.</span><span class="n">r</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">T</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">da</span><span class="o">.</span><span class="n">λ</span><span class="p">))</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;$V^T*\sqrt{\lambda}$&#39;</span><span class="p">)</span>
+    <span class="n">axs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>For an example  PCA applied to analyzing the structure of intelligence tests see this lecture <a class="reference external" href="https://python.quantecon.org/multivariate_normal.html">Multivariable Normal Distribution</a>.</p>
+<p>Look at  parts of that lecture that describe and illustrate the classic factor analysis model.</p>
+</section>
+<section id="dynamic-mode-decomposition-dmd">
+<h2>Dynamic Mode Decomposition (DMD)<a class="headerlink" href="#dynamic-mode-decomposition-dmd" title="Permalink to this headline">#</a></h2>
+<p>We turn to the <strong>tall and skinny</strong> case  associated with <strong>Dynamic Mode Decomposition</strong>, the case in  which <span class="math notranslate nohighlight">\( m &gt;&gt;n \)</span>.</p>
+<p>Here an <span class="math notranslate nohighlight">\( m \times n \)</span>  data matrix <span class="math notranslate nohighlight">\( \tilde X \)</span> contains many more attributes <span class="math notranslate nohighlight">\( m \)</span> than individuals <span class="math notranslate nohighlight">\( n \)</span>.</p>
+<p>This</p>
+<p>Dynamic mode decomposition was introduced by [<a class="reference external" href="https://python.quantecon.org/zreferences.html#id16">Sch10</a>],</p>
+<p>You can read more about Dynamic Mode Decomposition here [<a class="reference external" href="https://python.quantecon.org/zreferences.html#id24">KBBWP16</a>] and here [<a class="reference external" href="https://python.quantecon.org/zreferences.html#id25">BK19</a>] (section 7.2).</p>
+<p>We want to fit a <strong>first-order vector autoregression</strong></p>
+<p><a id='equation-eq-varfirstorder'></a>
+$<span class="math notranslate nohighlight">\(
+X_{t+1} = A X_t + C \epsilon_{t+1} \tag{7.5}
+\)</span>$</p>
+<p>where <span class="math notranslate nohighlight">\( \epsilon_{t+1} \)</span> is the time <span class="math notranslate nohighlight">\( t+1 \)</span> instance of an i.i.d. <span class="math notranslate nohighlight">\( m \times 1 \)</span> random vector with mean vector
+zero and identity  covariance matrix and</p>
+<p>where
+the <span class="math notranslate nohighlight">\( m \times 1 \)</span> vector <span class="math notranslate nohighlight">\( X_t \)</span> is</p>
+<p><a id='equation-eq-xvector'></a>
+$<span class="math notranslate nohighlight">\(
+X_t = \begin{bmatrix}  X_{1,t} &amp; X_{2,t} &amp; \cdots &amp; X_{m,t}     \end{bmatrix}^T \tag{7.6}
+\)</span>$</p>
+<p>and where <span class="math notranslate nohighlight">\( T \)</span> again denotes complex transposition and <span class="math notranslate nohighlight">\( X_{i,t} \)</span> is an observation on variable <span class="math notranslate nohighlight">\( i \)</span> at time <span class="math notranslate nohighlight">\( t \)</span>.</p>
+<p>We want to fit equation <a class="reference external" href="#equation-eq-varfirstorder">(7.5)</a>.</p>
+<p>Our data are organized in   an <span class="math notranslate nohighlight">\( m \times (n+1) \)</span> matrix  <span class="math notranslate nohighlight">\( \tilde X \)</span></p>
+<div class="math notranslate nohighlight">
+\[
+\tilde X =  \begin{bmatrix} X_1 \mid X_2 \mid \cdots \mid X_n \mid X_{n+1} \end{bmatrix}
+\]</div>
+<p>where for <span class="math notranslate nohighlight">\( t = 1, \ldots, n +1 \)</span>,  the <span class="math notranslate nohighlight">\( m \times 1 \)</span> vector <span class="math notranslate nohighlight">\( X_t \)</span> is given by <a class="reference external" href="#equation-eq-xvector">(7.6)</a>.</p>
+<p>Thus, we want to estimate a  system  <a class="reference external" href="#equation-eq-varfirstorder">(7.5)</a> that consists of <span class="math notranslate nohighlight">\( m \)</span> least squares regressions of <strong>everything</strong> on one lagged value of <strong>everything</strong>.</p>
+<p>The <span class="math notranslate nohighlight">\( i \)</span>’th equation of <a class="reference external" href="#equation-eq-varfirstorder">(7.5)</a> is a regression of <span class="math notranslate nohighlight">\( X_{i,t+1} \)</span> on the vector <span class="math notranslate nohighlight">\( X_t \)</span>.</p>
+<p>We proceed as follows.</p>
+<p>From <span class="math notranslate nohighlight">\( \tilde X \)</span>,  we  form two <span class="math notranslate nohighlight">\( m \times n \)</span> matrices</p>
+<div class="math notranslate nohighlight">
+\[
+X =  \begin{bmatrix} X_1 \mid X_2 \mid \cdots \mid X_{n}\end{bmatrix}
+\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[
+X' =  \begin{bmatrix} X_2 \mid X_3 \mid \cdots \mid X_{n+1}\end{bmatrix}
+\]</div>
+<p>Here <span class="math notranslate nohighlight">\( ' \)</span> does not indicate matrix transposition but instead is part of the name of the matrix <span class="math notranslate nohighlight">\( X' \)</span>.</p>
+<p>In forming <span class="math notranslate nohighlight">\( X \)</span> and <span class="math notranslate nohighlight">\( X' \)</span>, we have in each case  dropped a column from <span class="math notranslate nohighlight">\( \tilde X \)</span>,  the last column in the case of <span class="math notranslate nohighlight">\( X \)</span>, and  the first column in the case of <span class="math notranslate nohighlight">\( X' \)</span>.</p>
+<p>Evidently, <span class="math notranslate nohighlight">\( X \)</span> and <span class="math notranslate nohighlight">\( X' \)</span> are both <span class="math notranslate nohighlight">\( m \times  n \)</span> matrices.</p>
+<p>We denote the rank of <span class="math notranslate nohighlight">\( X \)</span> as <span class="math notranslate nohighlight">\( p \leq \min(m, n) \)</span>.</p>
+<p>Two possible cases are</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\( n &gt; &gt; m \)</span>, so that we have many more time series  observations <span class="math notranslate nohighlight">\( n \)</span> than variables <span class="math notranslate nohighlight">\( m \)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\( m &gt; &gt; n \)</span>, so that we have many more variables <span class="math notranslate nohighlight">\( m \)</span> than time series observations <span class="math notranslate nohighlight">\( n \)</span></p></li>
+</ul>
+<p>At a general level that includes both of these special cases, a common formula describes the least squares estimator <span class="math notranslate nohighlight">\( \hat A \)</span> of <span class="math notranslate nohighlight">\( A \)</span> for both cases.</p>
+<p>But some important  details differ.</p>
+<p>The common formula is</p>
+<p><a id='equation-eq-commona'></a>
+$<span class="math notranslate nohighlight">\(
+\hat A = X' X^+ \tag{7.7}
+\)</span>$</p>
+<p>where <span class="math notranslate nohighlight">\( X^+ \)</span> is the pseudo-inverse of <span class="math notranslate nohighlight">\( X \)</span>.</p>
+<p>Applicable formulas for the pseudo-inverse differ for our two cases.</p>
+<p><strong>Short-Fat Case:</strong></p>
+<p>When <span class="math notranslate nohighlight">\( n &gt; &gt; m \)</span>, so that we have many more time series  observations <span class="math notranslate nohighlight">\( n \)</span> than variables <span class="math notranslate nohighlight">\( m \)</span> and when
+<span class="math notranslate nohighlight">\( X \)</span> has linearly independent <strong>rows</strong>, <span class="math notranslate nohighlight">\( X X^T \)</span> has an inverse and the pseudo-inverse <span class="math notranslate nohighlight">\( X^+ \)</span> is</p>
+<div class="math notranslate nohighlight">
+\[
+X^+ = X^T (X X^T)^{-1}
+\]</div>
+<p>Here <span class="math notranslate nohighlight">\( X^+ \)</span> is a <strong>right-inverse</strong> that verifies <span class="math notranslate nohighlight">\( X X^+ = I_{m \times m} \)</span>.</p>
+<p>In this case, our formula <a class="reference external" href="#equation-eq-commona">(7.7)</a> for the least-squares estimator of the population matrix of regression coefficients  <span class="math notranslate nohighlight">\( A \)</span> becomes</p>
+<p><a id='equation-eq-ahatform101'></a>
+$<span class="math notranslate nohighlight">\(
+\hat A = X' X^T (X X^T)^{-1} \tag{7.8}
+\)</span>$</p>
+<p>This  formula for least-squares regression coefficients widely used in econometrics.</p>
+<p>For example, it is used  to estimate vector autorgressions.</p>
+<p>The right side of formula <a class="reference external" href="#equation-eq-ahatform101">(7.8)</a> is proportional to the empirical cross second moment matrix of <span class="math notranslate nohighlight">\( X_{t+1} \)</span> and <span class="math notranslate nohighlight">\( X_t \)</span> times the inverse
+of the second moment matrix of <span class="math notranslate nohighlight">\( X_t \)</span>.</p>
+<p><strong>Tall-Skinny Case:</strong></p>
+<p>When <span class="math notranslate nohighlight">\( m &gt; &gt; n \)</span>, so that we have many more attributes <span class="math notranslate nohighlight">\( m \)</span> than time series observations <span class="math notranslate nohighlight">\( n \)</span> and when <span class="math notranslate nohighlight">\( X \)</span> has linearly independent <strong>columns</strong>,
+<span class="math notranslate nohighlight">\( X^T X \)</span> has an inverse and the pseudo-inverse <span class="math notranslate nohighlight">\( X^+ \)</span> is</p>
+<div class="math notranslate nohighlight">
+\[
+X^+ = (X^T X)^{-1} X^T
+\]</div>
+<p>Here  <span class="math notranslate nohighlight">\( X^+ \)</span> is a <strong>left-inverse</strong> that verifies <span class="math notranslate nohighlight">\( X^+ X = I_{n \times n} \)</span>.</p>
+<p>In this case, our formula  <a class="reference external" href="#equation-eq-commona">(7.7)</a> for a least-squares estimator of <span class="math notranslate nohighlight">\( A \)</span> becomes</p>
+<p><a id='equation-eq-hataversion0'></a>
+$<span class="math notranslate nohighlight">\(
+\hat A = X' (X^T X)^{-1} X^T \tag{7.9}
+\)</span>$</p>
+<p>Please compare formulas <a class="reference external" href="#equation-eq-ahatform101">(7.8)</a> and <a class="reference external" href="#equation-eq-hataversion0">(7.9)</a> for <span class="math notranslate nohighlight">\( \hat A \)</span>.</p>
+<p>Here we are interested in formula <a class="reference external" href="#equation-eq-hataversion0">(7.9)</a>.</p>
+<p>The <span class="math notranslate nohighlight">\( i \)</span>th  row of <span class="math notranslate nohighlight">\( \hat A \)</span> is an <span class="math notranslate nohighlight">\( m \times 1 \)</span> vector of regression coefficients of <span class="math notranslate nohighlight">\( X_{i,t+1} \)</span> on <span class="math notranslate nohighlight">\( X_{j,t}, j = 1, \ldots, m \)</span>.</p>
+<p>If we use formula <a class="reference external" href="#equation-eq-hataversion0">(7.9)</a> to calculate <span class="math notranslate nohighlight">\( \hat A X \)</span> we find that</p>
+<div class="math notranslate nohighlight">
+\[
+\hat A X = X'
+\]</div>
+<p>so that the regression equation <strong>fits perfectly</strong>.</p>
+<p>This is the usual outcome in an <strong>underdetermined least-squares</strong> model.</p>
+<p>To reiterate, in our <strong>tall-skinny</strong> case  in which we have a number <span class="math notranslate nohighlight">\( n \)</span> of observations   that is small relative to the number <span class="math notranslate nohighlight">\( m \)</span> of
+attributes that appear in the vector <span class="math notranslate nohighlight">\( X_t \)</span>,  we want to fit equation <a class="reference external" href="#equation-eq-varfirstorder">(7.5)</a>.</p>
+<p>To  offer  ideas about how we can efficiently calculate the pseudo-inverse <span class="math notranslate nohighlight">\( X^+ \)</span>, as our  estimator <span class="math notranslate nohighlight">\( \hat A \)</span> of <span class="math notranslate nohighlight">\( A \)</span> we form an  <span class="math notranslate nohighlight">\( m \times m \)</span> matrix that  solves the least-squares best-fit problem</p>
+<p><a id='equation-eq-alseqn'></a>
+$<span class="math notranslate nohighlight">\(
+\hat A = \textrm{argmin}_{\check A} || X' - \check  A X ||_F \tag{7.10}
+\)</span>$</p>
+<p>where <span class="math notranslate nohighlight">\( || \cdot ||_F \)</span> denotes the Frobenius (or Euclidean) norm of a matrix.</p>
+<p>The Frobenius norm is defined as</p>
+<div class="math notranslate nohighlight">
+\[
+||A||_F = \sqrt{ \sum_{i=1}^m \sum_{j=1}^m |A_{ij}|^2 }
+\]</div>
+<p>The minimizer of the right side of equation <a class="reference external" href="#equation-eq-alseqn">(7.10)</a> is</p>
+<p><a id='equation-eq-hataform'></a>
+$<span class="math notranslate nohighlight">\(
+\hat A =  X'  X^{+} \tag{7.11}
+\)</span>$</p>
+<p>where the (possibly huge) <span class="math notranslate nohighlight">\( n \times m \)</span> matrix <span class="math notranslate nohighlight">\( X^{+} = (X^T X)^{-1} X^T \)</span> is again a pseudo-inverse of <span class="math notranslate nohighlight">\( X \)</span>.</p>
+<p>For some situations that we are interested in, <span class="math notranslate nohighlight">\( X^T X \)</span> can be close to singular, a situation that can make some numerical algorithms  be error-prone.</p>
+<p>To acknowledge that possibility, we’ll use  efficient algorithms for computing and for constructing reduced rank approximations of  <span class="math notranslate nohighlight">\( \hat A \)</span> in formula <a class="reference external" href="#equation-eq-hataversion0">(7.9)</a>.</p>
+<p>The <span class="math notranslate nohighlight">\( i \)</span>th  row of <span class="math notranslate nohighlight">\( \hat A \)</span> is an <span class="math notranslate nohighlight">\( m \times 1 \)</span> vector of regression coefficients of <span class="math notranslate nohighlight">\( X_{i,t+1} \)</span> on <span class="math notranslate nohighlight">\( X_{j,t}, j = 1, \ldots, m \)</span>.</p>
+<p>An efficient way to compute the pseudo-inverse <span class="math notranslate nohighlight">\( X^+ \)</span> is to start with  a singular value decomposition</p>
+<p><a id='equation-eq-svddmd'></a>
+$<span class="math notranslate nohighlight">\(
+X =  U \Sigma  V^T \tag{7.12}
+\)</span>$</p>
+<p>where we remind ourselves that for a <strong>reduced</strong> SVD, <span class="math notranslate nohighlight">\( X \)</span> is an <span class="math notranslate nohighlight">\( m \times n \)</span> matrix of data, <span class="math notranslate nohighlight">\( U \)</span> is an <span class="math notranslate nohighlight">\( m \times p \)</span> matrix, <span class="math notranslate nohighlight">\( \Sigma \)</span>  is a <span class="math notranslate nohighlight">\( p \times p \)</span> matrix, and <span class="math notranslate nohighlight">\( V is an \)</span>n \times p$ matrix.</p>
+<p>We can    efficiently  construct the pertinent pseudo-inverse <span class="math notranslate nohighlight">\( X^+ \)</span>
+by recognizing the following string of equalities.</p>
+<p><a id='equation-eq-efficientpseudoinverse'></a>
+$<span class="math notranslate nohighlight">\(
+\begin{aligned}
+X^{+} &amp; = (X^T X)^{-1} X^T \\
+  &amp; = (V \Sigma U^T U \Sigma V^T)^{-1} V \Sigma U^T \\
+  &amp; = (V \Sigma \Sigma V^T)^{-1} V \Sigma U^T \\
+  &amp; = V \Sigma^{-1} \Sigma^{-1} V^T V \Sigma U^T \\
+  &amp; = V \Sigma^{-1} U^T 
+\end{aligned} \tag{7.13}
+\)</span>$</p>
+<p>(Since we are in the <span class="math notranslate nohighlight">\( m &gt; &gt; n \)</span> case in which <span class="math notranslate nohighlight">\( V^T V = I_{p \times p} \)</span> in a reduced SVD, we can use the preceding
+string of equalities for a reduced SVD as well as for a full SVD.)</p>
+<p>Thus, we shall  construct a pseudo-inverse <span class="math notranslate nohighlight">\( X^+ \)</span>  of <span class="math notranslate nohighlight">\( X \)</span> by using
+a singular value decomposition of <span class="math notranslate nohighlight">\( X \)</span> in equation <a class="reference external" href="#equation-eq-svddmd">(7.12)</a>  to compute</p>
+<p><a id='equation-eq-xplusformula'></a>
+$<span class="math notranslate nohighlight">\(
+X^{+} =  V \Sigma^{-1}  U^T \tag{7.14}
+\)</span>$</p>
+<p>where the matrix <span class="math notranslate nohighlight">\( \Sigma^{-1} \)</span> is constructed by replacing each non-zero element of <span class="math notranslate nohighlight">\( \Sigma \)</span> with <span class="math notranslate nohighlight">\( \sigma_j^{-1} \)</span>.</p>
+<p>We can  use formula <a class="reference external" href="#equation-eq-xplusformula">(7.14)</a>   together with formula <a class="reference external" href="#equation-eq-hataform">(7.11)</a> to compute the matrix  <span class="math notranslate nohighlight">\( \hat A \)</span> of regression coefficients.</p>
+<p>Thus, our  estimator <span class="math notranslate nohighlight">\( \hat A = X' X^+ \)</span> of the <span class="math notranslate nohighlight">\( m \times m \)</span> matrix of coefficients <span class="math notranslate nohighlight">\( A \)</span>    is</p>
+<p><a id='equation-eq-ahatsvdformula'></a>
+$<span class="math notranslate nohighlight">\(
+\hat A = X' V \Sigma^{-1}  U^T \tag{7.15}
+\)</span>$</p>
+<p>We’ll eventually use <strong>dynamic mode decomposition</strong> to compute a rank <span class="math notranslate nohighlight">\( r \)</span> approximation to <span class="math notranslate nohighlight">\( \hat A \)</span>,
+where <span class="math notranslate nohighlight">\( r &lt;  p \)</span>.</p>
+<p><strong>Remark:</strong> In our Python code, we’ll sometimes use  a reduced SVD.</p>
+<p>Next, we describe alternative representations of our first-order linear dynamic system.</p>
+<p><strong>Guide to three representations:</strong> In practice, we’ll be interested in Representation 3.  We present the first 2 in order to set the stage for some intermediate steps that might help us understand what is under the hood of Representation 3.  In applications, we’ll use only a small  subset of the DMD to approximate dynamics.  To to that, we’ll want to be using the  reduced  SVD’s affiliated with representation 3, not the full SVD’s affiliated with Representations 1 and 2.</p>
+</section>
+<section id="representation-1">
+<h2>Representation 1<a class="headerlink" href="#representation-1" title="Permalink to this headline">#</a></h2>
+<p>In this representation, we shall use a <strong>full</strong> SVD of <span class="math notranslate nohighlight">\( X \)</span>.</p>
+<p>We use the <span class="math notranslate nohighlight">\( m \)</span>  <strong>columns</strong> of <span class="math notranslate nohighlight">\( U \)</span>, and thus the <span class="math notranslate nohighlight">\( m \)</span> <strong>rows</strong> of <span class="math notranslate nohighlight">\( U^T \)</span>,  to define   a <span class="math notranslate nohighlight">\( m \times 1 \)</span>  vector <span class="math notranslate nohighlight">\( \tilde b_t \)</span> as</p>
+<p><a id='equation-eq-tildexdef2'></a>
+$<span class="math notranslate nohighlight">\(
+\tilde b_t = U^T X_t . \tag{7.16}
+\)</span>$</p>
+<p>The original  data <span class="math notranslate nohighlight">\( X_t \)</span> can be represented as</p>
+<p><a id='equation-eq-xdecoder'></a>
+$<span class="math notranslate nohighlight">\(
+X_t = U \tilde b_t \tag{7.17}
+\)</span>$</p>
+<p>(Here we use <span class="math notranslate nohighlight">\( b \)</span> to remind ourselves that we are creating a <strong>basis</strong> vector.)</p>
+<p>Since we are now using a <strong>full</strong> SVD, <span class="math notranslate nohighlight">\( U U^T = I_{m \times m} \)</span>.</p>
+<p>So it follows from equation <a class="reference external" href="#equation-eq-tildexdef2">(7.16)</a> that we can reconstruct  <span class="math notranslate nohighlight">\( X_t \)</span> from <span class="math notranslate nohighlight">\( \tilde b_t \)</span>.</p>
+<p>In particular,</p>
+<ul class="simple">
+<li><p>Equation <a class="reference external" href="#equation-eq-tildexdef2">(7.16)</a> serves as an <strong>encoder</strong> that  <strong>rotates</strong> the <span class="math notranslate nohighlight">\( m \times 1 \)</span> vector <span class="math notranslate nohighlight">\( X_t \)</span> to become an <span class="math notranslate nohighlight">\( m \times 1 \)</span> vector <span class="math notranslate nohighlight">\( \tilde b_t \)</span></p></li>
+<li><p>Equation <a class="reference external" href="#equation-eq-xdecoder">(7.17)</a> serves as a <strong>decoder</strong> that <strong>reconstructs</strong> the <span class="math notranslate nohighlight">\( m \times 1 \)</span> vector <span class="math notranslate nohighlight">\( X_t \)</span> by rotating  the <span class="math notranslate nohighlight">\( m \times 1 \)</span> vector <span class="math notranslate nohighlight">\( \tilde b_t \)</span></p></li>
+</ul>
+<p>Define a  transition matrix for an <span class="math notranslate nohighlight">\( m \times 1 \)</span> basis vector  <span class="math notranslate nohighlight">\( \tilde b_t \)</span> by</p>
+<p><a id='equation-eq-atilde0'></a>
+$<span class="math notranslate nohighlight">\(
+\tilde A = U^T \hat A U \tag{7.18}
+\)</span>$</p>
+<p>We can  recover <span class="math notranslate nohighlight">\( \hat A \)</span> from</p>
+<div class="math notranslate nohighlight">
+\[
+\hat A = U \tilde A U^T
+\]</div>
+<p>Dynamics of the  <span class="math notranslate nohighlight">\( m \times 1 \)</span> basis vector <span class="math notranslate nohighlight">\( \tilde b_t \)</span> are governed by</p>
+<div class="math notranslate nohighlight">
+\[
+\tilde b_{t+1} = \tilde A \tilde b_t
+\]</div>
+<p>To construct forecasts <span class="math notranslate nohighlight">\( \overline X_t \)</span> of  future values of <span class="math notranslate nohighlight">\( X_t \)</span> conditional on <span class="math notranslate nohighlight">\( X_1 \)</span>, we can apply  decoders
+(i.e., rotators) to both sides of this
+equation and deduce</p>
+<div class="math notranslate nohighlight">
+\[
+\overline X_{t+1} = U \tilde A^t U^T X_1
+\]</div>
+<p>where we use <span class="math notranslate nohighlight">\( \overline X_{t+1}, t \geq 1 \)</span> to denote a forecast.</p>
+</section>
+<section id="representation-2">
+<h2>Representation 2<a class="headerlink" href="#representation-2" title="Permalink to this headline">#</a></h2>
+<p>This representation is related to  one originally proposed by  [<a class="reference external" href="https://python.quantecon.org/zreferences.html#id16">Sch10</a>].</p>
+<p>It can be regarded as an intermediate step to  a related   representation 3 to be presented later</p>
+<p>As with Representation 1, we continue to</p>
+<ul class="simple">
+<li><p>use a <strong>full</strong> SVD and <strong>not</strong> a reduced SVD</p></li>
+</ul>
+<p>As we observed and illustrated  earlier in this lecture</p>
+<ul class="simple">
+<li><p>(a) for a full SVD <span class="math notranslate nohighlight">\( U U^T = I_{m \times m} \)</span> and <span class="math notranslate nohighlight">\( U^T U = I_{p \times p} \)</span> are both identity matrices</p></li>
+<li><p>(b)  for  a reduced SVD of <span class="math notranslate nohighlight">\( X \)</span>, <span class="math notranslate nohighlight">\( U^T U \)</span> is not an identity matrix.</p></li>
+</ul>
+<p>As we shall see later, a full SVD is  too confining for what we ultimately want to do, namely,  situations in which  <span class="math notranslate nohighlight">\( U^T U \)</span> is <strong>not</strong> an identity matrix because we  use a reduced SVD of <span class="math notranslate nohighlight">\( X \)</span>.</p>
+<p>But for now, let’s proceed under the assumption that we are using a full SVD so that  both of the  preceding two  requirements (a) and (b) are satisfied.</p>
+<p>Form an eigendecomposition of the <span class="math notranslate nohighlight">\( m \times m \)</span> matrix <span class="math notranslate nohighlight">\( \tilde A = U^T \hat A U \)</span> defined in equation <a class="reference external" href="#equation-eq-atilde0">(7.18)</a>:</p>
+<p><a id='equation-eq-tildeaeigen'></a>
+$<span class="math notranslate nohighlight">\(
+\tilde A = W \Lambda W^{-1} \tag{7.19}
+\)</span>$</p>
+<p>where <span class="math notranslate nohighlight">\( \Lambda \)</span> is a diagonal matrix of eigenvalues and <span class="math notranslate nohighlight">\( W \)</span> is an <span class="math notranslate nohighlight">\( m \times m \)</span>
+matrix whose columns are eigenvectors  corresponding to rows (eigenvalues) in
+<span class="math notranslate nohighlight">\( \Lambda \)</span>.</p>
+<p>When <span class="math notranslate nohighlight">\( U U^T = I_{m \times m} \)</span>, as is true with a full SVD of <span class="math notranslate nohighlight">\( X \)</span>, it follows that</p>
+<p><a id='equation-eq-eqeigahat'></a>
+$<span class="math notranslate nohighlight">\(
+\hat A = U \tilde A U^T = U W \Lambda W^{-1} U^T \tag{7.20}
+\)</span>$</p>
+<p>According to equation <a class="reference external" href="#equation-eq-eqeigahat">(7.20)</a>, the diagonal matrix <span class="math notranslate nohighlight">\( \Lambda \)</span> contains eigenvalues of
+<span class="math notranslate nohighlight">\( \hat A \)</span> and corresponding eigenvectors of <span class="math notranslate nohighlight">\( \hat A \)</span> are columns of the matrix <span class="math notranslate nohighlight">\( UW \)</span>.</p>
+<p>It follows that the systematic (i.e., not random) parts of the <span class="math notranslate nohighlight">\( X_t \)</span> dynamics captured by our first-order vector autoregressions   are described by</p>
+<div class="math notranslate nohighlight">
+\[
+X_{t+1} = U W \Lambda W^{-1} U^T  X_t
+\]</div>
+<p>Multiplying both sides of the above equation by <span class="math notranslate nohighlight">\( W^{-1} U^T \)</span> gives</p>
+<div class="math notranslate nohighlight">
+\[
+W^{-1} U^T X_{t+1} = \Lambda W^{-1} U^T X_t
+\]</div>
+<p>or</p>
+<div class="math notranslate nohighlight">
+\[
+\hat b_{t+1} = \Lambda \hat b_t
+\]</div>
+<p>where our <strong>encoder</strong>  is now</p>
+<div class="math notranslate nohighlight">
+\[
+\hat b_t = W^{-1} U^T X_t
+\]</div>
+<p>and our <strong>decoder</strong> is</p>
+<div class="math notranslate nohighlight">
+\[
+X_t = U W \hat b_t
+\]</div>
+<p>We can use this representation to construct a predictor <span class="math notranslate nohighlight">\( \overline X_{t+1} \)</span> of <span class="math notranslate nohighlight">\( X_{t+1} \)</span> conditional on <span class="math notranslate nohighlight">\( X_1 \)</span>  via:</p>
+<p><a id='equation-eq-dssebookrepr'></a>
+$<span class="math notranslate nohighlight">\(
+\overline X_{t+1} = U W \Lambda^t W^{-1} U^T X_1 \tag{7.21}
+\)</span>$</p>
+<p>In effect,
+[<a class="reference external" href="https://python.quantecon.org/zreferences.html#id16">Sch10</a>] defined an <span class="math notranslate nohighlight">\( m \times m \)</span> matrix <span class="math notranslate nohighlight">\( \Phi_s \)</span> as</p>
+<p><a id='equation-eq-phisfull'></a>
+$<span class="math notranslate nohighlight">\(
+\Phi_s = UW \tag{7.22}
+\)</span>$</p>
+<p>and a generalized inverse</p>
+<p><a id='equation-eq-phisfullinv'></a>
+$<span class="math notranslate nohighlight">\(
+\Phi_s^+ = W^{-1}U^T \tag{7.23}
+\)</span>$</p>
+<p>[<a class="reference external" href="https://python.quantecon.org/zreferences.html#id16">Sch10</a>] then  represented equation <a class="reference external" href="#equation-eq-dssebookrepr">(7.21)</a> as</p>
+<p><a id='equation-eq-schmidrep'></a>
+$<span class="math notranslate nohighlight">\(
+\overline X_{t+1} = \Phi_s \Lambda^t \Phi_s^+ X_1 \tag{7.24}
+\)</span>$</p>
+<p>Components of the  basis vector <span class="math notranslate nohighlight">\( \hat b_t = W^{-1} U^T X_t \equiv \Phi_s^+ X_t \)</span> are often  called DMD <strong>modes</strong>, or sometimes also
+DMD <strong>projected modes</strong>.</p>
+<p>To understand why they are called <strong>projected modes</strong>, notice that</p>
+<div class="math notranslate nohighlight">
+\[
+\Phi_s^+ = ( \Phi_s^T \Phi_s)^{-1} \Phi_s^T
+\]</div>
+<p>so that the <span class="math notranslate nohighlight">\( m \times p \)</span> matrix</p>
+<div class="math notranslate nohighlight">
+\[
+\hat b =  \Phi_s^+ X
+\]</div>
+<p>is a matrix of regression coefficients of the <span class="math notranslate nohighlight">\( m \times n \)</span> matrix <span class="math notranslate nohighlight">\( X \)</span> on the <span class="math notranslate nohighlight">\( m \times p \)</span> matrix <span class="math notranslate nohighlight">\( \Phi_s \)</span>.</p>
+<p>We’ll say more about this interpretation in a related context when we discuss representation 3.</p>
+<p>We turn next  to an alternative  representation suggested by  Tu et al. [<a class="reference external" href="https://python.quantecon.org/zreferences.html#id25">TRL+14</a>].</p>
+<p>It is more appropriate to use this alternative representation  when, as in practice is typically the case, we use a reduced SVD.</p>
+</section>
+<section id="representation-3">
+<h2>Representation 3<a class="headerlink" href="#representation-3" title="Permalink to this headline">#</a></h2>
+<p>Departing from the procedures used to construct  Representations 1 and 2, each of which deployed a <strong>full</strong> SVD, we now use a <strong>reduced</strong> SVD.</p>
+<p>Again, we let  <span class="math notranslate nohighlight">\( p \leq \textrm{min}(m,n) \)</span> be the rank of <span class="math notranslate nohighlight">\( X \)</span>.</p>
+<p>Construct a <strong>reduced</strong> SVD</p>
+<div class="math notranslate nohighlight">
+\[
+X = \tilde U \tilde \Sigma \tilde V^T,
+\]</div>
+<p>where now <span class="math notranslate nohighlight">\( \tilde U \)</span> is <span class="math notranslate nohighlight">\( m \times p \)</span>, <span class="math notranslate nohighlight">\( \tilde \Sigma \)</span> is <span class="math notranslate nohighlight">\( p \times p \)</span>, and <span class="math notranslate nohighlight">\( \tilde V^T \)</span> is <span class="math notranslate nohighlight">\( p \times n \)</span>.</p>
+<p>Our minimum-norm least-squares estimator  approximator of  <span class="math notranslate nohighlight">\( A \)</span> now has representation</p>
+<p><a id='equation-eq-ahatwithtildes'></a>
+$<span class="math notranslate nohighlight">\(
+\hat A = X' \tilde V \tilde \Sigma^{-1} \tilde U^T \tag{7.25}
+\)</span>$</p>
+<p>Paralleling a step in Representation 1, define a  transition matrix for a rotated <span class="math notranslate nohighlight">\( p \times 1 \)</span> state <span class="math notranslate nohighlight">\( \tilde b_t \)</span> by</p>
+<p><a id='equation-eq-atildered'></a>
+$<span class="math notranslate nohighlight">\(
+\tilde A =\tilde  U^T \hat A \tilde U \tag{7.26}
+\)</span>$</p>
+<p><strong>Interpretation as projection coefficients</strong></p>
+<p>[<a class="reference external" href="https://python.quantecon.org/zreferences.html#id39">BK22</a>] remark that <span class="math notranslate nohighlight">\( \tilde A \)</span>  can be interpreted in terms of a projection of <span class="math notranslate nohighlight">\( \hat A \)</span> onto the <span class="math notranslate nohighlight">\( p \)</span> modes in <span class="math notranslate nohighlight">\( \tilde U \)</span>.</p>
+<p>To verify this, first note that, because  <span class="math notranslate nohighlight">\( \tilde U^T \tilde U = I \)</span>, it follows that</p>
+<p><a id='equation-eq-tildeaverify'></a>
+$<span class="math notranslate nohighlight">\(
+\tilde A = \tilde U^T \hat A \tilde U = \tilde U^T X' \tilde V \tilde \Sigma^{-1} \tilde U^T \tilde U 
+= \tilde U^T X' \tilde V \tilde \Sigma^{-1} \tilde U^T \tag{7.27}
+\)</span>$</p>
+<p>Next, we’ll just  compute the regression coefficients in a projection of <span class="math notranslate nohighlight">\( \hat A \)</span> on <span class="math notranslate nohighlight">\( \tilde U \)</span> using the
+standard least-square formula</p>
+<div class="math notranslate nohighlight">
+\[
+(\tilde U^T \tilde U)^{-1} \tilde U^T \hat A = (\tilde U^T \tilde U)^{-1} \tilde U^T X' \tilde V \tilde \Sigma^{-1} \tilde U^T = 
+\tilde U^T X' \tilde V \tilde \Sigma^{-1} \tilde U^T  = \tilde A .
+\]</div>
+<p>Note that because we are now working with a reduced SVD,  <span class="math notranslate nohighlight">\( \tilde U \tilde U^T \neq I \)</span>.</p>
+<p>Consequently,</p>
+<div class="math notranslate nohighlight">
+\[
+\hat A \neq \tilde U \tilde A \tilde U^T,
+\]</div>
+<p>and we can’t simply  recover <span class="math notranslate nohighlight">\( \hat A \)</span> from  <span class="math notranslate nohighlight">\( \tilde A \)</span> and <span class="math notranslate nohighlight">\( \tilde U \)</span>.</p>
+<p>Nevertheless, we  hope for the best and proceed to construct an eigendecomposition of the
+<span class="math notranslate nohighlight">\( p \times p \)</span> matrix <span class="math notranslate nohighlight">\( \tilde A \)</span>:</p>
+<p><a id='equation-eq-tildeaeigenred'></a>
+$<span class="math notranslate nohighlight">\(
+\tilde A =  \tilde  W  \Lambda \tilde  W^{-1} . \tag{7.28}
+\)</span>$</p>
+<p>Mimicking our procedure in Representation 2, we cross our fingers and compute an <span class="math notranslate nohighlight">\( m \times p \)</span> matrix</p>
+<p><a id='equation-eq-phisred'></a>
+$<span class="math notranslate nohighlight">\(
+\tilde \Phi_s = \tilde U \tilde W \tag{7.29}
+\)</span>$</p>
+<p>that  corresponds to <a class="reference external" href="#equation-eq-phisfull">(7.22)</a> for a full SVD.</p>
+<p>At this point, where <span class="math notranslate nohighlight">\( \hat A \)</span> is given by formula <a class="reference external" href="#equation-eq-ahatwithtildes">(7.25)</a> it is interesting to compute <span class="math notranslate nohighlight">\( \hat A \tilde  \Phi_s \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\hat A \tilde \Phi_s &amp; = (X' \tilde V \tilde \Sigma^{-1} \tilde U^T) (\tilde U \tilde W) \\
+  &amp; = X' \tilde V \tilde \Sigma^{-1} \tilde  W \\
+  &amp; \neq (\tilde U \tilde  W) \Lambda \\
+  &amp; = \tilde \Phi_s \Lambda
+  \end{aligned}
+\end{split}\]</div>
+<p>That
+<span class="math notranslate nohighlight">\( \hat A \tilde \Phi_s \neq \tilde \Phi_s \Lambda \)</span> means, that unlike the  corresponding situation in Representation 2, columns of <span class="math notranslate nohighlight">\( \tilde \Phi_s = \tilde U \tilde  W \)</span>
+are <strong>not</strong> eigenvectors of <span class="math notranslate nohighlight">\( \hat A \)</span> corresponding to eigenvalues  on the diagonal of matix <span class="math notranslate nohighlight">\( \Lambda \)</span>.</p>
+<p>But in a quest for eigenvectors of <span class="math notranslate nohighlight">\( \hat A \)</span> that we <strong>can</strong> compute with a reduced SVD,  let’s define  the <span class="math notranslate nohighlight">\( m \times p \)</span> matrix
+<span class="math notranslate nohighlight">\( \Phi \)</span> as</p>
+<p><a id='equation-eq-phiformula'></a>
+$<span class="math notranslate nohighlight">\(
+\Phi \equiv \hat A \tilde \Phi_s = X' \tilde V \tilde \Sigma^{-1}  \tilde  W \tag{7.30}
+\)</span>$</p>
+<p>It turns out that columns of <span class="math notranslate nohighlight">\( \Phi \)</span> <strong>are</strong> eigenvectors of <span class="math notranslate nohighlight">\( \hat A \)</span>.</p>
+<p>This is
+a consequence of a  result established by Tu et al. [<a class="reference external" href="https://python.quantecon.org/zreferences.html#id25">TRL+14</a>], which we now present.</p>
+<p><strong>Proposition</strong> The <span class="math notranslate nohighlight">\( p \)</span> columns of <span class="math notranslate nohighlight">\( \Phi \)</span> are eigenvectors of <span class="math notranslate nohighlight">\( \hat A \)</span>.</p>
+<p><strong>Proof:</strong> From formula <a class="reference external" href="#equation-eq-phiformula">(7.30)</a> we have</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{aligned}
+  \hat A \Phi &amp; =  (X' \tilde  V \tilde  \Sigma^{-1} \tilde  U^T) (X' \tilde  V \Sigma^{-1} \tilde  W) \cr
+  &amp; = X' \tilde V \tilde  \Sigma^{-1} \tilde A \tilde  W \cr
+  &amp; = X' \tilde  V \tilde  \Sigma^{-1}\tilde  W \Lambda \cr
+  &amp; = \Phi \Lambda 
+  \end{aligned}
+\]</div>
+<p>Thus, we  have deduced  that</p>
+<p><a id='equation-eq-aphilambda'></a>
+$<span class="math notranslate nohighlight">\(
+\hat A \Phi = \Phi \Lambda \tag{7.31}
+\)</span>$</p>
+<p>Let <span class="math notranslate nohighlight">\( \phi_i \)</span> be the <span class="math notranslate nohighlight">\( i \)</span>th  column of <span class="math notranslate nohighlight">\( \Phi \)</span> and <span class="math notranslate nohighlight">\( \lambda_i \)</span> be the corresponding <span class="math notranslate nohighlight">\( i \)</span> eigenvalue of <span class="math notranslate nohighlight">\( \tilde A \)</span> from decomposition <a class="reference external" href="#equation-eq-tildeaeigenred">(7.28)</a>.</p>
+<p>Writing out the <span class="math notranslate nohighlight">\( m \times 1 \)</span> vectors on both sides of  equation <a class="reference external" href="#equation-eq-aphilambda">(7.31)</a> and equating them gives</p>
+<div class="math notranslate nohighlight">
+\[
+\hat A \phi_i = \lambda_i \phi_i .
+\]</div>
+<p>This equation confirms that  <span class="math notranslate nohighlight">\( \phi_i \)</span> is an eigenvector of <span class="math notranslate nohighlight">\( \hat A \)</span> that corresponds to eigenvalue  <span class="math notranslate nohighlight">\( \lambda_i \)</span> of both  <span class="math notranslate nohighlight">\( \tilde A \)</span> and <span class="math notranslate nohighlight">\( \hat A \)</span>.</p>
+<p>This concludes the proof.</p>
+<p>Also see [<a class="reference external" href="https://python.quantecon.org/zreferences.html#id39">BK22</a>] (p. 238)</p>
+<section id="decoder-of-x-as-a-linear-projection">
+<h3>Decoder of  <span class="math notranslate nohighlight">\( X \)</span> as a linear projection<a class="headerlink" href="#decoder-of-x-as-a-linear-projection" title="Permalink to this headline">#</a></h3>
+<p>From  eigendecomposition <a class="reference external" href="#equation-eq-aphilambda">(7.31)</a> we can represent <span class="math notranslate nohighlight">\( \hat A \)</span> as</p>
+<p><a id='equation-eq-aform12'></a>
+$<span class="math notranslate nohighlight">\(
+\hat A = \Phi \Lambda \Phi^+ . \tag{7.32}
+\)</span>$</p>
+<p>From formula <a class="reference external" href="#equation-eq-aform12">(7.32)</a> we can deduce the reduced dimension dynamics</p>
+<div class="math notranslate nohighlight">
+\[
+\check b_{t+1} = \Lambda \check b_t
+\]</div>
+<p>where</p>
+<p><a id='equation-eq-decoder102'></a>
+$<span class="math notranslate nohighlight">\(
+\check b_t  = \Phi^+ X_t \tag{7.33}
+\)</span>$</p>
+<p>Since the <span class="math notranslate nohighlight">\( m \times p \)</span> matrix <span class="math notranslate nohighlight">\( \Phi \)</span> has <span class="math notranslate nohighlight">\( p \)</span> linearly independent columns, the generalized inverse of <span class="math notranslate nohighlight">\( \Phi \)</span> is</p>
+<div class="math notranslate nohighlight">
+\[
+\Phi^{+} = (\Phi^T \Phi)^{-1} \Phi^T
+\]</div>
+<p>and so</p>
+<p><a id='equation-eq-checkbform'></a>
+$<span class="math notranslate nohighlight">\(
+\check b = (\Phi^T \Phi)^{-1} \Phi^T X \tag{7.34}
+\)</span>$</p>
+<p>The <span class="math notranslate nohighlight">\( p \times n \)</span>  matrix <span class="math notranslate nohighlight">\( \check b \)</span>  is recognizable as a  matrix of least squares regression coefficients of the <span class="math notranslate nohighlight">\( m \times n \)</span>  matrix
+<span class="math notranslate nohighlight">\( X \)</span> on the <span class="math notranslate nohighlight">\( m \times p \)</span> matrix <span class="math notranslate nohighlight">\( \Phi \)</span> and consequently</p>
+<p><a id='equation-eq-xcheck'></a>
+$<span class="math notranslate nohighlight">\(
+\check X = \Phi \check b \tag{7.35}
+\)</span>$</p>
+<p>is an <span class="math notranslate nohighlight">\( m \times n \)</span> matrix of least squares projections of <span class="math notranslate nohighlight">\( X \)</span> on <span class="math notranslate nohighlight">\( \Phi \)</span>.</p>
+<p>By virtue of least-squares projection theory discussed here <a class="reference external" href="https://python-advanced.quantecon.org/orth_proj.html">https://python-advanced.quantecon.org/orth_proj.html</a>,
+we can represent <span class="math notranslate nohighlight">\( X \)</span> as the sum of the projection <span class="math notranslate nohighlight">\( \check X \)</span> of <span class="math notranslate nohighlight">\( X \)</span> on <span class="math notranslate nohighlight">\( \Phi \)</span>  plus a matrix of errors.</p>
+<p>To verify this, note that the least squares projection <span class="math notranslate nohighlight">\( \check X \)</span> is related to <span class="math notranslate nohighlight">\( X \)</span> by</p>
+<div class="math notranslate nohighlight">
+\[
+X = \check X + \epsilon
+\]</div>
+<p>or</p>
+<p><a id='equation-eq-xbcheck'></a>
+$<span class="math notranslate nohighlight">\(
+X = \Phi \check b + \epsilon \tag{7.36}
+\)</span>$</p>
+<p>where <span class="math notranslate nohighlight">\( \epsilon \)</span> is an <span class="math notranslate nohighlight">\( m \times n \)</span> matrix of least squares errors satisfying the least squares
+orthogonality conditions <span class="math notranslate nohighlight">\( \epsilon^T \Phi =0 \)</span> or</p>
+<p><a id='equation-eq-orthls'></a>
+$<span class="math notranslate nohighlight">\(
+(X - \Phi \check b)^T \Phi = 0_{m \times p} \tag{7.37}
+\)</span>$</p>
+<p>Rearranging  the orthogonality conditions <a class="reference external" href="#equation-eq-orthls">(7.37)</a> gives <span class="math notranslate nohighlight">\( X^T \Phi = \check b \Phi^T \Phi \)</span>,
+which implies formula <a class="reference external" href="#equation-eq-checkbform">(7.34)</a>.</p>
+</section>
+<section id="a-useful-approximation">
+<h3>A useful approximation<a class="headerlink" href="#a-useful-approximation" title="Permalink to this headline">#</a></h3>
+<p>There is a useful  way to approximate  the <span class="math notranslate nohighlight">\( p \times 1 \)</span> vector <span class="math notranslate nohighlight">\( \check b_t \)</span> instead of using  formula
+<a class="reference external" href="#equation-eq-decoder102">(7.33)</a>.</p>
+<p>In particular, the following argument adapted from [<a class="reference external" href="https://python.quantecon.org/zreferences.html#id39">BK22</a>] (page 240) provides a computationally efficient way
+to approximate <span class="math notranslate nohighlight">\( \check b_t \)</span>.</p>
+<p>For convenience, we’ll do this first for time <span class="math notranslate nohighlight">\( t=1 \)</span>.</p>
+<p>For <span class="math notranslate nohighlight">\( t=1 \)</span>, from equation <a class="reference external" href="#equation-eq-xbcheck">(7.36)</a> we have</p>
+<p><a id='equation-eq-x1proj'></a>
+$<span class="math notranslate nohighlight">\(
+\check X_1 = \Phi \check b_1 \tag{7.38}
+\)</span>$</p>
+<p>where <span class="math notranslate nohighlight">\( \check b_1 \)</span> is a <span class="math notranslate nohighlight">\( p \times 1 \)</span> vector.</p>
+<p>Recall from representation 1 above that  <span class="math notranslate nohighlight">\( X_1 =  U \tilde b_1 \)</span>, where <span class="math notranslate nohighlight">\( \tilde b_1 \)</span> is a time <span class="math notranslate nohighlight">\( 1 \)</span>  basis vector for representation 1 and <span class="math notranslate nohighlight">\( U \)</span> is from a full SVD of <span class="math notranslate nohighlight">\( X \)</span>.</p>
+<p>It  then follows from equation <a class="reference external" href="#equation-eq-xbcheck">(7.36)</a> that</p>
+<div class="math notranslate nohighlight">
+\[
+U \tilde b_1 = X' \tilde V \tilde \Sigma^{-1} \tilde  W \check b_1 + \epsilon_1
+\]</div>
+<p>where <span class="math notranslate nohighlight">\( \epsilon_1 \)</span> is a least-squares error vector from equation <a class="reference external" href="#equation-eq-xbcheck">(7.36)</a>.</p>
+<p>It follows that</p>
+<div class="math notranslate nohighlight">
+\[
+\tilde b_1 = U^T X' V \tilde \Sigma^{-1} \tilde W \check b_1 + U^T \epsilon_1
+\]</div>
+<p>Replacing the error term <span class="math notranslate nohighlight">\( U^T \epsilon_1 \)</span> by zero, and replacing <span class="math notranslate nohighlight">\( U \)</span> from a full SVD of <span class="math notranslate nohighlight">\( X \)</span> with
+<span class="math notranslate nohighlight">\( \tilde U \)</span> from a reduced SVD,  we obtain  an approximation <span class="math notranslate nohighlight">\( \hat b_1 \)</span> to <span class="math notranslate nohighlight">\( \tilde b_1 \)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+\hat b_1 = \tilde U^T X' \tilde V \tilde \Sigma^{-1} \tilde  W \check b_1
+\]</div>
+<p>Recall that  from equation <a class="reference external" href="#equation-eq-tildeaverify">(7.27)</a>,  <span class="math notranslate nohighlight">\( \tilde A = \tilde U^T X' \tilde V \tilde \Sigma^{-1} \)</span>.</p>
+<p>It then follows  that</p>
+<div class="math notranslate nohighlight">
+\[
+\hat  b_1 = \tilde   A \tilde W \check b_1
+\]</div>
+<p>and therefore, by the  eigendecomposition  <a class="reference external" href="#equation-eq-tildeaeigenred">(7.28)</a> of <span class="math notranslate nohighlight">\( \tilde A \)</span>, we have</p>
+<div class="math notranslate nohighlight">
+\[
+\hat b_1 = \tilde W \Lambda \check b_1
+\]</div>
+<p>Consequently,</p>
+<div class="math notranslate nohighlight">
+\[
+\hat b_1 = ( \tilde W \Lambda)^{-1} \tilde b_1
+\]</div>
+<p>or</p>
+<p><a id='equation-eq-beqnsmall'></a>
+$<span class="math notranslate nohighlight">\(
+\hat b_1 = ( \tilde W \Lambda)^{-1} \tilde U^T X_1 , \tag{7.39}
+\)</span>$</p>
+<p>which is  computationally efficient approximation to  the following instance of  equation <a class="reference external" href="#equation-eq-decoder102">(7.33)</a> for  the initial vector <span class="math notranslate nohighlight">\( \check b_1 \)</span>:</p>
+<p><a id='equation-eq-bphieqn'></a>
+$<span class="math notranslate nohighlight">\(
+\check b_1= \Phi^{+} X_1 \tag{7.40}
+\)</span>$</p>
+<p>(To highlight that <a class="reference external" href="#equation-eq-beqnsmall">(7.39)</a> is an approximation, users of  DMD sometimes call  components of the  basis vector <span class="math notranslate nohighlight">\( \check b_t  = \Phi^+ X_t \)</span>  the  <strong>exact</strong> DMD modes.)</p>
+<p>Conditional on <span class="math notranslate nohighlight">\( X_t \)</span>, we can compute our decoded <span class="math notranslate nohighlight">\( \check X_{t+j},   j = 1, 2, \ldots \)</span>  from
+either</p>
+<p><a id='equation-eq-checkxevoln'></a>
+$<span class="math notranslate nohighlight">\(
+\check X_{t+j} = \Phi \Lambda^j \Phi^{+} X_t \tag{7.41}
+\)</span>$</p>
+<p>or  use the approximation</p>
+<p><a id='equation-eq-checkxevoln2'></a>
+$<span class="math notranslate nohighlight">\(
+\hat X_{t+j} = \Phi \Lambda^j (W \Lambda)^{-1}  \tilde U^T X_t . \tag{7.42}
+\)</span>$</p>
+<p>We can then use <span class="math notranslate nohighlight">\( \check X_{t+j} \)</span> or <span class="math notranslate nohighlight">\( \hat X_{t+j} \)</span> to forecast <span class="math notranslate nohighlight">\( X_{t+j} \)</span>.</p>
+</section>
+<section id="using-fewer-modes">
+<h3>Using Fewer Modes<a class="headerlink" href="#using-fewer-modes" title="Permalink to this headline">#</a></h3>
+<p>In applications, we’ll actually want to just a few modes, often three or less.</p>
+<p>Some of the preceding formulas assume that we have retained all <span class="math notranslate nohighlight">\( p \)</span> modes associated with the positive
+singular values of <span class="math notranslate nohighlight">\( X \)</span>.</p>
+<p>We can  adjust our  formulas to describe a situation in which we instead retain only
+the <span class="math notranslate nohighlight">\( r &lt; p \)</span> largest singular values.</p>
+<p>In that case, we simply replace <span class="math notranslate nohighlight">\( \tilde \Sigma \)</span> with the appropriate <span class="math notranslate nohighlight">\( r\times r \)</span> matrix of singular values,
+<span class="math notranslate nohighlight">\( \tilde U \)</span> with the <span class="math notranslate nohighlight">\( m \times r \)</span> matrix  whose columns correspond to the <span class="math notranslate nohighlight">\( r \)</span> largest singular values,
+and <span class="math notranslate nohighlight">\( \tilde V \)</span> with the <span class="math notranslate nohighlight">\( n \times r \)</span> matrix whose columns correspond to the <span class="math notranslate nohighlight">\( r \)</span> largest  singular values.</p>
+<p>Counterparts of all of the salient formulas above then apply.</p>
+</section>
+</section>
+<section id="source-for-some-python-code">
+<h2>Source for Some Python Code<a class="headerlink" href="#source-for-some-python-code" title="Permalink to this headline">#</a></h2>
+<p>You can find a Python implementation of DMD here:</p>
+<p><a class="reference external" href="https://mathlab.github.io/PyDMD/">https://mathlab.github.io/PyDMD/</a></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "furnstahl/7501-JB",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./notebooks/External"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="Quantitative_Economics_with_Python_linear_algebra.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Linear Algebra</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../../content/Reference/installing_anaconda.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Using Anaconda</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Dick Furnstahl<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

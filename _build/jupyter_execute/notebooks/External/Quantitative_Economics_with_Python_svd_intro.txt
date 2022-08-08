@@ -1,0 +1,170 @@
+!pip install quandl
+
+import numpy as np
+import numpy.linalg as LA
+import matplotlib.pyplot as plt
+%matplotlib inline
+import quandl as ql
+import pandas as pd
+
+import numpy as np
+X = np.random.rand(5,2)
+U, S, V = np.linalg.svd(X,full_matrices=True)  # full SVD
+Uhat, Shat, Vhat = np.linalg.svd(X,full_matrices=False) # economy SVD
+print('U, S, V ='), U, S, V
+
+print('Uhat, Shat, Vhat = '), Uhat, Shat, Vhat
+
+rr = np.linalg.matrix_rank(X)
+print('rank of X - '), rr
+
+UTU = U.T@U
+UUT = U@U.T
+print('UUT, UTU = '), UUT, UTU 
+
+UhatUhatT = Uhat@Uhat.T
+UhatTUhat = Uhat.T@Uhat
+print('UhatUhatT, UhatTUhat= '), UhatUhatT, UhatTUhat
+
+import numpy as np
+X = np.random.rand(2,5)
+U, S, V = np.linalg.svd(X,full_matrices=True)  # full SVD
+Uhat, Shat, Vhat = np.linalg.svd(X,full_matrices=False) # economy SVD
+print('U, S, V ='), U, S, V
+
+print('Uhat, Shat, Vhat = '), Uhat, Shat, Vhat
+
+rr = np.linalg.matrix_rank(X)
+print('rank X = '), rr
+
+class DecomAnalysis:
+    """
+    A class for conducting PCA and SVD.
+    """
+
+    def __init__(self, X, n_component=None):
+
+        self.X = X
+
+        self.Ω = (X @ X.T)
+
+        self.m, self.n = X.shape
+        self.r = LA.matrix_rank(X)
+
+        if n_component:
+            self.n_component = n_component
+        else:
+            self.n_component = self.m
+
+    def pca(self):
+
+        𝜆, P = LA.eigh(self.Ω)    # columns of P are eigenvectors
+
+        ind = sorted(range(𝜆.size), key=lambda x: 𝜆[x], reverse=True)
+
+        # sort by eigenvalues
+        self.𝜆 = 𝜆[ind]
+        P = P[:, ind]
+        self.P = P @ diag_sign(P)
+
+        self.Λ = np.diag(self.𝜆)
+
+        self.explained_ratio_pca = np.cumsum(self.𝜆) / self.𝜆.sum()
+
+        # compute the N by T matrix of principal components 
+        self.𝜖 = self.P.T @ self.X
+
+        P = self.P[:, :self.n_component]
+        𝜖 = self.𝜖[:self.n_component, :]
+
+        # transform data
+        self.X_pca = P @ 𝜖
+
+    def svd(self):
+
+        U, 𝜎, VT = LA.svd(self.X)
+
+        ind = sorted(range(𝜎.size), key=lambda x: 𝜎[x], reverse=True)
+
+        # sort by eigenvalues
+        d = min(self.m, self.n)
+
+        self.𝜎 = 𝜎[ind]
+        U = U[:, ind]
+        D = diag_sign(U)
+        self.U = U @ D
+        VT[:d, :] = D @ VT[ind, :]
+        self.VT = VT
+
+        self.Σ = np.zeros((self.m, self.n))
+        self.Σ[:d, :d] = np.diag(self.𝜎)
+
+        𝜎_sq = self.𝜎 ** 2
+        self.explained_ratio_svd = np.cumsum(𝜎_sq) / 𝜎_sq.sum()
+
+        # slicing matrices by the number of components to use
+        U = self.U[:, :self.n_component]
+        Σ = self.Σ[:self.n_component, :self.n_component]
+        VT = self.VT[:self.n_component, :]
+
+        # transform data
+        self.X_svd = U @ Σ @ VT
+
+    def fit(self, n_component):
+
+        # pca
+        P = self.P[:, :n_component]
+        𝜖 = self.𝜖[:n_component, :]
+
+        # transform data
+        self.X_pca = P @ 𝜖
+
+        # svd
+        U = self.U[:, :n_component]
+        Σ = self.Σ[:n_component, :n_component]
+        VT = self.VT[:n_component, :]
+
+        # transform data
+        self.X_svd = U @ Σ @ VT
+
+def diag_sign(A):
+    "Compute the signs of the diagonal of matrix A"
+
+    D = np.diag(np.sign(np.diag(A)))
+
+    return D
+
+def compare_pca_svd(da):
+    """
+    Compare the outcomes of PCA and SVD.
+    """
+
+    da.pca()
+    da.svd()
+
+    print('Eigenvalues and Singular values\n')
+    print(f'λ = {da.λ}\n')
+    print(f'σ^2 = {da.σ**2}\n')
+    print('\n')
+
+    # loading matrices
+    fig, axs = plt.subplots(1, 2, figsize=(14, 5))
+    plt.suptitle('loadings')
+    axs[0].plot(da.P.T)
+    axs[0].set_title('P')
+    axs[0].set_xlabel('m')
+    axs[1].plot(da.U.T)
+    axs[1].set_title('U')
+    axs[1].set_xlabel('m')
+    plt.show()
+
+    # principal components
+    fig, axs = plt.subplots(1, 2, figsize=(14, 5))
+    plt.suptitle('principal components')
+    axs[0].plot(da.ε.T)
+    axs[0].set_title('ε')
+    axs[0].set_xlabel('n')
+    axs[1].plot(da.VT[:da.r, :].T * np.sqrt(da.λ))
+    axs[1].set_title('$V^T*\sqrt{\lambda}$')
+    axs[1].set_xlabel('n')
+    plt.show()

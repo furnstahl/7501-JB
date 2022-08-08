@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Solving Common Introductory Quantum Mechanics Problems using Sympy
+# # QM with Sympy
 # 
-# Adapted from work of E. Harvey [JCE Symmath](http://www.chemeddl.org/alfresco/service/org/chemeddl/symmath/frameset?guest=true) (accessed 2019-09).
+# Adapted from "Solving Common Introductory Quantum Mechanics Problems using Sympy" which was adapted from work of E. Harvey [JCE Symmath](http://www.chemeddl.org/alfresco/service/org/chemeddl/symmath/frameset?guest=true) (accessed 2019-09).
 # 
 # 
 # This notebook show basic examples for quantum calculations encountered in undergraduate physical chemistry course. The purpose of this notebook is not to explain the theory behind the calculations, bur rather show how python can be used for solving typical problems.
