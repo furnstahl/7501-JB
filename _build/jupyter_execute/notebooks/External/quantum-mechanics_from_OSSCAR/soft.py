@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # **Numerical Solution of 1D Time Dependent Schrödinger Equation by Split Operator Fourier Transform (SOFT) Method**
+# # TD S-eqn using SOFT
 # 
 # **Authors:** Dou Du, Taylor James Baird and Sara Bonella
 # 

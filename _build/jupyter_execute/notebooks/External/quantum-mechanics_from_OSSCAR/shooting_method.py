@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # **Shooting Method with Numerov Algorithm to Solve the Time Independent Schrödinger Equation for 1D Quantum Well**
+# # Shooting Method with Numerov Algorithm
+# 
 # 
 # **Authors:** Dou Du, Taylor James Baird and Giovanni Pizzi 
 # 

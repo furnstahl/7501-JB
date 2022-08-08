@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # **Avoided Crossing in One Dimensional Asymmetric Quantum Well**
+# # Avoided crossing example
 # 
 # **Authors:** Dou Du, Taylor James Baird and Giovanni Pizzi 
 # 

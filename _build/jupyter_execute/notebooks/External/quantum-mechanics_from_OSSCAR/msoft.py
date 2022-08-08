@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # **The Multiple Split Operator Fourier Transform (MSOFT) method**
+# # TD S-eqn using MSOFT
 # 
 # **Authors:** Taylor Baird and Sara Bonella
 # 
