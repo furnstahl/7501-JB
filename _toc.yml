@@ -18,7 +18,14 @@ parts:
       file: notebooks/External/Example_Quantum_Calculations_sympy.ipynb  
     - file: content/External/OSSCAR_notebooks.md
       sections:
-      - file: notebooks/External/quantum-mechanics_from_OSSCAR/1quantumwell.ipynb
+      - title: One-D finite well
+        file: notebooks/External/quantum-mechanics_from_OSSCAR/1quantumwell.ipynb
+      - title: One-D 2 finite wells
+        file: notebooks/External/quantum-mechanics_from_OSSCAR/2quantumwells.ipynb
+      - file: notebooks/External/quantum-mechanics_from_OSSCAR/asymmetricwell.ipynb
+      - file: notebooks/External/quantum-mechanics_from_OSSCAR/soft.ipynb
+      - file: notebooks/External/quantum-mechanics_from_OSSCAR/msoft.ipynb
+      - file: notebooks/External/quantum-mechanics_from_OSSCAR/shooting_method.ipynb  
 
   - caption: Math notebooks
     chapters:
