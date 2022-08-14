@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Path integrals for quantum mechanics with MCMC libraries &#8212; Quantum Mechanics I</title>
+    <title>Path integrals for quantum mechanics &#8212; Quantum Mechanics I</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -531,11 +531,6 @@ title="Print to PDF"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#bootstrap-and-binning">
-     Bootstrap and binning
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#higher-order-discretization">
      Higher-order discretization
     </a>
@@ -620,7 +615,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Path integrals for quantum mechanics with MCMC libraries</h1>
+                <h1>Path integrals for quantum mechanics</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -653,11 +648,6 @@ title="Print to PDF"
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#numerical-evaluation-with-mcmc">
      Numerical evaluation with MCMC
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#bootstrap-and-binning">
-     Bootstrap and binning
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -746,15 +736,15 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="path-integrals-for-quantum-mechanics-with-mcmc-libraries">
-<h1>Path integrals for quantum mechanics with MCMC libraries<a class="headerlink" href="#path-integrals-for-quantum-mechanics-with-mcmc-libraries" title="Permalink to this headline">#</a></h1>
-<p>The original reference here is Peter Lepage’s lectures entitled <em>Lattice QCD for Novices</em>, available as <a class="reference external" href="https://arxiv.org/abs/hep-lat/0506036">arXiv:hep-lat/0506036</a>. The starting point is one-dimensional quantum mechanics and that is where we focus our attention. The aim is to implement the calculations outlined by Lepage (updating some of the included Python code) and then switch to using some of the standard libraries for Markov Chain Monte Carlo (MCMC) designed for Bayesian inference.</p>
-<p>To preview where we are going, the basic idea is that we can think of a discretized path in imaginary time <span class="math notranslate nohighlight">\(x(\tau)\rightarrow \{x(\tau_0), x(\tau_1), \ldots, x(\tau_{N-1})\}\)</span> as a set of <span class="math notranslate nohighlight">\(N\)</span> parameters and the path integral weighting factor <span class="math notranslate nohighlight">\(e^{-S[x(\tau)]}\)</span> as an unnormalized likelihood. We’ll combine with a uniform prior to make a posterior. If we sample the posterior with MCMC methods, we are sampling the paths according to the weighting by the action. We can use the samples to take quantum mechanical expectation values.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="path-integrals-for-quantum-mechanics">
+<h1>Path integrals for quantum mechanics<a class="headerlink" href="#path-integrals-for-quantum-mechanics" title="Permalink to this headline">#</a></h1>
+<p>The original reference here is Peter Lepage’s lectures entitled <em>Lattice QCD for Novices</em>, available as <a class="reference external" href="https://arxiv.org/abs/hep-lat/0506036">arXiv:hep-lat/0506036</a>. The starting point of those lectures is one-dimensional quantum mechanics and that is where we focus our attention. The aim is to implement the calculations outlined by Lepage (updating some of the included Python code) and then switch to using some of the standard libraries for Markov Chain Monte Carlo (MCMC) designed for Bayesian inference.</p>
+<p>To preview where we are going, the basic idea is that we can think of a discretized path in imaginary time <span class="math notranslate nohighlight">\(x(\tau)\rightarrow \{x(\tau_0), x(\tau_1), \ldots, x(\tau_{N-1})\}\)</span> as a set of <span class="math notranslate nohighlight">\(N\)</span> parameters and the path integral weighting factor <span class="math notranslate nohighlight">\(e^{-S[x(\tau)]}\)</span> as an unnormalized likelihood. We’ll multiply this with a uniform prior to make a posterior. If we sample the posterior with MCMC methods, we are sampling the paths according to the weighting by the action. We can use the samples to take quantum mechanical expectation values.</p>
 <section id="path-integral-basics">
 <h2>Path integral basics<a class="headerlink" href="#path-integral-basics" title="Permalink to this headline">#</a></h2>
 <section id="formal-aspects">
 <h3>Formal aspects<a class="headerlink" href="#formal-aspects" title="Permalink to this headline">#</a></h3>
-<p>We start with a path integral representation for an imaginary-time evolution between position eigenstates:</p>
+<p>We start with a path integral representation for an imaginary-time evolution between position eigenstates in one spatial dimension:</p>
 <div class="math notranslate nohighlight">
 \[
   \langle x_f | e^{-\widehat H(\tau_f - \tau_i)} | x_i \rangle = \int \mathcal{D}x(\tau)\, e^{-S[x(\tau)]}
@@ -772,7 +762,7 @@ title="Print to PDF"
     = \int_{\tau_i}^{\tau_f} d\tau\, \biggl[\frac{1}{2}m \dot x(\tau)^2 + V(x(\tau))\biggr] .
 \]</div>
 <p>This is the <em>Euclidean</em> version of <span class="math notranslate nohighlight">\(S\)</span> and the Lagrangian <span class="math notranslate nohighlight">\(L\)</span>, which is why the relative sign of the kinetic and potential terms is positive (i.e., <span class="math notranslate nohighlight">\(L = T_E + V\)</span> rather than <span class="math notranslate nohighlight">\(L = T - V\)</span>).</p>
-<p>If we insert on the left side a complete set of exact eigenstates of <span class="math notranslate nohighlight">\(\widehat H\)</span> (labeled by <span class="math notranslate nohighlight">\(n\)</span>), namely</p>
+<p>If we insert on the left side of the matrix element above a complete set of exact eigenstates of <span class="math notranslate nohighlight">\(\widehat H\)</span> (labeled by <span class="math notranslate nohighlight">\(n\)</span>), namely</p>
 <div class="math notranslate nohighlight">
 \[
    \mathbb{1} = \sum_n |E_n\rangle \langle E_n| 
@@ -797,7 +787,7 @@ title="Print to PDF"
     e^{-E_0 T} 
 \]</div>
 <p>and we get the energy (then we can go back and divide out this factor to get the wave function squared).</p>
-<p>To derive the path integral formerly, we divide up the Euclidean time interval from <span class="math notranslate nohighlight">\(\tau_i\)</span> to <span class="math notranslate nohighlight">\(\tau_f\)</span> into little intervals of width <span class="math notranslate nohighlight">\(\Delta \tau\)</span> and insert a complete set of <span class="math notranslate nohighlight">\(x\)</span> states in each time. This enables us to approximate <span class="math notranslate nohighlight">\(e^{-\widehat H\Delta\tau}\)</span> in each interval. In a full derivation we would insert both momentum and coordinate states and evaluate the matrix element of <span class="math notranslate nohighlight">\(\widehat H(\hat p,\hat x)\)</span>. The small <span class="math notranslate nohighlight">\(\Delta\tau\)</span> lets us neglect the commutator between <span class="math notranslate nohighlight">\(\hat p\)</span> and <span class="math notranslate nohighlight">\(\hat x\)</span> as higher order (proportional to <span class="math notranslate nohighlight">\(\Delta\tau^2\)</span>) If we then do all the momentum integrals, we get the path integral over <span class="math notranslate nohighlight">\(\mathcal{D}x(\tau)\)</span>.</p>
+<p>To derive the path integral formally, we divide up the Euclidean time interval from <span class="math notranslate nohighlight">\(\tau_i\)</span> to <span class="math notranslate nohighlight">\(\tau_f\)</span> into little intervals of width <span class="math notranslate nohighlight">\(\Delta \tau\)</span> and insert a complete set of <span class="math notranslate nohighlight">\(x\)</span> states at each time. This enables us to approximate <span class="math notranslate nohighlight">\(e^{-\widehat H\Delta\tau}\)</span> in each interval. In a full derivation we would insert both momentum and coordinate states and evaluate the matrix element of <span class="math notranslate nohighlight">\(\widehat H(\hat p,\hat x)\)</span>. The small <span class="math notranslate nohighlight">\(\Delta\tau\)</span> lets us neglect the commutator between <span class="math notranslate nohighlight">\(\hat p\)</span> and <span class="math notranslate nohighlight">\(\hat x\)</span> as higher order (proportional to <span class="math notranslate nohighlight">\(\Delta\tau^2\)</span>) If we then do all the momentum integrals, we get the path integral over <span class="math notranslate nohighlight">\(\mathcal{D}x(\tau)\)</span>.</p>
 </section>
 <section id="numerical-implementation">
 <h3>Numerical implementation<a class="headerlink" href="#numerical-implementation" title="Permalink to this headline">#</a></h3>
@@ -822,7 +812,7 @@ title="Print to PDF"
    \int \mathcal{D}x(\tau) \longrightarrow A \int_{-\infty}^{\infty} dx_1 \int_{-\infty}^{\infty} dx_2
      \cdots \int_{-\infty}^{\infty} dx_{N-1} .
 \]</div>
-<p>The endpoints <span class="math notranslate nohighlight">\(x_0\)</span> and <span class="math notranslate nohighlight">\(x_N\)</span> are determined by the boundary conditions (e.g., <span class="math notranslate nohighlight">\(x_0 = x_N = x\)</span> as used above). If we need the normalization <span class="math notranslate nohighlight">\(A\)</span> (which we often won’t because it will drop out), then for the one-dimensional problems here it is</p>
+<p>The endpoints <span class="math notranslate nohighlight">\(x_0\)</span> and <span class="math notranslate nohighlight">\(x_N\)</span> are determined by the boundary conditions (e.g., <span class="math notranslate nohighlight">\(x_0 = x_N = x\)</span> as used above). If we need the normalization <span class="math notranslate nohighlight">\(A\)</span> (which we often won’t because it will drop out of ratios), then for the one-dimensional problems here it is</p>
 <div class="math notranslate nohighlight">
 \[
     A = \left(\frac{m}{2\pi a}\right)^{N/2} .
@@ -960,9 +950,6 @@ title="Print to PDF"
 <li><p>When starting the algorithm, the first configuration is atypical (usually). So we should have a thermalization period where the first paths are discarded. Recommendation: five to ten times <span class="math notranslate nohighlight">\(N_{\rm cor}\)</span> should be discarded.</p></li>
 </ul>
 </section>
-<section id="bootstrap-and-binning">
-<h3>Bootstrap and binning<a class="headerlink" href="#bootstrap-and-binning" title="Permalink to this headline">#</a></h3>
-</section>
 <section id="higher-order-discretization">
 <h3>Higher-order discretization<a class="headerlink" href="#higher-order-discretization" title="Permalink to this headline">#</a></h3>
 <p>Suppose we rewrite the action for one-dimensional quantum mechanics by integrating the kinetic term by parts (assuming <span class="math notranslate nohighlight">\(x(\tau_i)=x(\tau_f)=x\)</span>:</p>
@@ -980,14 +967,15 @@ title="Print to PDF"
 </section>
 <section id="python-imports">
 <h2>Python imports<a class="headerlink" href="#python-imports" title="Permalink to this headline">#</a></h2>
+<p>First we import standard Python functions.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">uniform</span><span class="p">,</span> <span class="n">normal</span>
-<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">integrate</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>   <span class="c1"># use np as shorthand for the numpy package</span>
+<span class="kn">from</span> <span class="nn">numpy.random</span> <span class="kn">import</span> <span class="n">uniform</span><span class="p">,</span> <span class="n">normal</span>   <span class="c1"># two random number generators, one uniform and one Gaussian</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">integrate</span>   <span class="c1"># import functions for integration over arrays</span>
 
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span><span class="p">;</span> <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;darkgrid&quot;</span><span class="p">);</span> <span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;talk&quot;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>  <span class="c1"># basic plotting package</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span><span class="p">;</span> <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;darkgrid&quot;</span><span class="p">);</span> <span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;talk&quot;</span><span class="p">)</span>  <span class="c1"># set up for better looking plots</span>
 </pre></div>
 </div>
 </div>
@@ -1036,7 +1024,7 @@ title="Print to PDF"
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Potential</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    A general class for potentials</span>
+<span class="sd">    A general class for nonrelativistic one-dimensional potentials</span>
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -1187,7 +1175,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_23_0.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_23_0.png" />
+<img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_22_0.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_22_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1621,7 +1609,7 @@ Average over 4000 configurations is 0.50028
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The mean of the energy means is 0.49958
 </pre></div>
 </div>
-<img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_50_1.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_50_1.png" />
+<img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_49_1.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_49_1.png" />
 </div>
 </div>
 </section>
@@ -1754,7 +1742,7 @@ Average over 50000 configurations is 0.49936
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_57_0.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_57_0.png" />
+<img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_56_0.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_56_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1783,7 +1771,7 @@ Average over 50000 configurations is 0.49936
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_58_0.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_58_0.png" />
+<img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_57_0.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_57_0.png" />
 </div>
 </div>
 </section>
@@ -1891,7 +1879,7 @@ Average over 2500 configurations is 0.49061
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_65_0.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_65_0.png" />
+<img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_64_0.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_64_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1908,7 +1896,7 @@ Average over 2500 configurations is 0.49061
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_66_0.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_66_0.png" />
+<img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_65_0.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_65_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1921,7 +1909,7 @@ Average over 2500 configurations is 0.49061
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_67_0.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_67_0.png" />
+<img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_66_0.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_66_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2042,7 +2030,7 @@ Mean: 0.50229 +/- 0.00170
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_75_0.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_75_0.png" />
+<img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_74_0.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_74_0.png" />
 </div>
 </div>
 </section>

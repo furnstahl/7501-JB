@@ -1,18 +1,18 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# # Path integrals for quantum mechanics with MCMC libraries
+# # Path integrals for quantum mechanics
 
-# The original reference here is Peter Lepage's lectures entitled *Lattice QCD for Novices*, available as [arXiv:hep-lat/0506036](https://arxiv.org/abs/hep-lat/0506036). The starting point is one-dimensional quantum mechanics and that is where we focus our attention. The aim is to implement the calculations outlined by Lepage (updating some of the included Python code) and then switch to using some of the standard libraries for Markov Chain Monte Carlo (MCMC) designed for Bayesian inference.
+# The original reference here is Peter Lepage's lectures entitled *Lattice QCD for Novices*, available as [arXiv:hep-lat/0506036](https://arxiv.org/abs/hep-lat/0506036). The starting point of those lectures is one-dimensional quantum mechanics and that is where we focus our attention. The aim is to implement the calculations outlined by Lepage (updating some of the included Python code) and then switch to using some of the standard libraries for Markov Chain Monte Carlo (MCMC) designed for Bayesian inference.
 # 
-# To preview where we are going, the basic idea is that we can think of a discretized path in imaginary time $x(\tau)\rightarrow \{x(\tau_0), x(\tau_1), \ldots, x(\tau_{N-1})\}$ as a set of $N$ parameters and the path integral weighting factor $e^{-S[x(\tau)]}$ as an unnormalized likelihood. We'll combine with a uniform prior to make a posterior. If we sample the posterior with MCMC methods, we are sampling the paths according to the weighting by the action. We can use the samples to take quantum mechanical expectation values. 
+# To preview where we are going, the basic idea is that we can think of a discretized path in imaginary time $x(\tau)\rightarrow \{x(\tau_0), x(\tau_1), \ldots, x(\tau_{N-1})\}$ as a set of $N$ parameters and the path integral weighting factor $e^{-S[x(\tau)]}$ as an unnormalized likelihood. We'll multiply this with a uniform prior to make a posterior. If we sample the posterior with MCMC methods, we are sampling the paths according to the weighting by the action. We can use the samples to take quantum mechanical expectation values. 
 # 
 
 # ## Path integral basics
 
 # ### Formal aspects
 # 
-# We start with a path integral representation for an imaginary-time evolution between position eigenstates:
+# We start with a path integral representation for an imaginary-time evolution between position eigenstates in one spatial dimension:
 # 
 # $$
 #   \langle x_f | e^{-\widehat H(\tau_f - \tau_i)} | x_i \rangle = \int \mathcal{D}x(\tau)\, e^{-S[x(\tau)]}
@@ -34,7 +34,7 @@
 # 
 # This is the *Euclidean* version of $S$ and the Lagrangian $L$, which is why the relative sign of the kinetic and potential terms is positive (i.e., $L = T_E + V$ rather than $L = T - V$).
 
-# If we insert on the left side a complete set of exact eigenstates of $\widehat H$ (labeled by $n$), namely
+# If we insert on the left side of the matrix element above a complete set of exact eigenstates of $\widehat H$ (labeled by $n$), namely
 # 
 # $$
 #    \mathbb{1} = \sum_n |E_n\rangle \langle E_n| 
@@ -64,7 +64,7 @@
 # 
 # and we get the energy (then we can go back and divide out this factor to get the wave function squared).
 # 
-# To derive the path integral formerly, we divide up the Euclidean time interval from $\tau_i$ to $\tau_f$ into little intervals of width $\Delta \tau$ and insert a complete set of $x$ states in each time. This enables us to approximate $e^{-\widehat H\Delta\tau}$ in each interval. In a full derivation we would insert both momentum and coordinate states and evaluate the matrix element of $\widehat H(\hat p,\hat x)$. The small $\Delta\tau$ lets us neglect the commutator between $\hat p$ and $\hat x$ as higher order (proportional to $\Delta\tau^2$) If we then do all the momentum integrals, we get the path integral over $\mathcal{D}x(\tau)$. 
+# To derive the path integral formally, we divide up the Euclidean time interval from $\tau_i$ to $\tau_f$ into little intervals of width $\Delta \tau$ and insert a complete set of $x$ states at each time. This enables us to approximate $e^{-\widehat H\Delta\tau}$ in each interval. In a full derivation we would insert both momentum and coordinate states and evaluate the matrix element of $\widehat H(\hat p,\hat x)$. The small $\Delta\tau$ lets us neglect the commutator between $\hat p$ and $\hat x$ as higher order (proportional to $\Delta\tau^2$) If we then do all the momentum integrals, we get the path integral over $\mathcal{D}x(\tau)$. 
 
 # ### Numerical implementation
 # 
@@ -93,7 +93,7 @@
 #      \cdots \int_{-\infty}^{\infty} dx_{N-1} .
 # $$
 # 
-# The endpoints $x_0$ and $x_N$ are determined by the boundary conditions (e.g., $x_0 = x_N = x$ as used above). If we need the normalization $A$ (which we often won't because it will drop out), then for the one-dimensional problems here it is
+# The endpoints $x_0$ and $x_N$ are determined by the boundary conditions (e.g., $x_0 = x_N = x$ as used above). If we need the normalization $A$ (which we often won't because it will drop out of ratios), then for the one-dimensional problems here it is
 # 
 # $$
 #     A = \left(\frac{m}{2\pi a}\right)^{N/2} .
@@ -247,10 +247,6 @@
 # * Because the paths take time to get decorrelated, we should only keep every $N_{\rm cor}$ path. The optimal value can be determined empirically; here the optimal $N_{\rm cor}$ depends on $a$ as $1/a^2$.
 # * When starting the algorithm, the first configuration is atypical (usually). So we should have a thermalization period where the first paths are discarded. Recommendation: five to ten times $N_{\rm cor}$ should be discarded.
 
-# ### Bootstrap and binning
-# 
-# 
-
 # ### Higher-order discretization
 # 
 # Suppose we rewrite the action for one-dimensional quantum mechanics by integrating the kinetic term by parts (assuming $x(\tau_i)=x(\tau_f)=x$:
@@ -268,16 +264,18 @@
 # where the $x_j$'s wrap around at the ends: $x_0 = x_{N}$, $x_{-1} = x_{N-1}$, and so on. 
 
 # ## Python imports
+# 
+# First we import standard Python functions.
 
 # In[1]:
 
 
-import numpy as np
-from numpy.random import uniform, normal
-from scipy import integrate
+import numpy as np   # use np as shorthand for the numpy package
+from numpy.random import uniform, normal   # two random number generators, one uniform and one Gaussian
+from scipy import integrate   # import functions for integration over arrays
 
-import matplotlib.pyplot as plt
-import seaborn as sns; sns.set_style("darkgrid"); sns.set_context("talk")
+import matplotlib.pyplot as plt  # basic plotting package
+import seaborn as sns; sns.set_style("darkgrid"); sns.set_context("talk")  # set up for better looking plots
 
 
 # ## Classes and functions for path integrals
@@ -322,7 +320,7 @@ def bin(G, binsize):
 
 class Potential:
     """
-    A general class for potentials
+    A general class for nonrelativistic one-dimensional potentials
     
     Parameters
     ----------
