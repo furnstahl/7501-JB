@@ -18,3 +18,4 @@ dependencies:
 - mkl-service
 - pydoe
 - ipympl
+- sympy
