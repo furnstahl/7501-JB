@@ -114,6 +114,7 @@ new_PI = PathIntegral(Delta_T=Delta_T, N_pts=N_pts, N_config=N_config,
                       N_corr=N_corr, eps=eps, V_pot=test_ho)
 
 
+
 # ### Test of emcee
 # 
 # We'll take $\theta$ to be the values of $x$ at each of the `N_pts` time points. We'll choose the prior to be uniform in a reasonable range of $x$. Lepage suggests $-5 \leq x \leq +5$ is large enough to have negligible effect. Here `X` will be data.
@@ -192,7 +193,6 @@ samples = sampler.chain.reshape((-1, ndim))
 
 
 # In[13]:
-
 
 
 print(samples.shape)
@@ -347,6 +347,7 @@ plt.show()
 fig = corner.corner(chain, labels=labels,
                     quantiles=[0.16, 0.5, 0.84],
                     show_titles=True, title_kwargs={"fontsize": 12})
+
 
 
 # In[37]:

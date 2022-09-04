@@ -297,6 +297,7 @@ def bootstrap(G):
     return G_bootstrap
 
 
+
 # In[3]:
 
 
@@ -411,7 +412,7 @@ class V_HO(Potential):
 
 class V_aHO(Potential):
     """
-    Subclass of Potential
+    Subclass of Potential for anharmonic oscillator.
 
     Parameters
     ----------
@@ -427,6 +428,29 @@ class V_aHO(Potential):
     def V(self, x) :
         """Anharmonic oscillator potential for particle at x"""
         return self.k_osc * x**4 /2
+
+
+# In[6]:
+
+
+class V_Morse(Potential):
+    """
+    Subclass of Potential for the Morse potential.
+
+    Parameters
+    ----------
+
+    Methods
+    -------
+
+    """
+    def __init__(self, k_osc=1, hbar=1, mu=1, V_string='Morse potential'):
+        self.k_osc = 1
+        super().__init__(hbar, mu, V_string)
+
+    def V(self, x) :
+        """Morse potential for particle at x"""
+        return 
 
 
 # ### Make some plots
@@ -562,7 +586,8 @@ class PathIntegral:
             j_plus = (j + 1) % self.N_pts
             x_j = x_path[j]
             x_j_plus = x_path[j_plus]
-            action = action + self.Delta_T * self.V_pot.V(x_j)               + (self.V_pot.mu/(2*self.Delta_T)) * (x_j_plus - x_j)**2
+            action = action + self.Delta_T * self.V_pot.V(x_j) \
+              + (self.V_pot.mu/(2*self.Delta_T)) * (x_j_plus - x_j)**2
         return action    
 
     def S_lattice_j(self, x_path, j):
@@ -575,7 +600,9 @@ class PathIntegral:
         x_j = x_path[j]
         x_j_plus = x_path[j_plus]
         
-        return self.Delta_T * self.V_pot.V(x_j)                + self.V_pot.mu * x_j *                  (x_j - x_j_plus - x_j_minus) / self.Delta_T            
+        return self.Delta_T * self.V_pot.V(x_j) \
+               + self.V_pot.mu * x_j * \
+                 (x_j - x_j_plus - x_j_minus) / self.Delta_T            
 
     def update(self, x_path):
         """
@@ -604,7 +631,8 @@ class PathIntegral:
         j_plus = (j + 1) % self.N_pts
         x_j = x_path[j]
         x_j_plus = x_path[j_plus]
-        return self.Delta_T * self.V_pot.V(x_j)           + (self.V_pot.mu/(2*self.Delta_T)) * (x_j_plus - x_j)**2
+        return self.Delta_T * self.V_pot.V(x_j) \
+          + (self.V_pot.mu/(2*self.Delta_T)) * (x_j_plus - x_j)**2
     
     def display_x_path(self, x_path):
         """Print out x_path"""
@@ -920,7 +948,6 @@ samples = sampler.chain.reshape((-1, ndim))
 # In[28]:
 
 
-
 print(samples.shape)
 E_avg = new_PI.E_avg_over_paths(samples)
 print(f'Average over {int(nwalkers*nsteps)} configurations is {E_avg:.5f}')
@@ -1073,6 +1100,7 @@ plt.show()
 fig = corner.corner(chain, labels=labels,
                     quantiles=[0.16, 0.5, 0.84],
                     show_titles=True, title_kwargs={"fontsize": 12})
+
 
 
 # In[39]:

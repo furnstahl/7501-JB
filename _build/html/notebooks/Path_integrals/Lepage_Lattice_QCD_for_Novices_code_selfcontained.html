@@ -21,7 +21,7 @@
     href="../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/mystnb.css" />
@@ -37,7 +37,7 @@
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/clipboard.min.js"></script>
     <script src="../../_static/copybutton.js"></script>
-    <script src="../../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
@@ -50,8 +50,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../../_static/sphinx-thebe.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"tex": {"macros": {"N": "\\mathbb{N}", "avec": ["\\boldsymbol{a}"], "floor": ["\\lfloor#1\\rfloor", 1], "bmat": ["\\left[\\begin{array}"], "emat": ["\\end{array}\\right]"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="author" title="About these documents" href="../../about.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
@@ -1116,7 +1116,7 @@ title="Print to PDF"
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">V_aHO</span><span class="p">(</span><span class="n">Potential</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Subclass of Potential</span>
+<span class="sd">    Subclass of Potential for anharmonic oscillator.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -1132,6 +1132,30 @@ title="Print to PDF"
     <span class="k">def</span> <span class="nf">V</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Anharmonic oscillator potential for particle at x&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">k_osc</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">4</span> <span class="o">/</span><span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">V_Morse</span><span class="p">(</span><span class="n">Potential</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Subclass of Potential for the Morse potential.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    Methods</span>
+<span class="sd">    -------</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k_osc</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">hbar</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">V_string</span><span class="o">=</span><span class="s1">&#39;Morse potential&#39;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">k_osc</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">hbar</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">V_string</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">V</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Morse potential for particle at x&quot;&quot;&quot;</span>
+        <span class="k">return</span> 
 </pre></div>
 </div>
 </div>
@@ -1175,7 +1199,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_22_0.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_22_0.png" />
+<img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_23_0.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_23_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1609,7 +1633,7 @@ Average over 4000 configurations is 0.50028
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The mean of the energy means is 0.49958
 </pre></div>
 </div>
-<img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_49_1.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_49_1.png" />
+<img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_50_1.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_50_1.png" />
 </div>
 </div>
 </section>
@@ -1742,7 +1766,7 @@ Average over 50000 configurations is 0.49936
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_56_0.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_56_0.png" />
+<img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_57_0.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_57_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1771,7 +1795,7 @@ Average over 50000 configurations is 0.49936
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_57_0.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_57_0.png" />
+<img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_58_0.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_58_0.png" />
 </div>
 </div>
 </section>
@@ -1879,7 +1903,7 @@ Average over 2500 configurations is 0.49061
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_64_0.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_64_0.png" />
+<img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_65_0.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_65_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1896,7 +1920,7 @@ Average over 2500 configurations is 0.49061
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_65_0.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_65_0.png" />
+<img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_66_0.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_66_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1909,7 +1933,7 @@ Average over 2500 configurations is 0.49061
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_66_0.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_66_0.png" />
+<img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_67_0.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_67_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -2030,7 +2054,7 @@ Mean: 0.50229 +/- 0.00170
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_74_0.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_74_0.png" />
+<img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_75_0.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_75_0.png" />
 </div>
 </div>
 </section>

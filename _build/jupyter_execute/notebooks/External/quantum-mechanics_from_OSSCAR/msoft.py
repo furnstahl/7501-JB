@@ -211,7 +211,10 @@ class MSOFT(object):
         self.ekint[int(self.t/self.dt)] = np.real(ke)
         
     def _get_potential_energy(self, Nsteps):
-        epot = sum(np.conj(self.psi_x[:,0])*self.h[:,0,0]*self.psi_x[:,0] +                         np.conj(self.psi_x[:,0])*self.h[:,0,1]*self.psi_x[:,1] +                         np.conj(self.psi_x[:,1])*self.h[:,0,1]*self.psi_x[:,0] +                        np.conj(self.psi_x[:,1])*self.h[:,1,1]*self.psi_x[:,1] )*self.dx
+        epot = sum(np.conj(self.psi_x[:,0])*self.h[:,0,0]*self.psi_x[:,0] + \
+                        np.conj(self.psi_x[:,0])*self.h[:,0,1]*self.psi_x[:,1] + \
+                        np.conj(self.psi_x[:,1])*self.h[:,0,1]*self.psi_x[:,0] + \
+                       np.conj(self.psi_x[:,1])*self.h[:,1,1]*self.psi_x[:,1] )*self.dx
         self.epot[int(self.t/self.dt)] = np.real(epot)
 
 

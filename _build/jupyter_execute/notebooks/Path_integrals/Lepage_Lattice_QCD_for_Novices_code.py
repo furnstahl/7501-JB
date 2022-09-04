@@ -365,7 +365,6 @@ samples = sampler.chain.reshape((-1, ndim))
 # In[22]:
 
 
-
 print(samples.shape)
 E_avg = new_PI.E_avg_over_paths(samples)
 print(f'Average over {int(nwalkers*nsteps)} configurations is {E_avg:.5f}')
@@ -518,6 +517,7 @@ plt.show()
 fig = corner.corner(chain, labels=labels,
                     quantiles=[0.16, 0.5, 0.84],
                     show_titles=True, title_kwargs={"fontsize": 12})
+
 
 
 # In[33]:
