@@ -11,7 +11,7 @@
 
 ## Objectives
 
-Physics 7501 is the first semester of a "Spins First" treatment of quantum mechanics for graduate students. See the [Bibliography](../zbibliography.md) for pointers to texts referenced in the course. This Jupyter Book is being built with Python notebooks to help visualize, explore, and extend the classroom content. Some are original with the instructors but many are borrowed from generous colleagues who have made them freely and publicly available.
+Physics 7501 is the first semester of a "Spins First" treatment of quantum mechanics for graduate students at the Ohio State University. See the [Bibliography](../zbibliography.md) for pointers to texts referenced in the course. This Jupyter Book is being built with Python notebooks to help visualize, explore, and extend the classroom content. Some are original with the instructors but many are borrowed from generous colleagues who have made them freely and publicly available.
 
 The following topics are planned to be covered in 7501, as time permits (the list is not exclusive of other topics):
 
