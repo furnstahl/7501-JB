@@ -963,7 +963,7 @@ material that will be used in applications as we go along.</p>
 <p>Let’s start with some imports:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;figure.figsize&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>  <span class="c1">#set default figure size</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -989,7 +989,7 @@ the point.</p>
 <p>The following figure represents three vectors in this manner</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
 <span class="c1"># Set the axes through the origin</span>
 <span class="k">for</span> <span class="n">spine</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="s1">&#39;bottom&#39;</span><span class="p">]:</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="n">spine</span><span class="p">]</span><span class="o">.</span><span class="n">set_position</span><span class="p">(</span><span class="s1">&#39;zero&#39;</span><span class="p">)</span>
@@ -1053,7 +1053,7 @@ vector <span class="math notranslate nohighlight">\( x \)</span> and produces</p
 <p>Scalar multiplication is illustrated in the next figure</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
 <span class="c1"># Set the axes through the origin</span>
 <span class="k">for</span> <span class="n">spine</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="s1">&#39;bottom&#39;</span><span class="p">]:</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="n">spine</span><span class="p">]</span><span class="o">.</span><span class="n">set_position</span><span class="p">(</span><span class="s1">&#39;zero&#39;</span><span class="p">)</span>
@@ -1091,7 +1091,7 @@ represented as a <a class="reference external" href="https://python-programming.
 <p>One advantage of NumPy arrays is that scalar multiplication and addition have very natural syntax</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>            <span class="c1"># Vector of three ones</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>            <span class="c1"># Vector of three ones</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>   <span class="c1"># Converts tuple (2, 4, 6) into array</span>
 <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
 </pre></div>
@@ -1100,7 +1100,7 @@ represented as a <a class="reference external" href="https://python-programming.
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">4</span> <span class="o">*</span> <span class="n">x</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mi">4</span> <span class="o">*</span> <span class="n">x</span>
 </pre></div>
 </div>
 </div>
@@ -1125,21 +1125,21 @@ x' y := \sum_{i=1}^n x_i y_i
 follows</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span>          <span class="c1"># Inner product of x and y</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span>          <span class="c1"># Inner product of x and y</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>  <span class="c1"># Norm of x, take one</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>  <span class="c1"># Norm of x, take one</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>      <span class="c1"># Norm of x, take two</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>      <span class="c1"># Norm of x, take two</span>
 </pre></div>
 </div>
 </div>
@@ -1163,7 +1163,7 @@ y = \beta_1 a_1 + \cdots + \beta_k a_k
 <p><a id='la-3dvec'></a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">gca</span><span class="p">(</span><span class="n">projection</span><span class="o">=</span><span class="s1">&#39;3d&#39;</span><span class="p">)</span>
 
 <span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span>
@@ -1383,20 +1383,20 @@ resulting matrix <span class="math notranslate nohighlight">\( A B \)</span> is 
 <p><a id='equation-la-atx'></a>
 $$
 A x =</p>
-<div class="amsmath math notranslate nohighlight" id="equation-99a581da-fd9f-4d83-997e-ed3726056b70">
-<span class="eqno">(1)<a class="headerlink" href="#equation-99a581da-fd9f-4d83-997e-ed3726056b70" title="Permalink to this equation">#</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-4af50166-e15b-40be-a926-594b485604de">
+<span class="eqno">(1)<a class="headerlink" href="#equation-4af50166-e15b-40be-a926-594b485604de" title="Permalink to this equation">#</a></span>\[\begin{bmatrix}
     a_{11} &amp;  \cdots &amp; a_{1k} \\
     \vdots &amp; \vdots  &amp; \vdots \\
     a_{n1} &amp;  \cdots &amp; a_{nk}
 \end{bmatrix}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-d28e7c9e-4b54-467b-b3ca-e7fb2549bccc">
-<span class="eqno">(2)<a class="headerlink" href="#equation-d28e7c9e-4b54-467b-b3ca-e7fb2549bccc" title="Permalink to this equation">#</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-13040e45-8e87-4ff4-9958-353fbd940154">
+<span class="eqno">(2)<a class="headerlink" href="#equation-13040e45-8e87-4ff4-9958-353fbd940154" title="Permalink to this equation">#</a></span>\[\begin{bmatrix}
     x_{1}  \\
     \vdots  \\
     x_{k}
 \end{bmatrix}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-ff9b9eb4-8ac9-4b82-baeb-54d4f8dea993">
-<span class="eqno">(3)<a class="headerlink" href="#equation-ff9b9eb4-8ac9-4b82-baeb-54d4f8dea993" title="Permalink to this equation">#</a></span>\[\begin{bmatrix}
+<div class="amsmath math notranslate nohighlight" id="equation-6b8b1b3f-e9ef-46eb-9633-9f17ae50d758">
+<span class="eqno">(3)<a class="headerlink" href="#equation-6b8b1b3f-e9ef-46eb-9633-9f17ae50d758" title="Permalink to this equation">#</a></span>\[\begin{bmatrix}
     a_{11} x_1 + \cdots + a_{1k} x_k \\
     \vdots \\
     a_{n1} x_1 + \cdots + a_{nk} x_k
@@ -1417,7 +1417,7 @@ NumPy arrays are also used as matrices, and have fast, efficient functions and m
 <p>You can create them manually from tuples of tuples (or lists of lists) as follows</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
      <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 
 <span class="nb">type</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
@@ -1427,7 +1427,7 @@ NumPy arrays are also used as matrices, and have fast, efficient functions and m
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
 
 <span class="nb">type</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
 </pre></div>
@@ -1436,7 +1436,7 @@ NumPy arrays are also used as matrices, and have fast, efficient functions and m
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">.</span><span class="n">shape</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 </div>
 </div>
@@ -1450,7 +1450,7 @@ ones, etc.) — see <a class="reference external" href="https://python-programmi
 <p>Since operations are performed elementwise by default, scalar multiplication and addition have very natural syntax</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">identity</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 <span class="mi">2</span> <span class="o">*</span> <span class="n">A</span>
 </pre></div>
@@ -1459,7 +1459,7 @@ ones, etc.) — see <a class="reference external" href="https://python-programmi
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">+</span> <span class="n">B</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">+</span> <span class="n">B</span>
 </pre></div>
 </div>
 </div>
@@ -1500,7 +1500,7 @@ y = Ax \tag{3.3}
 <p>The answer to both these questions is negative, as the next figure shows</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
     <span class="k">return</span> <span class="mf">0.6</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1.4</span>
 
 
@@ -1652,7 +1652,7 @@ Here’s an illustration of how to solve linear equations with SciPy’s <code c
 <p>All of these routines are Python front ends to time-tested and highly optimized FORTRAN code</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># Column vector</span>
 <span class="n">det</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>  <span class="c1"># Check that A is nonsingular, and hence invertible</span>
@@ -1662,7 +1662,7 @@ Here’s an illustration of how to solve linear equations with SciPy’s <code c
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">A_inv</span> <span class="o">=</span> <span class="n">inv</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>  <span class="c1"># Compute the inverse</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A_inv</span> <span class="o">=</span> <span class="n">inv</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>  <span class="c1"># Compute the inverse</span>
 <span class="n">A_inv</span>
 </pre></div>
 </div>
@@ -1670,7 +1670,7 @@ Here’s an illustration of how to solve linear equations with SciPy’s <code c
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">A_inv</span> <span class="o">@</span> <span class="n">y</span>  <span class="c1"># Solution</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">A_inv</span> <span class="o">@</span> <span class="n">y</span>  <span class="c1"># Solution</span>
 <span class="n">A</span> <span class="o">@</span> <span class="n">x</span>          <span class="c1"># Should equal y</span>
 </pre></div>
 </div>
@@ -1678,7 +1678,7 @@ Here’s an illustration of how to solve linear equations with SciPy’s <code c
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">solve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>  <span class="c1"># Produces the same solution</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">solve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>  <span class="c1"># Produces the same solution</span>
 </pre></div>
 </div>
 </div>
@@ -1705,7 +1705,7 @@ A v = \lambda v
 <p>As expected, the image <span class="math notranslate nohighlight">\( Av \)</span> of each <span class="math notranslate nohighlight">\( v \)</span> is just a scaled version of the original</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
      <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
 <span class="n">evals</span><span class="p">,</span> <span class="n">evecs</span> <span class="o">=</span> <span class="n">eig</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
@@ -1773,7 +1773,7 @@ plane, although some might be repeated.</p>
 follows</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
      <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 
 <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
@@ -1785,7 +1785,7 @@ follows</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">evecs</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">evecs</span>
 </pre></div>
 </div>
 </div>
