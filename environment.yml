@@ -11,4 +11,9 @@ dependencies:
 - seaborn
 - jupyter
 - ipywidgets
-- ipympl
+- nbdime
+- numdifftools
+- zeus-mcmc
+- corner
+- mkl-service
+- pydoe
