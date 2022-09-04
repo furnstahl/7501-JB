@@ -188,7 +188,7 @@ def plot_eigenfunctions(ax, ew, ef, x, V, width=1, Emax=0.05, fak= 5.0):
     
 
 
-# In[3]:
+# In[4]:
 
 
 mu = 0.06                                            # Potential parameter
@@ -333,6 +333,12 @@ display(HBox([swidth, sdepth]), sfak, HBox([psi_x, update, label1]))
 # will be highlighted, and the corresponding eigenenergy and value of the index 
 # $n$ will be shown. All other eigenstates will fade out. By clicking the "Show all" 
 # button, you can reset the plot and show all states again.
+
+# In[ ]:
+
+
+
+
 
 # In[ ]:
 
