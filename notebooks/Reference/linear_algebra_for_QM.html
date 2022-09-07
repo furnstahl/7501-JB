@@ -538,6 +538,16 @@ title="Print to PDF"
      matrix examples
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#inner-and-outer-product">
+     Inner and outer product
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#trace-and-determinant">
+     Trace and determinant
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -592,6 +602,16 @@ title="Print to PDF"
      matrix examples
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#inner-and-outer-product">
+     Inner and outer product
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#trace-and-determinant">
+     Trace and determinant
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -627,11 +647,12 @@ title="Print to PDF"
 <li><p>When a new cell is inserted, by default it is a Code cell and will have <code class="docutils literal notranslate"><span class="pre">In</span> <span class="pre">[]:</span></code> to the left.  You can type Python expressions or entire programs in a cell.  How you break up code between cells is your choice and you can always put Markdown cells in between.  When you evaluate a cell it advances to the next number, e.g., <code class="docutils literal notranslate"><span class="pre">In</span> <span class="pre">[5]:</span></code>.</p></li>
 <li><p>On the notebook menu bar is a pulldown menu that lets you change back and forth between Code and Markdown cells.  Once you evaluate a Markdown cell, it gets formatted (and has a blue border).  To edit the Markdown cell, double click in it.</p></li>
 </ul>
-<p><strong>Try double-clicking on this cell and then shift-return.</strong>  You will see that a bullet list is created just with an asterisk and a space at the beginning of lines (without the space you get <em>italics</em> and with two asterisks you get <strong>bold</strong>).  <strong>Double click on the title header above and you’ll see it starts with a single #.</strong>  Headings of subsections are made using ## or ###.  See this <a class="reference external" href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">Markdown cheatsheet</a> for a quick tour of the Markdown language (including how to add links!).</p>
+<p><strong>Try double-clicking on this cell (the one you are reading) and then shift-return.</strong>  You will see that a bullet list is created just with an asterisk and a space at the beginning of lines (without the space you get <em>italics</em> and with two asterisks you get <strong>bold</strong>).  <strong>Double click on the title header above and you’ll see it starts with a single #.</strong>  Headings of subsections are made using ## or ###.  See this <a class="reference external" href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet">Markdown cheatsheet</a> for a quick tour of the Markdown language (including how to add links!).</p>
 <p><strong>Now try turning the next (empty) cell to a Markdown cell and type:</strong> <code class="docutils literal notranslate"><span class="pre">Einstein</span> <span class="pre">says</span> <span class="pre">$E=mc^2$</span></code> <strong>and then evaluate it.</strong>  This is <span class="math notranslate nohighlight">\(\LaTeX\)</span>! (If you forget to convert to Markdown and get <code class="docutils literal notranslate"><span class="pre">SyntaxError:</span> <span class="pre">invalid</span> <span class="pre">syntax</span></code>, just select the cell and convert to Markdown with the menu.)</p>
 </section>
 <section id="a-whirlwind-tour-of-python-for-linear-algebra">
 <h2>A whirlwind tour of Python for linear algebra<a class="headerlink" href="#a-whirlwind-tour-of-python-for-linear-algebra" title="Permalink to this headline">#</a></h2>
+<p>Start by importing the library modules we’ll need, defining standard abbreviations (<code class="docutils literal notranslate"><span class="pre">np</span></code> for numpy and <code class="docutils literal notranslate"><span class="pre">LA</span></code> for scipy.linalg). Google <code class="docutils literal notranslate"><span class="pre">numpy</span></code> or <code class="docutils literal notranslate"><span class="pre">scipy</span></code> with specific topics mentioned (e.g., “arrays”) to learn much more.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -662,7 +683,7 @@ title="Print to PDF"
 </div>
 </div>
 </div>
-<p>We can pick out elements of the vector (note the square brackets). If there are <code class="docutils literal notranslate"><span class="pre">n</span></code> elements of the vector, they are indexed from <code class="docutils literal notranslate"><span class="pre">0</span></code> to <code class="docutils literal notranslate"><span class="pre">n-1</span></code>. <strong>Why does the last reference fail here?</strong></p>
+<p>We can pick out elements of the vector (note the square brackets). If there are <code class="docutils literal notranslate"><span class="pre">n</span></code> elements of the vector, they are indexed from <code class="docutils literal notranslate"><span class="pre">0</span></code> to <code class="docutils literal notranslate"><span class="pre">n-1</span></code>. <strong>Why does the last reference fail here with an error?</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
@@ -678,7 +699,7 @@ title="Print to PDF"
 </div>
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">IndexError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="nn">Input In [11],</span> in <span class="ni">&lt;cell line: 3&gt;</span><span class="nt">()</span>
+<span class="nn">Input In [4],</span> in <span class="ni">&lt;cell line: 3&gt;</span><span class="nt">()</span>
 <span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
 <span class="ne">----&gt; </span><span class="mi">3</span> <span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
@@ -688,6 +709,7 @@ title="Print to PDF"
 </div>
 </div>
 </div>
+<p>Functions are defined to generate matrices such as identity matrices of any dimension (<code class="docutils literal notranslate"><span class="pre">np.eye</span></code>).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ident2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>   <span class="c1"># we can name these whatever we want</span>
@@ -704,17 +726,6 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[1. 0.]
- [0. 1.]]
-
-
-[[1. 0. 0.]
- [0. 1. 0.]
- [0. 0. 1.]]
-</pre></div>
-</div>
-</div>
 </div>
 <p>If we use the <code class="docutils literal notranslate"><span class="pre">shape</span></code> attribute we would get <span class="math notranslate nohighlight">\((3, 3)\)</span> as output, that is verifying that our matrix is a <span class="math notranslate nohighlight">\(3\times 3\)</span> matrix.</p>
 <div class="cell docutils container">
@@ -723,21 +734,24 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(3, 3)
-</pre></div>
-</div>
-</div>
 </div>
 </section>
 <section id="pauli-matrix-examples">
 <h3>Pauli matrix examples<a class="headerlink" href="#pauli-matrix-examples" title="Permalink to this headline">#</a></h3>
+<p>Here we see how to use np.array to input a matrix. Note the use of <code class="docutils literal notranslate"><span class="pre">1j</span></code> for <span class="math notranslate nohighlight">\(\sqrt{-1}\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">eye2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>   <span class="c1"># 2x2 identify</span>
 <span class="n">sig1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span> <span class="c1"># \sigma_1</span>
-<span class="n">sig2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="n">j</span><span class="p">],</span> <span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span> <span class="c1"># use j for sqrt(-1)</span>
+<span class="n">sig2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="n">j</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span> <span class="c1"># use j for sqrt(-1)</span>
 <span class="n">sig3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">eye2</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">sig1</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">sig2</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">sig3</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -745,6 +759,7 @@ title="Print to PDF"
 </section>
 <section id="times-3-matrix-examples">
 <h3><span class="math notranslate nohighlight">\(3 \times 3\)</span> matrix examples<a class="headerlink" href="#times-3-matrix-examples" title="Permalink to this headline">#</a></h3>
+<p>Here are the <span class="math notranslate nohighlight">\(S_x\)</span> and <span class="math notranslate nohighlight">\(S_y\)</span> matrices for spin-1.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Sx</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
@@ -755,39 +770,20 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">Sx</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">Sy</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[0.         0.70710678 0.        ]
- [0.70710678 0.         0.70710678]
- [0.         0.70710678 0.        ]]
-
-
-[[0.+0.j         0.-0.70710678j 0.+0.j        ]
- [0.+0.70710678j 0.+0.j         0.-0.70710678j]
- [0.+0.j         0.+0.70710678j 0.+0.j        ]]
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">Sx</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">Sy</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
+<p>Let’s do the first matrix multipications. In all cases we use <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> to multiply matrices and/or vectors.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Sx</span> <span class="o">@</span> <span class="n">Sy</span> <span class="o">-</span> <span class="n">Sy</span> <span class="o">@</span> <span class="n">Sx</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.+1.j, 0.+0.j, 0.+0.j],
-       [0.+0.j, 0.+0.j, 0.+0.j],
-       [0.+0.j, 0.+0.j, 0.-1.j]])
-</pre></div>
 </div>
-</div>
-</div>
+<p>Now let’s get the eigenvalues (<code class="docutils literal notranslate"><span class="pre">eigvals</span></code> here) and eigenvectors (<code class="docutils literal notranslate"><span class="pre">eigvecs</span></code> here). The function <code class="docutils literal notranslate"><span class="pre">eigh</span></code> is for (complex) Hermitian matrices. The eigenvectors should be read as columns: the first element in the eigenvalue list corresponds to the first column in the eigenvector matrix.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">eigvals</span><span class="p">,</span> <span class="n">eigvecs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">Sx</span><span class="p">)</span>
@@ -797,37 +793,18 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[-1.00000000e+00 -2.41993925e-16  1.00000000e+00]
-
-
-[[ 5.00000000e-01 -7.07106781e-01  5.00000000e-01]
- [-7.07106781e-01  2.77555756e-16  7.07106781e-01]
- [ 5.00000000e-01  7.07106781e-01  5.00000000e-01]]
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">eigvals</span><span class="p">,</span> <span class="n">eigvecs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">Sx</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">eigvals</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">eigvecs</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[-1.414  0.     1.414]
-
-
-[[-0.5    0.707  0.5  ]
- [ 0.707  0.     0.707]
- [-0.5   -0.707  0.5  ]]
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># eigvals, eigvecs = np.linalg.eigh(np.sqrt(2)*Sx)</span>
+<span class="c1"># print(eigvals)</span>
+<span class="c1"># print(&#39;\n&#39;)</span>
+<span class="c1"># print(eigvecs)</span>
 </pre></div>
 </div>
 </div>
 </div>
+<p>We can manipulate the formatting of the output for greater readability.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">suppress</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -839,40 +816,21 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[-1. -0.  1.]
-
-
-[[ 0.5  +0.j     0.707+0.j    -0.5  +0.j   ]
- [ 0.   -0.707j  0.   -0.j     0.   -0.707j]
- [-0.5  +0.j     0.707+0.j     0.5  +0.j   ]]
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">set_printoptions</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">suppress</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># np.set_printoptions(precision=3, suppress=True)</span>
 
-<span class="n">eigvals</span><span class="p">,</span> <span class="n">eigvecs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="n">Sy</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">eigvals</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">eigvecs</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[-1.414  0.     1.414]
-
-
-[[-0.5  +0.j    -0.707-0.j    -0.5  +0.j   ]
- [ 0.   +0.707j  0.   -0.j     0.   -0.707j]
- [ 0.5  +0.j    -0.707+0.j     0.5  +0.j   ]]
+<span class="c1"># eigvals, eigvecs = np.linalg.eigh(np.sqrt(2)*Sy)</span>
+<span class="c1"># print(eigvals)</span>
+<span class="c1"># print(&#39;\n&#39;)</span>
+<span class="c1"># print(eigvecs)</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>The formatting is tricky because it is <code class="docutils literal notranslate"><span class="pre">0.5</span> <span class="pre">+</span> <span class="pre">0j</span></code>.</p>
+<p>The formatting is tricky because it is <code class="docutils literal notranslate"><span class="pre">0.5</span> <span class="pre">+</span> <span class="pre">0j</span></code>, which is easy to misread.</p>
+<p>There are eigensolvers in both <code class="docutils literal notranslate"><span class="pre">numpy.linalg</span></code> and <code class="docutils literal notranslate"><span class="pre">scipy.linalg</span></code>. For now, just pick one.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">eigvals</span><span class="p">,</span> <span class="n">eigvecs</span> <span class="o">=</span> <span class="n">LA</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">Sy</span><span class="p">)</span>
@@ -882,41 +840,29 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[-1.00e+00  1.11e-15  1.00e+00]
-
-
-[[ 0.5  +0.000e+00j  0.707+0.000e+00j -0.5  -0.000e+00j]
- [ 0.   -7.071e-01j  0.   +6.661e-16j  0.   -7.071e-01j]
- [-0.5  -0.000e+00j  0.707+0.000e+00j  0.5  +0.000e+00j]]
-</pre></div>
 </div>
-</div>
-</div>
+<p>Check whether <span class="math notranslate nohighlight">\(S_x\)</span> (i.e., <code class="docutils literal notranslate"><span class="pre">Sx</span></code>) is Hermitian. We do the complex conjugate (<code class="docutils literal notranslate"><span class="pre">conjugate()</span></code>) and transpose (<code class="docutils literal notranslate"><span class="pre">T</span></code>) by hand here. We can also define our own function to do this.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Sx</span> <span class="o">-</span> <span class="n">Sx</span><span class="o">.</span><span class="n">conjugate</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0., 0., 0.],
-       [0., 0., 0.],
-       [0., 0., 0.]])
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">Adjoint</span><span class="p">(</span><span class="n">Matrix</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the complex-conjugate tranpose of the input Matrix. </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">Matrix</span><span class="o">.</span><span class="n">conjugate</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Sy</span> <span class="o">-</span> <span class="n">Sy</span><span class="o">.</span><span class="n">conjugate</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[0.+0.j, 0.+0.j, 0.+0.j],
-       [0.+0.j, 0.+0.j, 0.+0.j],
-       [0.+0.j, 0.+0.j, 0.+0.j]])
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Sy</span> <span class="o">-</span> <span class="n">Adjoint</span><span class="p">(</span><span class="n">Sy</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -934,10 +880,78 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+</div>
+</section>
+<section id="inner-and-outer-product">
+<h3>Inner and outer product<a class="headerlink" href="#inner-and-outer-product" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span> <span class="n">a</span> <span class="o">@</span> <span class="n">b</span> <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">inner</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[1.+0.j, 0.+0.j, 0.+0.j],
-       [0.+0.j, 1.+0.j, 0.+0.j],
-       [0.+0.j, 0.+0.j, 1.+0.j]])
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1
+1
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[-1 -2 -3]
+ [ 1  2  3]
+ [ 0  0  0]]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="trace-and-determinant">
+<h3>Trace and determinant<a class="headerlink" href="#trace-and-determinant" title="Permalink to this headline">#</a></h3>
+<p>Make a random matrix and take it’s trace and determinant.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">M1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">M1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[0.7396331  0.83542865]
+ [0.01537469 0.82529447]]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">M1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.5649275759907215
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">M1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5975706521529265
 </pre></div>
 </div>
 </div>
@@ -946,6 +960,7 @@ title="Print to PDF"
 </section>
 <section id="symbolic-linear-algebra">
 <h2>Symbolic linear algebra<a class="headerlink" href="#symbolic-linear-algebra" title="Permalink to this headline">#</a></h2>
+<p>In progress!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sympy.physics.matrices</span> <span class="kn">import</span> <span class="n">msigma</span>
@@ -958,10 +973,6 @@ title="Print to PDF"
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msigma</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_latex math notranslate nohighlight">
-\[\begin{split}\displaystyle \left[\begin{matrix}0 &amp; 1\\1 &amp; 0\end{matrix}\right]\end{split}\]</div>
 </div>
 </div>
 </section>
