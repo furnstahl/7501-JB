@@ -9,7 +9,9 @@ parts:
     file: content/Course/overview.md
 
 - caption: Notebooks for 7501
-  chapters:
+  chapters: 
+  - title: Linear algebra for QM
+    file: notebooks/Reference/linear_algebra_for_QM.ipynb
   - title: Exponentiating operators  
     file: notebooks/Numerical_derivative_tests.ipynb
   - title: Path integral explorations
