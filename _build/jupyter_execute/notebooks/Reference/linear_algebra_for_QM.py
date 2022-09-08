@@ -35,7 +35,7 @@
 
 # Start by importing the library modules we'll need, defining standard abbreviations (`np` for numpy and `LA` for scipy.linalg). Google `numpy` or `scipy` with specific topics mentioned (e.g., "arrays") to learn much more.  
 
-# In[1]:
+# In[ ]:
 
 
 import numpy as np
@@ -46,13 +46,13 @@ import scipy.linalg as LA
 # 
 # Both vectors and matrices will be entered as particular Python list objects known as numpy arrays. Vectors appear in square brackets and matrices in nested square brackets; we create them as arguments to `np.array`.
 
-# In[2]:
+# In[ ]:
 
 
 x = np.array([0, 1, 2, 3])
 
 
-# In[3]:
+# In[ ]:
 
 
 print(x)
@@ -60,7 +60,7 @@ print(x)
 
 # We can pick out elements of the vector (note the square brackets). If there are `n` elements of the vector, they are indexed from `0` to `n-1`. **Why does the last reference fail here with an error?** 
 
-# In[4]:
+# In[ ]:
 
 
 print(x[0])
@@ -100,7 +100,7 @@ my_identity3.shape
 # In[ ]:
 
 
-eye2 = np.eye(2)   # 2x2 identify
+eye2 = np.eye(2)   # 2x2 identity
 sig1 = np.array([[0, 1], [1, 0]]) # \sigma_1
 sig2 = np.array([[0, 1j], [1j, 0]]) # use j for sqrt(-1)
 sig3 = np.array([[1, 0], [0, -1]])
@@ -238,7 +238,7 @@ Sz = np.array([[1, 0, 0],[0, 0, 0], [0, 0, -1]])
 
 # ### Inner and outer product
 
-# In[10]:
+# In[ ]:
 
 
 a = np.array([1,2,3])
@@ -247,7 +247,7 @@ print( a @ b )
 print( np.inner(a, b))
 
 
-# In[11]:
+# In[ ]:
 
 
 print( np.outer(b, a))
@@ -257,20 +257,20 @@ print( np.outer(b, a))
 
 # Make a random matrix and take it's trace and determinant.
 
-# In[17]:
+# In[ ]:
 
 
 M1 = np.random.rand(2,2)
 print(M1)
 
 
-# In[18]:
+# In[ ]:
 
 
 np.trace(M1)
 
 
-# In[19]:
+# In[ ]:
 
 
 np.linalg.det(M1)
