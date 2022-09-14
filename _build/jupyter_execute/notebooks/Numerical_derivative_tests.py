@@ -3,14 +3,9 @@
 
 # # Tests of exponentiating derivative operators
 # 
+# In this notebook we explore the accuracy of derivative operators realized as matrices on a coordinate space mesh and then do tests of exponentiating those operators various ways.
 
-# In[1]:
-
-
-get_ipython().run_line_magic('load_ext', 'autoreload')
-get_ipython().run_line_magic('autoreload', '2')
-get_ipython().run_line_magic('matplotlib', 'inline')
-
+# Standard imports plus seaborn (to make plots looks nicer).
 
 # In[2]:
 
@@ -21,6 +16,37 @@ import scipy.linalg as la
 import matplotlib.pyplot as plt
 import seaborn as sns; sns.set_style("darkgrid"); sns.set_context("talk")
 
+
+# We'll define two functions that create matrices that implement approximate derivatives when applied to a vector made up of a function evaluated at the mesh points. The numpy `diag` and `ones` functions are used to create matrices with 1's on particular diagonals, as in these $5\times 5$ examples of forward derivatives (left) and symmetric derivatives (right):
+# 
+# $$ \frac{1}{\Delta x}\,\left( 
+#     \begin{array}{ccccc}
+#     -1 & 1 & 0 & 0 & 0 \\
+#     0 & -1 & 1 & 0 & 0 \\
+#     0 & 0 & -1 & 1 & 0 \\
+#     0 & 0 &0 & -1 & 1 \\
+#     0 & 0 & 0 & 0 & -1
+#     \end{array}
+#    \right) 
+#    \left(\begin{array}{c}
+#          f_1 \\ f_2 \\ f_3 \\ f_4 \\ f_5
+#          \end{array}
+#    \right)
+#    \qquad\qquad
+#    \frac{1}{2\Delta x}\,\left( 
+#     \begin{array}{ccccc}
+#     0 & 1 & 0 & 0 & 0 \\
+#     -1 & 0 & 1 & 0 & 0 \\
+#     0 & -1 & 0 & 1 & 0 \\
+#     0 & 0 & -1 & 0 & 1 \\
+#     0 & 0 & 0 & -1 & 0
+#     \end{array}
+#    \right) 
+#    \left(\begin{array}{c}
+#          f_1 \\ f_2 \\ f_3 \\ f_4 \\ f_5
+#          \end{array}
+#    \right)
+#  $$   
 
 # In[3]:
 

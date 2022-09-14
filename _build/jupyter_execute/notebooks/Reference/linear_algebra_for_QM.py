@@ -35,7 +35,7 @@
 
 # Start by importing the library modules we'll need, defining standard abbreviations (`np` for numpy and `LA` for scipy.linalg). Google `numpy` or `scipy` with specific topics mentioned (e.g., "arrays") to learn much more.  
 
-# In[ ]:
+# In[1]:
 
 
 import numpy as np
