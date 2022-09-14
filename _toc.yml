@@ -12,6 +12,8 @@ parts:
   chapters: 
   - title: Linear algebra for QM
     file: notebooks/Reference/linear_algebra_for_QM.ipynb
+  - title: Numerical test of exp formula
+    file: notebooks/Numerical_test_of_exponential_as_Nth_power_expression.ipynb
   - title: Exponentiating operators  
     file: notebooks/Numerical_derivative_tests.ipynb
   - title: Path integral explorations
