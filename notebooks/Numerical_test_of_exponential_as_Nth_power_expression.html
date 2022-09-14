@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Workflow for Jupyter notebook: cells \(\rightarrow\) functions \(\rightarrow\) classes &#8212; Quantum Mechanics I</title>
+    <title>Numerical test of \(e^{-x} \approx (1 -\frac{x}{N})^N\) for large \(N\) &#8212; Quantum Mechanics I</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -55,6 +55,8 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Tests of exponentiating derivative operators" href="Numerical_derivative_tests.html" />
+    <link rel="prev" title="Linear algebra for quantum mechanics" href="Reference/linear_algebra_for_QM.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -126,14 +128,14 @@ const thebe_selector_output = ".output, .cell_output"
   Notebooks for 7501
  </span>
 </p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="Reference/linear_algebra_for_QM.html">
    Linear algebra for QM
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Numerical_test_of_exponential_as_Nth_power_expression.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Numerical test of exp formula
   </a>
  </li>
@@ -348,7 +350,7 @@ title="Toggle navigation"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://mybinder.org/v2/gh/furnstahl/7501-JB/main?urlpath=tree/./notebooks/Python_Jupyter_workflow.ipynb"
+        <a href="https://mybinder.org/v2/gh/furnstahl/7501-JB/main?urlpath=tree/./notebooks/Numerical_test_of_exponential_as_Nth_power_expression.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -426,7 +428,7 @@ title="Source repository"
       </li>
       
       <li>
-        <a href="https://github.com/furnstahl/7501-JB/issues/new?title=Issue%20on%20page%20%2Fnotebooks/Python_Jupyter_workflow.html&body=Your%20issue%20content%20here."
+        <a href="https://github.com/furnstahl/7501-JB/issues/new?title=Issue%20on%20page%20%2Fnotebooks/Numerical_test_of_exponential_as_Nth_power_expression.html&body=Your%20issue%20content%20here."
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -454,7 +456,7 @@ title="Open an issue"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../_sources/notebooks/Python_Jupyter_workflow.ipynb"
+        <a href="../_sources/notebooks/Numerical_test_of_exponential_as_Nth_power_expression.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -503,7 +505,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Workflow for Jupyter notebook: cells \rightarrow functions \rightarrow classes</h1>
+                <h1>Numerical test of e^{-x} \approx (1 -\frac{x}{N})^N for large N</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -515,20 +517,86 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="workflow-for-jupyter-notebook-cells-rightarrow-functions-rightarrow-classes">
-<h1>Workflow for Jupyter notebook: cells <span class="math notranslate nohighlight">\(\rightarrow\)</span> functions <span class="math notranslate nohighlight">\(\rightarrow\)</span> classes<a class="headerlink" href="#workflow-for-jupyter-notebook-cells-rightarrow-functions-rightarrow-classes" title="Permalink to this headline">#</a></h1>
-<p>Here we illustrate how to start with global definitions and separate evaluations in cells and then in stages convert to functions and then to classes.</p>
-<p>The next stage is to move the class and function definitions to external files and then to have a <a class="reference external" href="http://setup.py">setup.py</a> function.</p>
-<p><strong>General comments:</strong></p>
-<ul class="simple">
-<li><p>This is only one possible workflow.</p></li>
-<li><p>The idea here is to prototype things and then in steps see how to put it together.</p></li>
-</ul>
-<p><strong>Things to include:</strong></p>
-<ul class="simple">
-<li><p>Multiple figures, converted to a function for plots.</p></li>
-<li><p>Global variables, becoming local variables in a class.</p></li>
-</ul>
+  <section class="tex2jax_ignore mathjax_ignore" id="numerical-test-of-e-x-approx-1-frac-x-n-n-for-large-n">
+<h1>Numerical test of <span class="math notranslate nohighlight">\(e^{-x} \approx (1 -\frac{x}{N})^N\)</span> for large <span class="math notranslate nohighlight">\(N\)</span><a class="headerlink" href="#numerical-test-of-e-x-approx-1-frac-x-n-n-for-large-n" title="Permalink to this headline">#</a></h1>
+<p>In this notebook we test whether</p>
+<ol class="simple">
+<li><p>For what <span class="math notranslate nohighlight">\(x\)</span> does this work?</p></li>
+<li><p>How big does <span class="math notranslate nohighlight">\(N\)</span> have to be?</p></li>
+</ol>
+<p>Plan: calculate the <em>error</em> for a range of <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(N\)</span>.</p>
+<p>Standard imports plus seaborn (to make plots looks nicer).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.linalg</span> <span class="k">as</span> <span class="nn">la</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span><span class="p">;</span> <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;darkgrid&quot;</span><span class="p">);</span> <span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;talk&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Set up the <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(N\)</span> arrays.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">.1</span><span class="p">)</span>
+<span class="n">N_values</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">x_values</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">N_values</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Write functions to evaluate the approximation and for relative errors</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">rel_error</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate the (absolute value of the) relative error between x1 and x2</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span> <span class="p">(</span><span class="n">x1</span> <span class="o">-</span> <span class="n">x2</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="n">x1</span> <span class="o">+</span> <span class="n">x2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">exp_approx</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">N</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate (1 + z/N)^N</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">z</span><span class="o">/</span><span class="n">N</span><span class="p">)</span><span class="o">**</span><span class="n">N</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Step through <span class="math notranslate nohighlight">\(x\)</span> array and for each <span class="math notranslate nohighlight">\(x\)</span> step through <span class="math notranslate nohighlight">\(N\)</span>, making a table of results</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39; x   exp(-x)  N: &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>   <span class="c1"># The end=&quot; &quot; option suppresses a return.</span>
+<span class="k">for</span> <span class="n">N</span> <span class="ow">in</span> <span class="n">N_values</span><span class="p">:</span>
+   <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  </span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s1">     &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">x_values</span><span class="p">:</span>
+    <span class="n">f_of_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">x</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">   </span><span class="si">{</span><span class="n">f_of_x</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">   &quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">N</span> <span class="ow">in</span> <span class="n">N_values</span><span class="p">:</span>
+        <span class="n">approx</span> <span class="o">=</span> <span class="n">exp_approx</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">,</span> <span class="n">N</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">rel_error</span><span class="p">(</span><span class="n">f_of_x</span><span class="p">,</span> <span class="n">approx</span><span class="p">)</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 
     <script type="text/x-thebe-config">
@@ -558,6 +626,20 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="Reference/linear_algebra_for_QM.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Linear algebra for quantum mechanics</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="Numerical_derivative_tests.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Tests of exponentiating derivative operators</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
             </footer>
         </div>
