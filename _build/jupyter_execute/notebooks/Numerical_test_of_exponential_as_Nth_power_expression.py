@@ -3,15 +3,15 @@
 
 # # Numerical test of $e^{-x} \approx (1 -\frac{x}{N})^N$ for large $N$
 # 
-# In this notebook we test whether
+# In this notebook we test:
 # 1. For what $x$ does this work?
 # 2. How big does $N$ have to be?
 # 
 # Plan: calculate the *error* for a range of $x$ and $N$.
 
-# Standard imports plus seaborn (to make plots looks nicer).
+# Standard Python imports plus seaborn (to make plots looks nicer).
 
-# In[ ]:
+# In[1]:
 
 
 import numpy as np
@@ -23,20 +23,21 @@ import seaborn as sns; sns.set_style("darkgrid"); sns.set_context("talk")
 
 # Set up the $x$ and $N$ arrays.
 
-# In[ ]:
+# In[2]:
 
 
-x_values = np.arange(0, 2, .1)
-N_values = [10, 100]
+delta_x = 0.1
+x_values = np.arange(0, 2+delta_x, delta_x)  # Mesh points rom 0 to 2 inclusive.
+N_values = [10, 100]  # You can add more to this list
 
 
-# In[ ]:
+# In[3]:
 
 
-print(x_values)
+print(x_values)  # just to check they are what we want
 
 
-# In[ ]:
+# In[4]:
 
 
 print(N_values)
@@ -44,7 +45,7 @@ print(N_values)
 
 # Write functions to evaluate the approximation and for relative errors
 
-# In[ ]:
+# In[5]:
 
 
 def rel_error(x1, x2):
@@ -62,7 +63,7 @@ def exp_approx(z, N):
 
 # Step through $x$ array and for each $x$ step through $N$, making a table of results
 
-# In[ ]:
+# In[6]:
 
 
 print(' x   exp(-x)  N: ', end=" ")   # The end=" " option suppresses a return.
@@ -76,8 +77,13 @@ for x in x_values:
     for N in N_values:
         approx = exp_approx(-x, N)
         print(f"  {rel_error(f_of_x, approx):.2e}", end=" ")
-    print("\n")
+    print(" ")
 
+
+# ## Things to do
+# 
+# 1. How does the relative error scales with $N$? (Note that you can add additional $N$ values to `N_values`.) Can you explain the observed scaling?
+# 2. Investigate how well the approximation works for $x > 2$.
 
 # In[ ]:
 

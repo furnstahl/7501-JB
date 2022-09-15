@@ -7,7 +7,7 @@
 
 # Standard imports plus seaborn (to make plots looks nicer).
 
-# In[2]:
+# In[1]:
 
 
 import numpy as np
@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns; sns.set_style("darkgrid"); sns.set_context("talk")
 
 
-# We'll define two functions that create matrices that implement approximate derivatives when applied to a vector made up of a function evaluated at the mesh points. The numpy `diag` and `ones` functions are used to create matrices with 1's on particular diagonals, as in these $5\times 5$ examples of forward derivatives (left) and symmetric derivatives (right):
+# We'll define two functions that create matrices that implement approximate derivatives when applied to a vector made up of a function evaluated at the mesh points. The numpy `diag` and `ones` functions are used to create matrices with 1's on particular diagonals, as in these $5\times 5$ examples of forward derivatives: 
 # 
 # $$ \frac{1}{\Delta x}\,\left( 
 #     \begin{array}{ccccc}
@@ -31,8 +31,17 @@ import seaborn as sns; sns.set_style("darkgrid"); sns.set_context("talk")
 #    \left(\begin{array}{c}
 #          f_1 \\ f_2 \\ f_3 \\ f_4 \\ f_5
 #          \end{array}
-#    \right)
-#    \qquad\qquad
+#    \right) 
+#    \overset{?}{=}
+#    \left(\begin{array}{c}
+#          ? \\ ? \\ ? \\ ? \\ ?
+#          \end{array}
+#    \right) 
+#  $$  
+#  
+#  and symmetric derivatives:
+# 
+# $$
 #    \frac{1}{2\Delta x}\,\left( 
 #     \begin{array}{ccccc}
 #     0 & 1 & 0 & 0 & 0 \\
@@ -46,90 +55,116 @@ import seaborn as sns; sns.set_style("darkgrid"); sns.set_context("talk")
 #          f_1 \\ f_2 \\ f_3 \\ f_4 \\ f_5
 #          \end{array}
 #    \right)
-#  $$   
+#    \overset{?}{=}
+#    \left(\begin{array}{c}
+#          ? \\ ? \\ ? \\ ? \\ ?
+#          \end{array}
+#    \right) 
+# $$
+#  
+
+# In[2]:
+
+
+def forward_derivative_matrix(N, Delta_x):
+    """Return an N x N matrix for derivative of an equally spaced vector by delta_x
+    """
+    return ( np.diag(np.ones(N-1), +1) - np.diag(np.ones(N), 0) ) / Delta_x
+
 
 # In[3]:
 
 
-def forward_derivative_matrix(Nc, Delta_x):
+def symmetric_derivative_matrix(N, Delta_x):
     """Return an Nc x Nc matrix for derivative of an equally spaced vector by delta_x
     """
-    return ( np.diag(np.ones(Nc-1), +1) - np.diag(np.ones(Nc), 0) ) / Delta_x
+    return ( np.diag(np.ones(N-1), +1) - np.diag(np.ones(N-1), -1) ) / (2 * Delta_x)
 
+
+# ## Testing forward against symmetric derivative
+# 
+# We'll check the relative accuracy of both approximate derivatives as a function of $\Delta x$ by choosing a test function $f(x)$ and a range of $x$.
 
 # In[4]:
 
 
-def symmetric_derivative_matrix(Nc, Delta_x):
-    """Return an Nc x Nc matrix for derivative of an equally spaced vector by delta_x
-    """
-    return ( np.diag(np.ones(Nc-1), +1) - np.diag(np.ones(Nc-1), -1) ) / (2 * Delta_x)
+N_pts = 101;
+x_min = 0.
+x_max = 2.
+Delta_x = (x_max - x_min) / (N_pts - 1)
+x_mesh = np.linspace(x_min, x_max, N_pts)
 
-
-# In[ ]:
-
-
-
-
-
-# ## Testing forward derivative
 
 # In[5]:
 
 
-Nc = 101;
-x_min = 0.
-x_max = 2.
-Delta_x = (x_max - x_min) / (Nc - 1)
-x_mesh = np.linspace(x_min, x_max, Nc)
+# Check that mesh is consistent with Delta_x
+print(Delta_x)
+# print(x_mesh)
 
+
+# Set up the derivative matrices for the specified mesh.
 
 # In[6]:
 
 
-# Check that mesh is consistent with Delta_x
-print(Delta_x)
-#print(x_mesh)
+fd = forward_derivative_matrix(N_pts, Delta_x)
+sd = symmetric_derivative_matrix(N_pts, Delta_x)
 
+
+# ### Set up various test functions
 
 # In[7]:
 
 
-fd = forward_derivative_matrix(Nc, Delta_x)
-sd = symmetric_derivative_matrix(Nc, Delta_x)
+def f_test_1(x_mesh):
+    """
+    Return the value of the function x^4 e^{-x} and its derivative
+    """
+    return ( np.exp(-x_mesh) * x_mesh**4, (4 * x_mesh**3 - x_mesh**4) * np.exp(-x_mesh) )    
 
+def f_test_2(x_mesh):
+    """
+    Return the value of the function 1/(1 + x) and its derivative
+    """
+    return ( 1/(1+x_mesh), -1/(1+x_mesh)**2 )
+
+def f_test_2(x_mesh):
+    """
+    Return the value of the function 1/(1 + x) and its derivative
+    """
+    return ( (np.sin(x_mesh))**2, 2 * np.cos(x_mesh) * np.sin(x_mesh) )
+
+
+# Pick one of the test functions and evaluate the function and its derivative on the mesh.
+# Then apply the forward difference (fd) and symmetric difference (sd) matrices to the `f_test` vector (using the `@` symbol for matrix-vector, matrix-matrix, and vector-vector multiplication).
 
 # In[8]:
 
 
-# f_test = (np.sin(x_mesh))**2
-# f_deriv_exact = 2 * np.cos(x_mesh) * np.sin(x_mesh)
-
-
-# In[9]:
-
-
-def f_test_1(x_mesh):
-    return (np.exp(-x_mesh) * x_mesh**4, (4 * x_mesh**3 - x_mesh**4) * np.exp(-x_mesh))
-
-
-# In[10]:
-
-
 f_test, f_deriv_exact = f_test_1(x_mesh)
-
-
-# In[11]:
-
 
 f_deriv_fd = fd @ f_test
 f_deriv_sd = sd @ f_test
 
 
-# In[12]:
+# Make plots comparing the exact to approximate derivative and then the relative errors.
+
+# In[9]:
+
+
+def rel_error(x1, x2):
+    """
+    Calculate the (absolute value of the) relative error between x1 and x2
+    """
+    return np.abs( (x1 - x2) / ((x1 + x2)/2) )
+
+
+# In[10]:
 
 
 fig = plt.figure(figsize=(12,6))
+
 ax1 = fig.add_subplot(1,2,1)
 ax1.set_xlabel(r'$x$')
 ax1.set_ylabel(r'$df/dx$')
@@ -140,7 +175,6 @@ ax1.plot(x_mesh, f_deriv_exact, color='red', label='exact derivative')
 ax1.plot(x_mesh, f_deriv_fd, color='blue', label='forward derivative', linestyle='dashed')
 ax1.plot(x_mesh, f_deriv_sd, color='green', label='symmetric derivative', linestyle='dotted')
 
-#ax.set_title(f'{test_ho.V_string} with k_osc = {k_osc:.1f}, mass = {mass:.1f}')
 ax1.legend()
 
 ax2 = fig.add_subplot(1,2,2)
@@ -149,43 +183,56 @@ ax2.set_ylabel(r'relative error')
 ax2.set_xlim(0, x_max)
 #ax2.set_ylim(-0.001, 0.001)
 
-rel_error_fd = 2 * (f_deriv_exact - f_deriv_fd) / (f_deriv_exact + f_deriv_fd)
-rel_error_sd = 2 * (f_deriv_exact - f_deriv_sd) / (f_deriv_exact + f_deriv_sd)
+# Calculate relative errors
+rel_error_fd = rel_error(f_deriv_exact, f_deriv_fd)
+rel_error_sd = rel_error(f_deriv_exact, f_deriv_sd) 
 
-ax2.semilogy(x_mesh, np.abs(rel_error_fd), color='blue', label='forward derivative', linestyle='dashed')
-ax2.semilogy(x_mesh, np.abs(rel_error_sd), color='green', label='symmetric derivative', linestyle='dotted')
+ax2.semilogy(x_mesh, rel_error_fd, color='blue', label='forward derivative', linestyle='dashed')
+ax2.semilogy(x_mesh, rel_error_sd, color='green', label='symmetric derivative', linestyle='dotted')
 
-#ax.set_title(f'{test_ho.V_string} with k_osc = {k_osc:.1f}, mass = {mass:.1f}')
 ax2.legend()
 
 fig.tight_layout()
 
 
-# In[ ]:
+# Questions to address:
+# 
+# 1. What specifically goes wrong at the largest value of $x$?
+# 2. Demonstrate by Taylor expansions how much better symmetric derivatives should be than forward derivatives.
+
+# ## Exponentiating derivative matrices for finite translation
+
+# In[11]:
 
 
+a = 10 * Delta_x  # translate by a multiple of Delta_x
 
 
+# Pick one of the test functions and evaluate the function on the mesh, but displaced by a.
+# Then apply various approximations to an exponentiated derivative, which is an approximation to a translation operator.
+# 
+# The approximations use the forward difference (fd) and symmetric difference (sd) matrices, which in term either uses `la.expm`, which is a matrix exponential function, or `la.fractional_matrix_power`, which implements the product approximation.
+# 
+# So $e^{M}$ versus $(1 +\frac{M}{N})^N$, where $M$ is the matrix approximation to the derivative operator. 
+# 
+# 
 
-# ## Exponentiating derivative matrix for finite translation
-
-# In[13]:
+# In[12]:
 
 
-a = 5 * Delta_x
-
-
-# In[14]:
-
-
+f_test, f_deriv_exact = f_test_1(x_mesh)
 f_exp_exact, dummy  = f_test_1(x_mesh + a)
+
 f_exp_fd = la.expm(a*fd) @ f_test
 f_exp_sd = la.expm(a*sd) @ f_test
-f_exp_fd2 = la.fractional_matrix_power(np.eye(Nc) + Delta_x*fd, a/Delta_x) @ f_test
-f_exp_sd2 = la.fractional_matrix_power(np.eye(Nc) + Delta_x*sd, a/Delta_x) @ f_test
+
+f_exp_fd2 = la.fractional_matrix_power(np.eye(N_pts) + Delta_x*fd, a/Delta_x) @ f_test
+f_exp_sd2 = la.fractional_matrix_power(np.eye(N_pts) + Delta_x*sd, a/Delta_x) @ f_test
 
 
-# In[18]:
+# First make a comparison plot of exact to matrix exponentiation of either forward derivatives or symmetric derivatives.
+
+# In[13]:
 
 
 fig = plt.figure(figsize=(12,6))
@@ -208,11 +255,11 @@ ax2.set_ylabel(r'relative error')
 ax2.set_xlim(0, x_max)
 #ax2.set_ylim(-0.001, 0.001)
 
-rel_error_fd = 2 * (f_exp_exact - f_exp_fd) / (f_exp_exact + f_exp_fd)
-rel_error_sd = 2 * (f_exp_exact - f_exp_sd) / (f_exp_exact + f_exp_sd)
+rel_error_fd = rel_error(f_exp_exact, f_exp_fd)
+rel_error_sd = rel_error(f_exp_exact, f_exp_sd) 
 
-ax2.semilogy(x_mesh, np.abs(rel_error_fd), color='blue', label='forward translation', linestyle='dashed')
-ax2.semilogy(x_mesh, np.abs(rel_error_sd), color='green', label='symmetric translation', linestyle='dotted')
+ax2.semilogy(x_mesh, rel_error_fd, color='blue', label='forward translation', linestyle='dashed')
+ax2.semilogy(x_mesh, rel_error_sd, color='green', label='symmetric translation', linestyle='dotted')
 
 ax2.set_title(fr'$\Delta x = {Delta_x:.3f}$; exp translate {a:.3f}')
 ax2.legend()
@@ -220,7 +267,9 @@ ax2.legend()
 fig.tight_layout()
 
 
-# In[21]:
+# Now make a comparison plot of exact to power translation with either forward derivatives or symmetric derivatives.
+
+# In[14]:
 
 
 fig = plt.figure(figsize=(12,6))
@@ -242,11 +291,11 @@ ax2.set_xlabel(r'$x$')
 ax2.set_ylabel(r'relative error')
 ax2.set_xlim(0, x_max)
 
-rel_error_fd = 2 * (f_exp_exact - f_exp_fd2) / (f_exp_exact + f_exp_fd2)
-rel_error_sd = 2 * (f_exp_exact - f_exp_sd2) / (f_exp_exact + f_exp_sd2)
+rel_error_fd = rel_error(f_exp_exact, f_exp_fd2)
+rel_error_sd = rel_error(f_exp_exact, f_exp_sd2) 
 
-ax2.semilogy(x_mesh, np.abs(rel_error_fd), color='blue', label='forward translation', linestyle='dashed')
-ax2.semilogy(x_mesh, np.abs(rel_error_sd), color='green', label='symmetric translation', linestyle='dotted')
+ax2.semilogy(x_mesh, rel_error_fd, color='blue', label='forward translation', linestyle='dashed')
+ax2.semilogy(x_mesh, rel_error_sd, color='green', label='symmetric translation', linestyle='dotted')
 
 ax2.set_title(fr'$\Delta x = {Delta_x:.3f}$; power translate {a:.3f}')
 ax2.legend()
@@ -257,6 +306,12 @@ fig.tight_layout()
 # ## Scaling of error with $\Delta x$
 
 # To understand the results, we need to trace what happens to the error we make with each approach.
+
+# In[ ]:
+
+
+
+
 
 # In[ ]:
 
