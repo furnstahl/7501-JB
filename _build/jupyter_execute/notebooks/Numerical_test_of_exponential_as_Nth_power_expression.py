@@ -7,11 +7,11 @@
 # 1. For what $x$ does this work?
 # 2. How big does $N$ have to be?
 # 
-# Plan: calculate the *error* for a range of $x$ and $N$.
+# Plan: calculate the *error* for a range of $x$ and $N$ and make a table.
 
 # Standard Python imports plus seaborn (to make plots looks nicer).
 
-# In[1]:
+# In[ ]:
 
 
 import numpy as np
@@ -23,21 +23,21 @@ import seaborn as sns; sns.set_style("darkgrid"); sns.set_context("talk")
 
 # Set up the $x$ and $N$ arrays.
 
-# In[2]:
+# In[ ]:
 
 
-delta_x = 0.1
+delta_x = 0.1  # spacing of x points
 x_values = np.arange(0, 2+delta_x, delta_x)  # Mesh points rom 0 to 2 inclusive.
 N_values = [10, 100]  # You can add more to this list
 
 
-# In[3]:
+# In[ ]:
 
 
 print(x_values)  # just to check they are what we want
 
 
-# In[4]:
+# In[ ]:
 
 
 print(N_values)
@@ -45,12 +45,13 @@ print(N_values)
 
 # Write functions to evaluate the approximation and for relative errors
 
-# In[5]:
+# In[ ]:
 
 
 def rel_error(x1, x2):
     """
-    Calculate the (absolute value of the) relative error between x1 and x2
+    Calculate the (absolute value of the) relative error between x1 and x2. 
+    Notice that we use the average for the denominator.
     """
     return np.abs( (x1 - x2) / ((x1 + x2)/2) )
 
@@ -63,7 +64,7 @@ def exp_approx(z, N):
 
 # Step through $x$ array and for each $x$ step through $N$, making a table of results
 
-# In[6]:
+# In[ ]:
 
 
 print(' x   exp(-x)  N: ', end=" ")   # The end=" " option suppresses a return.
@@ -82,8 +83,8 @@ for x in x_values:
 
 # ## Things to do
 # 
-# 1. How does the relative error scales with $N$? (Note that you can add additional $N$ values to `N_values`.) Can you explain the observed scaling?
-# 2. Investigate how well the approximation works for $x > 2$.
+# 1. How does the relative error scales with $N$? (To be sure, add additional $N$ values to `N_values`.) Explain the observed scaling.
+# 2. Investigate how well the approximation works for $x > 2$ by increasing the range of $x$. Describe the behavior.
 
 # In[ ]:
 

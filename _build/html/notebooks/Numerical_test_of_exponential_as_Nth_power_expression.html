@@ -561,7 +561,7 @@ title="Print to PDF"
 <li><p>For what <span class="math notranslate nohighlight">\(x\)</span> does this work?</p></li>
 <li><p>How big does <span class="math notranslate nohighlight">\(N\)</span> have to be?</p></li>
 </ol>
-<p>Plan: calculate the <em>error</em> for a range of <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(N\)</span>.</p>
+<p>Plan: calculate the <em>error</em> for a range of <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(N\)</span> and make a table.</p>
 <p>Standard Python imports plus seaborn (to make plots looks nicer).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -577,7 +577,7 @@ title="Print to PDF"
 <p>Set up the <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(N\)</span> arrays.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">delta_x</span> <span class="o">=</span> <span class="mf">0.1</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">delta_x</span> <span class="o">=</span> <span class="mf">0.1</span>  <span class="c1"># spacing of x points</span>
 <span class="n">x_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">+</span><span class="n">delta_x</span><span class="p">,</span> <span class="n">delta_x</span><span class="p">)</span>  <span class="c1"># Mesh points rom 0 to 2 inclusive.</span>
 <span class="n">N_values</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">]</span>  <span class="c1"># You can add more to this list</span>
 </pre></div>
@@ -590,21 +590,10 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.  0.1 0.2 0.3 0.4 0.5 0.6 0.7 0.8 0.9 1.  1.1 1.2 1.3 1.4 1.5 1.6 1.7
- 1.8 1.9 2. ]
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">N_values</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[10, 100]
 </pre></div>
 </div>
 </div>
@@ -614,7 +603,8 @@ title="Print to PDF"
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">rel_error</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Calculate the (absolute value of the) relative error between x1 and x2</span>
+<span class="sd">    Calculate the (absolute value of the) relative error between x1 and x2. </span>
+<span class="sd">    Notice that we use the average for the denominator.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span> <span class="p">(</span><span class="n">x1</span> <span class="o">-</span> <span class="n">x2</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="n">x1</span> <span class="o">+</span> <span class="n">x2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="p">)</span>
 
@@ -645,39 +635,12 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> x   exp(-x)  N:    10        100      
-
-0.0   1.000      0.00e+00   0.00e+00  
-0.1   0.905      5.03e-04   5.00e-05  
-0.2   0.819      2.03e-03   2.00e-04  
-0.3   0.741      4.59e-03   4.51e-04  
-0.4   0.670      8.22e-03   8.02e-04  
-0.5   0.607      1.29e-02   1.25e-03  
-0.6   0.549      1.88e-02   1.81e-03  
-0.7   0.497      2.57e-02   2.46e-03  
-0.8   0.449      3.38e-02   3.22e-03  
-0.9   0.407      4.31e-02   4.07e-03  
-1.0   0.368      5.36e-02   5.03e-03  
-1.1   0.333      6.53e-02   6.09e-03  
-1.2   0.301      7.83e-02   7.26e-03  
-1.3   0.273      9.26e-02   8.52e-03  
-1.4   0.247      1.08e-01   9.89e-03  
-1.5   0.223      1.25e-01   1.14e-02  
-1.6   0.202      1.43e-01   1.29e-02  
-1.7   0.183      1.63e-01   1.46e-02  
-1.8   0.165      1.84e-01   1.64e-02  
-1.9   0.150      2.06e-01   1.83e-02  
-2.0   0.135      2.30e-01   2.03e-02  
-</pre></div>
-</div>
-</div>
 </div>
 <section id="things-to-do">
 <h2>Things to do<a class="headerlink" href="#things-to-do" title="Permalink to this headline">#</a></h2>
 <ol class="simple">
-<li><p>How does the relative error scales with <span class="math notranslate nohighlight">\(N\)</span>? (Note that you can add additional <span class="math notranslate nohighlight">\(N\)</span> values to <code class="docutils literal notranslate"><span class="pre">N_values</span></code>.) Can you explain the observed scaling?</p></li>
-<li><p>Investigate how well the approximation works for <span class="math notranslate nohighlight">\(x &gt; 2\)</span>.</p></li>
+<li><p>How does the relative error scales with <span class="math notranslate nohighlight">\(N\)</span>? (To be sure, add additional <span class="math notranslate nohighlight">\(N\)</span> values to <code class="docutils literal notranslate"><span class="pre">N_values</span></code>.) Explain the observed scaling.</p></li>
+<li><p>Investigate how well the approximation works for <span class="math notranslate nohighlight">\(x &gt; 2\)</span> by increasing the range of <span class="math notranslate nohighlight">\(x\)</span>. Describe the behavior.</p></li>
 </ol>
 </section>
 </section>
