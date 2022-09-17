@@ -3,7 +3,7 @@
 
 # # Linear algebra for quantum mechanics
 # 
-# Last revised: 17-Sep-2022 by Dick Furnstahl [furnstahl.1@osu.edu]
+# Last revised: 06-Sep-2022 by Dick Furnstahl [furnstahl.1@osu.edu]
 # 
 # Here we do a selective (i.e., non-comprehensive) introduction to using Python for the type of linear algebra manipulation used in quantum mechanics (QM). We can do both numerical manipulations (with numpy) or symbolic manipulations (with sympy).
 
@@ -35,7 +35,7 @@
 
 # Start by importing the library modules we'll need, defining standard abbreviations (`np` for numpy and `LA` for scipy.linalg). Google `numpy` or `scipy` with specific topics mentioned (e.g., "arrays") to learn much more.  
 
-# In[ ]:
+# In[1]:
 
 
 import numpy as np
@@ -46,13 +46,13 @@ import scipy.linalg as LA
 # 
 # Both vectors and matrices will be entered as particular Python list objects known as numpy arrays. Vectors appear in square brackets and matrices in nested square brackets; we create them as arguments to `np.array`.
 
-# In[ ]:
+# In[2]:
 
 
 x = np.array([0, 1, 2, 3])
 
 
-# In[ ]:
+# In[3]:
 
 
 print(x)
@@ -60,7 +60,7 @@ print(x)
 
 # We can pick out elements of the vector (note the square brackets). If there are `n` elements of the vector, they are indexed from `0` to `n-1`. **Why does the last reference fail here with an error?** 
 
-# In[ ]:
+# In[4]:
 
 
 print(x[0])
@@ -70,14 +70,14 @@ print(x[4])
 
 # Functions are defined to generate matrices such as identity matrices of any dimension (`np.eye`).
 
-# In[ ]:
+# In[5]:
 
 
 ident2 = np.eye(2)   # we can name these whatever we want
 my_identity3 = np.eye(3)
 
 
-# In[ ]:
+# In[6]:
 
 
 print(ident2)
@@ -87,7 +87,7 @@ print(my_identity3)
 
 # If we use the `shape` attribute we would get $(3, 3)$ as output, that is verifying that our matrix is a $3\times 3$ matrix. 
 
-# In[ ]:
+# In[7]:
 
 
 my_identity3.shape
@@ -97,7 +97,7 @@ my_identity3.shape
 
 # Here we see how to use np.array to input a matrix. Note the use of `1j` for $\sqrt{-1}$.
 
-# In[ ]:
+# In[8]:
 
 
 eye2 = np.eye(2)   # 2x2 identity
@@ -106,7 +106,7 @@ sig2 = np.array([[0, -1j], [1j, 0]]) # use j for sqrt(-1)
 sig3 = np.array([[1, 0], [0, -1]])
 
 
-# In[ ]:
+# In[9]:
 
 
 print(eye2, '\n\n', sig1, '\n\n', sig2, '\n\n', sig3)
@@ -114,13 +114,13 @@ print(eye2, '\n\n', sig1, '\n\n', sig2, '\n\n', sig3)
 
 # Let's do some first matrix multiplications. In all cases we use `@` to multiply matrices and/or vectors. Check some standard results. **You fill in the rest!**
 
-# In[ ]:
+# In[10]:
 
 
 sig1 @ sig1
 
 
-# In[ ]:
+# In[11]:
 
 
 print(sig1 @ sig2)
@@ -128,7 +128,7 @@ print(" ")
 print(1j * sig3)
 
 
-# In[ ]:
+# In[12]:
 
 
 def my_commute(A, B):
@@ -138,7 +138,7 @@ def my_commute(A, B):
     return A @ B - B @ A
 
 
-# In[ ]:
+# In[13]:
 
 
 my_commute(sig1, sig2)
@@ -150,14 +150,14 @@ my_commute(sig1, sig2)
 
 # Here are the $S_x$ and $S_y$ matrices for spin-1 (in units where $\hbar = 1$).
 
-# In[ ]:
+# In[14]:
 
 
 Sx = 1/np.sqrt(2) * np.array([[0, 1, 0], [1, 0, 1], [0, 1, 0]])
 Sy = 1/np.sqrt(2) * np.array([[0, -1j, 0], [1j, 0, -1j], [0, 1j, 0]])  # note we use "1j" instead of just "j"
 
 
-# In[ ]:
+# In[15]:
 
 
 print(Sx, '\n\n', Sy)   # \n in quotes will start a new line
@@ -165,15 +165,15 @@ print(Sx, '\n\n', Sy)   # \n in quotes will start a new line
 
 # Let's do more matrix multipications. In all cases we use `@` to multiply matrices and/or vectors.
 
-# In[ ]:
+# In[16]:
 
 
-Sx @ Sy - Sy @ Sx    # Is the result equal to i times Sz
+Sx @ Sy - Sy @ Sx   
 
 
 # Now let's get the eigenvalues (`eigvals` here) and eigenvectors (`eigvecs` here). The function `eigh` is for (complex) Hermitian matrices. The eigenvectors should be read as columns: the first element in the eigenvalue list corresponds to the first column in the eigenvector matrix.
 
-# In[ ]:
+# In[17]:
 
 
 eigvals, eigvecs = np.linalg.eigh(Sx)
@@ -184,7 +184,7 @@ print(eigvecs)
 
 # We can manipulate the formatting of the output for greater readability.
 
-# In[ ]:
+# In[18]:
 
 
 np.set_printoptions(precision=3, suppress=True)
@@ -199,14 +199,14 @@ print(eigvecs)
 
 # Let's check that the eigenvectors really are eigenvectors.
 
-# In[ ]:
+# In[37]:
 
 
-eigvec1 = eigvecs[:,0]  # all rows (that is what : does) in the first column (which is 0)
+eigvec1 = eigvecs[:,0]  # all columns (that is what : does) in the first row (which is 0)
 print(eigvec1)
 
 
-# In[ ]:
+# In[38]:
 
 
 print('check Sy @ eigenvector for first eigenvalue: ', Sy @ eigvec1)
@@ -217,7 +217,7 @@ print('compare to first eigenvalue * eigenvector:   ', eigvals[0] * eigvec1)
 
 # There are eigensolvers in both `numpy.linalg` and `scipy.linalg`. For now, just pick one.
 
-# In[ ]:
+# In[21]:
 
 
 eigvals, eigvecs = LA.eigh(Sy)
@@ -228,13 +228,13 @@ print(eigvecs)
 
 # Check whether $S_x$ (i.e., `Sx`) is Hermitian. We do the complex conjugate (`conjugate()`) and transpose (`T`) by hand here. We can also define our own function to do this.
 
-# In[ ]:
+# In[22]:
 
 
 Sx - Sx.conjugate().T
 
 
-# In[ ]:
+# In[23]:
 
 
 def my_adjoint(Matrix):
@@ -244,13 +244,13 @@ def my_adjoint(Matrix):
     return Matrix.conjugate().T
 
 
-# In[ ]:
+# In[24]:
 
 
 Sy - my_adjoint(Sy)
 
 
-# In[ ]:
+# In[25]:
 
 
 Sz = np.array([[1, 0, 0],[0, 0, 0], [0, 0, -1]])
@@ -258,7 +258,7 @@ Sz = np.array([[1, 0, 0],[0, 0, 0], [0, 0, -1]])
 
 # Check $(\sigma_1^2 + \sigma_2^2 + \sigma_3^2)/2$
 
-# In[ ]:
+# In[26]:
 
 
 1/2 * (Sx@Sx + Sy@Sy + Sz@Sz)
@@ -268,7 +268,7 @@ Sz = np.array([[1, 0, 0],[0, 0, 0], [0, 0, -1]])
 # 
 # More useful operations!
 
-# In[ ]:
+# In[27]:
 
 
 a = np.array([1,2,3])
@@ -277,7 +277,7 @@ print( a @ b )
 print( np.inner(a, b))
 
 
-# In[ ]:
+# In[28]:
 
 
 print( np.outer(b, a))
@@ -287,20 +287,20 @@ print( np.outer(b, a))
 
 # Make a random matrix and take it's trace and determinant.
 
-# In[ ]:
+# In[29]:
 
 
 M1 = np.random.rand(2,2)
 print(M1)
 
 
-# In[ ]:
+# In[30]:
 
 
 np.trace(M1)
 
 
-# In[ ]:
+# In[31]:
 
 
 np.linalg.det(M1)
@@ -310,11 +310,45 @@ np.linalg.det(M1)
 # 
 # In problem 5 on problem set 2 you looked at the matrix representations of two operators $\hat A$ and $\hat B$. Takes the real numbers $a$ and $b$ to be 1 and 2, respectively.
 # 
-# (a) Create the matrices $A$ and $B$ as numpy arrays.
-# 
-# (b) Show that they commute.
-# 
-# (c) Find eigenvalues and eigenvectors of each. Do the eigenvectors correspond to simultaneous eigenkets?
+# a. Input the matrices $A$ and $B$.
+# b. Show that they commute.
+# c. Find eigenvalues and eigenvectors of each. Do the eigenvectors correspond to simultaneous eigenkets?
+
+# In[39]:
+
+
+a = 1; b = 2
+A = np.array([[a, 0, 0], [0, -a, 0], [0, 0, -a]])
+print(A)
+print(" ")
+B = np.array([[b, 0, 0], [0, 0, -1j*b], [0, 1j*b, 0]])
+print(B)
+
+
+# In[33]:
+
+
+my_commute(A,B)
+
+
+# In[34]:
+
+
+eigvals_A, eigvecs_A = np.linalg.eigh(A)
+eigvals_B, eigvecs_B = np.linalg.eigh(B)
+
+
+# In[35]:
+
+
+print(eigvals_A, ' ', eigvals_B)
+
+
+# In[36]:
+
+
+print(eigvecs_A, '\n\n', eigvecs_B)
+
 
 # In[ ]:
 
