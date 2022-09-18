@@ -532,14 +532,6 @@ title="Print to PDF"
    Exponentiating derivative matrices for finite translation
   </a>
  </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#scaling-of-error-with-delta-x">
-   Scaling of error with
-   <span class="math notranslate nohighlight">
-    \(\Delta x\)
-   </span>
-  </a>
- </li>
 </ul>
 
     </nav>
@@ -574,14 +566,6 @@ title="Print to PDF"
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#exponentiating-derivative-matrices-for-finite-translation">
    Exponentiating derivative matrices for finite translation
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#scaling-of-error-with-delta-x">
-   Scaling of error with
-   <span class="math notranslate nohighlight">
-    \(\Delta x\)
-   </span>
   </a>
  </li>
 </ul>
@@ -690,12 +674,20 @@ title="Print to PDF"
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check that mesh is consistent with Delta_x</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">Delta_x</span><span class="p">)</span>
-<span class="c1"># print(x_mesh)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.02
+[0.   0.02 0.04 0.06 0.08 0.1  0.12 0.14 0.16 0.18 0.2  0.22 0.24 0.26
+ 0.28 0.3  0.32 0.34 0.36 0.38 0.4  0.42 0.44 0.46 0.48 0.5  0.52 0.54
+ 0.56 0.58 0.6  0.62 0.64 0.66 0.68 0.7  0.72 0.74 0.76 0.78 0.8  0.82
+ 0.84 0.86 0.88 0.9  0.92 0.94 0.96 0.98 1.   1.02 1.04 1.06 1.08 1.1
+ 1.12 1.14 1.16 1.18 1.2  1.22 1.24 1.26 1.28 1.3  1.32 1.34 1.36 1.38
+ 1.4  1.42 1.44 1.46 1.48 1.5  1.52 1.54 1.56 1.58 1.6  1.62 1.64 1.66
+ 1.68 1.7  1.72 1.74 1.76 1.78 1.8  1.82 1.84 1.86 1.88 1.9  1.92 1.94
+ 1.96 1.98 2.  ]
 </pre></div>
 </div>
 </div>
@@ -797,7 +789,8 @@ Then apply the forward difference (fd) and symmetric difference (sd) matrices to
 <img alt="../_images/Numerical_derivative_tests_17_0.png" src="../_images/Numerical_derivative_tests_17_0.png" />
 </div>
 </div>
-<p>Questions to address:</p>
+<p>Try a different test function.</p>
+<p><strong>Questions to address:</strong></p>
 <ol class="simple">
 <li><p>What specifically goes wrong at the largest value of <span class="math notranslate nohighlight">\(x\)</span>?</p></li>
 <li><p>Demonstrate by Taylor expansions how much better symmetric derivatives should be than forward derivatives.</p></li>
@@ -806,6 +799,7 @@ Then apply the forward difference (fd) and symmetric difference (sd) matrices to
 </section>
 <section id="exponentiating-derivative-matrices-for-finite-translation">
 <h2>Exponentiating derivative matrices for finite translation<a class="headerlink" href="#exponentiating-derivative-matrices-for-finite-translation" title="Permalink to this headline">#</a></h2>
+<p>Here we create translation operators in matrix form by exponentiating the derivate matrices.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">Delta_x</span>  <span class="c1"># translate by a multiple of Delta_x</span>
@@ -813,10 +807,10 @@ Then apply the forward difference (fd) and symmetric difference (sd) matrices to
 </div>
 </div>
 </div>
-<p>Pick one of the test functions and evaluate the function on the mesh, but displaced by a.
+<p>Below we pick one of the test functions and evaluate the function on the mesh, but displaced by <code class="docutils literal notranslate"><span class="pre">a</span></code> from each <code class="docutils literal notranslate"><span class="pre">x</span></code> point.
 Then apply various approximations to an exponentiated derivative, which is an approximation to a translation operator.</p>
-<p>The approximations use the forward difference (fd) and symmetric difference (sd) matrices, which in term either uses <code class="docutils literal notranslate"><span class="pre">la.expm</span></code>, which is a matrix exponential function, or <code class="docutils literal notranslate"><span class="pre">la.fractional_matrix_power</span></code>, which implements the product approximation.</p>
-<p>So <span class="math notranslate nohighlight">\(e^{M}\)</span> versus <span class="math notranslate nohighlight">\((1 +\frac{M}{N})^N\)</span>, where <span class="math notranslate nohighlight">\(M\)</span> is the matrix approximation to the derivative operator.</p>
+<p>The approximations use the forward difference (fd) and symmetric difference (sd) matrices, which in term either use <code class="docutils literal notranslate"><span class="pre">la.expm</span></code>, which is a matrix exponential function, or <code class="docutils literal notranslate"><span class="pre">la.fractional_matrix_power</span></code>, which implements the product approximation.</p>
+<p>So we test <span class="math notranslate nohighlight">\(e^{M}\)</span> versus <span class="math notranslate nohighlight">\((1 +\frac{M}{N})^N\)</span>, where <span class="math notranslate nohighlight">\(M\)</span> is the matrix approximation to the derivative operator.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f_test</span><span class="p">,</span> <span class="n">f_deriv_exact</span> <span class="o">=</span> <span class="n">f_test_1</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">)</span>
@@ -910,10 +904,6 @@ Then apply various approximations to an exponentiated derivative, which is an ap
 <img alt="../_images/Numerical_derivative_tests_26_0.png" src="../_images/Numerical_derivative_tests_26_0.png" />
 </div>
 </div>
-</section>
-<section id="scaling-of-error-with-delta-x">
-<h2>Scaling of error with <span class="math notranslate nohighlight">\(\Delta x\)</span><a class="headerlink" href="#scaling-of-error-with-delta-x" title="Permalink to this headline">#</a></h2>
-<p>To understand the results, we need to trace what happens to the error we make with each approach.</p>
 </section>
 </section>
 
