@@ -100,7 +100,7 @@ x_mesh = np.linspace(x_min, x_max, N_pts)
 
 # Check that mesh is consistent with Delta_x
 print(Delta_x)
-# print(x_mesh)
+print(x_mesh)
 
 
 # Set up the derivative matrices for the specified mesh.
@@ -195,12 +195,16 @@ ax2.legend()
 fig.tight_layout()
 
 
-# Questions to address:
+# Try a different test function.
+# 
+# **Questions to address:**
 # 
 # 1. What specifically goes wrong at the largest value of $x$?
 # 2. Demonstrate by Taylor expansions how much better symmetric derivatives should be than forward derivatives.
 
 # ## Exponentiating derivative matrices for finite translation
+# 
+# Here we create translation operators in matrix form by exponentiating the derivate matrices.
 
 # In[11]:
 
@@ -208,12 +212,12 @@ fig.tight_layout()
 a = 10 * Delta_x  # translate by a multiple of Delta_x
 
 
-# Pick one of the test functions and evaluate the function on the mesh, but displaced by a.
+# Below we pick one of the test functions and evaluate the function on the mesh, but displaced by `a` from each `x` point.
 # Then apply various approximations to an exponentiated derivative, which is an approximation to a translation operator.
 # 
-# The approximations use the forward difference (fd) and symmetric difference (sd) matrices, which in term either uses `la.expm`, which is a matrix exponential function, or `la.fractional_matrix_power`, which implements the product approximation.
+# The approximations use the forward difference (fd) and symmetric difference (sd) matrices, which in term either use `la.expm`, which is a matrix exponential function, or `la.fractional_matrix_power`, which implements the product approximation.
 # 
-# So $e^{M}$ versus $(1 +\frac{M}{N})^N$, where $M$ is the matrix approximation to the derivative operator. 
+# So we test $e^{M}$ versus $(1 +\frac{M}{N})^N$, where $M$ is the matrix approximation to the derivative operator. 
 # 
 # 
 
@@ -302,10 +306,6 @@ ax2.legend()
 
 fig.tight_layout()
 
-
-# ## Scaling of error with $\Delta x$
-
-# To understand the results, we need to trace what happens to the error we make with each approach.
 
 # In[ ]:
 
