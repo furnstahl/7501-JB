@@ -7,7 +7,7 @@
 
 # Standard imports plus seaborn (to make plots looks nicer).
 
-# In[1]:
+# In[ ]:
 
 
 import numpy as np
@@ -63,7 +63,7 @@ import seaborn as sns; sns.set_style("darkgrid"); sns.set_context("talk")
 # $$
 #  
 
-# In[2]:
+# In[ ]:
 
 
 def forward_derivative_matrix(N, Delta_x):
@@ -72,7 +72,7 @@ def forward_derivative_matrix(N, Delta_x):
     return ( np.diag(np.ones(N-1), +1) - np.diag(np.ones(N), 0) ) / Delta_x
 
 
-# In[3]:
+# In[ ]:
 
 
 def symmetric_derivative_matrix(N, Delta_x):
@@ -85,7 +85,7 @@ def symmetric_derivative_matrix(N, Delta_x):
 # 
 # We'll check the relative accuracy of both approximate derivatives as a function of $\Delta x$ by choosing a test function $f(x)$ and a range of $x$.
 
-# In[4]:
+# In[ ]:
 
 
 N_pts = 101;
@@ -95,7 +95,7 @@ Delta_x = (x_max - x_min) / (N_pts - 1)
 x_mesh = np.linspace(x_min, x_max, N_pts)
 
 
-# In[5]:
+# In[ ]:
 
 
 # Check that mesh is consistent with Delta_x
@@ -105,7 +105,7 @@ print(x_mesh)
 
 # Set up the derivative matrices for the specified mesh.
 
-# In[6]:
+# In[ ]:
 
 
 fd = forward_derivative_matrix(N_pts, Delta_x)
@@ -114,7 +114,7 @@ sd = symmetric_derivative_matrix(N_pts, Delta_x)
 
 # ### Set up various test functions
 
-# In[7]:
+# In[ ]:
 
 
 def f_test_1(x_mesh):
@@ -139,7 +139,7 @@ def f_test_2(x_mesh):
 # Pick one of the test functions and evaluate the function and its derivative on the mesh.
 # Then apply the forward difference (fd) and symmetric difference (sd) matrices to the `f_test` vector (using the `@` symbol for matrix-vector, matrix-matrix, and vector-vector multiplication).
 
-# In[8]:
+# In[ ]:
 
 
 f_test, f_deriv_exact = f_test_1(x_mesh)
@@ -150,7 +150,7 @@ f_deriv_sd = sd @ f_test
 
 # Make plots comparing the exact to approximate derivative and then the relative errors.
 
-# In[9]:
+# In[ ]:
 
 
 def rel_error(x1, x2):
@@ -160,7 +160,7 @@ def rel_error(x1, x2):
     return np.abs( (x1 - x2) / ((x1 + x2)/2) )
 
 
-# In[10]:
+# In[ ]:
 
 
 fig = plt.figure(figsize=(12,6))
@@ -206,7 +206,7 @@ fig.tight_layout()
 # 
 # Here we create translation operators in matrix form by exponentiating the derivate matrices.
 
-# In[11]:
+# In[ ]:
 
 
 a = 10 * Delta_x  # translate by a multiple of Delta_x
@@ -221,7 +221,7 @@ a = 10 * Delta_x  # translate by a multiple of Delta_x
 # 
 # 
 
-# In[12]:
+# In[ ]:
 
 
 f_test, f_deriv_exact = f_test_1(x_mesh)
@@ -236,7 +236,7 @@ f_exp_sd2 = la.fractional_matrix_power(np.eye(N_pts) + Delta_x*sd, a/Delta_x) @ 
 
 # First make a comparison plot of exact to matrix exponentiation of either forward derivatives or symmetric derivatives.
 
-# In[13]:
+# In[ ]:
 
 
 fig = plt.figure(figsize=(12,6))
@@ -273,7 +273,7 @@ fig.tight_layout()
 
 # Now make a comparison plot of exact to power translation with either forward derivatives or symmetric derivatives.
 
-# In[14]:
+# In[ ]:
 
 
 fig = plt.figure(figsize=(12,6))
