@@ -55,8 +55,6 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Scaling of derivative errors" href="Scaling_of_derivative_errors.html" />
-    <link rel="prev" title="Numerical test of \(e^{-x} \approx (1 -\frac{x}{N})^N\) for large \(N\)" href="Numerical_test_of_exponential_as_Nth_power_expression.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -128,7 +126,7 @@ const thebe_selector_output = ".output, .cell_output"
   Notebooks for 7501
  </span>
 </p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="Reference/linear_algebra_for_QM.html">
    Linear algebra for QM
@@ -139,8 +137,8 @@ const thebe_selector_output = ".output, .cell_output"
    Numerical test of exp formula
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Numerical_derivative_tests.html">
    Exponentiating operators
   </a>
  </li>
@@ -355,7 +353,7 @@ title="Toggle navigation"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://mybinder.org/v2/gh/furnstahl/7501-JB/main?urlpath=tree/./notebooks/Numerical_derivative_tests.ipynb"
+        <a href="https://mybinder.org/v2/gh/furnstahl/7501-JB/main?urlpath=tree/./notebooks/Numerical_derivative_tests-Copy2.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -433,7 +431,7 @@ title="Source repository"
       </li>
       
       <li>
-        <a href="https://github.com/furnstahl/7501-JB/issues/new?title=Issue%20on%20page%20%2Fnotebooks/Numerical_derivative_tests.html&body=Your%20issue%20content%20here."
+        <a href="https://github.com/furnstahl/7501-JB/issues/new?title=Issue%20on%20page%20%2Fnotebooks/Numerical_derivative_tests-Copy2.html&body=Your%20issue%20content%20here."
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -461,7 +459,7 @@ title="Open an issue"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../_sources/notebooks/Numerical_derivative_tests.ipynb"
+        <a href="../_sources/notebooks/Numerical_derivative_tests-Copy2.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -683,6 +681,19 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.02
+[0.   0.02 0.04 0.06 0.08 0.1  0.12 0.14 0.16 0.18 0.2  0.22 0.24 0.26
+ 0.28 0.3  0.32 0.34 0.36 0.38 0.4  0.42 0.44 0.46 0.48 0.5  0.52 0.54
+ 0.56 0.58 0.6  0.62 0.64 0.66 0.68 0.7  0.72 0.74 0.76 0.78 0.8  0.82
+ 0.84 0.86 0.88 0.9  0.92 0.94 0.96 0.98 1.   1.02 1.04 1.06 1.08 1.1
+ 1.12 1.14 1.16 1.18 1.2  1.22 1.24 1.26 1.28 1.3  1.32 1.34 1.36 1.38
+ 1.4  1.42 1.44 1.46 1.48 1.5  1.52 1.54 1.56 1.58 1.6  1.62 1.64 1.66
+ 1.68 1.7  1.72 1.74 1.76 1.78 1.8  1.82 1.84 1.86 1.88 1.9  1.92 1.94
+ 1.96 1.98 2.  ]
+</pre></div>
+</div>
+</div>
 </div>
 <p>Set up the derivative matrices for the specified mesh.</p>
 <div class="cell docutils container">
@@ -777,6 +788,9 @@ Then apply the forward difference (fd) and symmetric difference (sd) matrices to
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/Numerical_derivative_tests-Copy2_17_0.png" src="../_images/Numerical_derivative_tests-Copy2_17_0.png" />
+</div>
 </div>
 <p>Try a different test function.</p>
 <p><strong>Questions to address:</strong></p>
@@ -850,6 +864,9 @@ Then apply various approximations to an exponentiated derivative, which is an ap
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/Numerical_derivative_tests-Copy2_24_0.png" src="../_images/Numerical_derivative_tests-Copy2_24_0.png" />
+</div>
 </div>
 <p>Now make a comparison plot of exact to power translation with either forward derivatives or symmetric derivatives.</p>
 <div class="cell docutils container">
@@ -886,6 +903,9 @@ Then apply various approximations to an exponentiated derivative, which is an ap
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/Numerical_derivative_tests-Copy2_26_0.png" src="../_images/Numerical_derivative_tests-Copy2_26_0.png" />
+</div>
 </div>
 </section>
 </section>
@@ -917,20 +937,6 @@ Then apply various approximations to an exponentiated derivative, which is an ap
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="Numerical_test_of_exponential_as_Nth_power_expression.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Numerical test of <span class="math notranslate nohighlight">\(e^{-x} \approx (1 -\frac{x}{N})^N\)</span> for large <span class="math notranslate nohighlight">\(N\)</span></p>
-        </div>
-    </a>
-    <a class='right-next' id="next-link" href="Scaling_of_derivative_errors.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Scaling of derivative errors</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
 </div>
             </footer>
         </div>

@@ -143,6 +143,11 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="../Scaling_of_derivative_errors.html">
+   Scaling of derivative errors
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="../Path_integrals/Lepage_Lattice_QCD_for_Novices_code_selfcontained.html">
    Path integral explorations
   </a>
@@ -946,7 +951,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[ 0.5+0.j     0. -0.707j -0.5-0.j   ]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[ 0.5+0.j     0. -0.707j -0.5+0.j   ]
 </pre></div>
 </div>
 </div>
@@ -960,7 +965,7 @@ title="Print to PDF"
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>check Sy @ eigenvector for first eigenvalue:  [-0.5+0.j     0. +0.707j  0.5+0.j   ]
-compare to first eigenvalue * eigenvector:    [-0.5+0.j     0. +0.707j  0.5+0.j   ]
+compare to first eigenvalue * eigenvector:    [-0.5+0.j     0. +0.707j  0.5-0.j   ]
 </pre></div>
 </div>
 </div>
@@ -1095,8 +1100,8 @@ compare to first eigenvalue * eigenvector:    [-0.5+0.j     0. +0.707j  0.5+0.j 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[0.735 0.6  ]
- [0.259 0.968]]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[0.108 0.109]
+ [0.393 0.115]]
 </pre></div>
 </div>
 </div>
@@ -1108,7 +1113,7 @@ compare to first eigenvalue * eigenvector:    [-0.5+0.j     0. +0.707j  0.5+0.j 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.7027459317645557
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.2232914783181943
 </pre></div>
 </div>
 </div>
@@ -1120,7 +1125,7 @@ compare to first eigenvalue * eigenvector:    [-0.5+0.j     0. +0.707j  0.5+0.j 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5559410348928205
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.030248010753943646
 </pre></div>
 </div>
 </div>
@@ -1135,7 +1140,8 @@ b. Show that they commute.
 c. Find eigenvalues and eigenvectors of each. Do the eigenvectors correspond to simultaneous eigenkets?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">2</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># a. Input the matrices A and B</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">2</span>
 <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">a</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">a</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">a</span><span class="p">]])</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
@@ -1158,7 +1164,8 @@ c. Find eigenvalues and eigenvectors of each. Do the eigenvectors correspond to 
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_commute</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># b. Show that they commute.</span>
+<span class="n">my_commute</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">)</span>  <span class="c1"># calculate [A,B]</span>
 </pre></div>
 </div>
 </div>
@@ -1170,9 +1177,11 @@ c. Find eigenvalues and eigenvectors of each. Do the eigenvectors correspond to 
 </div>
 </div>
 </div>
+<p>The matrix is all zeros, so they commute.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">eigvals_A</span><span class="p">,</span> <span class="n">eigvecs_A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># c. Find the eigenvalues and eigenvectors of A and B</span>
+<span class="n">eigvals_A</span><span class="p">,</span> <span class="n">eigvecs_A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
 <span class="n">eigvals_B</span><span class="p">,</span> <span class="n">eigvecs_B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">B</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1180,7 +1189,8 @@ c. Find eigenvalues and eigenvectors of each. Do the eigenvectors correspond to 
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">eigvals_A</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">eigvals_B</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Print the eigenvalues</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">eigvals_A</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="n">eigvals_B</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1192,7 +1202,9 @@ c. Find eigenvalues and eigenvectors of each. Do the eigenvectors correspond to 
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">eigvecs_A</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">eigvecs_B</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Print the matrices of eigenvectors, with a blank line between. </span>
+<span class="c1">#  The eigenvectors are read vertically, in the same order as the eigenvalues.</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">eigvecs_A</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">eigvecs_B</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1208,6 +1220,7 @@ c. Find eigenvalues and eigenvectors of each. Do the eigenvectors correspond to 
 </div>
 </div>
 </div>
+<p>Only one of the eigenvectors is the same, so they are not simultaneous eigenkets automatically (we need to consider linear combinations).</p>
 </section>
 </section>
 

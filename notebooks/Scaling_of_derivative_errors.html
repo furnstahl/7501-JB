@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Tests of exponentiating derivative operators &#8212; Quantum Mechanics I</title>
+    <title>Scaling of derivative errors &#8212; Quantum Mechanics I</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -55,8 +55,8 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Scaling of derivative errors" href="Scaling_of_derivative_errors.html" />
-    <link rel="prev" title="Numerical test of \(e^{-x} \approx (1 -\frac{x}{N})^N\) for large \(N\)" href="Numerical_test_of_exponential_as_Nth_power_expression.html" />
+    <link rel="next" title="Path integrals for quantum mechanics" href="Path_integrals/Lepage_Lattice_QCD_for_Novices_code_selfcontained.html" />
+    <link rel="prev" title="Tests of exponentiating derivative operators" href="Numerical_derivative_tests.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -139,13 +139,13 @@ const thebe_selector_output = ".output, .cell_output"
    Numerical test of exp formula
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Numerical_derivative_tests.html">
    Exponentiating operators
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="Scaling_of_derivative_errors.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Scaling of derivative errors
   </a>
  </li>
@@ -355,7 +355,7 @@ title="Toggle navigation"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://mybinder.org/v2/gh/furnstahl/7501-JB/main?urlpath=tree/./notebooks/Numerical_derivative_tests.ipynb"
+        <a href="https://mybinder.org/v2/gh/furnstahl/7501-JB/main?urlpath=tree/./notebooks/Scaling_of_derivative_errors.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -433,7 +433,7 @@ title="Source repository"
       </li>
       
       <li>
-        <a href="https://github.com/furnstahl/7501-JB/issues/new?title=Issue%20on%20page%20%2Fnotebooks/Numerical_derivative_tests.html&body=Your%20issue%20content%20here."
+        <a href="https://github.com/furnstahl/7501-JB/issues/new?title=Issue%20on%20page%20%2Fnotebooks/Scaling_of_derivative_errors.html&body=Your%20issue%20content%20here."
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -461,7 +461,7 @@ title="Open an issue"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../_sources/notebooks/Numerical_derivative_tests.ipynb"
+        <a href="../_sources/notebooks/Scaling_of_derivative_errors.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -533,9 +533,16 @@ title="Print to PDF"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#exponentiating-derivative-matrices-for-finite-translation">
-   Exponentiating derivative matrices for finite translation
+  <a class="reference internal nav-link" href="#test-the-scaling-with-delta-x">
+   Test the scaling with Delta_x
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#make-a-log-log-plot">
+     Make a log-log plot
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -546,7 +553,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Tests of exponentiating derivative operators</h1>
+                <h1>Scaling of derivative errors</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -569,9 +576,16 @@ title="Print to PDF"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#exponentiating-derivative-matrices-for-finite-translation">
-   Exponentiating derivative matrices for finite translation
+  <a class="reference internal nav-link" href="#test-the-scaling-with-delta-x">
+   Test the scaling with Delta_x
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#make-a-log-log-plot">
+     Make a log-log plot
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -583,9 +597,15 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="tests-of-exponentiating-derivative-operators">
-<h1>Tests of exponentiating derivative operators<a class="headerlink" href="#tests-of-exponentiating-derivative-operators" title="Permalink to this headline">#</a></h1>
-<p>In this notebook we explore the accuracy of derivative operators realized as matrices on a coordinate space mesh and then do tests of exponentiating those operators various ways.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="scaling-of-derivative-errors">
+<h1>Scaling of derivative errors<a class="headerlink" href="#scaling-of-derivative-errors" title="Permalink to this headline">#</a></h1>
+<p>In this notebook we explore how the errors of derivative operators realized as matrices on a coordinate space mesh scale with the spacing of the mesh.</p>
+<p><strong>Most of what you need is already here. Things to play with:</strong></p>
+<ul class="simple">
+<li><p>The choice of function (<code class="docutils literal notranslate"><span class="pre">f_test</span></code>).</p></li>
+<li><p>What point you evaluate the derivative at (<code class="docutils literal notranslate"><span class="pre">x_pt</span></code>).</p></li>
+<li><p>The range of <span class="math notranslate nohighlight">\(\Delta x\)</span> to plot (<code class="docutils literal notranslate"><span class="pre">min_exp</span></code> and <code class="docutils literal notranslate"><span class="pre">max_exp</span></code>).</p></li>
+</ul>
 <p>Standard imports plus seaborn (to make plots looks nicer).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -666,11 +686,25 @@ title="Print to PDF"
 <p>We’ll check the relative accuracy of both approximate derivatives as a function of <span class="math notranslate nohighlight">\(\Delta x\)</span> by choosing a test function <span class="math notranslate nohighlight">\(f(x)\)</span> and a range of <span class="math notranslate nohighlight">\(x\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N_pts</span> <span class="o">=</span> <span class="mi">101</span><span class="p">;</span>
-<span class="n">x_min</span> <span class="o">=</span> <span class="mf">0.</span>
-<span class="n">x_max</span> <span class="o">=</span> <span class="mf">2.</span>
-<span class="n">Delta_x</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_max</span> <span class="o">-</span> <span class="n">x_min</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">N_pts</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">x_mesh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span> <span class="n">N_pts</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_x_mesh</span><span class="p">(</span><span class="n">Delta_x</span><span class="p">,</span> <span class="n">x_pt</span><span class="p">,</span> <span class="n">N_pts</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return a grid of N_pts points centered at x_pt and spaced by Delta_x</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">x_min</span> <span class="o">=</span> <span class="n">x_pt</span> <span class="o">-</span> <span class="n">Delta_x</span> <span class="o">*</span> <span class="p">(</span><span class="n">N_pts</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+    <span class="n">x_max</span> <span class="o">=</span> <span class="n">x_pt</span> <span class="o">+</span> <span class="n">Delta_x</span> <span class="o">*</span> <span class="p">(</span><span class="n">N_pts</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span> <span class="n">N_pts</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># testing!</span>
+<span class="n">Delta_x</span> <span class="o">=</span> <span class="mf">0.02</span>
+<span class="n">x_pt</span> <span class="o">=</span> <span class="mf">1.</span>
+<span class="n">N_pts</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="n">x_mesh</span> <span class="o">=</span> <span class="n">make_x_mesh</span><span class="p">(</span><span class="n">Delta_x</span><span class="p">,</span> <span class="n">x_pt</span><span class="p">,</span> <span class="n">N_pts</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -689,6 +723,13 @@ title="Print to PDF"
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fd</span> <span class="o">=</span> <span class="n">forward_derivative_matrix</span><span class="p">(</span><span class="n">N_pts</span><span class="p">,</span> <span class="n">Delta_x</span><span class="p">)</span>
 <span class="n">sd</span> <span class="o">=</span> <span class="n">symmetric_derivative_matrix</span><span class="p">(</span><span class="n">N_pts</span><span class="p">,</span> <span class="n">Delta_x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">fd</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -749,7 +790,7 @@ Then apply the forward difference (fd) and symmetric difference (sd) matrices to
 <span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$df/dx$&#39;</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x_max</span><span class="p">)</span>
+<span class="c1">#ax1.set_xlim(0, x_max)</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 
 <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">,</span> <span class="n">f_deriv_exact</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;exact derivative&#39;</span><span class="p">)</span>
@@ -761,7 +802,7 @@ Then apply the forward difference (fd) and symmetric difference (sd) matrices to
 <span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;relative error&#39;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x_max</span><span class="p">)</span>
+<span class="c1">#ax2.set_xlim(0, x_max)</span>
 <span class="c1">#ax2.set_ylim(-0.001, 0.001)</span>
 
 <span class="c1"># Calculate relative errors</span>
@@ -778,115 +819,83 @@ Then apply the forward difference (fd) and symmetric difference (sd) matrices to
 </div>
 </div>
 </div>
-<p>Try a different test function.</p>
-<p><strong>Questions to address:</strong></p>
-<ol class="simple">
-<li><p>What specifically goes wrong at the largest value of <span class="math notranslate nohighlight">\(x\)</span>?</p></li>
-<li><p>Demonstrate by Taylor expansions how much better symmetric derivatives should be than forward derivatives.</p></li>
-</ol>
 </section>
 </section>
-<section id="exponentiating-derivative-matrices-for-finite-translation">
-<h2>Exponentiating derivative matrices for finite translation<a class="headerlink" href="#exponentiating-derivative-matrices-for-finite-translation" title="Permalink to this headline">#</a></h2>
-<p>Here we create translation operators in matrix form by exponentiating the derivate matrices.</p>
+<section id="test-the-scaling-with-delta-x">
+<h2>Test the scaling with Delta_x<a class="headerlink" href="#test-the-scaling-with-delta-x" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">Delta_x</span>  <span class="c1"># translate by a multiple of Delta_x</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_pt</span> <span class="o">=</span> <span class="mf">1.</span>
+<span class="n">N_pts</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">mid_pt_index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">N_pts</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">mid_pt_index</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>Below we pick one of the test functions and evaluate the function on the mesh, but displaced by <code class="docutils literal notranslate"><span class="pre">a</span></code> from each <code class="docutils literal notranslate"><span class="pre">x</span></code> point.
-Then apply various approximations to an exponentiated derivative, which is an approximation to a translation operator.</p>
-<p>The approximations use the forward difference (fd) and symmetric difference (sd) matrices, which in term either use <code class="docutils literal notranslate"><span class="pre">la.expm</span></code>, which is a matrix exponential function, or <code class="docutils literal notranslate"><span class="pre">la.fractional_matrix_power</span></code>, which implements the product approximation.</p>
-<p>So we test <span class="math notranslate nohighlight">\(e^{M}\)</span> versus <span class="math notranslate nohighlight">\((1 +\frac{M}{N})^N\)</span>, where <span class="math notranslate nohighlight">\(M\)</span> is the matrix approximation to the derivative operator.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f_test</span><span class="p">,</span> <span class="n">f_deriv_exact</span> <span class="o">=</span> <span class="n">f_test_1</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">)</span>
-<span class="n">f_exp_exact</span><span class="p">,</span> <span class="n">dummy</span>  <span class="o">=</span> <span class="n">f_test_1</span><span class="p">(</span><span class="n">x_mesh</span> <span class="o">+</span> <span class="n">a</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set up the Delta_x array</span>
+<span class="n">min_exp</span> <span class="o">=</span> <span class="o">-</span><span class="mi">4</span>
+<span class="n">max_exp</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+<span class="n">num_Delta_x</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">array_exp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">min_exp</span><span class="p">,</span> <span class="n">max_exp</span><span class="p">,</span> <span class="n">num_Delta_x</span><span class="p">)</span>
 
-<span class="n">f_exp_fd</span> <span class="o">=</span> <span class="n">la</span><span class="o">.</span><span class="n">expm</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">fd</span><span class="p">)</span> <span class="o">@</span> <span class="n">f_test</span>
-<span class="n">f_exp_sd</span> <span class="o">=</span> <span class="n">la</span><span class="o">.</span><span class="n">expm</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">sd</span><span class="p">)</span> <span class="o">@</span> <span class="n">f_test</span>
+<span class="c1"># initialize arrays to zero</span>
+<span class="n">Delta_x_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">array_exp</span><span class="p">))</span>
+<span class="n">rel_error_fd_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">array_exp</span><span class="p">))</span>
+<span class="n">rel_error_sd_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">array_exp</span><span class="p">))</span>
 
-<span class="n">f_exp_fd2</span> <span class="o">=</span> <span class="n">la</span><span class="o">.</span><span class="n">fractional_matrix_power</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">N_pts</span><span class="p">)</span> <span class="o">+</span> <span class="n">Delta_x</span><span class="o">*</span><span class="n">fd</span><span class="p">,</span> <span class="n">a</span><span class="o">/</span><span class="n">Delta_x</span><span class="p">)</span> <span class="o">@</span> <span class="n">f_test</span>
-<span class="n">f_exp_sd2</span> <span class="o">=</span> <span class="n">la</span><span class="o">.</span><span class="n">fractional_matrix_power</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">N_pts</span><span class="p">)</span> <span class="o">+</span> <span class="n">Delta_x</span><span class="o">*</span><span class="n">sd</span><span class="p">,</span> <span class="n">a</span><span class="o">/</span><span class="n">Delta_x</span><span class="p">)</span> <span class="o">@</span> <span class="n">f_test</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;  Delta_x     fd error     sd error&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">exp</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">array_exp</span><span class="p">):</span>  <span class="c1"># step through the exponents in the array</span>
+    <span class="n">Delta_x</span> <span class="o">=</span> <span class="mi">10</span><span class="o">**</span><span class="n">exp</span>  <span class="c1"># calculate a new Delta_x</span>
+
+    <span class="n">x_mesh</span> <span class="o">=</span> <span class="n">make_x_mesh</span><span class="p">(</span><span class="n">Delta_x</span><span class="p">,</span> <span class="n">x_pt</span><span class="p">,</span> <span class="n">N_pts</span><span class="p">)</span>
+    
+    <span class="n">fd</span> <span class="o">=</span> <span class="n">forward_derivative_matrix</span><span class="p">(</span><span class="n">N_pts</span><span class="p">,</span> <span class="n">Delta_x</span><span class="p">)</span>
+    <span class="n">sd</span> <span class="o">=</span> <span class="n">symmetric_derivative_matrix</span><span class="p">(</span><span class="n">N_pts</span><span class="p">,</span> <span class="n">Delta_x</span><span class="p">)</span>
+    
+    <span class="n">f_test</span><span class="p">,</span> <span class="n">f_deriv_exact</span> <span class="o">=</span> <span class="n">f_test_1</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">)</span>
+
+    <span class="n">f_deriv_fd</span> <span class="o">=</span> <span class="n">fd</span> <span class="o">@</span> <span class="n">f_test</span>
+    <span class="n">f_deriv_sd</span> <span class="o">=</span> <span class="n">sd</span> <span class="o">@</span> <span class="n">f_test</span>
+    
+    <span class="c1"># Calculate relative errors</span>
+    <span class="n">rel_error_fd</span> <span class="o">=</span> <span class="n">rel_error</span><span class="p">(</span><span class="n">f_deriv_exact</span><span class="p">,</span> <span class="n">f_deriv_fd</span><span class="p">)[</span><span class="n">mid_pt_index</span><span class="p">]</span>
+    <span class="n">rel_error_sd</span> <span class="o">=</span> <span class="n">rel_error</span><span class="p">(</span><span class="n">f_deriv_exact</span><span class="p">,</span> <span class="n">f_deriv_sd</span><span class="p">)[</span><span class="n">mid_pt_index</span><span class="p">]</span>
+     
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">Delta_x</span><span class="si">:</span><span class="s1">.5e</span><span class="si">}</span><span class="s1">  </span><span class="si">{</span><span class="n">rel_error_fd</span><span class="si">:</span><span class="s1">.5e</span><span class="si">}</span><span class="s1">  </span><span class="si">{</span><span class="n">rel_error_sd</span><span class="si">:</span><span class="s1">.5e</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    
+    <span class="c1"># add to arrays</span>
+    <span class="n">Delta_x_array</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">Delta_x</span>
+    <span class="n">rel_error_fd_array</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">rel_error_fd</span>
+    <span class="n">rel_error_sd_array</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">rel_error_sd</span>
+    
 </pre></div>
 </div>
 </div>
 </div>
-<p>First make a comparison plot of exact to matrix exponentiation of either forward derivatives or symmetric derivatives.</p>
+<section id="make-a-log-log-plot">
+<h3>Make a log-log plot<a class="headerlink" href="#make-a-log-log-plot" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
-<span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$f(x+a)$&#39;</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x_max</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
 
-<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">,</span> <span class="n">f_exp_exact</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;exact translation&#39;</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">,</span> <span class="n">f_exp_fd</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;forward translation&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">,</span> <span class="n">f_exp_sd</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;symmetric translation&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dotted&#39;</span><span class="p">)</span>
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\Delta x$&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;relative error&#39;</span><span class="p">)</span>
+<span class="c1">#ax1.set_xlim(0, x_max)</span>
+<span class="c1">#ax1.set_ylim(-1., 3)</span>
 
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">fr</span><span class="s1">&#39;$\Delta x = </span><span class="si">{</span><span class="n">Delta_x</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">$; exp translate by </span><span class="si">{</span><span class="n">a</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">Delta_x_array</span><span class="p">,</span> <span class="n">rel_error_fd_array</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;forward derivative&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">Delta_x_array</span><span class="p">,</span> <span class="n">rel_error_sd_array</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;symmetric derivative&#39;</span><span class="p">)</span>
 
-<span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;relative error&#39;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x_max</span><span class="p">)</span>
-<span class="c1">#ax2.set_ylim(-0.001, 0.001)</span>
-
-<span class="n">rel_error_fd</span> <span class="o">=</span> <span class="n">rel_error</span><span class="p">(</span><span class="n">f_exp_exact</span><span class="p">,</span> <span class="n">f_exp_fd</span><span class="p">)</span>
-<span class="n">rel_error_sd</span> <span class="o">=</span> <span class="n">rel_error</span><span class="p">(</span><span class="n">f_exp_exact</span><span class="p">,</span> <span class="n">f_exp_sd</span><span class="p">)</span> 
-
-<span class="n">ax2</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">,</span> <span class="n">rel_error_fd</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;forward translation&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">,</span> <span class="n">rel_error_sd</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;symmetric translation&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dotted&#39;</span><span class="p">)</span>
-
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">fr</span><span class="s1">&#39;$\Delta x = </span><span class="si">{</span><span class="n">Delta_x</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">$; exp translate </span><span class="si">{</span><span class="n">a</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-
-<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>Now make a comparison plot of exact to power translation with either forward derivatives or symmetric derivatives.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
-<span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$f(x+a)$&#39;</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x_max</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-
-<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">,</span> <span class="n">f_exp_exact</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;exact translation&#39;</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">,</span> <span class="n">f_exp_fd2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;forward power&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">,</span> <span class="n">f_exp_sd2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;symmetric translation&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dotted&#39;</span><span class="p">)</span>
-
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">fr</span><span class="s1">&#39;$\Delta x = </span><span class="si">{</span><span class="n">Delta_x</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">$; power translate by </span><span class="si">{</span><span class="n">a</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-
-<span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;relative error&#39;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x_max</span><span class="p">)</span>
-
-<span class="n">rel_error_fd</span> <span class="o">=</span> <span class="n">rel_error</span><span class="p">(</span><span class="n">f_exp_exact</span><span class="p">,</span> <span class="n">f_exp_fd2</span><span class="p">)</span>
-<span class="n">rel_error_sd</span> <span class="o">=</span> <span class="n">rel_error</span><span class="p">(</span><span class="n">f_exp_exact</span><span class="p">,</span> <span class="n">f_exp_sd2</span><span class="p">)</span> 
-
-<span class="n">ax2</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">,</span> <span class="n">rel_error_fd</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;forward translation&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">,</span> <span class="n">rel_error_sd</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;symmetric translation&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dotted&#39;</span><span class="p">)</span>
-
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">fr</span><span class="s1">&#39;$\Delta x = </span><span class="si">{</span><span class="n">Delta_x</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">$; power translate </span><span class="si">{</span><span class="n">a</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-
-<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
+</section>
 </section>
 </section>
 
@@ -917,17 +926,17 @@ Then apply various approximations to an exponentiated derivative, which is an ap
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="Numerical_test_of_exponential_as_Nth_power_expression.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="Numerical_derivative_tests.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Numerical test of <span class="math notranslate nohighlight">\(e^{-x} \approx (1 -\frac{x}{N})^N\)</span> for large <span class="math notranslate nohighlight">\(N\)</span></p>
+            <p class="prev-next-title">Tests of exponentiating derivative operators</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="Scaling_of_derivative_errors.html" title="next page">
+    <a class='right-next' id="next-link" href="Path_integrals/Lepage_Lattice_QCD_for_Novices_code_selfcontained.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Scaling of derivative errors</p>
+        <p class="prev-next-title">Path integrals for quantum mechanics</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
