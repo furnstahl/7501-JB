@@ -199,14 +199,14 @@ print(eigvecs)
 
 # Let's check that the eigenvectors really are eigenvectors.
 
-# In[37]:
+# In[19]:
 
 
 eigvec1 = eigvecs[:,0]  # all columns (that is what : does) in the first row (which is 0)
 print(eigvec1)
 
 
-# In[38]:
+# In[20]:
 
 
 print('check Sy @ eigenvector for first eigenvalue: ', Sy @ eigvec1)
@@ -314,9 +314,10 @@ np.linalg.det(M1)
 # b. Show that they commute.
 # c. Find eigenvalues and eigenvectors of each. Do the eigenvectors correspond to simultaneous eigenkets?
 
-# In[39]:
+# In[32]:
 
 
+# a. Input the matrices A and B
 a = 1; b = 2
 A = np.array([[a, 0, 0], [0, -a, 0], [0, 0, -a]])
 print(A)
@@ -328,12 +329,16 @@ print(B)
 # In[33]:
 
 
-my_commute(A,B)
+# b. Show that they commute.
+my_commute(A,B)  # calculate [A,B]
 
+
+# The matrix is all zeros, so they commute.
 
 # In[34]:
 
 
+# c. Find the eigenvalues and eigenvectors of A and B
 eigvals_A, eigvecs_A = np.linalg.eigh(A)
 eigvals_B, eigvecs_B = np.linalg.eigh(B)
 
@@ -341,14 +346,19 @@ eigvals_B, eigvecs_B = np.linalg.eigh(B)
 # In[35]:
 
 
+# Print the eigenvalues
 print(eigvals_A, ' ', eigvals_B)
 
 
 # In[36]:
 
 
+# Print the matrices of eigenvectors, with a blank line between. 
+#  The eigenvectors are read vertically, in the same order as the eigenvalues.
 print(eigvecs_A, '\n\n', eigvecs_B)
 
+
+# Only one of the eigenvectors is the same, so they are not simultaneous eigenkets automatically (we need to consider linear combinations).
 
 # In[ ]:
 

@@ -1,0 +1,990 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Tests of exponentiating derivative operators &#8212; Quantum Mechanics I</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"tex": {"macros": {"N": "\\mathbb{N}", "avec": ["\\boldsymbol{a}"], "floor": ["\\lfloor#1\\rfloor", 1], "bmat": ["\\left[\\begin{array}"], "emat": ["\\end{array}\\right]"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Quantum Mechanics I</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../about.html">
+                    About Physics 7501: Quantum Mechanics I
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Course overview
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../content/Course/overview.html">
+   Objectives
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Notebooks for 7501
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Reference/linear_algebra_for_QM.html">
+   Linear algebra for QM
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Numerical_test_of_exponential_as_Nth_power_expression.html">
+   Numerical test of exp formula
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Numerical_derivative_tests.html">
+   Exponentiating operators
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Scaling_of_derivative_errors.html">
+   Scaling of derivative errors
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Path_integrals/Lepage_Lattice_QCD_for_Novices_code_selfcontained.html">
+   Path integral explorations
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  External QM notebooks
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="External/harmonic_oscillator_Jendrzejewski.html">
+   Quantum harmonic oscillator
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="External/Example_Quantum_Calculations_sympy.html">
+   QM with Sympy
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../content/External/OSSCAR_notebooks.html">
+   QM notebooks from OSSCAR
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="External/quantum-mechanics_from_OSSCAR/1quantumwell.html">
+     Finite well in 1D
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="External/quantum-mechanics_from_OSSCAR/2quantumwells.html">
+     Two finite wells in 1D
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="External/quantum-mechanics_from_OSSCAR/shooting_method.html">
+     Shooting Method with Numerov Algorithm
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="External/quantum-mechanics_from_OSSCAR/soft.html">
+     TD S-eqn using SOFT
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="External/quantum-mechanics_from_OSSCAR/msoft.html">
+     TD S-eqn using MSOFT
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="External/quantum-mechanics_from_OSSCAR/asymmetricwell.html">
+     Avoided crossing example
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Math notebooks
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="External/Quantitative_Economics_with_Python_complex_numbers_and_trig.html">
+   Complex Numbers and Trigonometry
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="External/Quantitative_Economics_with_Python_linear_algebra.html">
+   Linear Algebra
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="External/Quantitative_Economics_with_Python_svd_intro.html">
+   Singular Value Decomposition (SVD)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Getting started with Python
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../content/Reference/installing_anaconda.html">
+   Using Anaconda
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../content/Reference/python_jupyter.html">
+   Python and Jupyter notebooks
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Reference/Jupyter_Python_intro_01.html">
+     Python and Jupyter notebooks: part 01
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Reference/Jupyter_Python_intro_02.html">
+     Python and Jupyter notebooks: part 02
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../content/Reference/advanced.html">
+     Advanced topics
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Reference material
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../content/zbibliography.html">
+   Bibliography
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../content/Reference/using_github.html">
+   Using GitHub
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../content/jb_tests.html">
+   Examples: Jupyter jb-book
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/furnstahl/7501-JB/main?urlpath=tree/./notebooks/Numerical_derivative_tests-solutions.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/furnstahl/7501-JB"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/furnstahl/7501-JB/issues/new?title=Issue%20on%20page%20%2Fnotebooks/Numerical_derivative_tests-solutions.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/notebooks/Numerical_derivative_tests-solutions.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#testing-forward-against-symmetric-derivative">
+   Testing forward against symmetric derivative
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#set-up-various-test-functions">
+     Set up various test functions
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exponentiating-derivative-matrices-for-finite-translation">
+   Exponentiating derivative matrices for finite translation
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Tests of exponentiating derivative operators</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#testing-forward-against-symmetric-derivative">
+   Testing forward against symmetric derivative
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#set-up-various-test-functions">
+     Set up various test functions
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#exponentiating-derivative-matrices-for-finite-translation">
+   Exponentiating derivative matrices for finite translation
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="tests-of-exponentiating-derivative-operators">
+<h1>Tests of exponentiating derivative operators<a class="headerlink" href="#tests-of-exponentiating-derivative-operators" title="Permalink to this headline">#</a></h1>
+<p>In this notebook we explore the accuracy of derivative operators realized as matrices on a coordinate space mesh and then do tests of exponentiating those operators various ways.</p>
+<p>Standard imports plus seaborn (to make plots looks nicer).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.linalg</span> <span class="k">as</span> <span class="nn">la</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span><span class="p">;</span> <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;darkgrid&quot;</span><span class="p">);</span> <span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;talk&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We’ll define two functions that create matrices that implement approximate derivatives when applied to a vector made up of a function evaluated at the mesh points. The numpy <code class="docutils literal notranslate"><span class="pre">diag</span></code> and <code class="docutils literal notranslate"><span class="pre">ones</span></code> functions are used to create matrices with 1’s on particular diagonals, as in these <span class="math notranslate nohighlight">\(5\times 5\)</span> examples of forward derivatives:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \frac{1}{\Delta x}\,\left( 
+    \begin{array}{ccccc}
+    -1 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+    0 &amp; -1 &amp; 1 &amp; 0 &amp; 0 \\
+    0 &amp; 0 &amp; -1 &amp; 1 &amp; 0 \\
+    0 &amp; 0 &amp;0 &amp; -1 &amp; 1 \\
+    0 &amp; 0 &amp; 0 &amp; 0 &amp; -1
+    \end{array}
+   \right) 
+   \left(\begin{array}{c}
+         f_1 \\ f_2 \\ f_3 \\ f_4 \\ f_5
+         \end{array}
+   \right) 
+   \overset{?}{=}
+   \left(\begin{array}{c}
+         ? \\ ? \\ ? \\ ? \\ ?
+         \end{array}
+   \right) 
+ \end{split}\]</div>
+<p>and symmetric derivatives:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+   \frac{1}{2\Delta x}\,\left( 
+    \begin{array}{ccccc}
+    0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+    -1 &amp; 0 &amp; 1 &amp; 0 &amp; 0 \\
+    0 &amp; -1 &amp; 0 &amp; 1 &amp; 0 \\
+    0 &amp; 0 &amp; -1 &amp; 0 &amp; 1 \\
+    0 &amp; 0 &amp; 0 &amp; -1 &amp; 0
+    \end{array}
+   \right) 
+   \left(\begin{array}{c}
+         f_1 \\ f_2 \\ f_3 \\ f_4 \\ f_5
+         \end{array}
+   \right)
+   \overset{?}{=}
+   \left(\begin{array}{c}
+         ? \\ ? \\ ? \\ ? \\ ?
+         \end{array}
+   \right) 
+\end{split}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">forward_derivative_matrix</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">Delta_x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return an N x N matrix for derivative of an equally spaced vector by delta_x</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">M_temp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">M_temp</span><span class="p">[</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">+</span><span class="mi">1</span>
+    <span class="n">M_temp</span><span class="p">[</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">return</span> <span class="n">M_temp</span> <span class="o">/</span> <span class="n">Delta_x</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">symmetric_derivative_matrix</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">Delta_x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return an Nc x Nc matrix for derivative of an equally spaced vector by delta_x</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">M_temp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">M_temp</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span>
+    <span class="n">M_temp</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">+</span><span class="mi">2</span>
+    <span class="n">M_temp</span><span class="p">[</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">+</span><span class="mi">2</span>
+    <span class="n">M_temp</span><span class="p">[</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">N</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span>
+
+    <span class="k">return</span> <span class="n">M_temp</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">Delta_x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="testing-forward-against-symmetric-derivative">
+<h2>Testing forward against symmetric derivative<a class="headerlink" href="#testing-forward-against-symmetric-derivative" title="Permalink to this headline">#</a></h2>
+<p>We’ll check the relative accuracy of both approximate derivatives as a function of <span class="math notranslate nohighlight">\(\Delta x\)</span> by choosing a test function <span class="math notranslate nohighlight">\(f(x)\)</span> and a range of <span class="math notranslate nohighlight">\(x\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N_pts</span> <span class="o">=</span> <span class="mi">201</span><span class="p">;</span>
+<span class="n">x_min</span> <span class="o">=</span> <span class="mf">0.</span>
+<span class="n">x_max</span> <span class="o">=</span> <span class="mf">4.</span>
+<span class="n">Delta_x</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_max</span> <span class="o">-</span> <span class="n">x_min</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">N_pts</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">x_mesh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span> <span class="n">N_pts</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check that mesh is consistent with Delta_x</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Delta_x</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.02
+[0.   0.02 0.04 0.06 0.08 0.1  0.12 0.14 0.16 0.18 0.2  0.22 0.24 0.26
+ 0.28 0.3  0.32 0.34 0.36 0.38 0.4  0.42 0.44 0.46 0.48 0.5  0.52 0.54
+ 0.56 0.58 0.6  0.62 0.64 0.66 0.68 0.7  0.72 0.74 0.76 0.78 0.8  0.82
+ 0.84 0.86 0.88 0.9  0.92 0.94 0.96 0.98 1.   1.02 1.04 1.06 1.08 1.1
+ 1.12 1.14 1.16 1.18 1.2  1.22 1.24 1.26 1.28 1.3  1.32 1.34 1.36 1.38
+ 1.4  1.42 1.44 1.46 1.48 1.5  1.52 1.54 1.56 1.58 1.6  1.62 1.64 1.66
+ 1.68 1.7  1.72 1.74 1.76 1.78 1.8  1.82 1.84 1.86 1.88 1.9  1.92 1.94
+ 1.96 1.98 2.   2.02 2.04 2.06 2.08 2.1  2.12 2.14 2.16 2.18 2.2  2.22
+ 2.24 2.26 2.28 2.3  2.32 2.34 2.36 2.38 2.4  2.42 2.44 2.46 2.48 2.5
+ 2.52 2.54 2.56 2.58 2.6  2.62 2.64 2.66 2.68 2.7  2.72 2.74 2.76 2.78
+ 2.8  2.82 2.84 2.86 2.88 2.9  2.92 2.94 2.96 2.98 3.   3.02 3.04 3.06
+ 3.08 3.1  3.12 3.14 3.16 3.18 3.2  3.22 3.24 3.26 3.28 3.3  3.32 3.34
+ 3.36 3.38 3.4  3.42 3.44 3.46 3.48 3.5  3.52 3.54 3.56 3.58 3.6  3.62
+ 3.64 3.66 3.68 3.7  3.72 3.74 3.76 3.78 3.8  3.82 3.84 3.86 3.88 3.9
+ 3.92 3.94 3.96 3.98 4.  ]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Set up the derivative matrices for the specified mesh.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fd</span> <span class="o">=</span> <span class="n">forward_derivative_matrix</span><span class="p">(</span><span class="n">N_pts</span><span class="p">,</span> <span class="n">Delta_x</span><span class="p">)</span>
+<span class="n">sd</span> <span class="o">=</span> <span class="n">symmetric_derivative_matrix</span><span class="p">(</span><span class="n">N_pts</span><span class="p">,</span> <span class="n">Delta_x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="set-up-various-test-functions">
+<h3>Set up various test functions<a class="headerlink" href="#set-up-various-test-functions" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f_test_0</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the value of the function x^4 e^{-x} and its derivative</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x_mesh</span><span class="p">),</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x_mesh</span><span class="p">)</span> <span class="p">)</span>    
+
+<span class="k">def</span> <span class="nf">f_test_1</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the value of the function x^4 e^{-x} and its derivative</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x_mesh</span><span class="p">)</span> <span class="o">*</span> <span class="n">x_mesh</span><span class="o">**</span><span class="mi">4</span><span class="p">,</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">x_mesh</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="n">x_mesh</span><span class="o">**</span><span class="mi">4</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x_mesh</span><span class="p">)</span> <span class="p">)</span>    
+
+<span class="k">def</span> <span class="nf">f_test_2</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the value of the function 1/(1 + x) and its derivative</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">x_mesh</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">x_mesh</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">f_test_3</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the value of the function 1/(1 + x) and its derivative</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">(</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">))</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">)</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Pick one of the test functions and evaluate the function and its derivative on the mesh.
+Then apply the forward difference (fd) and symmetric difference (sd) matrices to the <code class="docutils literal notranslate"><span class="pre">f_test</span></code> vector (using the <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> symbol for matrix-vector, matrix-matrix, and vector-vector multiplication).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f_test</span><span class="p">,</span> <span class="n">f_deriv_exact</span> <span class="o">=</span> <span class="n">f_test_2</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">)</span>
+
+<span class="n">f_deriv_fd</span> <span class="o">=</span> <span class="n">fd</span> <span class="o">@</span> <span class="n">f_test</span>
+<span class="n">f_deriv_sd</span> <span class="o">=</span> <span class="n">sd</span> <span class="o">@</span> <span class="n">f_test</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Make plots comparing the exact to approximate derivative and then the relative errors.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">rel_error</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate the (absolute value of the) relative error between x1 and x2</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span> <span class="p">(</span><span class="n">x1</span> <span class="o">-</span> <span class="n">x2</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="n">x1</span> <span class="o">+</span> <span class="n">x2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="p">)</span>
+    <span class="c1">#return np.abs( (x1 - x2)  )</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$df/dx$&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x_max</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">,</span> <span class="n">f_deriv_exact</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;exact derivative&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">,</span> <span class="n">f_deriv_fd</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;forward derivative&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">,</span> <span class="n">f_deriv_sd</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;symmetric derivative&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dotted&#39;</span><span class="p">)</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;relative error&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x_max</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mf">1e-6</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Calculate relative errors</span>
+<span class="n">rel_error_fd</span> <span class="o">=</span> <span class="n">rel_error</span><span class="p">(</span><span class="n">f_deriv_exact</span><span class="p">,</span> <span class="n">f_deriv_fd</span><span class="p">)</span>
+<span class="n">rel_error_sd</span> <span class="o">=</span> <span class="n">rel_error</span><span class="p">(</span><span class="n">f_deriv_exact</span><span class="p">,</span> <span class="n">f_deriv_sd</span><span class="p">)</span> 
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">,</span> <span class="n">rel_error_fd</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;forward derivative&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">,</span> <span class="n">rel_error_sd</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;symmetric derivative&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dotted&#39;</span><span class="p">)</span>
+<span class="c1">#ax2.loglog(x_mesh, 5e-2 * 1/x_mesh, color=&#39;red&#39;, linestyle=&#39;solid&#39;)</span>
+<span class="c1">#ax2.loglog(x_mesh, 1e-4 * 1/x_mesh**2, color=&#39;red&#39;, linestyle=&#39;solid&#39;)</span>
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/Numerical_derivative_tests-solutions_17_0.png" src="../_images/Numerical_derivative_tests-solutions_17_0.png" />
+</div>
+</div>
+<p>Try a different test function.</p>
+<p><strong>Questions to address:</strong></p>
+<ol class="simple">
+<li><p>What specifically goes wrong at the largest value of <span class="math notranslate nohighlight">\(x\)</span>?</p></li>
+<li><p>Demonstrate by Taylor expansions how much better symmetric derivatives should be than forward derivatives.</p></li>
+</ol>
+</section>
+</section>
+<section id="exponentiating-derivative-matrices-for-finite-translation">
+<h2>Exponentiating derivative matrices for finite translation<a class="headerlink" href="#exponentiating-derivative-matrices-for-finite-translation" title="Permalink to this headline">#</a></h2>
+<p>Here we create translation operators in matrix form by exponentiating the derivate matrices.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">20</span> <span class="o">*</span> <span class="n">Delta_x</span>  <span class="c1"># translate by a multiple of Delta_x</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Below we pick one of the test functions and evaluate the function on the mesh, but displaced by <code class="docutils literal notranslate"><span class="pre">a</span></code> from each <code class="docutils literal notranslate"><span class="pre">x</span></code> point.
+Then apply various approximations to an exponentiated derivative, which is an approximation to a translation operator.</p>
+<p>The approximations use the forward difference (fd) and symmetric difference (sd) matrices, which in term either use <code class="docutils literal notranslate"><span class="pre">la.expm</span></code>, which is a matrix exponential function, or <code class="docutils literal notranslate"><span class="pre">la.fractional_matrix_power</span></code>, which implements the product approximation.</p>
+<p>So we test <span class="math notranslate nohighlight">\(e^{M}\)</span> versus <span class="math notranslate nohighlight">\((1 +\frac{M}{N})^N\)</span>, where <span class="math notranslate nohighlight">\(M\)</span> is the matrix approximation to the derivative operator.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f_test</span><span class="p">,</span> <span class="n">f_deriv_exact</span> <span class="o">=</span> <span class="n">f_test_2</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">)</span>
+<span class="n">f_exp_exact</span><span class="p">,</span> <span class="n">dummy</span>  <span class="o">=</span> <span class="n">f_test_2</span><span class="p">(</span><span class="n">x_mesh</span> <span class="o">+</span> <span class="n">a</span><span class="p">)</span>
+
+<span class="n">f_exp_fd</span> <span class="o">=</span> <span class="n">la</span><span class="o">.</span><span class="n">expm</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">fd</span><span class="p">)</span> <span class="o">@</span> <span class="n">f_test</span>
+<span class="n">f_exp_sd</span> <span class="o">=</span> <span class="n">la</span><span class="o">.</span><span class="n">expm</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">sd</span><span class="p">)</span> <span class="o">@</span> <span class="n">f_test</span>
+
+<span class="n">f_exp_fd2</span> <span class="o">=</span> <span class="n">la</span><span class="o">.</span><span class="n">fractional_matrix_power</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">N_pts</span><span class="p">)</span> <span class="o">+</span> <span class="n">Delta_x</span><span class="o">*</span><span class="n">fd</span><span class="p">,</span> <span class="n">a</span><span class="o">/</span><span class="n">Delta_x</span><span class="p">)</span> <span class="o">@</span> <span class="n">f_test</span>
+<span class="n">f_exp_sd2</span> <span class="o">=</span> <span class="n">la</span><span class="o">.</span><span class="n">fractional_matrix_power</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">N_pts</span><span class="p">)</span> <span class="o">+</span> <span class="n">Delta_x</span><span class="o">*</span><span class="n">sd</span><span class="p">,</span> <span class="n">a</span><span class="o">/</span><span class="n">Delta_x</span><span class="p">)</span> <span class="o">@</span> <span class="n">f_test</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>First make a comparison plot of exact to matrix exponentiation of either forward derivatives or symmetric derivatives.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$f(x+a)$&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x_max</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">,</span> <span class="n">f_exp_exact</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;exact translation&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">,</span> <span class="n">f_exp_fd</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;forward translation&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">,</span> <span class="n">f_exp_sd</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;symmetric translation&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dotted&#39;</span><span class="p">)</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">fr</span><span class="s1">&#39;$\Delta x = </span><span class="si">{</span><span class="n">Delta_x</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">$; exp translate by </span><span class="si">{</span><span class="n">a</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;relative error&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x_max</span><span class="p">)</span>
+<span class="c1">#ax2.set_ylim(-0.001, 0.001)</span>
+
+<span class="n">rel_error_fd</span> <span class="o">=</span> <span class="n">rel_error</span><span class="p">(</span><span class="n">f_exp_exact</span><span class="p">,</span> <span class="n">f_exp_fd</span><span class="p">)</span>
+<span class="n">rel_error_sd</span> <span class="o">=</span> <span class="n">rel_error</span><span class="p">(</span><span class="n">f_exp_exact</span><span class="p">,</span> <span class="n">f_exp_sd</span><span class="p">)</span> 
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">,</span> <span class="n">rel_error_fd</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;forward translation&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">,</span> <span class="n">rel_error_sd</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;symmetric translation&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dotted&#39;</span><span class="p">)</span>
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">fr</span><span class="s1">&#39;$\Delta x = </span><span class="si">{</span><span class="n">Delta_x</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">$; exp translate </span><span class="si">{</span><span class="n">a</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/Numerical_derivative_tests-solutions_24_0.png" src="../_images/Numerical_derivative_tests-solutions_24_0.png" />
+</div>
+</div>
+<p>Now make a comparison plot of exact to power translation with either forward derivatives or symmetric derivatives.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$f(x+a)$&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x_max</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">,</span> <span class="n">f_exp_exact</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;exact translation&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">,</span> <span class="n">f_exp_fd2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;forward power&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">,</span> <span class="n">f_exp_sd2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;symmetric translation&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dotted&#39;</span><span class="p">)</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">fr</span><span class="s1">&#39;$\Delta x = </span><span class="si">{</span><span class="n">Delta_x</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">$; power translate by </span><span class="si">{</span><span class="n">a</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;relative error&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x_max</span><span class="p">)</span>
+
+<span class="n">rel_error_fd</span> <span class="o">=</span> <span class="n">rel_error</span><span class="p">(</span><span class="n">f_exp_exact</span><span class="p">,</span> <span class="n">f_exp_fd2</span><span class="p">)</span>
+<span class="n">rel_error_sd</span> <span class="o">=</span> <span class="n">rel_error</span><span class="p">(</span><span class="n">f_exp_exact</span><span class="p">,</span> <span class="n">f_exp_sd2</span><span class="p">)</span> 
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">,</span> <span class="n">rel_error_fd</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;forward translation&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">,</span> <span class="n">rel_error_sd</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;symmetric translation&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dotted&#39;</span><span class="p">)</span>
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">fr</span><span class="s1">&#39;$\Delta x = </span><span class="si">{</span><span class="n">Delta_x</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">$; power translate </span><span class="si">{</span><span class="n">a</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/Numerical_derivative_tests-solutions_26_0.png" src="../_images/Numerical_derivative_tests-solutions_26_0.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "furnstahl/7501-JB",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Dick Furnstahl<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
