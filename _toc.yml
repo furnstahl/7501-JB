@@ -16,6 +16,8 @@ parts:
     file: notebooks/Numerical_test_of_exponential_as_Nth_power_expression.ipynb
   - title: Exponentiating operators  
     file: notebooks/Numerical_derivative_tests.ipynb
+  - title: Scaling of derivative errors
+    file: notebooks/Scaling_of_derivative_errors.ipynb
   - title: Path integral explorations
     file: notebooks/Path_integrals/Lepage_Lattice_QCD_for_Novices_code_selfcontained.ipynb
 
