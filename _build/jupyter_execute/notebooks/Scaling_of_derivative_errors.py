@@ -154,7 +154,7 @@ def f_test_2(x_mesh):
     """
     return ( 1/(1+x_mesh), -1/(1+x_mesh)**2 )
 
-def f_test_2(x_mesh):
+def f_test_3(x_mesh):
     """
     Return the value of the function 1/(1 + x) and its derivative
     """
