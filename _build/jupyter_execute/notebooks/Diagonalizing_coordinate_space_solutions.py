@@ -40,21 +40,7 @@ import seaborn as sns; sns.set_style("darkgrid"); sns.set_context("talk")
 #  $$  
 #  
 
-# In[16]:
-
-
-def second_derivative_matrix(N, Delta_x):
-    """
-    Return an N x N matrix for 2nd derivative of a vector equally spaced by delta_x.
-    
-    ***Replace the ?'s with appropriate numbers***
-    """
-    M_temp = ? * np.diag(np.ones(N-1), +1) + ? * np.diag(np.ones(N-1), -1) + ? * np.diag(np.ones(N), 0)
-
-    return M_temp / (Delta_x**2)
-
-
-# In[17]:
+# In[2]:
 
 
 def second_derivative_matrix(N, Delta_x):
@@ -80,7 +66,7 @@ def second_derivative_matrix(N, Delta_x):
 # In[3]:
 
 
-N_pts = 101  
+N_pts = 801  
 x_min = -8.
 x_max = 8.
 Delta_x = (x_max - x_min) / (N_pts - 1)
@@ -174,24 +160,24 @@ fig.tight_layout()
 
 # ## Harmonic oscillator 
 # 
-# We'll write the Hamiltonian matrix as 
+# The Hamiltonian matrix is 
 # 
 # $$
-#  \hat H \doteq \frac{\hbar^2}{2m} \times \left(-\frac{d^2}{dx^2} + \frac{2m}{\hbar^2}V(x)\right)
+#  \hat H \doteq  -\frac{\hbar^2}{2m}\frac{d^2}{dx^2} + V(x) ,
 # $$
 # 
-# and choose units so that we only have to use the matrix in parentheses.
+# which we'll implement as a sum of matrices. We'll choose units so that $\hbar^2/2m = 1$ and $\hbar\omega = 1$.
 
-# In[18]:
+# In[10]:
 
 
 def V_SHO_matrix(x_mesh):
     """
-    Harmonic oscillator potential matrix (diagonal)
+    Harmonic oscillator potential matrix (defined as a diagonal matrix)
     """
-    k = 1/2
-    V_diag = k * x_mesh**2 / 2
-    N = len(x_mesh)
+    k = 1/2       # k is chosen so that hbar*omega = 1 
+    V_diag = k * x_mesh**2 / 2  # diagonal matrix elements
+    N = len(x_mesh)  # number of x points
     
     return V_diag * np.diag(np.ones(N), 0) 
 
@@ -199,20 +185,44 @@ def V_SHO_matrix(x_mesh):
 # In[11]:
 
 
-# Combine matrices
-V_SHO = V_SHO_matrix(x_mesh)
+def xsq_matrix(x_mesh):
+    """
+    matrix for x^2 operator
+    """
+    N = len(x_mesh)  # number of x points
 
-Hamiltonian = -second_deriv + V_SHO
+    return x_mesh**2 * np.diag(np.ones(N), 0) 
 
 
 # In[12]:
 
 
-# Try diagonalizing
-eigvals, eigvecs = np.linalg.eigh(Hamiltonian)
+def eikx_matrix(x_mesh, k):
+    """
+    matrix for e^{ikx} operator
+    """
+    N = len(x_mesh)  # number of x points
+
+    return np.exp(1j * k * x_mesh) * np.diag(np.ones(N), 0) 
 
 
 # In[13]:
+
+
+# Combine matrices to make the Hamiltonian matrix
+V_SHO = V_SHO_matrix(x_mesh)
+
+Hamiltonian = -second_deriv + V_SHO  
+
+
+# In[14]:
+
+
+# Try diagonalizing using numpy functions
+eigvals, eigvecs = np.linalg.eigh(Hamiltonian)
+
+
+# In[15]:
 
 
 print(eigvals[0:10])
@@ -220,7 +230,7 @@ print(eigvals[0:10])
 
 # Notice that they are all *above* the exact answer. Variational principle!
 
-# In[14]:
+# In[16]:
 
 
 wf_0 = eigvecs[:,0]
@@ -228,12 +238,12 @@ wf_1 = eigvecs[:,1]
 wf_2 = eigvecs[:,2]
 
 
-# In[15]:
+# In[17]:
 
 
-fig = plt.figure(figsize=(16,6))
+fig_new = plt.figure(figsize=(16,6))
 
-ax1 = fig.add_subplot(1,2,1)
+ax1 = fig_new.add_subplot(1,2,1)
 ax1.set_xlabel(r'$x$')
 ax1.set_ylabel(r'$\psi_n(x)$')
 #ax1.set_xlim(0, x_max)
@@ -244,6 +254,57 @@ ax1.plot(x_mesh, wf_1, color='blue', label=r'$n=1$')
 ax1.plot(x_mesh, wf_2, color='green', label=r'$n=2$')
 
 ax1.legend();
+
+
+# In[18]:
+
+
+ktest = 0.8
+
+
+# In[19]:
+
+
+xsq_exp_val = wf_0 @ xsq_matrix(x_mesh) @ wf_0
+
+
+# In[20]:
+
+
+eikx_exp_val = wf_0 @ eikx_matrix(x_mesh, ktest) @ wf_0
+
+
+# In[21]:
+
+
+wf_0 @ wf_0
+
+
+# In[22]:
+
+
+print(eikx_exp_val)
+
+
+# In[23]:
+
+
+np.exp(-ktest**2 * xsq_exp_val / 2.)
+
+
+# In[ ]:
+
+
+
+
+
+# In[24]:
+
+
+for k in np.arange(0, 3.2, .2):
+    lhs = wf_0 @ eikx_matrix(x_mesh, k) @ wf_0 
+    rhs = np.exp(-k**2 * xsq_exp_val / 2.)
+    print(f' {k:.2f}  {lhs:.5f}  {rhs:.5f}')
 
 
 # In[ ]:

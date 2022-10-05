@@ -188,7 +188,7 @@ def plot_eigenfunctions(ax, ew, ef, x, V, width=1, Emax=0.05, fak= 5.0):
     
 
 
-# In[4]:
+# In[3]:
 
 
 mu = 0.06                                            # Potential parameter
