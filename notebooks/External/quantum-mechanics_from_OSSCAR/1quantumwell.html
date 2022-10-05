@@ -155,6 +155,11 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="../../Airy_function_roots.html">
+   Linear potential energies
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="../../Path_integrals/Lepage_Lattice_QCD_for_Novices_code_selfcontained.html">
    Path integral explorations
   </a>
@@ -952,115 +957,14 @@ solve the Schrödinger equation?</p>
 </div>
 <div class="cell_output docutils container">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "4e3c8f03684944dd8dcc3658715c1b77", "version_major": 2, "version_minor": 0}
+{"model_id": "9dbce45ddd364f7fbb39e47de12916e9", "version_major": 2, "version_minor": 0}
 </script><script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "c1a2a58fe6bf4dd1bbcf993342eb0732", "version_major": 2, "version_minor": 0}
+{"model_id": "a42d094de1a64660826c79f20ee83769", "version_major": 2, "version_minor": 0}
 </script><script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "06bab5c0b6604808917bbb0708139c2c", "version_major": 2, "version_minor": 0}
+{"model_id": "aa92edcb72e44ebb93667a74f9b51176", "version_major": 2, "version_minor": 0}
 </script><script type="application/vnd.jupyter.widget-view+json">
-{"model_id": "963010e507c0480d8f992201e199eb02", "version_major": 2, "version_minor": 0}
-</script><div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">AttributeError</span><span class="g g-Whitespace">                            </span>Traceback (most recent call last)
-<span class="nn">File ~/Dropbox/Anaconda/anaconda3/envs/7501-env/lib/python3.10/site-packages/ipywidgets/widgets/widget.py:676,</span> in <span class="ni">Widget._handle_msg</span><span class="nt">(self, msg)</span>
-<span class="g g-Whitespace">    </span><span class="mi">674</span>         <span class="k">if</span> <span class="s1">&#39;buffer_paths&#39;</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">675</span>             <span class="n">_put_buffers</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;buffer_paths&#39;</span><span class="p">],</span> <span class="n">msg</span><span class="p">[</span><span class="s1">&#39;buffers&#39;</span><span class="p">])</span>
-<span class="ne">--&gt; </span><span class="mi">676</span>         <span class="bp">self</span><span class="o">.</span><span class="n">set_state</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">678</span> <span class="c1"># Handle a state request.</span>
-<span class="g g-Whitespace">    </span><span class="mi">679</span> <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;request_state&#39;</span><span class="p">:</span>
-
-<span class="nn">File ~/Dropbox/Anaconda/anaconda3/envs/7501-env/lib/python3.10/site-packages/ipywidgets/widgets/widget.py:540,</span> in <span class="ni">Widget.set_state</span><span class="nt">(self, sync_data)</span>
-<span class="g g-Whitespace">    </span><span class="mi">536</span> <span class="sd">&quot;&quot;&quot;Called when a state is received from the front-end.&quot;&quot;&quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">537</span> <span class="c1"># The order of these context managers is important. Properties must</span>
-<span class="g g-Whitespace">    </span><span class="mi">538</span> <span class="c1"># be locked when the hold_trait_notification context manager is</span>
-<span class="g g-Whitespace">    </span><span class="mi">539</span> <span class="c1"># released and notifications are fired.</span>
-<span class="ne">--&gt; </span><span class="mi">540</span> <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lock_property</span><span class="p">(</span><span class="o">**</span><span class="n">sync_data</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">hold_trait_notifications</span><span class="p">():</span>
-<span class="g g-Whitespace">    </span><span class="mi">541</span>     <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">sync_data</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">542</span>         <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span><span class="p">:</span>
-
-<span class="nn">File ~/Dropbox/Anaconda/anaconda3/envs/7501-env/lib/python3.10/contextlib.py:142,</span> in <span class="ni">_GeneratorContextManager.__exit__</span><span class="nt">(self, typ, value, traceback)</span>
-<span class="g g-Whitespace">    </span><span class="mi">140</span> <span class="k">if</span> <span class="n">typ</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">141</span>     <span class="k">try</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">142</span>         <span class="nb">next</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gen</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">143</span>     <span class="k">except</span> <span class="ne">StopIteration</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">144</span>         <span class="k">return</span> <span class="kc">False</span>
-
-<span class="nn">File ~/Dropbox/Anaconda/anaconda3/envs/7501-env/lib/python3.10/site-packages/traitlets/traitlets.py:1371,</span> in <span class="ni">HasTraits.hold_trait_notifications</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1369</span> <span class="k">for</span> <span class="n">changes</span> <span class="ow">in</span> <span class="n">cache</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-<span class="g g-Whitespace">   </span><span class="mi">1370</span>     <span class="k">for</span> <span class="n">change</span> <span class="ow">in</span> <span class="n">changes</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1371</span>         <span class="bp">self</span><span class="o">.</span><span class="n">notify_change</span><span class="p">(</span><span class="n">change</span><span class="p">)</span>
-
-<span class="nn">File ~/Dropbox/Anaconda/anaconda3/envs/7501-env/lib/python3.10/site-packages/ipywidgets/widgets/widget.py:606,</span> in <span class="ni">Widget.notify_change</span><span class="nt">(self, change)</span>
-<span class="g g-Whitespace">    </span><span class="mi">603</span>     <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_should_send_property</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)):</span>
-<span class="g g-Whitespace">    </span><span class="mi">604</span>         <span class="c1"># Send new state to front-end</span>
-<span class="g g-Whitespace">    </span><span class="mi">605</span>         <span class="bp">self</span><span class="o">.</span><span class="n">send_state</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">606</span> <span class="nb">super</span><span class="p">(</span><span class="n">Widget</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">notify_change</span><span class="p">(</span><span class="n">change</span><span class="p">)</span>
-
-<span class="nn">File ~/Dropbox/Anaconda/anaconda3/envs/7501-env/lib/python3.10/site-packages/traitlets/traitlets.py:1386,</span> in <span class="ni">HasTraits.notify_change</span><span class="nt">(self, change)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1384</span> <span class="k">def</span> <span class="nf">notify_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">change</span><span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">1385</span>     <span class="sd">&quot;&quot;&quot;Notify observers of a change event&quot;&quot;&quot;</span>
-<span class="ne">-&gt; </span><span class="mi">1386</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_notify_observers</span><span class="p">(</span><span class="n">change</span><span class="p">)</span>
-
-<span class="nn">File ~/Dropbox/Anaconda/anaconda3/envs/7501-env/lib/python3.10/site-packages/traitlets/traitlets.py:1431,</span> in <span class="ni">HasTraits._notify_observers</span><span class="nt">(self, event)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1428</span> <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">EventHandler</span><span class="p">)</span> <span class="ow">and</span> <span class="n">c</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1429</span>     <span class="n">c</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1431</span> <span class="n">c</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
-
-<span class="nn">File ~/Dropbox/Anaconda/anaconda3/envs/7501-env/lib/python3.10/site-packages/ipywidgets/widgets/widget_selection.py:235,</span> in <span class="ni">_Selection._propagate_index</span><span class="nt">(self, change)</span>
-<span class="g g-Whitespace">    </span><span class="mi">233</span>     <span class="bp">self</span><span class="o">.</span><span class="n">label</span> <span class="o">=</span> <span class="n">label</span>
-<span class="g g-Whitespace">    </span><span class="mi">234</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">value</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">235</span>     <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
-
-<span class="nn">File ~/Dropbox/Anaconda/anaconda3/envs/7501-env/lib/python3.10/site-packages/traitlets/traitlets.py:715,</span> in <span class="ni">TraitType.__set__</span><span class="nt">(self, obj, value)</span>
-<span class="g g-Whitespace">    </span><span class="mi">713</span>     <span class="k">raise</span> <span class="n">TraitError</span><span class="p">(</span><span class="s1">&#39;The &quot;</span><span class="si">%s</span><span class="s1">&quot; trait is read-only.&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">714</span> <span class="k">else</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">715</span>     <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-
-<span class="nn">File ~/Dropbox/Anaconda/anaconda3/envs/7501-env/lib/python3.10/site-packages/traitlets/traitlets.py:704,</span> in <span class="ni">TraitType.set</span><span class="nt">(self, obj, value)</span>
-<span class="g g-Whitespace">    </span><span class="mi">700</span>     <span class="n">silent</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="g g-Whitespace">    </span><span class="mi">701</span> <span class="k">if</span> <span class="n">silent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">True</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">702</span>     <span class="c1"># we explicitly compare silent to True just in case the equality</span>
-<span class="g g-Whitespace">    </span><span class="mi">703</span>     <span class="c1"># comparison above returns something other than True/False</span>
-<span class="ne">--&gt; </span><span class="mi">704</span>     <span class="n">obj</span><span class="o">.</span><span class="n">_notify_trait</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">old_value</span><span class="p">,</span> <span class="n">new_value</span><span class="p">)</span>
-
-<span class="nn">File ~/Dropbox/Anaconda/anaconda3/envs/7501-env/lib/python3.10/site-packages/traitlets/traitlets.py:1374,</span> in <span class="ni">HasTraits._notify_trait</span><span class="nt">(self, name, old_value, new_value)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1373</span> <span class="k">def</span> <span class="nf">_notify_trait</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">old_value</span><span class="p">,</span> <span class="n">new_value</span><span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">1374</span>     <span class="bp">self</span><span class="o">.</span><span class="n">notify_change</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1375</span>         <span class="n">Bunch</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1376</span>             <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1377</span>             <span class="n">old</span><span class="o">=</span><span class="n">old_value</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1378</span>             <span class="n">new</span><span class="o">=</span><span class="n">new_value</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1379</span>             <span class="n">owner</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1380</span>             <span class="nb">type</span><span class="o">=</span><span class="s2">&quot;change&quot;</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1381</span>         <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1382</span>     <span class="p">)</span>
-
-<span class="nn">File ~/Dropbox/Anaconda/anaconda3/envs/7501-env/lib/python3.10/site-packages/ipywidgets/widgets/widget.py:606,</span> in <span class="ni">Widget.notify_change</span><span class="nt">(self, change)</span>
-<span class="g g-Whitespace">    </span><span class="mi">603</span>     <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">keys</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_should_send_property</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">)):</span>
-<span class="g g-Whitespace">    </span><span class="mi">604</span>         <span class="c1"># Send new state to front-end</span>
-<span class="g g-Whitespace">    </span><span class="mi">605</span>         <span class="bp">self</span><span class="o">.</span><span class="n">send_state</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">606</span> <span class="nb">super</span><span class="p">(</span><span class="n">Widget</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">notify_change</span><span class="p">(</span><span class="n">change</span><span class="p">)</span>
-
-<span class="nn">File ~/Dropbox/Anaconda/anaconda3/envs/7501-env/lib/python3.10/site-packages/traitlets/traitlets.py:1386,</span> in <span class="ni">HasTraits.notify_change</span><span class="nt">(self, change)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1384</span> <span class="k">def</span> <span class="nf">notify_change</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">change</span><span class="p">):</span>
-<span class="g g-Whitespace">   </span><span class="mi">1385</span>     <span class="sd">&quot;&quot;&quot;Notify observers of a change event&quot;&quot;&quot;</span>
-<span class="ne">-&gt; </span><span class="mi">1386</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_notify_observers</span><span class="p">(</span><span class="n">change</span><span class="p">)</span>
-
-<span class="nn">File ~/Dropbox/Anaconda/anaconda3/envs/7501-env/lib/python3.10/site-packages/traitlets/traitlets.py:1431,</span> in <span class="ni">HasTraits._notify_observers</span><span class="nt">(self, event)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1428</span> <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">EventHandler</span><span class="p">)</span> <span class="ow">and</span> <span class="n">c</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1429</span>     <span class="n">c</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1431</span> <span class="n">c</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
-
-<span class="nn">Input In [4],</span> in <span class="ni">on_width_change</span><span class="nt">(change)</span>
-<span class="g g-Whitespace">     </span><span class="mi">41</span> <span class="k">def</span> <span class="nf">on_width_change</span><span class="p">(</span><span class="n">change</span><span class="p">):</span>
-<span class="g g-Whitespace">     </span><span class="mi">42</span>     <span class="k">global</span> <span class="n">ew</span><span class="p">,</span> <span class="n">ef</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">V</span>
-<span class="ne">---&gt; </span><span class="mi">43</span>     <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="g g-Whitespace">     </span><span class="mi">44</span>     <span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lines</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="g g-Whitespace">     </span><span class="mi">46</span>     <span class="k">try</span><span class="p">:</span>
-
-<span class="ne">AttributeError</span>: can&#39;t set attribute &#39;lines&#39;
-</pre></div>
-</div>
-</div>
+{"model_id": "1a9ba3cd800d47f9a10b137c3f162c7a", "version_major": 2, "version_minor": 0}
+</script></div>
 </div>
 <ul class="simple">
 <li><p><strong>Width:</strong> the width of the quantum well.</p></li>
