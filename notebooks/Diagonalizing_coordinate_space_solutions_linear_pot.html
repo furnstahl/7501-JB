@@ -158,8 +158,13 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="Path_integrals/Path_integrals_for_Quantum_Mechanics_emcee.html">
+   Path integral explorations -- emcee
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="Path_integrals/Lepage_Lattice_QCD_for_Novices_code_selfcontained.html">
-   Path integral explorations
+   Path integral explorations -- Metropolis
   </a>
  </li>
 </ul>
@@ -652,8 +657,8 @@ title="Print to PDF"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N_pts</span> <span class="o">=</span> <span class="mi">4001</span>  
-<span class="n">x_min</span> <span class="o">=</span> <span class="o">-</span><span class="mf">15.</span>
-<span class="n">x_max</span> <span class="o">=</span> <span class="mf">15.</span>
+<span class="n">x_min</span> <span class="o">=</span> <span class="o">-</span><span class="mf">10.</span>
+<span class="n">x_max</span> <span class="o">=</span> <span class="mf">10.</span>
 <span class="n">Delta_x</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_max</span> <span class="o">-</span> <span class="n">x_min</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">N_pts</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">x_mesh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span> <span class="n">N_pts</span><span class="p">)</span>  <span class="c1"># create the grid (&quot;mesh&quot;) of x points</span>
 </pre></div>
@@ -669,8 +674,8 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0075
-[-15.     -14.9925 -14.985  ...  14.985   14.9925  15.    ]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.005
+[-10.     -9.995  -9.99  ...   9.99    9.995  10.   ]
 </pre></div>
 </div>
 </div>
@@ -860,8 +865,8 @@ Then apply the forward difference (fd) and symmetric difference (sd) matrices to
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.64179678 1.47291334 2.04623164 2.57524056 3.03646312 3.47772343
- 3.88262584 4.27534108 4.64416042 5.00446997]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.64179821 1.47291447 2.04623443 2.57525032 3.0365569  3.47856454
+ 3.88760918 4.29655535 4.70864782 5.15833126]
 </pre></div>
 </div>
 </div>
@@ -914,6 +919,59 @@ Then apply the forward difference (fd) and symmetric difference (sd) matrices to
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\psi_n(x)$&#39;</span><span class="p">)</span>
+<span class="c1">#ax1.set_xlim(0, x_max)</span>
+<span class="c1">#ax1.set_ylim(-1., 3)</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">wf_0</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$n=0$&#39;</span><span class="p">)</span>
+<span class="c1">#ax1.plot(x_mesh, wf_1, color=&#39;blue&#39;, label=r&#39;$n=1$&#39;)</span>
+<span class="c1">#ax1.plot(x_mesh, wf_2, color=&#39;green&#39;, label=r&#39;$n=2$&#39;)</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/Diagonalizing_coordinate_space_solutions_linear_pot_30_0.png" src="../_images/Diagonalizing_coordinate_space_solutions_linear_pot_30_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">test_psi</span> <span class="o">=</span> <span class="mf">.2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x_mesh</span><span class="o">**</span><span class="p">(</span><span class="mi">3</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span> <span class="o">/</span> <span class="n">x_mesh</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>  <span class="c1"># based on asymptotic formula</span>
+
+<span class="n">fig2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">fig2</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$-\log\psi_n(x)$&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mf">2e0</span><span class="p">,</span> <span class="mf">4e1</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mf">3e0</span><span class="p">,</span> <span class="mf">1e2</span><span class="p">)</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">wf_0</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$n=0$&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">loglog</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">test_psi</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
+<span class="c1">#ax1.plot(x_mesh, wf_1, color=&#39;blue&#39;, label=r&#39;$n=1$&#39;)</span>
+<span class="c1">#ax1.plot(x_mesh, wf_2, color=&#39;green&#39;, label=r&#39;$n=2$&#39;)</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/1s/3wbqg65x5k79l5ww8fg25yvh0000gn/T/ipykernel_34080/1042276826.py:1: RuntimeWarning: invalid value encountered in power
+  test_psi = .2 * np.exp(-x_mesh**(3/2)) / x_mesh**(1/4)  # based on asymptotic formula
+/var/folders/1s/3wbqg65x5k79l5ww8fg25yvh0000gn/T/ipykernel_34080/1042276826.py:1: RuntimeWarning: divide by zero encountered in divide
+  test_psi = .2 * np.exp(-x_mesh**(3/2)) / x_mesh**(1/4)  # based on asymptotic formula
+</pre></div>
+</div>
+<img alt="../_images/Diagonalizing_coordinate_space_solutions_linear_pot_31_1.png" src="../_images/Diagonalizing_coordinate_space_solutions_linear_pot_31_1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ktest</span> <span class="o">=</span> <span class="mf">0.8</span>
 </pre></div>
 </div>
@@ -947,7 +1005,7 @@ Then apply the forward difference (fd) and symmetric difference (sd) matrices to
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.0000000000000282
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.0000000000000002
 </pre></div>
 </div>
 </div>
@@ -959,7 +1017,7 @@ Then apply the forward difference (fd) and symmetric difference (sd) matrices to
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.6891358147077586-1.362907219478094e-13j)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(0.6891348378623239+1.0105337681893813e-12j)
 </pre></div>
 </div>
 </div>
@@ -971,7 +1029,7 @@ Then apply the forward difference (fd) and symmetric difference (sd) matrices to
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6832380004168872
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.683237089963853
 </pre></div>
 </div>
 </div>
@@ -987,21 +1045,21 @@ Then apply the forward difference (fd) and symmetric difference (sd) matrices to
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 0.00  1.00000+0.00000j  1.00000
- 0.20  0.97651-0.00000j  0.97647
- 0.40  0.90965-0.00000j  0.90917
- 0.60  0.80933-0.00000j  0.80714
- 0.80  0.68914-0.00000j  0.68324
- 1.00  0.56316-0.00000j  0.55147
- 1.20  0.44327-0.00000j  0.42441
- 1.40  0.33754-0.00000j  0.31144
- 1.60  0.24991-0.00000j  0.21792
- 1.80  0.18093-0.00000j  0.14539
- 2.00  0.12886-0.00000j  0.09249
- 2.20  0.09085-0.00000j  0.05610
- 2.40  0.06380-0.00000j  0.03245
- 2.60  0.04488-0.00000j  0.01789
- 2.80  0.03178-0.00000j  0.00941
- 3.00  0.02275-0.00000j  0.00472
+ 0.20  0.97651+0.00000j  0.97647
+ 0.40  0.90965+0.00000j  0.90917
+ 0.60  0.80933+0.00000j  0.80714
+ 0.80  0.68913+0.00000j  0.68324
+ 1.00  0.56316+0.00000j  0.55146
+ 1.20  0.44327+0.00000j  0.42441
+ 1.40  0.33754+0.00000j  0.31144
+ 1.60  0.24991+0.00000j  0.21791
+ 1.80  0.18093+0.00000j  0.14538
+ 2.00  0.12886+0.00000j  0.09249
+ 2.20  0.09085+0.00000j  0.05610
+ 2.40  0.06380+0.00000j  0.03244
+ 2.60  0.04488+0.00000j  0.01789
+ 2.80  0.03178+0.00000j  0.00941
+ 3.00  0.02275+0.00000j  0.00472
 </pre></div>
 </div>
 </div>

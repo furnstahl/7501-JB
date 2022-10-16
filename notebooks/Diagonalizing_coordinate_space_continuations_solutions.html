@@ -158,8 +158,13 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="Path_integrals/Path_integrals_for_Quantum_Mechanics_emcee.html">
+   Path integral explorations -- emcee
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="Path_integrals/Lepage_Lattice_QCD_for_Novices_code_selfcontained.html">
-   Path integral explorations
+   Path integral explorations -- Metropolis
   </a>
  </li>
 </ul>
@@ -635,10 +640,6 @@ title="Print to PDF"
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">M_temp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> \
               <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
-<span class="c1">#     M_temp[0, 0] = -2</span>
-<span class="c1">#     M_temp[0, 1] = +2</span>
-<span class="c1">#     M_temp[N-1, N-1] = +2</span>
-<span class="c1">#     M_temp[N-1, N-2] = -2</span>
 
     <span class="k">return</span> <span class="n">M_temp</span> <span class="o">/</span> <span class="p">(</span><span class="n">Delta_x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
@@ -786,7 +787,7 @@ Then apply the forward difference (fd) and symmetric difference (sd) matrices to
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$df/dx$&#39;</span><span class="p">)</span>
 <span class="c1">#ax1.set_xlim(0, x_max)</span>
-<span class="c1">#ax1.set_ylim(-1., 3)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 
 <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">,</span> <span class="n">f_2nd_deriv_exact</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;exact 2nd derivative&#39;</span><span class="p">)</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">,</span> <span class="n">f_2nd_deriv</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;approx 2nd derivative&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">)</span>

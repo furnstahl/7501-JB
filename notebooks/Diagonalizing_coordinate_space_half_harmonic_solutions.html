@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Diagonalizing coordinate space solutions &#8212; Quantum Mechanics I</title>
+    <title>Calculate the expectation value of \(\hat x^2\) &#8212; Quantum Mechanics I</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -158,8 +158,13 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="Path_integrals/Path_integrals_for_Quantum_Mechanics_emcee.html">
+   Path integral explorations -- emcee
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="Path_integrals/Lepage_Lattice_QCD_for_Novices_code_selfcontained.html">
-   Path integral explorations
+   Path integral explorations -- Metropolis
   </a>
  </li>
 </ul>
@@ -506,98 +511,23 @@ title="Print to PDF"
     </ul>
   </div>
 </div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
-</label>
 
     </div>
 </div>
 
 <!-- Table of contents -->
 <div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#testing-second-derivative">
-   Testing second derivative
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#set-up-various-test-functions">
-     Set up various test functions
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#harmonic-oscillator">
-   Harmonic oscillator
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#check-the-normalization">
-     Check the normalization
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
-
-    </nav>
 </div>
     </div>
     <div class="article row">
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Diagonalizing coordinate space solutions</h1>
+                <h1>Calculate the expectation value of \hat x^2</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#testing-second-derivative">
-   Testing second derivative
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#set-up-various-test-functions">
-     Set up various test functions
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#harmonic-oscillator">
-   Harmonic oscillator
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#check-the-normalization">
-     Check the normalization
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
-
-                        </nav>
                     </div>
                 </div>
             </div>
@@ -605,264 +535,7 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="diagonalizing-coordinate-space-solutions">
-<h1>Diagonalizing coordinate space solutions<a class="headerlink" href="#diagonalizing-coordinate-space-solutions" title="Permalink to this headline">#</a></h1>
-<p>In this notebook you will apply a 2nd-derivative operator and a potential as matrices in coordinate space to represent the Schroedinger equation. By diagonalizing it you’ll find its eigenvalues (the energy spectrum) and eigenvectors (wave functions).</p>
-<p>Standard imports plus seaborn (to make plots looks nicer).</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">scipy.linalg</span> <span class="k">as</span> <span class="nn">la</span>
-
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span><span class="p">;</span> <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;darkgrid&quot;</span><span class="p">);</span> <span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;talk&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Fill in the ?’s in the  <code class="docutils literal notranslate"><span class="pre">second_derivative_matrix</span></code> function below so that it returns a matrix that implements an approximate second derivative when applied to a vector made up of a function evaluated at the mesh points. The numpy <code class="docutils literal notranslate"><span class="pre">diag</span></code> and <code class="docutils literal notranslate"><span class="pre">ones</span></code> functions are used to create matrices with 1’s on particular diagonals, as in this <span class="math notranslate nohighlight">\(5\times 5\)</span> example:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split} \frac{1}{(\Delta x)^2}\,\left( 
-    \begin{array}{ccccc}
-    -2 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
-    1 &amp; -2 &amp; 1 &amp; 0 &amp; 0 \\
-    0 &amp; 1 &amp; -2 &amp; 1 &amp; 0 \\
-    0 &amp; 0 &amp;1 &amp; -2 &amp; 1 \\
-    0 &amp; 0 &amp; 0 &amp; 1 &amp; -2
-    \end{array}
-   \right) 
-   \left(\begin{array}{c}
-         f_1 \\ f_2 \\ f_3 \\ f_4 \\ f_5
-         \end{array}
-   \right) 
-   \overset{?}{=}
-   \left(\begin{array}{c}
-         ? \\ ? \\ ? \\ ? \\ ?
-         \end{array}
-   \right) 
- \end{split}\]</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">second_derivative_matrix</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">Delta_x</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Return an N x N matrix for 2nd derivative of a vector equally spaced by delta_x</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">M_temp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> \
-              <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
-<span class="c1">#     M_temp[0, 0] = -2</span>
-<span class="c1">#     M_temp[0, 1] = +2</span>
-<span class="c1">#     M_temp[N-1, N-1] = +2</span>
-<span class="c1">#     M_temp[N-1, N-2] = -2</span>
-
-    <span class="k">return</span> <span class="n">M_temp</span> <span class="o">/</span> <span class="p">(</span><span class="n">Delta_x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<section id="testing-second-derivative">
-<h2>Testing second derivative<a class="headerlink" href="#testing-second-derivative" title="Permalink to this headline">#</a></h2>
-<p>We’ll check the relative accuracy of the approximate second derivative at a fixed <span class="math notranslate nohighlight">\(\Delta x\)</span> by choosing a test function <span class="math notranslate nohighlight">\(f(x)\)</span> and a range of <span class="math notranslate nohighlight">\(x\)</span>.</p>
-<p>**Choose values for <code class="docutils literal notranslate"><span class="pre">N_pts</span></code>, <code class="docutils literal notranslate"><span class="pre">x_min</span></code>, and <code class="docutils literal notranslate"><span class="pre">x_max</span></code></p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N_pts</span> <span class="o">=</span> <span class="mi">801</span>  
-<span class="n">x_min</span> <span class="o">=</span> <span class="o">-</span><span class="mf">8.</span>
-<span class="c1">#x_min = 0.</span>
-<span class="n">x_max</span> <span class="o">=</span> <span class="mf">8.</span>
-<span class="n">Delta_x</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_max</span> <span class="o">-</span> <span class="n">x_min</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">N_pts</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">x_mesh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span> <span class="n">N_pts</span><span class="p">)</span>  <span class="c1"># create the grid (&quot;mesh&quot;) of x points</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check that mesh is consistent with Delta_x</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">Delta_x</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.02
-[-8.   -7.98 -7.96 -7.94 -7.92 -7.9  -7.88 -7.86 -7.84 -7.82 -7.8  -7.78
- -7.76 -7.74 -7.72 -7.7  -7.68 -7.66 -7.64 -7.62 -7.6  -7.58 -7.56 -7.54
- -7.52 -7.5  -7.48 -7.46 -7.44 -7.42 -7.4  -7.38 -7.36 -7.34 -7.32 -7.3
- -7.28 -7.26 -7.24 -7.22 -7.2  -7.18 -7.16 -7.14 -7.12 -7.1  -7.08 -7.06
- -7.04 -7.02 -7.   -6.98 -6.96 -6.94 -6.92 -6.9  -6.88 -6.86 -6.84 -6.82
- -6.8  -6.78 -6.76 -6.74 -6.72 -6.7  -6.68 -6.66 -6.64 -6.62 -6.6  -6.58
- -6.56 -6.54 -6.52 -6.5  -6.48 -6.46 -6.44 -6.42 -6.4  -6.38 -6.36 -6.34
- -6.32 -6.3  -6.28 -6.26 -6.24 -6.22 -6.2  -6.18 -6.16 -6.14 -6.12 -6.1
- -6.08 -6.06 -6.04 -6.02 -6.   -5.98 -5.96 -5.94 -5.92 -5.9  -5.88 -5.86
- -5.84 -5.82 -5.8  -5.78 -5.76 -5.74 -5.72 -5.7  -5.68 -5.66 -5.64 -5.62
- -5.6  -5.58 -5.56 -5.54 -5.52 -5.5  -5.48 -5.46 -5.44 -5.42 -5.4  -5.38
- -5.36 -5.34 -5.32 -5.3  -5.28 -5.26 -5.24 -5.22 -5.2  -5.18 -5.16 -5.14
- -5.12 -5.1  -5.08 -5.06 -5.04 -5.02 -5.   -4.98 -4.96 -4.94 -4.92 -4.9
- -4.88 -4.86 -4.84 -4.82 -4.8  -4.78 -4.76 -4.74 -4.72 -4.7  -4.68 -4.66
- -4.64 -4.62 -4.6  -4.58 -4.56 -4.54 -4.52 -4.5  -4.48 -4.46 -4.44 -4.42
- -4.4  -4.38 -4.36 -4.34 -4.32 -4.3  -4.28 -4.26 -4.24 -4.22 -4.2  -4.18
- -4.16 -4.14 -4.12 -4.1  -4.08 -4.06 -4.04 -4.02 -4.   -3.98 -3.96 -3.94
- -3.92 -3.9  -3.88 -3.86 -3.84 -3.82 -3.8  -3.78 -3.76 -3.74 -3.72 -3.7
- -3.68 -3.66 -3.64 -3.62 -3.6  -3.58 -3.56 -3.54 -3.52 -3.5  -3.48 -3.46
- -3.44 -3.42 -3.4  -3.38 -3.36 -3.34 -3.32 -3.3  -3.28 -3.26 -3.24 -3.22
- -3.2  -3.18 -3.16 -3.14 -3.12 -3.1  -3.08 -3.06 -3.04 -3.02 -3.   -2.98
- -2.96 -2.94 -2.92 -2.9  -2.88 -2.86 -2.84 -2.82 -2.8  -2.78 -2.76 -2.74
- -2.72 -2.7  -2.68 -2.66 -2.64 -2.62 -2.6  -2.58 -2.56 -2.54 -2.52 -2.5
- -2.48 -2.46 -2.44 -2.42 -2.4  -2.38 -2.36 -2.34 -2.32 -2.3  -2.28 -2.26
- -2.24 -2.22 -2.2  -2.18 -2.16 -2.14 -2.12 -2.1  -2.08 -2.06 -2.04 -2.02
- -2.   -1.98 -1.96 -1.94 -1.92 -1.9  -1.88 -1.86 -1.84 -1.82 -1.8  -1.78
- -1.76 -1.74 -1.72 -1.7  -1.68 -1.66 -1.64 -1.62 -1.6  -1.58 -1.56 -1.54
- -1.52 -1.5  -1.48 -1.46 -1.44 -1.42 -1.4  -1.38 -1.36 -1.34 -1.32 -1.3
- -1.28 -1.26 -1.24 -1.22 -1.2  -1.18 -1.16 -1.14 -1.12 -1.1  -1.08 -1.06
- -1.04 -1.02 -1.   -0.98 -0.96 -0.94 -0.92 -0.9  -0.88 -0.86 -0.84 -0.82
- -0.8  -0.78 -0.76 -0.74 -0.72 -0.7  -0.68 -0.66 -0.64 -0.62 -0.6  -0.58
- -0.56 -0.54 -0.52 -0.5  -0.48 -0.46 -0.44 -0.42 -0.4  -0.38 -0.36 -0.34
- -0.32 -0.3  -0.28 -0.26 -0.24 -0.22 -0.2  -0.18 -0.16 -0.14 -0.12 -0.1
- -0.08 -0.06 -0.04 -0.02  0.    0.02  0.04  0.06  0.08  0.1   0.12  0.14
-  0.16  0.18  0.2   0.22  0.24  0.26  0.28  0.3   0.32  0.34  0.36  0.38
-  0.4   0.42  0.44  0.46  0.48  0.5   0.52  0.54  0.56  0.58  0.6   0.62
-  0.64  0.66  0.68  0.7   0.72  0.74  0.76  0.78  0.8   0.82  0.84  0.86
-  0.88  0.9   0.92  0.94  0.96  0.98  1.    1.02  1.04  1.06  1.08  1.1
-  1.12  1.14  1.16  1.18  1.2   1.22  1.24  1.26  1.28  1.3   1.32  1.34
-  1.36  1.38  1.4   1.42  1.44  1.46  1.48  1.5   1.52  1.54  1.56  1.58
-  1.6   1.62  1.64  1.66  1.68  1.7   1.72  1.74  1.76  1.78  1.8   1.82
-  1.84  1.86  1.88  1.9   1.92  1.94  1.96  1.98  2.    2.02  2.04  2.06
-  2.08  2.1   2.12  2.14  2.16  2.18  2.2   2.22  2.24  2.26  2.28  2.3
-  2.32  2.34  2.36  2.38  2.4   2.42  2.44  2.46  2.48  2.5   2.52  2.54
-  2.56  2.58  2.6   2.62  2.64  2.66  2.68  2.7   2.72  2.74  2.76  2.78
-  2.8   2.82  2.84  2.86  2.88  2.9   2.92  2.94  2.96  2.98  3.    3.02
-  3.04  3.06  3.08  3.1   3.12  3.14  3.16  3.18  3.2   3.22  3.24  3.26
-  3.28  3.3   3.32  3.34  3.36  3.38  3.4   3.42  3.44  3.46  3.48  3.5
-  3.52  3.54  3.56  3.58  3.6   3.62  3.64  3.66  3.68  3.7   3.72  3.74
-  3.76  3.78  3.8   3.82  3.84  3.86  3.88  3.9   3.92  3.94  3.96  3.98
-  4.    4.02  4.04  4.06  4.08  4.1   4.12  4.14  4.16  4.18  4.2   4.22
-  4.24  4.26  4.28  4.3   4.32  4.34  4.36  4.38  4.4   4.42  4.44  4.46
-  4.48  4.5   4.52  4.54  4.56  4.58  4.6   4.62  4.64  4.66  4.68  4.7
-  4.72  4.74  4.76  4.78  4.8   4.82  4.84  4.86  4.88  4.9   4.92  4.94
-  4.96  4.98  5.    5.02  5.04  5.06  5.08  5.1   5.12  5.14  5.16  5.18
-  5.2   5.22  5.24  5.26  5.28  5.3   5.32  5.34  5.36  5.38  5.4   5.42
-  5.44  5.46  5.48  5.5   5.52  5.54  5.56  5.58  5.6   5.62  5.64  5.66
-  5.68  5.7   5.72  5.74  5.76  5.78  5.8   5.82  5.84  5.86  5.88  5.9
-  5.92  5.94  5.96  5.98  6.    6.02  6.04  6.06  6.08  6.1   6.12  6.14
-  6.16  6.18  6.2   6.22  6.24  6.26  6.28  6.3   6.32  6.34  6.36  6.38
-  6.4   6.42  6.44  6.46  6.48  6.5   6.52  6.54  6.56  6.58  6.6   6.62
-  6.64  6.66  6.68  6.7   6.72  6.74  6.76  6.78  6.8   6.82  6.84  6.86
-  6.88  6.9   6.92  6.94  6.96  6.98  7.    7.02  7.04  7.06  7.08  7.1
-  7.12  7.14  7.16  7.18  7.2   7.22  7.24  7.26  7.28  7.3   7.32  7.34
-  7.36  7.38  7.4   7.42  7.44  7.46  7.48  7.5   7.52  7.54  7.56  7.58
-  7.6   7.62  7.64  7.66  7.68  7.7   7.72  7.74  7.76  7.78  7.8   7.82
-  7.84  7.86  7.88  7.9   7.92  7.94  7.96  7.98  8.  ]
-</pre></div>
-</div>
-</div>
-</div>
-<p>Set up the derivative matrices for the specified mesh.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">second_deriv</span> <span class="o">=</span> <span class="n">second_derivative_matrix</span><span class="p">(</span><span class="n">N_pts</span><span class="p">,</span> <span class="n">Delta_x</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<section id="set-up-various-test-functions">
-<h3>Set up various test functions<a class="headerlink" href="#set-up-various-test-functions" title="Permalink to this headline">#</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f_test_0</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Return the value of the function e^{-x^2} and its 2nd derivative</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x_mesh</span><span class="o">**</span><span class="mi">2</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x_mesh</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">x_mesh</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span> <span class="p">)</span>    
-</pre></div>
-</div>
-</div>
-</div>
-<p>Pick one of the test functions and evaluate the function and its derivative on the mesh.
-Then apply the forward difference (fd) and symmetric difference (sd) matrices to the <code class="docutils literal notranslate"><span class="pre">f_test</span></code> vector (using the <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> symbol for matrix-vector, matrix-matrix, and vector-vector multiplication).</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f_test</span><span class="p">,</span> <span class="n">f_2nd_deriv_exact</span> <span class="o">=</span> <span class="n">f_test_0</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">)</span>
-
-<span class="n">f_2nd_deriv</span> <span class="o">=</span> <span class="n">second_deriv</span> <span class="o">@</span> <span class="n">f_test</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>Make plots comparing the exact to approximate derivative and then the relative errors.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">rel_error</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Calculate the (absolute value of the) relative error between x1 and x2</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span> <span class="p">(</span><span class="n">x1</span> <span class="o">-</span> <span class="n">x2</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="n">x1</span> <span class="o">+</span> <span class="n">x2</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="p">)</span>
-    <span class="c1">#return np.abs( (x1 - x2)  )</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
-
-<span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$df/dx$&#39;</span><span class="p">)</span>
-<span class="c1">#ax1.set_xlim(0, x_max)</span>
-<span class="c1">#ax1.set_ylim(-1., 3)</span>
-
-<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">,</span> <span class="n">f_2nd_deriv_exact</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;exact 2nd derivative&#39;</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">,</span> <span class="n">f_2nd_deriv</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;approx 2nd derivative&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">)</span>
-
-<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-
-<span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;relative error&#39;</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x_max</span><span class="p">)</span>
-<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mf">1e-6</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-
-<span class="c1"># Calculate relative errors</span>
-<span class="n">rel_error_2nd_deriv</span> <span class="o">=</span> <span class="n">rel_error</span><span class="p">(</span><span class="n">f_2nd_deriv_exact</span><span class="p">,</span> <span class="n">f_2nd_deriv</span><span class="p">)</span>
-
-<span class="n">ax2</span><span class="o">.</span><span class="n">semilogy</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">,</span> <span class="n">rel_error_2nd_deriv</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;2nd derivative&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dashed&#39;</span><span class="p">)</span>
-
-<span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-
-<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/Diagonalizing_coordinate_space_half_harmonic_solutions_16_0.png" src="../_images/Diagonalizing_coordinate_space_half_harmonic_solutions_16_0.png" />
-</div>
-</div>
-</section>
-</section>
-<section id="harmonic-oscillator">
-<h2>Harmonic oscillator<a class="headerlink" href="#harmonic-oscillator" title="Permalink to this headline">#</a></h2>
-<p>The Hamiltonian matrix is</p>
-<div class="math notranslate nohighlight">
-\[
- \hat H \doteq  -\frac{\hbar^2}{2m}\frac{d^2}{dx^2} + V(x) ,
-\]</div>
-<p>which we’ll implement as a sum of matrices. We’ll choose units so that <span class="math notranslate nohighlight">\(\hbar^2/2m = 1\)</span> and <span class="math notranslate nohighlight">\(\hbar\omega = 1\)</span>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">V_SHO_matrix</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Harmonic oscillator potential matrix (defined as a diagonal matrix)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">k</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span>       <span class="c1"># k is chosen so that hbar*omega = 1 </span>
-    <span class="n">V_diag</span> <span class="o">=</span> <span class="n">k</span> <span class="o">*</span> <span class="n">x_mesh</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="mi">2</span>  <span class="c1"># diagonal matrix elements</span>
-    <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">)</span>  <span class="c1"># number of x points</span>
-    
-    <span class="k">return</span> <span class="n">V_diag</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span> 
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
+  <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">Half_V_SHO_matrix</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -875,6 +548,19 @@ Then apply the forward difference (fd) and symmetric difference (sd) matrices to
     <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">)</span>  <span class="c1"># number of x points</span>
     
     <span class="k">return</span> <span class="n">V_diag</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">xsq_matrix</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    matrix for x^2 operator</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">)</span>  <span class="c1"># number of x points</span>
+
+    <span class="k">return</span> <span class="n">x_mesh</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span> 
 </pre></div>
 </div>
 </div>
@@ -974,37 +660,37 @@ Then apply the forward difference (fd) and symmetric difference (sd) matrices to
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Diagonalizing_coordinate_space_half_harmonic_solutions_26_0.png" src="../_images/Diagonalizing_coordinate_space_half_harmonic_solutions_26_0.png" />
+<img alt="../_images/Diagonalizing_coordinate_space_half_harmonic_solutions_8_0.png" src="../_images/Diagonalizing_coordinate_space_half_harmonic_solutions_8_0.png" />
 </div>
 </div>
-<section id="check-the-normalization">
-<h3>Check the normalization<a class="headerlink" href="#check-the-normalization" title="Permalink to this headline">#</a></h3>
+<section id="calculate-the-expectation-value-of-hat-x-2">
+<h1>Calculate the expectation value of <span class="math notranslate nohighlight">\(\hat x^2\)</span><a class="headerlink" href="#calculate-the-expectation-value-of-hat-x-2" title="Permalink to this headline">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="n">wf_0</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">x_mesh</span><span class="p">,</span> <span class="n">dx</span><span class="o">=</span><span class="n">Delta_x</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xsq_exp_val</span> <span class="o">=</span> <span class="n">wf_0</span> <span class="o">@</span> <span class="n">xsq_matrix</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">)</span> <span class="o">@</span> <span class="n">wf_0</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">xsq_exp_val</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.019999999999999976
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.000
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">trapz</span><span class="p">((</span><span class="n">scale</span> <span class="o">*</span> <span class="n">wf_0</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">x_mesh</span><span class="p">,</span> <span class="n">dx</span><span class="o">=</span><span class="n">Delta_x</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">xsq_half_exp_val</span> <span class="o">=</span> <span class="n">wf_half_0</span> <span class="o">@</span> <span class="n">xsq_matrix</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">)</span> <span class="o">@</span> <span class="n">wf_half_0</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">xsq_half_exp_val</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.9999999999999989
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3.000
 </pre></div>
 </div>
 </div>
 </div>
-</section>
-</section>
 </section>
 
     <script type="text/x-thebe-config">
