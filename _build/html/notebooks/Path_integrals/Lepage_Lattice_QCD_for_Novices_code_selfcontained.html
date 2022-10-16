@@ -56,7 +56,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="Quantum harmonic oscillator" href="../External/harmonic_oscillator_Jendrzejewski.html" />
-    <link rel="prev" title="Calculate zeros of the Airy function and its derivative" href="../Airy_function_roots.html" />
+    <link rel="prev" title="Path integrals for quantum mechanics: using emcee" href="Path_integrals_for_Quantum_Mechanics_emcee.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -159,9 +159,14 @@ const thebe_selector_output = ".output, .cell_output"
    Linear potential energies
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Path_integrals_for_Quantum_Mechanics_emcee.html">
+   Path integral explorations -- emcee
+  </a>
+ </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Path integral explorations
+   Path integral explorations -- Metropolis
   </a>
  </li>
 </ul>
@@ -1008,40 +1013,6 @@ title="Print to PDF"
 </section>
 <section id="classes-and-functions-for-path-integrals">
 <h2>Classes and functions for path integrals<a class="headerlink" href="#classes-and-functions-for-path-integrals" title="Permalink to this headline">#</a></h2>
-<p>These are from Lepage’s lectures. Not yet incorporated here.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">bootstrap</span><span class="p">(</span><span class="n">G</span><span class="p">):</span> 
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Do a bootstrap</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">N_cf</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
-    <span class="n">G_bootstrap</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># new ensemble</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N_cf</span><span class="p">):</span>
-        <span class="n">alpha</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">N_cf</span><span class="p">))</span>  <span class="c1"># choose random config</span>
-        <span class="n">G_bootstrap</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">G</span><span class="p">[</span><span class="n">alpha</span><span class="p">])</span>  <span class="c1"># keep G[alpha] </span>
-    <span class="k">return</span> <span class="n">G_bootstrap</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">bin</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">binsize</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Binning</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">G_binned</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># binned ensemble </span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">G</span><span class="p">),</span> <span class="n">binsize</span><span class="p">):</span> <span class="c1">#loop on bins</span>
-        <span class="n">G_avg</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">binsize</span><span class="p">):</span> <span class="c1"># loop on bin elements</span>
-            <span class="n">G_avg</span> <span class="o">=</span> <span class="n">G_avg</span> <span class="o">+</span> <span class="n">G</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="p">]</span> 
-        <span class="n">G_binned</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">G_avg</span> <span class="o">/</span> <span class="n">binsize</span><span class="p">)</span> <span class="c1"># keep bin average</span>
-    <span class="k">return</span> <span class="n">G_binned</span>
-</pre></div>
-</div>
-</div>
-</div>
 </section>
 <section id="d-potential-class">
 <h2>1-d potential class<a class="headerlink" href="#d-potential-class" title="Permalink to this headline">#</a></h2>
@@ -1163,6 +1134,30 @@ title="Print to PDF"
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">V_linear</span><span class="p">(</span><span class="n">Potential</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Subclass of Potential for linear potential.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+
+<span class="sd">    Methods</span>
+<span class="sd">    -------</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k_linear</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">hbar</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">mu</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">V_string</span><span class="o">=</span><span class="s1">&#39;Linear potential&#39;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">k_linear</span> <span class="o">=</span> <span class="n">k_linear</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">hbar</span><span class="p">,</span> <span class="n">mu</span><span class="p">,</span> <span class="n">V_string</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">V</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;LInear potential for particle at x&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">k_linear</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">/</span><span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">V_Morse</span><span class="p">(</span><span class="n">Potential</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Subclass of Potential for the Morse potential.</span>
@@ -1197,6 +1192,7 @@ title="Print to PDF"
 
 <span class="n">test_ho</span> <span class="o">=</span> <span class="n">V_HO</span><span class="p">(</span><span class="n">k_osc</span><span class="p">,</span> <span class="n">hbar</span><span class="p">,</span> <span class="n">mass</span><span class="p">)</span>
 <span class="n">test_aho</span> <span class="o">=</span> <span class="n">V_aHO</span><span class="p">(</span><span class="n">k_osc</span><span class="p">,</span> <span class="n">hbar</span><span class="p">,</span> <span class="n">mass</span><span class="p">)</span>
+<span class="n">test_linear</span> <span class="o">=</span> <span class="n">V_linear</span><span class="p">(</span><span class="n">k_osc</span><span class="p">,</span> <span class="n">hbar</span><span class="p">,</span> <span class="n">mass</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1218,6 +1214,32 @@ title="Print to PDF"
 <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_pts_all</span><span class="p">,</span> <span class="n">test_ho</span><span class="o">.</span><span class="n">wf_gs</span><span class="p">(</span><span class="n">x_pts_all</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;gs wf&#39;</span><span class="p">)</span>
 
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">test_ho</span><span class="o">.</span><span class="n">V_string</span><span class="si">}</span><span class="s1"> with k_osc = </span><span class="si">{</span><span class="n">k_osc</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">, mass = </span><span class="si">{</span><span class="n">mass</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_22_0.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_22_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check the wave function and potential</span>
+<span class="n">x_pts_all</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mf">4.</span><span class="p">,</span> <span class="mf">4.</span><span class="p">,</span> <span class="mf">.01</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="c1">#ax.set_ylabel(r&#39;g(x)&#39;)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">4.</span><span class="p">,</span> <span class="mf">4.</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dotted&#39;</span><span class="p">)</span>
+
+<span class="n">test_linear</span><span class="o">.</span><span class="n">plot_V</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">x_pts_all</span><span class="p">,</span> <span class="n">V_label</span><span class="o">=</span><span class="s1">&#39;Linear potential&#39;</span><span class="p">)</span>
+<span class="c1">#ax.plot(x_pts_all, test_ho.wf_gs(x_pts_all), color=&#39;red&#39;, alpha=1, label=&#39;gs wf&#39;)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">test_ho</span><span class="o">.</span><span class="n">V_string</span><span class="si">}</span><span class="s1"> with k_linear = </span><span class="si">{</span><span class="n">k_osc</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">, mass = </span><span class="si">{</span><span class="n">mass</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
 </pre></div>
@@ -1273,8 +1295,9 @@ b. If Delta S &gt; 0 (action increased), generate eta between 0 and 1. Keep new 
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Modules needed for example: emcee is for MCMCsampling, corner for plotting</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
-<span class="kn">import</span> <span class="nn">emcee</span>
+<span class="kn">import</span> <span class="nn">emcee</span>   <span class="c1"># conda install -c astropy emcee</span>
 <span class="kn">import</span> <span class="nn">corner</span>
+<span class="kn">import</span> <span class="nn">zeus</span>    <span class="c1"># conda install -c conda-forge zeus-mcmc</span>
 </pre></div>
 </div>
 </div>
@@ -1506,10 +1529,10 @@ b. If Delta S &gt; 0 (action increased), generate eta between 0 and 1. Keep new 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[ 0.20910173  0.10921192  0.03947866  0.23273774  0.07226791 -0.0140061
- -0.17469999  0.03862063 -0.12133458  0.00302452  0.15887871 -0.13730878
-  0.09600179 -0.04234114 -0.07080546  0.00082348  0.07230063  0.14296251
- -0.06848006 -0.05019278]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[ 0.14972838  0.05927184  0.20406813  0.01502988 -0.08217364  0.02923041
+  0.13629621  0.12685621 -0.07409411 -0.10490117 -0.07186103  0.04041905
+ -0.09364489  0.08495631 -0.04781537 -0.06250875  0.07879438 -0.14996929
+  0.18471841 -0.12914856]
 </pre></div>
 </div>
 </div>
@@ -1522,10 +1545,10 @@ b. If Delta S &gt; 0 (action increased), generate eta between 0 and 1. Keep new 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[ 0.20910173  0.18176197  0.03947866  0.23273774  0.07226791 -0.0140061
- -0.17469999  0.03862063 -0.12133458  0.00302452  0.15887871 -0.13730878
-  0.83483115  0.84891617  0.49987133  0.5165895   0.07230063  0.14296251
-  0.33038004  0.41607604]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[-0.57814371  0.26692134  0.20406813  0.01502988 -0.08217364  0.13357987
+  0.13629621  0.12685621  0.14584755 -0.10490117 -0.07186103  0.04041905
+ -0.09364489  0.08495631 -0.04781537  0.14631972  0.07879438 -0.14996929
+  0.18471841 -0.0913914 ]
 </pre></div>
 </div>
 </div>
@@ -1560,7 +1583,7 @@ b. If Delta S &gt; 0 (action increased), generate eta between 0 and 1. Keep new 
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(4000, 20)
-Average over 4000 configurations is 0.50028
+Average over 4000 configurations is 0.49903
 </pre></div>
 </div>
 </div>
@@ -1604,7 +1627,7 @@ Average over 4000 configurations is 0.50028
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Energy = 0.49449 +/- 0.00312
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Energy = 0.50133 +/- 0.00250
 </pre></div>
 </div>
 </div>
@@ -1655,7 +1678,7 @@ Average over 4000 configurations is 0.50028
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The mean of the energy means is 0.49958
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The mean of the energy means is 0.49967
 </pre></div>
 </div>
 <img alt="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_50_1.png" src="../../_images/Lepage_Lattice_QCD_for_Novices_code_selfcontained_50_1.png" />
@@ -1734,7 +1757,7 @@ Average over 4000 configurations is 0.50028
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MCMC sampling using emcee (affine-invariant ensamble sampler) with 50 walkers
-Mean acceptance fraction: 0.297 (in total 1000000 steps)
+Mean acceptance fraction: 0.299 (in total 1000000 steps)
 </pre></div>
 </div>
 </div>
@@ -1757,7 +1780,7 @@ Mean acceptance fraction: 0.297 (in total 1000000 steps)
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1000000, 20)
-Average over 1000000 configurations is 0.49965
+Average over 1000000 configurations is 0.49977
 </pre></div>
 </div>
 </div>
@@ -1774,7 +1797,7 @@ Average over 1000000 configurations is 0.49965
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(50000, 20)
-Average over 50000 configurations is 0.49936
+Average over 50000 configurations is 0.49939
 </pre></div>
 </div>
 </div>
@@ -1874,9 +1897,9 @@ Average over 50000 configurations is 0.49936
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MCMC sampling using zeus (ensamble slice sampler) with 50 walkers
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling progress : 100%|████████████████████| 200/200 [00:01&lt;00:00, 101.63it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling progress : 100%|████████████████████| 200/200 [00:01&lt;00:00, 142.27it/s]
 Initialising ensemble of 50 walkers...
-Sampling progress : 100%|██████████████████| 1000/1000 [00:09&lt;00:00, 103.12it/s]
+Sampling progress : 100%|██████████████████| 1000/1000 [00:06&lt;00:00, 143.95it/s]
 </pre></div>
 </div>
 </div>
@@ -1893,7 +1916,7 @@ Sampling progress : 100%|██████████████████|
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(2500, 20)
-Average over 2500 configurations is 0.49061
+Average over 2500 configurations is 0.49413
 </pre></div>
 </div>
 </div>
@@ -1909,7 +1932,7 @@ Average over 2500 configurations is 0.49061
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Average over 50000 configurations is 0.48813
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Average over 50000 configurations is 0.49427
 </pre></div>
 </div>
 </div>
@@ -2000,7 +2023,7 @@ Average over 2500 configurations is 0.49061
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(4000, 20)
-Average over 4000 configurations is 0.50229
+Average over 4000 configurations is 0.49971
 </pre></div>
 </div>
 </div>
@@ -2016,12 +2039,12 @@ Average over 4000 configurations is 0.50229
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Average over 4000 configurations at each n:  [0.50603173 0.50146302 0.5094825  0.50547376 0.50860078 0.51953321
- 0.49374737 0.50124946 0.49631357 0.50361406 0.5071096  0.50274467
- 0.50060487 0.50212266 0.49285497 0.49053934 0.49075059 0.49266733
- 0.50799446 0.51295679]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Average over 4000 configurations at each n:  [0.48209242 0.49507992 0.4947234  0.51755921 0.5221536  0.49359061
+ 0.49602366 0.49430636 0.49639036 0.50156105 0.49991793 0.52604269
+ 0.48065294 0.49529194 0.49085295 0.50871533 0.48896894 0.50171042
+ 0.50010736 0.508537  ]
 
-Mean: 0.50229 +/- 0.00170
+Mean: 0.49971 +/- 0.00260
 </pre></div>
 </div>
 </div>
@@ -2035,10 +2058,10 @@ Mean: 0.50229 +/- 0.00170
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.49146899 0.30175624 0.18532718 0.11510977 0.07086724 0.04251234
- 0.02714493 0.01639136 0.00889712 0.007087   0.00573866 0.007087
- 0.00889712 0.01639136 0.02714493 0.04251234 0.07086724 0.11510977
- 0.18532718 0.30175624]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.48747937 0.29855734 0.18124361 0.11178122 0.06804227 0.0430473
+ 0.0285302  0.01712643 0.00986662 0.00653574 0.00780161 0.00653574
+ 0.00986662 0.01712643 0.0285302  0.0430473  0.06804227 0.11178122
+ 0.18124361 0.29855734]
 </pre></div>
 </div>
 </div>
@@ -2051,10 +2074,10 @@ Mean: 0.50229 +/- 0.00170
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[ 0.97555858  0.97499354  0.95247311  0.97015595  1.02202794  0.89720827
-  1.00887213  1.22205313  0.45492961  0.42207358 -0.42207358 -0.45492961
- -1.22205313 -1.00887213 -0.89720827 -1.02202794 -0.97015595 -0.95247311
- -0.97499354]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[ 0.98057191  0.99823994  0.96659702  0.99282877  0.9156591   0.82267276
+  1.02068026  1.10293167  0.82374453 -0.35408906  0.35408906 -0.82374453
+ -1.10293167 -1.02068026 -0.82267276 -0.9156591  -0.99282877 -0.96659702
+ -0.99823994]
 </pre></div>
 </div>
 </div>
@@ -2113,11 +2136,11 @@ Mean: 0.50229 +/- 0.00170
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="../Airy_function_roots.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="Path_integrals_for_Quantum_Mechanics_emcee.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Calculate zeros of the Airy function and its derivative</p>
+            <p class="prev-next-title">Path integrals for quantum mechanics: using emcee</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="../External/harmonic_oscillator_Jendrzejewski.html" title="next page">

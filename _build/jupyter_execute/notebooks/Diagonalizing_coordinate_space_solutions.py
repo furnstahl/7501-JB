@@ -78,7 +78,7 @@ x_mesh = np.linspace(x_min, x_max, N_pts)  # create the grid ("mesh") of x point
 
 # Check that mesh is consistent with Delta_x
 print(Delta_x)
-print(x_mesh)
+#print(x_mesh)
 
 
 # Set up the derivative matrices for the specified mesh.
@@ -241,6 +241,12 @@ wf_2 = eigvecs[:,2]
 # In[17]:
 
 
+wf_0 - eigvecs[0]
+
+
+# In[18]:
+
+
 fig_new = plt.figure(figsize=(16,6))
 
 ax1 = fig_new.add_subplot(1,2,1)
@@ -256,40 +262,34 @@ ax1.plot(x_mesh, wf_2, color='green', label=r'$n=2$')
 ax1.legend();
 
 
-# In[18]:
+# In[19]:
 
 
 ktest = 0.8
 
 
-# In[19]:
-
-
-xsq_exp_val = wf_0 @ xsq_matrix(x_mesh) @ wf_0
-
-
 # In[20]:
-
-
-eikx_exp_val = wf_0 @ eikx_matrix(x_mesh, ktest) @ wf_0
-
-
-# In[21]:
 
 
 wf_0 @ wf_0
 
 
+# In[21]:
+
+
+wf_0 @ Hamiltonian @ wf_0
+
+
 # In[22]:
 
 
-print(eikx_exp_val)
+xsq_exp_val = wf_0 @ xsq_matrix(x_mesh) @ wf_0
 
 
 # In[23]:
 
 
-np.exp(-ktest**2 * xsq_exp_val / 2.)
+eikx_exp_val = wf_0 @ eikx_matrix(x_mesh, ktest) @ wf_0
 
 
 # In[ ]:
@@ -301,10 +301,23 @@ np.exp(-ktest**2 * xsq_exp_val / 2.)
 # In[24]:
 
 
+print(eikx_exp_val)
+
+
+# In[25]:
+
+
+np.exp(-ktest**2 * xsq_exp_val / 2.)
+
+
+# In[26]:
+
+
+print('  k             <e^{ikx}>          e^{-k^2<x^2>/2}     rel. error ')
 for k in np.arange(0, 3.2, .2):
     lhs = wf_0 @ eikx_matrix(x_mesh, k) @ wf_0 
     rhs = np.exp(-k**2 * xsq_exp_val / 2.)
-    print(f' {k:.2f}  {lhs:.5f}  {rhs:.5f}')
+    print(f' {k:.2f}  {lhs:.10f}   {rhs:.10f}      {rel_error(np.real(lhs), rhs):.5e}')
 
 
 # In[ ]:

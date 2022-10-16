@@ -49,10 +49,6 @@ def second_derivative_matrix(N, Delta_x):
     """
     M_temp = np.diag(np.ones(N-1), +1) + np.diag(np.ones(N-1), -1) \
               - 2 * np.diag(np.ones(N), 0)
-#     M_temp[0, 0] = -2
-#     M_temp[0, 1] = +2
-#     M_temp[N-1, N-1] = +2
-#     M_temp[N-1, N-2] = -2
 
     return M_temp / (Delta_x**2)
 
@@ -127,7 +123,7 @@ def rel_error(x1, x2):
     #return np.abs( (x1 - x2)  )
 
 
-# In[9]:
+# In[18]:
 
 
 fig = plt.figure(figsize=(12,6))
@@ -136,7 +132,7 @@ ax1 = fig.add_subplot(1,2,1)
 ax1.set_xlabel(r'$x$')
 ax1.set_ylabel(r'$df/dx$')
 #ax1.set_xlim(0, x_max)
-#ax1.set_ylim(-1., 3)
+ax1.set_ylim(-1., 3)
 
 ax1.plot(x_mesh, f_2nd_deriv_exact, color='red', label='exact 2nd derivative')
 ax1.plot(x_mesh, f_2nd_deriv, color='blue', label='approx 2nd derivative', linestyle='dashed')

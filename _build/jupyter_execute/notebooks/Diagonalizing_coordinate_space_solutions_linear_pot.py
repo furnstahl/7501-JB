@@ -67,8 +67,8 @@ def second_derivative_matrix(N, Delta_x):
 
 
 N_pts = 4001  
-x_min = -15.
-x_max = 15.
+x_min = -10.
+x_max = 10.
 Delta_x = (x_max - x_min) / (N_pts - 1)
 x_mesh = np.linspace(x_min, x_max, N_pts)  # create the grid ("mesh") of x points
 
@@ -272,7 +272,7 @@ wf_1 = eigvecs[:,1]
 wf_2 = eigvecs[:,2]
 
 
-# In[20]:
+# In[31]:
 
 
 fig = plt.figure(figsize=(16,6))
@@ -293,46 +293,91 @@ ax1.legend();
 # In[21]:
 
 
-ktest = 0.8
+fig = plt.figure(figsize=(16,6))
+
+ax1 = fig.add_subplot(1,2,1)
+ax1.set_xlabel(r'$x$')
+ax1.set_ylabel(r'$\psi_n(x)$')
+#ax1.set_xlim(0, x_max)
+#ax1.set_ylim(-1., 3)
+
+ax1.loglog(x_mesh, -np.log(wf_0), color='red', label=r'$n=0$')
+#ax1.plot(x_mesh, wf_1, color='blue', label=r'$n=1$')
+#ax1.plot(x_mesh, wf_2, color='green', label=r'$n=2$')
+
+ax1.legend();
 
 
-# In[33]:
+# In[22]:
 
 
-xsq_exp_val = wf_0.T @ xsq_matrix(x_mesh) @ wf_0
+test_psi = .2 * np.exp(-x_mesh**(3/2)) / x_mesh**(1/4)  # based on asymptotic formula
+
+fig2 = plt.figure(figsize=(16,6))
+
+ax1 = fig2.add_subplot(1,2,1)
+ax1.set_xlabel(r'$x$')
+ax1.set_ylabel(r'$-\log\psi_n(x)$')
+ax1.set_xlim(2e0, 4e1)
+ax1.set_ylim(3e0, 1e2)
+
+ax1.loglog(x_mesh, -np.log(wf_0), color='red', label=r'$n=0$')
+ax1.loglog(x_mesh, -np.log(test_psi), color='blue', label=r'test')
+#ax1.plot(x_mesh, wf_1, color='blue', label=r'$n=1$')
+#ax1.plot(x_mesh, wf_2, color='green', label=r'$n=2$')
+
+ax1.legend();
+
+
+# In[ ]:
+
+
+
 
 
 # In[23]:
 
 
-exp_xsq_exp_val = wf_0 @ exp_xsq_matrix(x_mesh, ktest) @ wf_0
+ktest = 0.8
 
 
 # In[24]:
 
 
-eikx_exp_val = wf_0 @ eikx_matrix(x_mesh, ktest) @ wf_0
+xsq_exp_val = wf_0.T @ xsq_matrix(x_mesh) @ wf_0
 
 
 # In[25]:
 
 
-wf_0 @ wf_0
+exp_xsq_exp_val = wf_0 @ exp_xsq_matrix(x_mesh, ktest) @ wf_0
 
 
 # In[26]:
 
 
-print(eikx_exp_val)
+eikx_exp_val = wf_0 @ eikx_matrix(x_mesh, ktest) @ wf_0
 
 
 # In[27]:
 
 
+wf_0 @ wf_0
+
+
+# In[28]:
+
+
+print(eikx_exp_val)
+
+
+# In[29]:
+
+
 np.exp(-ktest**2 * xsq_exp_val / 2.)
 
 
-# In[34]:
+# In[30]:
 
 
 for k in np.arange(0, 3.2, .2):
