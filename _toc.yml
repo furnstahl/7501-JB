@@ -22,7 +22,9 @@ parts:
     file: notebooks/Diagonalizing_coordinate_space.ipynb
   - title: Linear potential energies  
     file: notebooks/Airy_function_roots.ipynb
-  - title: Path integral explorations
+  - title: Path integral explorations: emcee
+    file: notebooks/Path_integrals/Path_integrals_for_Quantum_Mechanics_emcee.ipynb
+  - title: Path integral explorations: Metropolis
     file: notebooks/Path_integrals/Lepage_Lattice_QCD_for_Novices_code_selfcontained.ipynb
 
 - caption: External QM notebooks
