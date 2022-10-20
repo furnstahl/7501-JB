@@ -618,6 +618,13 @@ title="Print to PDF"
     <a class="reference internal nav-link" href="#try-with-zeus">
      Try with zeus
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#lets-look-at-some-paths">
+       Let’s look at some paths
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#trying-a-larger-lattice-spacing-a">
@@ -728,6 +735,13 @@ title="Print to PDF"
     <a class="reference internal nav-link" href="#try-with-zeus">
      Try with zeus
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#lets-look-at-some-paths">
+       Let’s look at some paths
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#trying-a-larger-lattice-spacing-a">
@@ -1419,7 +1433,7 @@ Mean acceptance fraction: 0.298 (in total 1000000 steps)
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1000000, 20)
-Average over 1000000 configurations is 0.50007
+Average over 1000000 configurations is 0.49964
 </pre></div>
 </div>
 </div>
@@ -1437,7 +1451,7 @@ Average over 1000000 configurations is 0.50007
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(50000, 20)
-Average over 50000 configurations is 0.49919
+Average over 50000 configurations is 0.49868
 </pre></div>
 </div>
 </div>
@@ -1537,9 +1551,9 @@ The setup is very similar to <code class="docutils literal notranslate"><span cl
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MCMC sampling using zeus (ensamble slice sampler) with 50 walkers
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling progress : 100%|████████████████████| 200/200 [00:01&lt;00:00, 140.82it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling progress : 100%|████████████████████| 200/200 [00:01&lt;00:00, 137.30it/s]
 Initialising ensemble of 50 walkers...
-Sampling progress : 100%|██████████████████| 1000/1000 [00:07&lt;00:00, 141.49it/s]
+Sampling progress : 100%|██████████████████| 1000/1000 [00:07&lt;00:00, 142.49it/s]
 </pre></div>
 </div>
 </div>
@@ -1557,7 +1571,7 @@ Sampling progress : 100%|██████████████████|
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(2500, 20)
-Average over 2500 thinned configurations is 0.50191
+Average over 2500 thinned configurations is 0.49798
 </pre></div>
 </div>
 </div>
@@ -1574,14 +1588,50 @@ Average over 2500 thinned configurations is 0.50191
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Average over 50000 configurations is 0.50095
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Average over 50000 configurations is 0.49784
 </pre></div>
 </div>
 </div>
 </div>
+<section id="lets-look-at-some-paths">
+<h4>Let’s look at some paths<a class="headerlink" href="#lets-look-at-some-paths" title="Permalink to this headline">#</a></h4>
+<p>That is, if we look at a particular index and all the second indices for a chain, e.g., <code class="docutils literal notranslate"><span class="pre">chain_thinned(1000,</span> <span class="pre">:)</span></code>, this is the series of <span class="math notranslate nohighlight">\(x\)</span> values at the <code class="docutils literal notranslate"><span class="pre">N_pts</span></code> values of <span class="math notranslate nohighlight">\(tau\)</span>. That is, it is one of the sampled paths. Here we look at <code class="docutils literal notranslate"><span class="pre">num_plots</span></code> paths. Try changing this number (e.g., to 20 or 200). The parameter <code class="docutils literal notranslate"><span class="pre">skip_points</span></code> determines where to start looking at paths.</p>
+<p>What happens if you use <code class="docutils literal notranslate"><span class="pre">chain</span></code> instead of <code class="docutils literal notranslate"><span class="pre">chain_thinned</span></code>?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot paths for each time point</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Delta_T = 0.25           # DeltaT --&gt; &quot;a&quot; in Lepage</span>
+<span class="c1"># N_pts = 20              # N_pts --&gt; &quot;N&quot; in Lepage </span>
+<span class="c1"># Tmax = Delta_T * N_pts   # Tmax --&gt; &quot;T&quot; in Lepage</span>
+<span class="c1"># Make an array</span>
+<span class="n">T_pts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">Tmax</span><span class="o">+</span><span class="n">Delta_T</span><span class="p">,</span><span class="n">Delta_T</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\tau$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">)</span>
+
+<span class="n">num_plots</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">jet</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">num_plots</span><span class="p">))</span><span class="c1"># Initialize holder for trajectories</span>
+<span class="k">for</span> <span class="n">plot_num</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_plots</span><span class="p">):</span>
+    <span class="n">skip_points</span> <span class="o">=</span> <span class="mi">1500</span>
+    <span class="n">chain_plot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">chain_thinned</span><span class="p">[</span><span class="n">plot_num</span> <span class="o">+</span> <span class="n">skip_points</span><span class="p">,:],</span> <span class="n">chain_thinned</span><span class="p">[</span><span class="n">plot_num</span> <span class="o">+</span> <span class="n">skip_points</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="c1">#    chain_plot = np.append(chain[plot_num + skip_points,:], chain[plot_num + skip_points,0])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">T_pts</span><span class="p">,</span> <span class="n">chain_plot</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">plot_num</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">T_pts</span><span class="p">,</span> <span class="n">chain_plot</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">plot_num</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">test_ho</span><span class="o">.</span><span class="n">V_string</span><span class="si">}</span><span class="s1"> with k_osc = </span><span class="si">{</span><span class="n">k_osc</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">, mass = </span><span class="si">{</span><span class="n">mass</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/Path_integrals_for_Quantum_Mechanics_emcee_46_0.png" src="../../_images/Path_integrals_for_Quantum_Mechanics_emcee_46_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot sequences of x values for each time point</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mf">1.5</span><span class="o">*</span><span class="n">ndim</span><span class="p">))</span>
 <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ndim</span><span class="p">):</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">subplot2grid</span><span class="p">((</span><span class="n">ndim</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
@@ -1594,7 +1644,25 @@ Average over 2500 thinned configurations is 0.50191
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/Path_integrals_for_Quantum_Mechanics_emcee_45_0.png" src="../../_images/Path_integrals_for_Quantum_Mechanics_emcee_45_0.png" />
+<img alt="../../_images/Path_integrals_for_Quantum_Mechanics_emcee_47_0.png" src="../../_images/Path_integrals_for_Quantum_Mechanics_emcee_47_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">T_pts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">Tmax</span><span class="o">+</span><span class="n">Delta_T</span><span class="p">,</span><span class="n">Delta_T</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">Delta_T</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">T_pts</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">T_pts</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.25
+(21,)
+[0.   0.25 0.5  0.75 1.   1.25 1.5  1.75 2.   2.25 2.5  2.75 3.   3.25
+ 3.5  3.75 4.   4.25 4.5  4.75 5.  ]
+</pre></div>
+</div>
 </div>
 </div>
 <div class="cell docutils container">
@@ -1611,7 +1679,7 @@ Average over 2500 thinned configurations is 0.50191
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/Path_integrals_for_Quantum_Mechanics_emcee_46_0.png" src="../../_images/Path_integrals_for_Quantum_Mechanics_emcee_46_0.png" />
+<img alt="../../_images/Path_integrals_for_Quantum_Mechanics_emcee_49_0.png" src="../../_images/Path_integrals_for_Quantum_Mechanics_emcee_49_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1624,7 +1692,7 @@ Average over 2500 thinned configurations is 0.50191
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/Path_integrals_for_Quantum_Mechanics_emcee_47_0.png" src="../../_images/Path_integrals_for_Quantum_Mechanics_emcee_47_0.png" />
+<img alt="../../_images/Path_integrals_for_Quantum_Mechanics_emcee_50_0.png" src="../../_images/Path_integrals_for_Quantum_Mechanics_emcee_50_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1636,20 +1704,21 @@ Average over 2500 thinned configurations is 0.50191
 </div>
 </div>
 </section>
+</section>
 <section id="trying-a-larger-lattice-spacing-a">
 <h3>Trying a larger lattice spacing a<a class="headerlink" href="#trying-a-larger-lattice-spacing-a" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Delta_T</span> <span class="o">=</span> <span class="mf">0.50</span>           <span class="c1"># Delta_T --&gt; &quot;a&quot; in Lepage</span>
-<span class="n">N_pts</span> <span class="o">=</span> <span class="mi">20</span>               <span class="c1"># N_pts --&gt; &quot;N&quot; in Lepage </span>
-<span class="n">Tmax</span> <span class="o">=</span> <span class="n">Delta_T</span> <span class="o">*</span> <span class="n">N_pts</span>   <span class="c1"># Tmax --&gt; &quot;T&quot; in Lepage</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Delta_T = 0.50           # Delta_T --&gt; &quot;a&quot; in Lepage</span>
+<span class="c1"># N_pts = 20               # N_pts --&gt; &quot;N&quot; in Lepage </span>
+<span class="c1"># Tmax = Delta_T * N_pts   # Tmax --&gt; &quot;T&quot; in Lepage</span>
 
-<span class="n">N_config</span> <span class="o">=</span> <span class="mi">4000</span>  <span class="c1"># We&#39;ll want to try 25, 100, 1000, 10000 </span>
-<span class="n">N_corr</span> <span class="o">=</span> <span class="mi">20</span>      <span class="c1"># Lepage recommends 20 or so </span>
-<span class="n">eps</span> <span class="o">=</span> <span class="mf">1.4</span>        <span class="c1"># suggested epsilon</span>
+<span class="c1"># N_config = 4000  # We&#39;ll want to try 25, 100, 1000, 10000 </span>
+<span class="c1"># N_corr = 20      # Lepage recommends 20 or so </span>
+<span class="c1"># eps = 1.4        # suggested epsilon</span>
 
-<span class="n">new_PI</span> <span class="o">=</span> <span class="n">PathIntegral</span><span class="p">(</span><span class="n">Delta_T</span><span class="o">=</span><span class="n">Delta_T</span><span class="p">,</span> <span class="n">N_pts</span><span class="o">=</span><span class="n">N_pts</span><span class="p">,</span> <span class="n">N_config</span><span class="o">=</span><span class="n">N_config</span><span class="p">,</span> 
-                      <span class="n">N_corr</span><span class="o">=</span><span class="n">N_corr</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="n">eps</span><span class="p">,</span> <span class="n">V_pot</span><span class="o">=</span><span class="n">test_ho</span><span class="p">)</span>
+<span class="c1"># new_PI = PathIntegral(Delta_T=Delta_T, N_pts=N_pts, N_config=N_config, </span>
+<span class="c1">#                       N_corr=N_corr, eps=eps, V_pot=test_ho)</span>
 </pre></div>
 </div>
 </div>
