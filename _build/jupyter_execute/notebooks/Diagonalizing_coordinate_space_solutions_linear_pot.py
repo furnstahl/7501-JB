@@ -254,10 +254,10 @@ eigvals, eigvecs = np.linalg.eigh(Hamiltonian)
 print(eigvals[0:10])
 
 
-# In[18]:
+# In[34]:
 
 
-ktest = 1/2
+ktest = 1/2 
 airy_deriv_zero = -1.018792971647471089017
 print(-airy_deriv_zero/2**(1/3) * (2*ktest**2)**(1/3))
 

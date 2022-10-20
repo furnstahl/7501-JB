@@ -16,7 +16,7 @@
 
 # ### Formal aspects
 # 
-# We start with a path integral representation for an imaginary-time evolution between position eigenstates in one spatial dimension:
+# We start with a path integral representation for an imaginary-time evolution between position eigenstates in one spatial dimension (here we use units where $\hbar = 1$):
 # 
 # $$
 #   \langle x_f | e^{-\widehat H(\tau_f - \tau_i)} | x_i \rangle = \int \mathcal{D}x(\tau)\, e^{-S[x(\tau)]}
@@ -299,8 +299,8 @@ class Potential:
     ----------
     hbar : float
         Planck's constant. Equals 1 by default
-    mu : float
-        Reduced mass. Equals 1 by default
+    mass : float
+        Particle mass. Equals 1 by default
 
     Methods
     -------
@@ -316,9 +316,9 @@ class Potential:
     plot_V(ax, x_pts)
         Plots the potential at x_pts on ax
     """
-    def __init__(self, hbar=1., mu=1., V_string=''):
+    def __init__(self, hbar=1., mass=1., V_string=''):
         self.hbar = hbar
-        self.mu = mu
+        self.mass = mass
         self.V_string = V_string
         
     def V(self, x):
@@ -358,9 +358,10 @@ class V_HO(Potential):
     Harmonic oscillator potential (subclass of Potential)
 
     """
-    def __init__(self, k_osc, hbar=1, mu=1, V_string='Harmonic oscillator'):
-        self.k_osc = 1
-        super().__init__(hbar, mu, V_string)
+    def __init__(self, k_osc, hbar=1, mass=1, V_string='Harmonic oscillator'):
+        self.k_osc = k_osc
+        self.mass = mass
+        super().__init__(hbar, mass, V_string)
 
     def V(self, x) :
         """Standard harmonic oscillator potential for particle at x"""
@@ -393,9 +394,10 @@ class V_aHO(Potential):
     -------
 
     """
-    def __init__(self, k_osc, hbar=1, mu=1, V_string='Anharmonic oscillator'):
+    def __init__(self, k_osc, hbar=1, mass=1, V_string='Anharmonic oscillator'):
         self.k_osc = 1
-        super().__init__(hbar, mu, V_string)
+        self.mass = mass
+        super().__init__(hbar, mass, V_string)
 
     def V(self, x) :
         """Anharmonic oscillator potential for particle at x"""
@@ -518,7 +520,7 @@ class PathIntegral:
             x_j = x_path[j]
             x_j_plus = x_path[j_plus]
             action = action + self.Delta_T * self.V_pot.V(x_j) \
-              + (self.V_pot.mu/(2*self.Delta_T)) * (x_j_plus - x_j)**2
+              + (self.V_pot.mass/(2*self.Delta_T)) * (x_j_plus - x_j)**2
         return action    
 
 
@@ -530,7 +532,7 @@ class PathIntegral:
         x_j = x_path[j]
         x_j_plus = x_path[j_plus]
         return self.Delta_T * self.V_pot.V(x_j) \
-          + (self.V_pot.mu/(2*self.Delta_T)) * (x_j_plus - x_j)**2
+          + (self.V_pot.mass/(2*self.Delta_T)) * (x_j_plus - x_j)**2
 
     
     def E_avg_over_paths(self, list_of_paths):
@@ -634,7 +636,7 @@ N_corr = 20      # Lepage recommends 20 or so
 ndim = N_pts  # number of parameters in the model
 nwalkers = 50  # number of MCMC walkers
 nburn = 50 * N_corr  # "burn-in" period to let chains stabilize
-nsteps = 20000  # number of MCMC steps to take
+nsteps = 10000  # number of MCMC steps to take
 
 # Uncomment to start at random locations within the prior volume
 # starting_guesses = min_theta + \
@@ -742,7 +744,7 @@ N_corr = 20      # Lepage recommends 20 or so
 ndim = N_pts  # number of parameters in the model
 nwalkers = 50  # number of MCMC walkers
 nburn = 10 * N_corr  # "burn-in" period to let chains stabilize
-nsteps = 1000  # number of MCMC steps to take
+nsteps = 10000  # number of MCMC steps to take
 
 # Uncomment to start at random locations within the prior volume
 # starting_guesses = min_theta + \
