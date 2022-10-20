@@ -790,7 +790,7 @@ print(f'Average over {int(nwalkers*nsteps)} configurations is {E_avg:.5f}')
 
 # #### Let's look at some paths
 # 
-# That is, if we look at a particular index and all the second indices for a chain, e.g., `chain_thinned(1000, :)`, this is the series of $x$ values at the `N_pts` values of $tau$. That is, it is one of the sampled paths. Here we look at `num_plots` paths. Try changing this number (e.g., to 20 or 200). The parameter `skip_points` determines where to start looking at paths.
+# That is, if we look at a particular index and all the second indices for a chain, e.g., `chain_thinned(1000, :)`, this is the series of $x$ values at the `N_pts` values of $\tau$. That is, it is one of the sampled paths. Here we look at `num_plots` paths. Try changing this number (e.g., to 20 or 200). The parameter `skip_points` determines where to start looking at paths.
 # 
 # What happens if you use `chain` instead of `chain_thinned`?
 
