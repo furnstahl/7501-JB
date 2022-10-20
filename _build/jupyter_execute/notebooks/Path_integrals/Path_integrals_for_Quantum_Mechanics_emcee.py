@@ -788,10 +788,44 @@ E_avg = new_PI.E_avg_over_paths(chain)
 print(f'Average over {int(nwalkers*nsteps)} configurations is {E_avg:.5f}')
 
 
+# #### Let's look at some paths
+# 
+# That is, if we look at a particular index and all the second indices for a chain, e.g., `chain_thinned(1000, :)`, this is the series of $x$ values at the `N_pts` values of $tau$. That is, it is one of the sampled paths. Here we look at `num_plots` paths. Try changing this number (e.g., to 20 or 200). The parameter `skip_points` determines where to start looking at paths.
+# 
+# What happens if you use `chain` instead of `chain_thinned`?
+
 # In[23]:
 
 
-# Plot paths for each time point
+# Delta_T = 0.25           # DeltaT --> "a" in Lepage
+# N_pts = 20              # N_pts --> "N" in Lepage 
+# Tmax = Delta_T * N_pts   # Tmax --> "T" in Lepage
+# Make an array
+T_pts = np.arange(0,Tmax+Delta_T,Delta_T)
+
+fig = plt.figure(figsize=(8,6))
+ax = fig.add_subplot(1,1,1)
+ax.set_xlabel(r'$\tau$')
+ax.set_ylabel(r'$x$')
+ax.set_ylim(-2.5, 2.5)
+
+num_plots = 10
+colors = plt.cm.jet(np.linspace(0,1,num_plots))# Initialize holder for trajectories
+for plot_num in range(num_plots):
+    skip_points = 1500
+    chain_plot = np.append(chain_thinned[plot_num + skip_points,:], chain_thinned[plot_num + skip_points,0])
+#    chain_plot = np.append(chain[plot_num + skip_points,:], chain[plot_num + skip_points,0])
+    ax.scatter(T_pts, chain_plot, color=colors[plot_num], marker='.', linewidth=3, alpha=1)
+    ax.plot(T_pts, chain_plot, color=colors[plot_num], alpha=0.3)
+
+ax.set_title(f'{test_ho.V_string} with k_osc = {k_osc:.1f}, mass = {mass:.1f}')
+fig.tight_layout()
+
+
+# In[24]:
+
+
+# Plot sequences of x values for each time point
 plt.figure(figsize=(16,1.5*ndim))
 for n in range(ndim):
     plt.subplot2grid((ndim, 1), (n, 0))
@@ -802,7 +836,16 @@ plt.tight_layout()
 plt.show()
 
 
-# In[24]:
+# In[25]:
+
+
+T_pts = np.arange(0,Tmax+Delta_T,Delta_T)
+print(Delta_T)
+print(T_pts.shape)
+print(T_pts)
+
+
+# In[26]:
 
 
 plt.figure(figsize=(16,1.5*ndim))
@@ -815,7 +858,7 @@ plt.tight_layout()
 plt.show()
 
 
-# In[25]:
+# In[27]:
 
 
 # make a corner plot with the posterior distribution
@@ -825,7 +868,7 @@ fig = corner.corner(chain, labels=labels,
 
 
 
-# In[26]:
+# In[28]:
 
 
 # # Try the zeus corner plot routine, using every 10
@@ -834,17 +877,17 @@ fig = corner.corner(chain, labels=labels,
 
 # ### Trying a larger lattice spacing a
 
-# In[27]:
+# In[29]:
 
 
-Delta_T = 0.50           # Delta_T --> "a" in Lepage
-N_pts = 20               # N_pts --> "N" in Lepage 
-Tmax = Delta_T * N_pts   # Tmax --> "T" in Lepage
+# Delta_T = 0.50           # Delta_T --> "a" in Lepage
+# N_pts = 20               # N_pts --> "N" in Lepage 
+# Tmax = Delta_T * N_pts   # Tmax --> "T" in Lepage
 
-N_config = 4000  # We'll want to try 25, 100, 1000, 10000 
-N_corr = 20      # Lepage recommends 20 or so 
-eps = 1.4        # suggested epsilon
+# N_config = 4000  # We'll want to try 25, 100, 1000, 10000 
+# N_corr = 20      # Lepage recommends 20 or so 
+# eps = 1.4        # suggested epsilon
 
-new_PI = PathIntegral(Delta_T=Delta_T, N_pts=N_pts, N_config=N_config, 
-                      N_corr=N_corr, eps=eps, V_pot=test_ho)
+# new_PI = PathIntegral(Delta_T=Delta_T, N_pts=N_pts, N_config=N_config, 
+#                       N_corr=N_corr, eps=eps, V_pot=test_ho)
 

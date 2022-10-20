@@ -57,13 +57,30 @@ def second_derivative_matrix(N, Delta_x):
     return M_temp / (Delta_x**2)
 
 
+# In[3]:
+
+
+def second_derivative_forward_matrix(N, Delta_x):
+    """
+    Return an N x N matrix for 2nd derivative of a vector equally spaced by delta_x
+    """
+    M_temp = np.diag(np.ones(N-2), +2) - 2 * np.diag(np.ones(N-1), +1) \
+              +1 * np.diag(np.ones(N), 0)
+#     M_temp[0, 0] = -2
+#     M_temp[0, 1] = +2
+#     M_temp[N-1, N-1] = +2
+#     M_temp[N-1, N-2] = -2
+
+    return M_temp / (Delta_x**2)
+
+
 # ## Testing second derivative
 # 
 # We'll check the relative accuracy of the approximate second derivative at a fixed $\Delta x$ by choosing a test function $f(x)$ and a range of $x$. 
 # 
 # **Choose values for `N_pts`, `x_min`, and `x_max` 
 
-# In[3]:
+# In[4]:
 
 
 N_pts = 801  
@@ -73,7 +90,7 @@ Delta_x = (x_max - x_min) / (N_pts - 1)
 x_mesh = np.linspace(x_min, x_max, N_pts)  # create the grid ("mesh") of x points
 
 
-# In[4]:
+# In[5]:
 
 
 # Check that mesh is consistent with Delta_x
@@ -83,15 +100,16 @@ print(Delta_x)
 
 # Set up the derivative matrices for the specified mesh.
 
-# In[5]:
+# In[6]:
 
 
 second_deriv = second_derivative_matrix(N_pts, Delta_x)
+second_deriv_forward = second_derivative_forward_matrix(N_pts, Delta_x)
 
 
 # ### Set up various test functions
 
-# In[6]:
+# In[7]:
 
 
 def f_test_0(x_mesh):
@@ -105,17 +123,18 @@ def f_test_0(x_mesh):
 # Pick one of the test functions and evaluate the function and its derivative on the mesh.
 # Then apply the forward difference (fd) and symmetric difference (sd) matrices to the `f_test` vector (using the `@` symbol for matrix-vector, matrix-matrix, and vector-vector multiplication).
 
-# In[7]:
+# In[8]:
 
 
 f_test, f_2nd_deriv_exact = f_test_0(x_mesh)
 
 f_2nd_deriv = second_deriv @ f_test
+f_2nd_deriv_forward = second_deriv_forward @ f_test
 
 
 # Make plots comparing the exact to approximate derivative and then the relative errors.
 
-# In[8]:
+# In[9]:
 
 
 def rel_error(x1, x2):
@@ -126,7 +145,7 @@ def rel_error(x1, x2):
     #return np.abs( (x1 - x2)  )
 
 
-# In[9]:
+# In[10]:
 
 
 fig = plt.figure(figsize=(12,6))
@@ -158,6 +177,41 @@ ax2.legend()
 fig.tight_layout()
 
 
+# In[13]:
+
+
+fig = plt.figure(figsize=(12,6))
+
+ax1 = fig.add_subplot(1,2,1)
+ax1.set_xlabel(r'$x$')
+ax1.set_ylabel(r'$df/dx$')
+#ax1.set_xlim(0, x_max)
+#ax1.set_ylim(-1., 3)
+
+ax1.plot(x_mesh, f_2nd_deriv_exact, color='green', label='exact 2nd derivative')
+ax1.plot(x_mesh, f_2nd_deriv_forward, color='blue', label='symmetric 2nd derivative', linestyle='dashed')
+ax1.plot(x_mesh, f_2nd_deriv_forward, color='red', label='forward 2nd derivative', linestyle='dashed')
+
+ax1.legend()
+
+ax2 = fig.add_subplot(1,2,2)
+ax2.set_xlabel(r'$x$')
+ax2.set_ylabel(r'relative error')
+ax2.set_xlim(0, x_max)
+ax2.set_ylim(1e-6, 2)
+
+# Calculate relative errors
+rel_error_2nd_deriv = rel_error(f_2nd_deriv_exact, f_2nd_deriv)
+rel_error_2nd_deriv_forward = rel_error(f_2nd_deriv_exact, f_2nd_deriv_forward)
+
+ax2.semilogy(x_mesh, rel_error_2nd_deriv, color='blue', label="symmetric f''(x)", linestyle='dotted')
+ax2.semilogy(x_mesh, rel_error_2nd_deriv_forward, color='red', label="forward f''(x)", linestyle='dashed')
+
+ax2.legend()
+
+fig.tight_layout()
+
+
 # ## Harmonic oscillator 
 # 
 # The Hamiltonian matrix is 
@@ -168,7 +222,7 @@ fig.tight_layout()
 # 
 # which we'll implement as a sum of matrices. We'll choose units so that $\hbar^2/2m = 1$ and $\hbar\omega = 1$.
 
-# In[10]:
+# In[ ]:
 
 
 def V_SHO_matrix(x_mesh):
@@ -182,7 +236,7 @@ def V_SHO_matrix(x_mesh):
     return V_diag * np.diag(np.ones(N), 0) 
 
 
-# In[11]:
+# In[ ]:
 
 
 def xsq_matrix(x_mesh):
@@ -194,7 +248,7 @@ def xsq_matrix(x_mesh):
     return x_mesh**2 * np.diag(np.ones(N), 0) 
 
 
-# In[12]:
+# In[ ]:
 
 
 def eikx_matrix(x_mesh, k):
@@ -206,7 +260,7 @@ def eikx_matrix(x_mesh, k):
     return np.exp(1j * k * x_mesh) * np.diag(np.ones(N), 0) 
 
 
-# In[13]:
+# In[ ]:
 
 
 # Combine matrices to make the Hamiltonian matrix
@@ -215,14 +269,14 @@ V_SHO = V_SHO_matrix(x_mesh)
 Hamiltonian = -second_deriv + V_SHO  
 
 
-# In[14]:
+# In[ ]:
 
 
 # Try diagonalizing using numpy functions
 eigvals, eigvecs = np.linalg.eigh(Hamiltonian)
 
 
-# In[15]:
+# In[ ]:
 
 
 print(eigvals[0:10])
@@ -230,7 +284,7 @@ print(eigvals[0:10])
 
 # Notice that they are all *above* the exact answer. Variational principle!
 
-# In[16]:
+# In[ ]:
 
 
 wf_0 = eigvecs[:,0]
@@ -238,13 +292,13 @@ wf_1 = eigvecs[:,1]
 wf_2 = eigvecs[:,2]
 
 
-# In[17]:
+# In[ ]:
 
 
 wf_0 - eigvecs[0]
 
 
-# In[18]:
+# In[ ]:
 
 
 fig_new = plt.figure(figsize=(16,6))
@@ -262,31 +316,31 @@ ax1.plot(x_mesh, wf_2, color='green', label=r'$n=2$')
 ax1.legend();
 
 
-# In[19]:
+# In[ ]:
 
 
 ktest = 0.8
 
 
-# In[20]:
+# In[ ]:
 
 
 wf_0 @ wf_0
 
 
-# In[21]:
+# In[ ]:
 
 
 wf_0 @ Hamiltonian @ wf_0
 
 
-# In[22]:
+# In[ ]:
 
 
 xsq_exp_val = wf_0 @ xsq_matrix(x_mesh) @ wf_0
 
 
-# In[23]:
+# In[ ]:
 
 
 eikx_exp_val = wf_0 @ eikx_matrix(x_mesh, ktest) @ wf_0
@@ -298,19 +352,19 @@ eikx_exp_val = wf_0 @ eikx_matrix(x_mesh, ktest) @ wf_0
 
 
 
-# In[24]:
+# In[ ]:
 
 
 print(eikx_exp_val)
 
 
-# In[25]:
+# In[ ]:
 
 
 np.exp(-ktest**2 * xsq_exp_val / 2.)
 
 
-# In[26]:
+# In[ ]:
 
 
 print('  k             <e^{ikx}>          e^{-k^2<x^2>/2}     rel. error ')
