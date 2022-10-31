@@ -20,6 +20,8 @@ parts:
     file: notebooks/Scaling_of_derivative_errors.ipynb
   - title: Diagonalizing in coordinate space
     file: notebooks/Diagonalizing_coordinate_space.ipynb
+  - title: Diagonalizing with SHO basis
+    file: notebooks/Diagonalizing_in_basis_and_variational_method.ipynb
   - title: Linear potential energies  
     file: notebooks/Airy_function_roots.ipynb
   - title: Path integral explorations -- emcee
