@@ -283,7 +283,7 @@ import seaborn as sns; sns.set_style("darkgrid"); sns.set_context("talk")  # set
 
 # ## 1-d potential class
 
-# In[4]:
+# In[2]:
 
 
 class Potential:
@@ -294,8 +294,8 @@ class Potential:
     ----------
     hbar : float
         Planck's constant. Equals 1 by default
-    mu : float
-        Reduced mass. Equals 1 by default
+    mass : float
+        Equals 1 by default
 
     Methods
     -------
@@ -311,9 +311,9 @@ class Potential:
     plot_V(ax, x_pts)
         Plots the potential at x_pts on ax
     """
-    def __init__(self, hbar=1., mu=1., V_string=''):
+    def __init__(self, hbar, mass, V_string=''):
         self.hbar = hbar
-        self.mu = mu
+        self.mass = mass
         self.V_string = V_string
         
     def V(self, x):
@@ -345,7 +345,7 @@ class Potential:
 # 
 # We'll do the one-dimensional harmonic oscillator (ho), by default in units where the basic quantities are all unity.  In these units, the energies should be (n+1/2), where n = 0,1,2,3,...).  
 
-# In[5]:
+# In[3]:
 
 
 class V_HO(Potential):
@@ -353,9 +353,9 @@ class V_HO(Potential):
     Harmonic oscillator potential (subclass of Potential)
 
     """
-    def __init__(self, k_osc=1, hbar=1, mu=1, V_string='Harmonic oscillator'):
-        self.k_osc = 1
-        super().__init__(hbar, mu, V_string)
+    def __init__(self, k_osc, hbar, mass, V_string='Harmonic oscillator'):
+        self.k_osc = 1/2
+        super().__init__(hbar, mass, V_string)
 
     def V(self, x) :
         """Standard harmonic oscillator potential for particle at x"""
@@ -374,7 +374,7 @@ class V_HO(Potential):
         return np.exp(-x**2 / 2) / np.pi**(1/4)  # We should  put the units back!
 
 
-# In[6]:
+# In[4]:
 
 
 class V_aHO(Potential):
@@ -388,16 +388,16 @@ class V_aHO(Potential):
     -------
 
     """
-    def __init__(self, k_osc=1, hbar=1, mu=1, V_string='Anharmonic oscillator'):
-        self.k_osc = 1
-        super().__init__(hbar, mu, V_string)
+    def __init__(self, k_osc, hbar, mass, V_string='Anharmonic oscillator'):
+        self.k_osc = k_osc
+        super().__init__(hbar, mass, V_string)
 
     def V(self, x) :
         """Anharmonic oscillator potential for particle at x"""
         return self.k_osc * x**4 /2
 
 
-# In[7]:
+# In[5]:
 
 
 class V_linear(Potential):
@@ -411,16 +411,16 @@ class V_linear(Potential):
     -------
 
     """
-    def __init__(self, k_linear=1, hbar=1, mu=1, V_string='Linear potential'):
+    def __init__(self, k_linear, hbar, mass, V_string='Linear potential'):
         self.k_linear = k_linear
-        super().__init__(hbar, mu, V_string)
+        super().__init__(hbar, mass, V_string)
 
     def V(self, x) :
         """LInear potential for particle at x"""
         return self.k_linear * np.abs(x) /2
 
 
-# In[8]:
+# In[6]:
 
 
 class V_Morse(Potential):
@@ -434,9 +434,9 @@ class V_Morse(Potential):
     -------
 
     """
-    def __init__(self, k_osc=1, hbar=1, mu=1, V_string='Morse potential'):
-        self.k_osc = 1
-        super().__init__(hbar, mu, V_string)
+    def __init__(self, k_osc=1/2, hbar=1, mass=1/2, V_string='Morse potential'):
+        self.k_osc = k_osc
+        super().__init__(hbar, mass, V_string)
 
     def V(self, x) :
         """Morse potential for particle at x"""
@@ -445,42 +445,21 @@ class V_Morse(Potential):
 
 # ### Make some plots
 
-# In[9]:
+# In[47]:
 
 
 # Instantiate a harmonic oscillator potential
-mass = 1.  
-k_osc = 1.  # oscillator constant 
+mass = 1 
+k_osc = 1/4*1/2  # oscillator constant 
 hbar = 1. 
 
-test_ho = V_HO(k_osc, hbar, mass)
-test_aho = V_aHO(k_osc, hbar, mass)
-test_linear = V_linear(k_osc, hbar, mass)
+#test_ho = V_HO(k_osc, hbar, mass)
+test_aho1 = V_aHO(k_osc=k_osc, hbar=hbar, mass=mass)
+#test_linear = V_linear(k_osc, hbar, mass)
+#test_ho = test_aho
 
 
-# In[10]:
-
-
-# Check the wave function and potential
-x_pts_all = np.arange(-4., 4., .01)
-
-fig = plt.figure(figsize=(8,6))
-ax = fig.add_subplot(1,1,1)
-ax.set_xlabel(r'x')
-#ax.set_ylabel(r'g(x)')
-ax.set_xlim(-4., 4.)
-ax.set_ylim(-0.1, 1.)
-ax.axhline(0., color='black', alpha=0.5, linestyle='dotted')
-
-test_ho.plot_V(ax, x_pts_all, V_label='HO potential')
-ax.plot(x_pts_all, test_ho.wf_gs(x_pts_all), color='red', alpha=1, label='gs wf')
-
-ax.set_title(f'{test_ho.V_string} with k_osc = {k_osc:.1f}, mass = {mass:.1f}')
-ax.legend()
-fig.tight_layout()
-
-
-# In[11]:
+# In[48]:
 
 
 # Check the wave function and potential
@@ -494,19 +473,41 @@ ax.set_xlim(-4., 4.)
 ax.set_ylim(-0.1, 1.)
 ax.axhline(0., color='black', alpha=0.5, linestyle='dotted')
 
-test_linear.plot_V(ax, x_pts_all, V_label='Linear potential')
+test_aho1.plot_V(ax, x_pts_all, V_label=test_aho1.V_string)
 #ax.plot(x_pts_all, test_ho.wf_gs(x_pts_all), color='red', alpha=1, label='gs wf')
 
-ax.set_title(f'{test_ho.V_string} with k_linear = {k_osc:.1f}, mass = {mass:.1f}')
+ax.set_title(f'{test_aho1.V_string} with k_osc = {k_osc:.1f}, mass = {mass:.1f}')
 ax.legend()
 fig.tight_layout()
 
 
-# In[12]:
+# In[49]:
+
+
+# # Check the wave function and potential
+# x_pts_all = np.arange(-4., 4., .01)
+
+# fig = plt.figure(figsize=(8,6))
+# ax = fig.add_subplot(1,1,1)
+# ax.set_xlabel(r'x')
+# #ax.set_ylabel(r'g(x)')
+# ax.set_xlim(-4., 4.)
+# ax.set_ylim(-0.1, 1.)
+# ax.axhline(0., color='black', alpha=0.5, linestyle='dotted')
+
+# test_linear.plot_V(ax, x_pts_all, V_label='Linear potential')
+# #ax.plot(x_pts_all, test_ho.wf_gs(x_pts_all), color='red', alpha=1, label='gs wf')
+
+# ax.set_title(f'{test_ho.V_string} with k_linear = {k_osc:.1f}, mass = {mass:.1f}')
+# ax.legend()
+# fig.tight_layout()
+
+
+# In[50]:
 
 
 # Normalization check of wave function squared
-integrate.simps(test_ho.wf_gs(x_pts_all)**2, x_pts_all)
+#integrate.simps(test_ho.wf_gs(x_pts_all)**2, x_pts_all)
 
 
 # ## Metropolis calculation (section 2.2 of Lepage lectures)
@@ -538,7 +539,7 @@ integrate.simps(test_ho.wf_gs(x_pts_all)**2, x_pts_all)
 
 # ## Class for path integral
 
-# In[13]:
+# In[51]:
 
 
 # Modules needed for example: emcee is for MCMCsampling, corner for plotting
@@ -548,7 +549,7 @@ import corner
 import zeus    # conda install -c conda-forge zeus-mcmc
 
 
-# In[14]:
+# In[52]:
 
 
 class PathIntegral:
@@ -575,6 +576,7 @@ class PathIntegral:
         self.eps = eps
         
         self.V_pot = V_pot  # member of Potential class
+        print('Potential is ', self.V_pot.V_string)
         
         #self.x_path = np.zeros(self.N_pts)
         #self.list_of_paths = 
@@ -601,7 +603,7 @@ class PathIntegral:
             x_j = x_path[j]
             x_j_plus = x_path[j_plus]
             action = action + self.Delta_T * self.V_pot.V(x_j) \
-              + (self.V_pot.mu/(2*self.Delta_T)) * (x_j_plus - x_j)**2
+              + (self.V_pot.mass/(2*self.Delta_T)) * (x_j_plus - x_j)**2
         return action    
 
     def S_lattice_j(self, x_path, j):
@@ -615,7 +617,7 @@ class PathIntegral:
         x_j_plus = x_path[j_plus]
         
         return self.Delta_T * self.V_pot.V(x_j) \
-               + self.V_pot.mu * x_j * \
+               + self.V_pot.mass * x_j * \
                  (x_j - x_j_plus - x_j_minus) / self.Delta_T            
 
     def update(self, x_path):
@@ -646,7 +648,7 @@ class PathIntegral:
         x_j = x_path[j]
         x_j_plus = x_path[j_plus]
         return self.Delta_T * self.V_pot.V(x_j) \
-          + (self.V_pot.mu/(2*self.Delta_T)) * (x_j_plus - x_j)**2
+          + (self.V_pot.mass/(2*self.Delta_T)) * (x_j_plus - x_j)**2
     
     def display_x_path(self, x_path):
         """Print out x_path"""
@@ -713,7 +715,7 @@ class PathIntegral:
 
 # ### Discretize time 
 
-# In[15]:
+# In[53]:
 
 
 Delta_T = 0.25           # DeltaT --> "a" in Lepage
@@ -723,7 +725,7 @@ Tmax = Delta_T * N_pts   # Tmax --> "T" in Lepage
 
 # ### Set the number of configurations to generate (Nconfig) and the correlation time (Ncorr)
 
-# In[16]:
+# In[54]:
 
 
 N_config = 100   # We'll want to try 25, 100, 1000, 10000 
@@ -742,39 +744,40 @@ eps = 1.4  # suggested epsilon
 # 
 # Ok, let's set it up!  
 
-# In[17]:
+# In[55]:
 
 
-# Instantiate a harmonic oscillator potential
-mass = 1.  
-k_osc = 1.  # oscillator constant 
-hbar = 1. 
+# # Instantiate a harmonic oscillator potential
+# mass = 1/2  
+# k_osc = 1/2  # oscillator constant 
+# hbar = 1. 
 
-test_ho = V_HO(k_osc, hbar, mass)
-test_aho = V_aHO(k_osc, hbar, mass)
-
-
-# In[18]:
+#test_ho = V_HO(k_osc=k_osc, hbar=hbar, mass=mass)
+test_aho = V_aHO(k_osc=k_osc, hbar=hbar, mass=mass)
 
 
-testPI = PathIntegral(V_pot=test_ho)
+# In[56]:
 
 
-# In[19]:
+#testPI = PathIntegral(V_pot=test_ho)
+testPI = PathIntegral(V_pot=test_aho)
+
+
+# In[57]:
 
 
 x_path = testPI.initialize(eps=.1)
 testPI.display_x_path(x_path)
 
 
-# In[20]:
+# In[58]:
 
 
 testPI.update(x_path)
 testPI.display_x_path(x_path)
 
 
-# In[21]:
+# In[59]:
 
 
 Delta_T = 0.25           # Delta_T --> "a" in Lepage
@@ -786,14 +789,14 @@ N_corr = 20      # Lepage recommends 20 or so
 eps = 1.4        # suggested epsilon
 
 new_PI = PathIntegral(Delta_T=Delta_T, N_pts=N_pts, N_config=N_config, 
-                      N_corr=N_corr, eps=eps, V_pot=test_ho)
+                      N_corr=N_corr, eps=eps, V_pot=test_aho)
 
 list_of_paths = new_PI.MC_paths()
 
 #print(f'Energy = {E_mean:.5f} +/- {E_sem:.5f}')
 
 
-# In[22]:
+# In[60]:
 
 
 print(list_of_paths.shape)
@@ -803,16 +806,16 @@ print(f'Average over {N_config} configurations is {E_avg:.5f}')
 
 # At this point we could increase Nconfig to get a better answer or run it many times and average:
 
-# In[23]:
+# In[21]:
 
 
 new_PI = PathIntegral(Delta_T=Delta_T, N_pts=N_pts, N_config=N_config, 
-                      N_corr=N_corr, eps=eps, V_pot=test_ho)
+                      N_corr=N_corr, eps=eps, V_pot=test_aho)
 
 list_of_paths = new_PI.MC_paths()
 
 
-# In[24]:
+# In[22]:
 
 
 def energy_avg(N_trials, N_config_each):
@@ -820,7 +823,7 @@ def energy_avg(N_trials, N_config_each):
     Return the mean and standard deviation of N_trials of the energy
     """
     my_PI = PathIntegral(Delta_T=Delta_T, N_pts=N_pts, N_config=N_config_each, 
-                      N_corr=N_corr, eps=eps, V_pot=test_ho)
+                      N_corr=N_corr, eps=eps, V_pot=test_aho)
     E_list = np.zeros(N_trials)
     for i in range(N_trials):
         short_list = my_PI.MC_paths()
@@ -831,21 +834,21 @@ def energy_avg(N_trials, N_config_each):
     return E_mean, E_std, E_std / np.sqrt(N_trials)
 
 
-# In[25]:
+# In[23]:
 
 
 E_mean, E_std, E_sem = energy_avg(20, 100)
 print(f'Energy = {E_mean:.5f} +/- {E_sem:.5f}')
 
 
-# In[26]:
+# In[24]:
 
 
 energy_means = []
 energy_stds = []
 energy_sems = []
 
-N_trials = 100
+N_trials = 5
 for i in range(N_trials):
     # energy_avg()
     E_mean, E_std, E_sem = energy_avg(10, 100) # average over 10 
@@ -855,7 +858,7 @@ for i in range(N_trials):
     energy_sems = np.append(energy_sems, E_sem)    
 
 
-# In[27]:
+# In[25]:
 
 
 # Make a histogram plot of the energy and compare to expected width
@@ -886,11 +889,11 @@ fig.tight_layout()
 # 
 # We'll take $\theta$ to be the values of $x$ at each of the `N_pts` time points. We'll choose the prior to be uniform in a reasonable range of $x$. Lepage suggests $-5 \leq x \leq +5$ is large enough to have negligible effect. Here `X` will be data.
 
-# In[28]:
+# In[26]:
 
 
-x_min = -5.
-x_max = +5.
+x_min = -20.
+x_max = +20.
 min_theta = x_min * np.ones(N_pts)
 max_theta = x_max * np.ones(N_pts)
 volume_theta=np.prod(max_theta-min_theta)
@@ -918,16 +921,16 @@ def log_posterior(theta, path_integral):
     return log_prior(theta) + log_likelihood(theta, path_integral)
 
 
-# In[29]:
+# In[27]:
 
 
-path_integral = new_PI
-N_corr = 20      # Lepage recommends 20 or so 
+#path_integral = new_PI
+N_corr = 200      # Lepage recommends 20 or so 
 
 ndim = N_pts  # number of parameters in the model
-nwalkers = 50  # number of MCMC walkers
-nburn = 50 * N_corr  # "burn-in" period to let chains stabilize
-nsteps = 20000  # number of MCMC steps to take
+nwalkers = 100  # number of MCMC walkers
+nburn = 5 * N_corr  # "burn-in" period to let chains stabilize
+nsteps = 10000  # number of MCMC steps to take
 
 # we'll start at random locations within the prior volume
 # we'll change this to normal distribution
@@ -936,7 +939,7 @@ nsteps = 20000  # number of MCMC steps to take
 starting_guesses = (x_max/10) * np.random.randn(nwalkers,ndim)
 
 print(f"MCMC sampling using emcee (affine-invariant ensamble sampler) with {nwalkers} walkers")
-sampler = emcee.EnsembleSampler(nwalkers, ndim, log_posterior, args=[path_integral])
+sampler = emcee.EnsembleSampler(nwalkers, ndim, log_posterior, args=[new_PI])
 
 # "burn-in" period; save final positions and then reset
 pos, prob, state = sampler.run_mcmc(starting_guesses, nburn)
@@ -952,14 +955,14 @@ print("Mean acceptance fraction: {0:.3f} (in total {1} steps)"
 samples = sampler.chain.reshape((-1, ndim))
 
 
-# In[30]:
+# In[28]:
 
 
 # tau = sampler.get_autocorr_time()
 # print(tau)
 
 
-# In[31]:
+# In[29]:
 
 
 print(samples.shape)
@@ -967,7 +970,7 @@ E_avg = new_PI.E_avg_over_paths(samples)
 print(f'Average over {int(nwalkers*nsteps)} configurations is {E_avg:.5f}')
 
 
-# In[32]:
+# In[30]:
 
 
 samples_thinned = sampler.get_chain(discard=0, flat=True, thin=N_corr)
@@ -977,7 +980,7 @@ E_avg = new_PI.E_avg_over_paths(samples_thinned)
 print(f'Average over {int(nwalkers*nsteps/N_corr)} configurations is {E_avg:.5f}')
 
 
-# In[33]:
+# In[31]:
 
 
 # make a corner plot with the posterior distribution
@@ -988,7 +991,7 @@ fig = corner.corner(samples_thinned, labels=labels,
                     show_titles=True, title_kwargs={"fontsize": 12})
 
 
-# In[34]:
+# In[68]:
 
 
 # Check the wave function and potential
@@ -1003,12 +1006,13 @@ ax.set_xlim(-4., 4.)
 ax.axhline(0., color='black', alpha=0.5, linestyle='dotted')
 
 #test_ho.plot_V(ax, x_pts_all, V_label='HO potential')
-ax.plot(x_pts_all, test_ho.wf_gs(x_pts_all)**2, color='red', alpha=1, label=fr'(gs wf)${{}}^2$')
+#ax.plot(x_pts_all, test_ho.wf_gs(x_pts_all)**2, color='red', alpha=1, label=fr'(gs wf)${{}}^2$')
 #ax.hist(samples[:,3], bins=np.arange(x_min, x_max, .1), density=True)
 ax.hist(samples.flatten(), bins=np.arange(x_min, x_max, .1), density=True)
 #ax.hist(samples[:,1], bins=100, density=True)
+#ax.plot(x_mesh_test, wf_0_test, color='red')
 
-ax.set_title(f'{test_ho.V_string} with k_osc = {k_osc:.1f}, mass = {mass:.1f}')
+ax.set_title(f'{test_aho.V_string} with k_osc = {k_osc:.1f}, mass = {mass:.1f}')
 ax.legend()
 fig.tight_layout()
 
@@ -1021,21 +1025,21 @@ fig.tight_layout()
 
 # ### Try with zeus
 
-# In[35]:
+# In[33]:
 
 
 import zeus
 
 
-# In[36]:
+# In[34]:
 
 
-path_integral = new_PI
-N_corr = 20      # Lepage recommends 20 or so 
+#path_integral = new_PI
+N_corr = 200      # Lepage recommends 20 or so 
 
 ndim = N_pts  # number of parameters in the model
-nwalkers = 50  # number of MCMC walkers
-nburn = 10 * N_corr  # "burn-in" period to let chains stabilize
+nwalkers = 100  # number of MCMC walkers
+nburn = 2 * N_corr  # "burn-in" period to let chains stabilize
 nsteps = 1000  # number of MCMC steps to take
 
 # we'll start at random locations within the prior volume
@@ -1047,7 +1051,7 @@ starting_guesses = (x_max/10) * np.random.randn(nwalkers,ndim)
 
 # Do the burn-in with nburn steps
 print(f"MCMC sampling using zeus (ensamble slice sampler) with {nwalkers} walkers")
-sampler = zeus.EnsembleSampler(nwalkers, ndim, log_posterior, args=[path_integral])
+sampler = zeus.EnsembleSampler(nwalkers, ndim, log_posterior, args=[new_PI])
 sampler.run_mcmc(starting_guesses, nburn)
 
 # Get the burn-in samples
@@ -1057,11 +1061,11 @@ burnin = sampler.get_chain()
 starting_guesses = burnin[-1]
 
 # now do the post-burn-in sampling with nsteps steps
-sampler = zeus.EnsembleSampler(nwalkers, ndim, log_posterior, args=[path_integral])
+sampler = zeus.EnsembleSampler(nwalkers, ndim, log_posterior, args=[new_PI])
 sampler.run_mcmc(starting_guesses, nsteps)
 
 
-# In[37]:
+# In[35]:
 
 
 chain_thinned = sampler.get_chain(discard=0, flat=True, thin=N_corr)
@@ -1071,7 +1075,7 @@ E_avg = new_PI.E_avg_over_paths(chain_thinned)
 print(f'Average over {int(nwalkers*nsteps/N_corr)} configurations is {E_avg:.5f}')
 
 
-# In[38]:
+# In[36]:
 
 
 chain = sampler.get_chain(flat=True, discard=0, thin=1)
@@ -1081,7 +1085,7 @@ E_avg = new_PI.E_avg_over_paths(chain)
 print(f'Average over {int(nwalkers*nsteps)} configurations is {E_avg:.5f}')
 
 
-# In[39]:
+# In[37]:
 
 
 plt.figure(figsize=(16,1.5*ndim))
@@ -1094,7 +1098,7 @@ plt.tight_layout()
 plt.show()
 
 
-# In[40]:
+# In[38]:
 
 
 plt.figure(figsize=(16,1.5*ndim))
@@ -1107,7 +1111,7 @@ plt.tight_layout()
 plt.show()
 
 
-# In[41]:
+# In[39]:
 
 
 # make a corner plot with the posterior distribution
@@ -1117,7 +1121,7 @@ fig = corner.corner(chain, labels=labels,
 
 
 
-# In[42]:
+# In[40]:
 
 
 # # Try the zeus corner plot routine, using every 10
@@ -1126,7 +1130,7 @@ fig = corner.corner(chain, labels=labels,
 
 # ### Trying a larger lattice spacing a
 
-# In[43]:
+# In[41]:
 
 
 Delta_T = 0.50           # Delta_T --> "a" in Lepage
@@ -1138,10 +1142,10 @@ N_corr = 20      # Lepage recommends 20 or so
 eps = 1.4        # suggested epsilon
 
 new_PI = PathIntegral(Delta_T=Delta_T, N_pts=N_pts, N_config=N_config, 
-                      N_corr=N_corr, eps=eps, V_pot=test_ho)
+                      N_corr=N_corr, eps=eps, V_pot=test_aho)
 
 
-# In[44]:
+# In[42]:
 
 
 list_of_paths = new_PI.MC_paths()
@@ -1151,7 +1155,7 @@ E_avg = new_PI.E_avg_over_paths(list_of_paths)
 print(f'Average over {N_config} configurations is {E_avg:.5f}')
 
 
-# In[45]:
+# In[43]:
 
 
 E_avg_test = np.array([new_PI.Gamma_avg_over_paths(new_PI.H_lattice_j, n, list_of_paths) for n in range(N_pts)])
@@ -1161,7 +1165,7 @@ print(f'Average over {N_config} configurations at each n: ', E_avg_test)
 print(f'\nMean: {np.mean(E_avg_test):.5f} +/- {np.std(E_avg_test)/np.sqrt(N_pts):.5f}')
 
 
-# In[46]:
+# In[44]:
 
 
 g_avg_test = np.array([new_PI.Gamma_avg_over_paths(new_PI.compute_G, n, list_of_paths) for n in range(N_pts)])
@@ -1169,14 +1173,14 @@ g_avg_test = np.array([new_PI.Gamma_avg_over_paths(new_PI.compute_G, n, list_of_
 print(g_avg_test)
 
 
-# In[47]:
+# In[45]:
 
 
 DeltaE = np.array([np.log(g_avg_test[n] / g_avg_test[n+1]) / Delta_T for n in range(N_pts-1)])
 print(DeltaE)
 
 
-# In[48]:
+# In[46]:
 
 
 # Check the wave function and potential

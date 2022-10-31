@@ -377,7 +377,10 @@ class V_HO(Potential):
         """
         1D harmonic oscillator ground-state wave function
         """
-        return np.exp(-x**2 / 2) / np.pi**(1/4)  # We should  put the units back!
+        omega = np.sqrt(self.k_osc / self.mass)
+        const = self.mass * omega / self.hbar   # m * omega**2
+        norm = (self.mass * omega / (np.pi * hbar))**(1/4)
+        return norm * np.exp(-const * x**2 / 2)   # We should  put the units back!
 
 
 # In[4]:
@@ -796,7 +799,7 @@ print(f'Average over {int(nwalkers*nsteps)} configurations is {E_avg:.5f}')
 # 
 # What happens if you use `chain` instead of `chain_thinned`?
 
-# In[23]:
+# In[47]:
 
 
 # Delta_T = 0.25           # DeltaT --> "a" in Lepage
@@ -811,12 +814,42 @@ ax.set_xlabel(r'$\tau$')
 ax.set_ylabel(r'$x$')
 ax.set_ylim(-2.5, 2.5)
 
-num_plots = 10
+num_plots = 20
 colors = plt.cm.jet(np.linspace(0,1,num_plots))# Initialize holder for trajectories
 for plot_num in range(num_plots):
     skip_points = 1500
     chain_plot = np.append(chain_thinned[plot_num + skip_points,:], chain_thinned[plot_num + skip_points,0])
 #    chain_plot = np.append(chain[plot_num + skip_points,:], chain[plot_num + skip_points,0])
+    ax.scatter(T_pts, chain_plot, color=colors[plot_num], marker='.', linewidth=3, alpha=1)
+    ax.plot(T_pts, chain_plot, color=colors[plot_num], alpha=0.3)
+
+ax.set_title(f'{test_ho.V_string} with k_osc = {k_osc:.1f}, mass = {mass:.1f}')
+fig.tight_layout()
+
+
+# #### Let's go ahead with the unthinned chain. Highly correlated!
+
+# In[46]:
+
+
+# Delta_T = 0.25           # DeltaT --> "a" in Lepage
+# N_pts = 20              # N_pts --> "N" in Lepage 
+# Tmax = Delta_T * N_pts   # Tmax --> "T" in Lepage
+# Make an array
+T_pts = np.arange(0,Tmax+Delta_T,Delta_T)
+
+fig = plt.figure(figsize=(8,6))
+ax = fig.add_subplot(1,1,1)
+ax.set_xlabel(r'$\tau$')
+ax.set_ylabel(r'$x$')
+ax.set_ylim(-2.5, 2.5)
+
+num_plots = 20
+colors = plt.cm.jet(np.linspace(0,1,num_plots))# Initialize holder for trajectories
+for plot_num in range(num_plots):
+    skip_points = 1500
+#    chain_plot = np.append(chain_thinned[plot_num + skip_points,:], chain_thinned[plot_num + skip_points,0])
+    chain_plot = np.append(chain[plot_num + skip_points,:], chain[plot_num + skip_points,0])
     ax.scatter(T_pts, chain_plot, color=colors[plot_num], marker='.', linewidth=3, alpha=1)
     ax.plot(T_pts, chain_plot, color=colors[plot_num], alpha=0.3)
 

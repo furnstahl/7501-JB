@@ -360,7 +360,6 @@ class V_HO(Potential):
     """
     def __init__(self, k_osc, hbar=1, mass=1, V_string='Harmonic oscillator'):
         self.k_osc = k_osc
-        self.mass = mass
         super().__init__(hbar, mass, V_string)
 
     def V(self, x) :
@@ -420,13 +419,13 @@ class V_linear(Potential):
     -------
 
     """
-    def __init__(self, k_osc, hbar=1, mass=1, V_string='Anharmonic oscillator'):
+    def __init__(self, k_osc, hbar=1, mass=1, V_string='Linear Potential'):
         self.k_osc = k_osc
-        self.mass = mass
         super().__init__(hbar, mass, V_string)
+        print(f'{self.V_string}: hbar = {self.hbar}, mass = {self.mass}, k = {self.k_osc}')
 
     def V(self, x) :
-        """Anharmonic oscillator potential for particle at x"""
+        """Linear potential for particle at x"""
         return self.k_osc * np.abs(x)
 
 
@@ -436,12 +435,12 @@ class V_linear(Potential):
 
 
 # Instantiate a harmonic oscillator potential
-mass = 1/2  #1.  
-k_osc = 1/2  #1.  # oscillator constant 
+mass = 1/2 #1.  
+k_osc = 1/2  # 1/2  #1.  # oscillator constant 
 hbar = 1. 
 
-test_ho = V_HO(k_osc, hbar, mass)
-test_aho = V_aHO(k_osc, hbar, mass)
+#test_ho = V_HO(k_osc, hbar, mass)
+test_ho = V_aHO(k_osc, hbar, mass)
 #test_ho = V_linear(k_osc, hbar, mass)
 
 
@@ -459,7 +458,7 @@ ax.set_xlim(-4., 4.)
 ax.set_ylim(-0.1, 1.)
 ax.axhline(0., color='black', alpha=0.5, linestyle='dotted')
 
-test_ho.plot_V(ax, x_pts_all, V_label='HO potential')
+test_ho.plot_V(ax, x_pts_all, V_label=test_ho.V_string)
 #ax.plot(x_pts_all, test_ho.wf_gs(x_pts_all), color='red', alpha=1, label='gs wf')
 
 ax.set_title(f'{test_ho.V_string} with k_osc = {k_osc:.1f}, mass = {mass:.1f}')
@@ -583,7 +582,7 @@ class PathIntegral:
 # In[11]:
 
 
-Delta_T = 0.25           # DeltaT --> "a" in Lepage
+Delta_T = 0.25 # 0.5 # .25           # DeltaT --> "a" in Lepage
 N_pts = 20              # N_pts --> "N" in Lepage 
 Tmax = Delta_T * N_pts   # Tmax --> "T" in Lepage
 
@@ -612,8 +611,8 @@ new_PI = PathIntegral(Delta_T=Delta_T, N_pts=N_pts, N_config=N_config,
 # Set up the probability distributions for emcee and zeus
 
 # range of x values
-x_min = -5.
-x_max = +5.
+x_min = -5. #-5.
+x_max = +5. # +5.
 
 # theta is a vector of parameters that we use to represent a path
 #  There are N_pts x values in the path; theta is a vector for a 
@@ -661,9 +660,9 @@ path_integral = new_PI  # just a synonym for new_PI
 N_corr = 20      # Lepage recommends 20 or so 
 
 ndim = N_pts  # number of parameters in the model
-nwalkers = 50  # number of MCMC walkers
+nwalkers = 50  # 50  # number of MCMC walkers
 nburn = 50 * N_corr  # "burn-in" period to let chains stabilize
-nsteps = 20000  # number of MCMC steps to take
+nsteps = 10000  # number of MCMC steps to take
 
 # Uncomment to start at random locations within the prior volume
 # starting_guesses = min_theta + \

@@ -331,7 +331,21 @@ wf_1 = eigvecs[:,1]
 wf_2 = eigvecs[:,2]
 
 
-# In[25]:
+# In[38]:
+
+
+np.set_printoptions(threshold=np.inf)
+
+print(np.array2string(x_mesh, separator=","))
+
+
+# In[39]:
+
+
+print(np.array2string(wf_0, separator=","))
+
+
+# In[44]:
 
 
 fig = plt.figure(figsize=(16,6))
@@ -339,10 +353,10 @@ fig = plt.figure(figsize=(16,6))
 ax1 = fig.add_subplot(1,2,1)
 ax1.set_xlabel(r'$x$')
 ax1.set_ylabel(r'$\psi_n(x)$')
-#ax1.set_xlim(0, x_max)
-#ax1.set_ylim(-1., 3)
+ax1.set_xlim(-5, 5)
+ax1.set_ylim(-0.06, .4)
 
-ax1.plot(x_mesh, wf_0, color='red', label=r'$n=0$')
+ax1.plot(x_mesh, 8.4*wf_0, color='red', label=r'$n=0$')
 ax1.plot(x_mesh, wf_1, color='blue', label=r'$n=1$')
 ax1.plot(x_mesh, wf_2, color='green', label=r'$n=2$')
 

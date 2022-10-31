@@ -254,12 +254,22 @@ eigvals, eigvecs = np.linalg.eigh(Hamiltonian)
 print(eigvals[0:10])
 
 
-# In[34]:
+# In[39]:
 
 
-ktest = 1/2 
+ktest = 1/2
+mass = 1/2
 airy_deriv_zero = -1.018792971647471089017
-print(-airy_deriv_zero/2**(1/3) * (2*ktest**2)**(1/3))
+print(-airy_deriv_zero/2**(1/3) * (ktest**2/mass)**(1/3))
+
+
+# In[41]:
+
+
+ktest = 10
+mass = 1/2
+airy_deriv_zero = -1.018792971647471089017
+print(-airy_deriv_zero/2**(1/3) * (ktest**2/mass)**(1/3))
 
 
 # Notice that they are all *above* the exact answer. Variational principle!

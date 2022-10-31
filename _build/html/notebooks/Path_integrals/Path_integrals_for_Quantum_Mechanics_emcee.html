@@ -155,6 +155,11 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="../Diagonalizing_in_basis_and_variational_method.html">
+   Diagonalizing with SHO basis
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="../Airy_function_roots.html">
    Linear potential energies
   </a>
@@ -624,6 +629,11 @@ title="Print to PDF"
        Let’s look at some paths
       </a>
      </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#lets-go-ahead-with-the-unthinned-chain-highly-correlated">
+       Let’s go ahead with the unthinned chain. Highly correlated!
+      </a>
+     </li>
     </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -739,6 +749,11 @@ title="Print to PDF"
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#lets-look-at-some-paths">
        Let’s look at some paths
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#lets-go-ahead-with-the-unthinned-chain-highly-correlated">
+       Let’s go ahead with the unthinned chain. Highly correlated!
       </a>
      </li>
     </ul>
@@ -1105,7 +1120,10 @@ title="Print to PDF"
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        1D harmonic oscillator ground-state wave function</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>  <span class="c1"># We should  put the units back!</span>
+        <span class="n">omega</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">k_osc</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">mass</span><span class="p">)</span>
+        <span class="n">const</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mass</span> <span class="o">*</span> <span class="n">omega</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">hbar</span>   <span class="c1"># m * omega**2</span>
+        <span class="n">norm</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mass</span> <span class="o">*</span> <span class="n">omega</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">hbar</span><span class="p">))</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">norm</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">const</span> <span class="o">*</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>   <span class="c1"># We should  put the units back!</span>
 </pre></div>
 </div>
 </div>
@@ -1613,7 +1631,7 @@ Average over 25000 thinned configurations is 0.49964
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">)</span>
 
-<span class="n">num_plots</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">num_plots</span> <span class="o">=</span> <span class="mi">20</span>
 <span class="n">colors</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">jet</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">num_plots</span><span class="p">))</span><span class="c1"># Initialize holder for trajectories</span>
 <span class="k">for</span> <span class="n">plot_num</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_plots</span><span class="p">):</span>
     <span class="n">skip_points</span> <span class="o">=</span> <span class="mi">1500</span>
@@ -1631,6 +1649,41 @@ Average over 25000 thinned configurations is 0.49964
 <img alt="../../_images/Path_integrals_for_Quantum_Mechanics_emcee_46_0.png" src="../../_images/Path_integrals_for_Quantum_Mechanics_emcee_46_0.png" />
 </div>
 </div>
+</section>
+<section id="lets-go-ahead-with-the-unthinned-chain-highly-correlated">
+<h4>Let’s go ahead with the unthinned chain. Highly correlated!<a class="headerlink" href="#lets-go-ahead-with-the-unthinned-chain-highly-correlated" title="Permalink to this headline">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Delta_T = 0.25           # DeltaT --&gt; &quot;a&quot; in Lepage</span>
+<span class="c1"># N_pts = 20              # N_pts --&gt; &quot;N&quot; in Lepage </span>
+<span class="c1"># Tmax = Delta_T * N_pts   # Tmax --&gt; &quot;T&quot; in Lepage</span>
+<span class="c1"># Make an array</span>
+<span class="n">T_pts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">Tmax</span><span class="o">+</span><span class="n">Delta_T</span><span class="p">,</span><span class="n">Delta_T</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\tau$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">)</span>
+
+<span class="n">num_plots</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">jet</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">num_plots</span><span class="p">))</span><span class="c1"># Initialize holder for trajectories</span>
+<span class="k">for</span> <span class="n">plot_num</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_plots</span><span class="p">):</span>
+    <span class="n">skip_points</span> <span class="o">=</span> <span class="mi">1500</span>
+<span class="c1">#    chain_plot = np.append(chain_thinned[plot_num + skip_points,:], chain_thinned[plot_num + skip_points,0])</span>
+    <span class="n">chain_plot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">chain</span><span class="p">[</span><span class="n">plot_num</span> <span class="o">+</span> <span class="n">skip_points</span><span class="p">,:],</span> <span class="n">chain</span><span class="p">[</span><span class="n">plot_num</span> <span class="o">+</span> <span class="n">skip_points</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">T_pts</span><span class="p">,</span> <span class="n">chain_plot</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">plot_num</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">T_pts</span><span class="p">,</span> <span class="n">chain_plot</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">plot_num</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">test_ho</span><span class="o">.</span><span class="n">V_string</span><span class="si">}</span><span class="s1"> with k_osc = </span><span class="si">{</span><span class="n">k_osc</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">, mass = </span><span class="si">{</span><span class="n">mass</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/Path_integrals_for_Quantum_Mechanics_emcee_48_0.png" src="../../_images/Path_integrals_for_Quantum_Mechanics_emcee_48_0.png" />
+</div>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot sequences of x values for each time point</span>
@@ -1646,7 +1699,7 @@ Average over 25000 thinned configurations is 0.49964
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/Path_integrals_for_Quantum_Mechanics_emcee_47_0.png" src="../../_images/Path_integrals_for_Quantum_Mechanics_emcee_47_0.png" />
+<img alt="../../_images/Path_integrals_for_Quantum_Mechanics_emcee_49_0.png" src="../../_images/Path_integrals_for_Quantum_Mechanics_emcee_49_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1681,7 +1734,7 @@ Average over 25000 thinned configurations is 0.49964
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/Path_integrals_for_Quantum_Mechanics_emcee_49_0.png" src="../../_images/Path_integrals_for_Quantum_Mechanics_emcee_49_0.png" />
+<img alt="../../_images/Path_integrals_for_Quantum_Mechanics_emcee_51_0.png" src="../../_images/Path_integrals_for_Quantum_Mechanics_emcee_51_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1694,7 +1747,7 @@ Average over 25000 thinned configurations is 0.49964
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/Path_integrals_for_Quantum_Mechanics_emcee_50_0.png" src="../../_images/Path_integrals_for_Quantum_Mechanics_emcee_50_0.png" />
+<img alt="../../_images/Path_integrals_for_Quantum_Mechanics_emcee_52_0.png" src="../../_images/Path_integrals_for_Quantum_Mechanics_emcee_52_0.png" />
 </div>
 </div>
 <div class="cell docutils container">

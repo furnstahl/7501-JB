@@ -1,0 +1,1440 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Diagonalizing in a basis and the variational method &#8212; Quantum Mechanics I</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"tex": {"macros": {"N": "\\mathbb{N}", "avec": ["\\boldsymbol{a}"], "floor": ["\\lfloor#1\\rfloor", 1], "bmat": ["\\left[\\begin{array}"], "emat": ["\\end{array}\\right]"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Calculate zeros of the Airy function and its derivative" href="Airy_function_roots.html" />
+    <link rel="prev" title="Diagonalizing coordinate space solutions" href="Diagonalizing_coordinate_space.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Quantum Mechanics I</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../about.html">
+                    About Physics 7501: Quantum Mechanics I
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Course overview
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../content/Course/overview.html">
+   Objectives
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Notebooks for 7501
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Reference/linear_algebra_for_QM.html">
+   Linear algebra for QM
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Numerical_test_of_exponential_as_Nth_power_expression.html">
+   Numerical test of exp formula
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Numerical_derivative_tests.html">
+   Exponentiating operators
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Scaling_of_derivative_errors.html">
+   Scaling of derivative errors
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Diagonalizing_coordinate_space.html">
+   Diagonalizing in coordinate space
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Diagonalizing with SHO basis
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Airy_function_roots.html">
+   Linear potential energies
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Path_integrals/Path_integrals_for_Quantum_Mechanics_emcee.html">
+   Path integral explorations -- emcee
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Path_integrals/Lepage_Lattice_QCD_for_Novices_code_selfcontained.html">
+   Path integral explorations -- Metropolis
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  External QM notebooks
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="External/harmonic_oscillator_Jendrzejewski.html">
+   Quantum harmonic oscillator
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="External/Example_Quantum_Calculations_sympy.html">
+   QM with Sympy
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../content/External/OSSCAR_notebooks.html">
+   QM notebooks from OSSCAR
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="External/quantum-mechanics_from_OSSCAR/1quantumwell.html">
+     Finite well in 1D
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="External/quantum-mechanics_from_OSSCAR/2quantumwells.html">
+     Two finite wells in 1D
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="External/quantum-mechanics_from_OSSCAR/shooting_method.html">
+     Shooting Method with Numerov Algorithm
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="External/quantum-mechanics_from_OSSCAR/soft.html">
+     TD S-eqn using SOFT
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="External/quantum-mechanics_from_OSSCAR/msoft.html">
+     TD S-eqn using MSOFT
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="External/quantum-mechanics_from_OSSCAR/asymmetricwell.html">
+     Avoided crossing example
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Math notebooks
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="External/Quantitative_Economics_with_Python_complex_numbers_and_trig.html">
+   Complex Numbers and Trigonometry
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="External/Quantitative_Economics_with_Python_linear_algebra.html">
+   Linear Algebra
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="External/Quantitative_Economics_with_Python_svd_intro.html">
+   Singular Value Decomposition (SVD)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Getting started with Python
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../content/Reference/installing_anaconda.html">
+   Using Anaconda
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../content/Reference/python_jupyter.html">
+   Python and Jupyter notebooks
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Reference/Jupyter_Python_intro_01.html">
+     Python and Jupyter notebooks: part 01
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Reference/Jupyter_Python_intro_02.html">
+     Python and Jupyter notebooks: part 02
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../content/Reference/advanced.html">
+     Advanced topics
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Reference material
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../content/zbibliography.html">
+   Bibliography
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../content/Reference/using_github.html">
+   Using GitHub
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../content/jb_tests.html">
+   Examples: Jupyter jb-book
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/furnstahl/7501-JB/main?urlpath=tree/./notebooks/Diagonalizing_in_basis_and_variational_method.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/furnstahl/7501-JB"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/furnstahl/7501-JB/issues/new?title=Issue%20on%20page%20%2Fnotebooks/Diagonalizing_in_basis_and_variational_method.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/notebooks/Diagonalizing_in_basis_and_variational_method.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#solving-the-schrodinger-equation-numerically">
+   Solving the Schrodinger equation numerically
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#matrix-diagonalization-in-coordinate-representation">
+     1. Matrix diagonalization in coordinate representation.
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#solve-as-a-differential-equation-in-coordinate-representation">
+     2. Solve as a differential equation in coordinate representation.
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#solve-in-momentum-space">
+     3. Solve in momentum space
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#introduce-a-truncated-orthonormal-basis-and-expand-u-r-then-diagonalize-the-matrix-of-coefficients">
+     4. Introduce a (truncated) orthonormal basis and expand
+     <span class="math notranslate nohighlight">
+      \(u(r)\)
+     </span>
+     , then diagonalize the matrix of coefficients.
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#note-on-calculating-matrix-elements-in-a-harmonic-oscillator-basis">
+     Note on calculating matrix elements in a harmonic oscillator basis.
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#diagonalization-of-a-truncated-basis-as-a-variational-problem">
+     Diagonalization of a truncated basis as a variational problem.
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#implementation-of-diagonalization-in-1d-harmonic-oscillator-basis">
+   Implementation of diagonalization in 1D harmonic oscillator basis
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Diagonalizing in a basis and the variational method</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#solving-the-schrodinger-equation-numerically">
+   Solving the Schrodinger equation numerically
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#matrix-diagonalization-in-coordinate-representation">
+     1. Matrix diagonalization in coordinate representation.
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#solve-as-a-differential-equation-in-coordinate-representation">
+     2. Solve as a differential equation in coordinate representation.
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#solve-in-momentum-space">
+     3. Solve in momentum space
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#introduce-a-truncated-orthonormal-basis-and-expand-u-r-then-diagonalize-the-matrix-of-coefficients">
+     4. Introduce a (truncated) orthonormal basis and expand
+     <span class="math notranslate nohighlight">
+      \(u(r)\)
+     </span>
+     , then diagonalize the matrix of coefficients.
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#note-on-calculating-matrix-elements-in-a-harmonic-oscillator-basis">
+     Note on calculating matrix elements in a harmonic oscillator basis.
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#diagonalization-of-a-truncated-basis-as-a-variational-problem">
+     Diagonalization of a truncated basis as a variational problem.
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#implementation-of-diagonalization-in-1d-harmonic-oscillator-basis">
+   Implementation of diagonalization in 1D harmonic oscillator basis
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="diagonalizing-in-a-basis-and-the-variational-method">
+<h1>Diagonalizing in a basis and the variational method<a class="headerlink" href="#diagonalizing-in-a-basis-and-the-variational-method" title="Permalink to this headline">#</a></h1>
+<p>In this notebook we cast our Hamiltonian into a discrete basis representation (we’ll use harmonic oscillators) and diagonalize it for various basis sizes.</p>
+<p>We’ll see that this procedure is an implementation of the <em>variational</em> method, through which we get a good estimate of the ground-state energy (and also estimates of excited states) that is always an <em>upper bound</em> to the true ground-state energy.</p>
+<section id="solving-the-schrodinger-equation-numerically">
+<h2>Solving the Schrodinger equation numerically<a class="headerlink" href="#solving-the-schrodinger-equation-numerically" title="Permalink to this headline">#</a></h2>
+<p>The abstract bound-state, time-independent Schrodinger equation,</p>
+<div class="math notranslate nohighlight">
+\[
+  \hat H| \psi \rangle = E | \psi \rangle ,
+\]</div>
+<p>can be solved in a variety of ways numerically.  Here is a partial laundry list:</p>
+<section id="matrix-diagonalization-in-coordinate-representation">
+<h3>1. Matrix diagonalization in coordinate representation.<a class="headerlink" href="#matrix-diagonalization-in-coordinate-representation" title="Permalink to this headline">#</a></h3>
+<p>Here we use a finite difference formula for the second derivative in the kinetic energy operator (here with notation appropriate to the radial equation in spherical coordinates and <span class="math notranslate nohighlight">\(h \equiv \Delta x\)</span>):</p>
+<div class="math notranslate nohighlight">
+\[
+   \frac{d^2u}{dr^2} = \frac{u(r+h) - 2 u(r) + u(r-h)}{h^2} + {\cal O}(h^2) .
+\]</div>
+<p>You can verify this approximation by expanding <span class="math notranslate nohighlight">\(u(r+h)\)</span> and <span class="math notranslate nohighlight">\(u(r-h)\)</span> in
+Taylor series about <span class="math notranslate nohighlight">\(u(r)\)</span>.
+Let’s suppose we solve this system knowing the \emph{boundary
+conditions} at <span class="math notranslate nohighlight">\(r=0\)</span> and <span class="math notranslate nohighlight">\(r = R_{\rm max}\)</span>.  The former is <span class="math notranslate nohighlight">\(u(0) = 0\)</span>, and we’ll suppose <span class="math notranslate nohighlight">\(R_{\rm max}\)</span>
+is large enough so that <span class="math notranslate nohighlight">\(u(R_{\rm max}) \approx 0\)</span> for any bound
+states. (This also makes the continuum solutions a discrete set of states.)<br />
+We’ll label the points:</p>
+<div class="math notranslate nohighlight">
+\[
+   x_i = i\times h\ , \qquad i = 0,1,2,\cdots,N
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(N\)</span> is the number of steps and the step size <span class="math notranslate nohighlight">\(h\)</span> is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+   h = \frac{R_{\rm max}}{N} .
+\]</div>
+<p>Thus, <span class="math notranslate nohighlight">\(x_0 = 0\)</span>, <span class="math notranslate nohighlight">\(x_1 = h\)</span>, and so on up to <span class="math notranslate nohighlight">\(x_{N} = Nh = R_{\rm
+ max}\)</span>.  So we can approximate the Schr”odinger equation at point <span class="math notranslate nohighlight">\(x_k\)</span> as</p>
+<div class="math notranslate nohighlight">
+\[
+  -\frac{\hbar^2}{2M}\frac{u(x_k+h)-2u(x_k) + u(x_k-h)}{h^2} 
+  + V(x_k)u(x_k) = E u(x_k) \ .
+\]</div>
+<p>If we work in units where <span class="math notranslate nohighlight">\(\hbar = 1\)</span> and also <span class="math notranslate nohighlight">\(M=1/2\)</span>, and if we use the
+notation:</p>
+<div class="math notranslate nohighlight">
+\[
+   u_k \equiv u(x_k)\,, \quad u_{k\pm1}\equiv u(x_k\pm h)\,,
+   \quad V_k \equiv V(x_k)\ ,
+\]</div>
+<p>then the equation at <span class="math notranslate nohighlight">\(k\)</span> takes the form</p>
+<div class="math notranslate nohighlight">
+\[
+   -\frac{u_{k+1}-2u_k + u_{k-1}}{h^2} + V_k u_k = E u_k \;.
+  \label{eq:form}
+\]</div>
+<p>We know two values, <span class="math notranslate nohighlight">\(u_0 = 0\)</span> and <span class="math notranslate nohighlight">\(u_{N}=0\)</span>.  We can
+put the rest, <span class="math notranslate nohighlight">\(u_1\)</span> to <span class="math notranslate nohighlight">\(u_{N-1}\)</span> in a column vector, which
+then satisfies a matrix eigenvalue problem:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+   \left(
+     \begin{array}{ccccc}
+     \frac{2}{h^2}+V_1 &amp; -\frac{1}{h^2} &amp; 0 &amp; \cdots &amp; 0 \\
+     -\frac{1}{h^2} &amp; \frac{2}{h^2}+V_2 &amp;  -\frac{1}{h^2}    &amp;        &amp;  \vdots         \\
+     0 &amp;    -\frac{1}{h^2}    &amp; \ddots &amp;        &amp;  \vdots         \\
+     \vdots &amp;        &amp;        &amp; \ddots       &amp;  -\frac{1}{h^2}         \\
+    0 &amp;  \cdots  &amp;  \cdots  &amp; -\frac{1}{h^2}  &amp; \frac{2}{h^2}+V_{N-1}          
+     \end{array}
+   \right)
+   \left(
+    \begin{array}{c}
+      u_1 \\
+      u_2 \\
+      \vdots \\
+      \vdots \\
+      u_{N-1}
+    \end{array}
+   \right) 
+   = E
+   \left(
+    \begin{array}{c}
+      u_1 \\
+      u_2 \\
+      \vdots \\
+      \vdots \\
+      u_{N-1}
+    \end{array}
+   \right) 
+\end{split}\]</div>
+<p>This is a <em>tridiagonal</em> matrix with a simple structure: the only
+non-zero off-diagonal matrix elements are the ones adjacent to the
+diagonal, and they all have the same value, <span class="math notranslate nohighlight">\(-1/h^2\)</span>.   There are
+special algorithms that can rapidly find the eigenvalues and
+eigenvectors of such a matrix (although we have not taken advantage of these).</p>
+<p>The eigenvector from <code class="docutils literal notranslate"><span class="pre">scipy</span></code> or <code class="docutils literal notranslate"><span class="pre">numpy</span></code> diagonalization functions is normalized to unity; this means that <span class="math notranslate nohighlight">\(\sum_{i=0}^{N-1} |u_i|^2 = 1\)</span>. This is <em>not</em> the same as <span class="math notranslate nohighlight">\(\int_0^\infty \! |u(r)|^2\, dr = 1\)</span>, which is the quantum mechanics normalization condition; this is apparent if you plot the <span class="math notranslate nohighlight">\(\{u_i\}\)</span>’s for different mesh spacings (they will have different heights).  The former <em>would</em> be an approximation to the latter if we included a factor of the mesh spacing <span class="math notranslate nohighlight">\(h\)</span>, which is equivalent to using a simple integration rule.   So we can scale each <span class="math notranslate nohighlight">\(u_i\)</span> by <span class="math notranslate nohighlight">\(\sqrt{h}\)</span> to approximately normalize the wave function.</p>
+</section>
+<section id="solve-as-a-differential-equation-in-coordinate-representation">
+<h3>2. Solve as a differential equation in coordinate representation.<a class="headerlink" href="#solve-as-a-differential-equation-in-coordinate-representation" title="Permalink to this headline">#</a></h3>
+<p>This works when we have a <em>local</em> potential.  In one dimension, this means solving the equation:</p>
+<div class="math notranslate nohighlight">
+\[
+    \left(-\frac{\hbar^2}{2M}\frac{d^2}{dx^2} + V(x) \right) 
+    \Psi_n(x) = E_n \Psi_n(x)
+    \ .
+\]</div>
+<p>If we have a central potential in three dimensions, the potential is purely radial</p>
+<div class="math notranslate nohighlight">
+\[
+    V({\bf x}) = V(|{\bf x}|) \equiv V(r)
+   \ ,
+\]</div>
+<p>and we can use a partial wave decomposition (which means we
+separate the equation in spherical coordinates).  That is, we write</p>
+<div class="math notranslate nohighlight">
+\[
+   \Psi_{nlm}({\bf x}) = \frac{u_{nl}(r)}{r} Y_{lm}(\theta,\phi) \ ,
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(Y_{lm}\)</span> is a spherical harmonic, and solve the radial one-dimensional Schrodinger equation:</p>
+<div class="math notranslate nohighlight">
+\[
+   -\frac{\hbar^2}{2M}\frac{d^2u_{nl}(r)}{dr^2}
+   +  
+   \underbrace{\biggl[
+     V(r) + \frac{\hbar^2 l (l+1)}{2M r^2}
+               \biggr]}_{\equiv V_{\rm eff}(r)} 
+    u_{nl}(r)
+  = E_n u_{nl}(r)
+  \ ,
+  \label{eq:radSE}
+\]</div>
+<p>with</p>
+<div class="math notranslate nohighlight">
+\[
+  u_{nl}(r=0) = 0  \qquad \mbox{and} \qquad
+    \int_0^\infty |u_{nl}(r)|^2\, dr = 1 \ .
+    \label{eq:radbc}
+\]</div>
+<p>We’ll apply this method soon for radial equations.</p>
+</section>
+<section id="solve-in-momentum-space">
+<h3>3. Solve in momentum space<a class="headerlink" href="#solve-in-momentum-space" title="Permalink to this headline">#</a></h3>
+<p>Here we can imitate the coordinate-space solution in momentum space with a diagonal kinetic energy and a discretized derivative replacing the functional <span class="math notranslate nohighlight">\(x\)</span> or <span class="math notranslate nohighlight">\(r\)</span> dependence in the potential.</p>
+<p>A more common approach is to solve an integral equation in momentum representation.(We’ll
+come back to this later!).</p>
+</section>
+<section id="introduce-a-truncated-orthonormal-basis-and-expand-u-r-then-diagonalize-the-matrix-of-coefficients">
+<h3>4. Introduce a (truncated) orthonormal basis and expand <span class="math notranslate nohighlight">\(u(r)\)</span>, then diagonalize the matrix of coefficients.<a class="headerlink" href="#introduce-a-truncated-orthonormal-basis-and-expand-u-r-then-diagonalize-the-matrix-of-coefficients" title="Permalink to this headline">#</a></h3>
+<p>This applies similarly in one or three dimensions; we just change the range of integration when calculating matrix elements. (For three dimensions, we’ll assume <span class="math notranslate nohighlight">\(l=0\)</span> only for now.)</p>
+<p>Imagine we have a set of basis functions:</p>
+<div class="math notranslate nohighlight">
+\[
+    \{\phi_i(r)\}\,, \quad i=0,1,\cdots,D-1 ,
+\]</div>
+<p>which we’ve truncated at <span class="math notranslate nohighlight">\(D\)</span> states (since we can only use a finite
+number in the computer), although in principle there are an infinite
+number.  We can take the <span class="math notranslate nohighlight">\(\phi\)</span>’s to be real. (\emph{Why?})
+Orthonormality means that</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+    \int_{-\infty}^\infty \phi_i(x) \phi_j(x)\, dx = \delta_{ij}
+      = \left\{ \begin{array}{ccc}
+                 1 &amp; \mbox{if} &amp; i=j\,, \\
+                 0 &amp; \mbox{if} &amp; i\neq j .
+               \end{array} \right.
+\end{split}\]</div>
+<p>in one dimension and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+    \int_0^\infty \phi_i(r) \phi_j(r)\, dr = \delta_{ij}
+      = \left\{ \begin{array}{ccc}
+                 1 &amp; \mbox{if} &amp; i=j\,, \\
+                 0 &amp; \mbox{if} &amp; i\neq j .
+               \end{array} \right.
+\end{split}\]</div>
+<p>in three dimensions (radial equation). From here on we’ll use the 3D notation; just remember for 1D to integrate <span class="math notranslate nohighlight">\(x\)</span> from <span class="math notranslate nohighlight">\(-\infty\)</span> to <span class="math notranslate nohighlight">\(+\infty\)</span>.</p>
+<p>Then the expansion and coefficients are:</p>
+<div class="math notranslate nohighlight">
+\[
+    u_n(r) \approx \sum_{i=0}^{D-1} C_i^{(n)} \phi_i(r)
+      \quad \Longrightarrow \quad
+      C_j^{(n)} = \int_0^\infty \phi_j(r) u_n(r)\, dr .
+\]</div>
+<p>(Can you derive the expression for <span class="math notranslate nohighlight">\(C_j^{(n)}\)</span>?)
+If we substitute the expansion for <span class="math notranslate nohighlight">\(u_n(r)\)</span> in the Schrodinger
+equation, multiply by <span class="math notranslate nohighlight">\(\phi_i(r)\)</span> and integrate
+over <span class="math notranslate nohighlight">\(r\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[
+    \sum_{j=0}^{D-1}
+    \underbrace{
+    \int_0^\infty \phi_i(r) \left[ -\frac{\hbar^2}{2M}\frac{d^2}{dr^2} 
+       + V_{\rm eff}(r) \right] \phi_j(r)\, dr
+    }_{\equiv H_{ij}}
+    \cdot C_j^{(n)}
+    = E_n     \sum_{j=0}^{D-1} C_j^{(n)}\int_0^\infty \phi_i(r)\phi_j(r)\, dr
+    = E_n C_i^{(n)}
+     ,
+\]</div>
+<p>or</p>
+<div class="math notranslate nohighlight">
+\[
+    \sum_{j=0}^{D-1} H_{ij} C_j^{(n)} = E_n C_i^{(n)} .
+\]</div>
+<p>This is simply a matrix eigenvalue problem (take the time to make sure
+you see that this is true!):</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+   \left(
+     \begin{array}{ccccc}
+     H_{00} &amp; H_{01} &amp; \cdots &amp; \cdots &amp; H_{0 D-1} \\
+     H_{10} &amp; H_{11} &amp;        &amp;        &amp;  \vdots         \\
+     \vdots &amp;        &amp; \ddots &amp;        &amp;  \vdots         \\
+     \vdots &amp;        &amp;        &amp; \ddots       &amp;  \vdots         \\
+     H_{D-1 0} &amp;  \cdots  &amp;  \cdots  &amp; \cdots  &amp; H_{D-1 D-1}          
+     \end{array}
+   \right)
+   \left(
+    \begin{array}{c}
+      C_0^{(n)} \\
+      \vdots \\
+      \vdots \\
+      \vdots \\
+      C_{D-1}^{(n)}
+    \end{array}
+   \right)
+   = E_n
+   \left(
+    \begin{array}{c}
+      C_0^{(n)} \\
+      \vdots \\
+      \vdots \\
+      \vdots \\
+      C_{D-1}^{(n)}
+    \end{array}
+   \right)
+\end{split}\]</div>
+<p>which we can give to a library routine (e.g., from <code class="docutils literal notranslate"><span class="pre">numpy</span></code> or <code class="docutils literal notranslate"><span class="pre">scipy</span></code>).</p>
+<p>We will use harmonic oscillator radial wave functions as a
+basis.  The potential for these wave functions is</p>
+<div class="math notranslate nohighlight">
+\[
+   V(r) = \frac{1}{2} M \omega^2 r^2 .
+ \]</div>
+<p>We define the <em>oscillator parameter</em> <span class="math notranslate nohighlight">\(b\)</span> by</p>
+<div class="math notranslate nohighlight">
+\[
+    \hbar\omega = \frac{\hbar^2}{M b^2} ,
+ \]</div>
+<p>and use units in which <span class="math notranslate nohighlight">\(\hbar = 1\)</span>.  This means that <span class="math notranslate nohighlight">\(b\)</span> sets the
+length scale and <span class="math notranslate nohighlight">\(q \equiv r/b\)</span> is the natural dimensionless
+coordinate.  The oscillator state <span class="math notranslate nohighlight">\(u_{nl}(r)\)</span>
+is specified by the radial quantum
+number <span class="math notranslate nohighlight">\(n\)</span> and the angular momentum quantum number <span class="math notranslate nohighlight">\(l\)</span>, with normalization</p>
+<div class="math notranslate nohighlight">
+\[
+   \int_0^\infty \! dr \, [u_{nl}(r)]^2 = 1 .
+ \]</div>
+<p>The diagonalization of a Hamiltonian in a truncated basis can
+be viewed as a <em>variational</em> calculation (we’ll discuss this
+further in future notes).  What are the
+implications for:</p>
+<ul class="simple">
+<li><p>What state (ground state or an excited state) is determined best?</p></li>
+<li><p>How should the difference from the exact answer change as the basis size is increased?</p></li>
+</ul>
+</section>
+<section id="note-on-calculating-matrix-elements-in-a-harmonic-oscillator-basis">
+<h3>Note on calculating matrix elements in a harmonic oscillator basis.<a class="headerlink" href="#note-on-calculating-matrix-elements-in-a-harmonic-oscillator-basis" title="Permalink to this headline">#</a></h3>
+<p>The <span class="math notranslate nohighlight">\(ij\)</span> matrix element of the Hamiltonian with potential <span class="math notranslate nohighlight">\(V(r)\)</span> is given by the integral</p>
+<div class="math notranslate nohighlight">
+\[
+    H_{ij} = \int_0^\infty \phi_j(r)
+      \left[
+      -\frac{\hbar^2}{2M}\frac{d^2}{dr^2} + V(r)
+      \right]
+      \phi_i(r)\, dr \ ,
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\phi_i\)</span> and <span class="math notranslate nohighlight">\(\phi_j\)</span> are harmonic oscillator basis wave
+functions.  This is not the best thing to calculate numerically,
+because we would have to do numerical derivatives.  Instead, we can use
+the fact that the <span class="math notranslate nohighlight">\(\{\phi_i\}\)</span> satisfy a differential equation with
+a second derivative (<span class="math notranslate nohighlight">\(l=0\)</span> is assumed):</p>
+<div class="math notranslate nohighlight">
+\[
+\left[
+      -\frac{\hbar^2}{2M}\frac{d^2}{dr^2} + \frac12 M\omega^2 r^2
+      \right]
+      \phi_i(r) = \hbar\omega\left(2i+\frac32\right)\phi_i(r) .
+\]</div>
+<p>Thus, we can eliminate the second derivative to obtain</p>
+<div class="math notranslate nohighlight">
+\[
+    H_{ij} = \int_0^\infty \phi_j(r)
+      \left[
+      \hbar\omega\left(2i+\frac32\right) - \frac12M\omega^2r^2 + V(r)
+      \right]
+      \phi_i(r)\, dr ,
+\]</div>
+<p>which you can implement as a bonus problem.</p>
+</section>
+<section id="diagonalization-of-a-truncated-basis-as-a-variational-problem">
+<h3>Diagonalization of a truncated basis as a variational problem.<a class="headerlink" href="#diagonalization-of-a-truncated-basis-as-a-variational-problem" title="Permalink to this headline">#</a></h3>
+<p>How might you analyze the eigenvalue program if you
+didn’t know the correct answer for the eigenvalue?  Instead of
+looking for the lowest error, we could look for the most stable
+region in <span class="math notranslate nohighlight">\(b\)</span> or when the basis gets larger.  Are we guaranteed that
+the estimate of the energy gets better as the basis size increases?
+(Be careful:  remember we are doing our calculations on a computer,
+where round-off errors are always waiting for us!)
+In fact, the calculation we are doing is equivalent to a
+<em>variational</em> estimate for the ground state.</p>
+<p>How does a variational calculation work?  If <span class="math notranslate nohighlight">\(u_{\rm trial}(r)\)</span>
+is a (real) normalized trial wave function with parameter <span class="math notranslate nohighlight">\(b\)</span>
+(e.g., <span class="math notranslate nohighlight">\(u_{\rm trial}(r) \propto r e^{-r^2/b^2}\)</span>),
+then the estimate of the energy for that <span class="math notranslate nohighlight">\(b\)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[
+    E(b) \equiv \langle u_{\rm trial} | H | u_{\rm trial} \rangle
+      = \int_0^\infty \! dr \, 
+      u_{\rm trial}(r) 
+      \left[
+      -\frac{\hbar^2}{2M}\frac{d^2}{dr^2} + V(r)
+      \right]
+      u_{\rm trial}(r) .
+\]</div>
+<p>(What do we do if the trial wave function is <em>not</em> normalized? Hint: Divide by another integral.)
+The <em>best</em> estimate is <span class="math notranslate nohighlight">\(b_0\)</span>, where</p>
+<div class="math notranslate nohighlight">
+\[
+ \left.\frac{dE}{db}\right|_{b_0} = 0   ,
+\]</div>
+<p>and <span class="math notranslate nohighlight">\(E(b_0)\)</span> is an <span class="math notranslate nohighlight">\(upper bound\)</span> to the true energy (that is,
+the actual energy is always lower, which usually means more
+negative).</p>
+<p>So now suppose our trial wave function is
+a sum of <span class="math notranslate nohighlight">\(D\)</span> basis functions with arbitary coefficients;</p>
+<div class="math notranslate nohighlight">
+\[
+u_{\rm trial}(r) = \sum_{i=0}^{D-1} C_i \phi_i(r)  ,
+\]</div>
+<p>where the <span class="math notranslate nohighlight">\(\{\phi_i(r)\}\)</span> are a complete orthonormal basis
+(e.g., our harmonic oscillator basis).  We want to minimize
+<span class="math notranslate nohighlight">\(\langle u_{\rm trial} | H | u_{\rm trial} \rangle\)</span> subject to
+the constraint that <span class="math notranslate nohighlight">\(| u_{\rm trial} \rangle\)</span> is normalized.
+The <span class="math notranslate nohighlight">\(\{C_i\}\)</span> are the variational parameters.  We use the method
+of <em>Lagrange multipliers</em>.  Then for each <span class="math notranslate nohighlight">\(k\)</span>, we require</p>
+<div class="math notranslate nohighlight">
+\[
+   \frac{\partial}{\partial C_k}
+      \left[
+       \langle u_{\rm trial} | H | u_{\rm trial} \rangle
+     - \lambda (\langle u_{\rm trial} | u_{\rm trial}\rangle - 1)       
+      \right]
+      = 0  ,
+\]</div>
+<p>and <span class="math notranslate nohighlight">\(\partial/\partial\lambda [\cdots]= 0\)</span>, which gives <span class="math notranslate nohighlight">\(\sum_i |C_i|^2=1\)</span>.
+Before tackling the general case, let’s do the simplest non-trivial
+special case: two basis states with coefficients <span class="math notranslate nohighlight">\(C_0\)</span> and <span class="math notranslate nohighlight">\(C_1\)</span>.
+The first condition is:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial}{\partial C_0}
+      \left[
+       C_0^2 \langle \phi_0 | H | \phi_0 \rangle +
+       C_0 C_1 \langle \phi_0 | H | \phi_1 \rangle +
+       C_1 C_0 \langle \phi_1 | H | \phi_0 \rangle +
+       C_1^2 \langle \phi_1 | H | \phi_1 \rangle 
+     - \lambda C_0^2 - \lambda C_1^2      
+      \right]
+      = 0 ,
+\]</div>
+<p>or (using the fact that <span class="math notranslate nohighlight">\(H\)</span> is Hermitian)</p>
+<div class="math notranslate nohighlight">
+\[
+   2 C_0 \langle \phi_0 | H | \phi_0 \rangle
+      + 2 C_1  \langle \phi_0 | H | \phi_1 \rangle
+      - 2 \lambda C_0 = 0 , 
+\]</div>
+<p>or switching notation to <span class="math notranslate nohighlight">\(\langle \phi_i | H | \phi_j \rangle
+    \equiv H_{ij}\)</span> and dividing by 2:</p>
+<div class="math notranslate nohighlight">
+\[    
+   C_0 H_{00} + C_1 H_{01} = \lambda C_0
+    \ .
+\]</div>
+<p>The <span class="math notranslate nohighlight">\(\partial/\partial C_1\)</span> contribution is similar; when we combine
+them as a matrix equation, we find</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+    \left(
+       \begin{array}{cc}
+       H_{00} &amp; H_{01} \\
+       H_{10} &amp; H_{11}
+       \end{array}
+      \right)
+      \left(
+       \begin{array}{c}
+       C_{0} \\
+       C_{1}
+       \end{array}
+      \right)
+      = \lambda
+      \left(
+       \begin{array}{c}
+       C_{0}  \\
+       C_{1} 
+       \end{array}
+      \right)  ,
+\end{split}\]</div>
+<p>which is precisely our eigenvalue equation in the truncated basis!
+Note that the Lagrange
+multiplier will be given by an energy eigenvalue.</p>
+<p>More generally, we find that we get the <span class="math notranslate nohighlight">\(k^{\rm th}\)</span> row of the
+eigenvalue matrix equation from</p>
+<div class="math notranslate nohighlight">
+\[
+  \frac12\frac{\partial}{\partial C_k}
+      \left(
+      \sum_{ij}C_i C_j H_{ij} - \lambda \sum_{ij} C_i C_j \delta_{ij}
+      \right)
+      =
+      \sum_{j}H_{kj}C_j - \lambda C_k = 0  .
+\]</div>
+</section>
+</section>
+<section id="implementation-of-diagonalization-in-1d-harmonic-oscillator-basis">
+<h2>Implementation of diagonalization in 1D harmonic oscillator basis<a class="headerlink" href="#implementation-of-diagonalization-in-1d-harmonic-oscillator-basis" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.linalg</span> <span class="k">as</span> <span class="nn">la</span>
+<span class="kn">from</span> <span class="nn">scipy.special</span> <span class="kn">import</span> <span class="n">eval_hermite</span><span class="p">,</span> <span class="n">ai_zeros</span>
+<span class="kn">from</span> <span class="nn">scipy.integrate</span> <span class="kn">import</span> <span class="n">quad</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span><span class="p">;</span> <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;darkgrid&quot;</span><span class="p">);</span> <span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;talk&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># values of constants (choose natural units)</span>
+<span class="n">hbar</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">mass</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>  <span class="c1"># To match what we used in the </span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">V_linear_matrix</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Linear potential matrix (defined as a diagonal matrix)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">k</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span>       <span class="c1"># k is chosen for simple units</span>
+    <span class="n">V_diag</span> <span class="o">=</span> <span class="n">k</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">)</span>  <span class="c1"># diagonal matrix elements</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">)</span>  <span class="c1"># number of x points</span>
+    
+    <span class="k">return</span> <span class="n">V_diag</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">V_linear_potential</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return the linear potential at point x </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">k</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">SHO_1d_wf</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">omega</span><span class="p">,</span> <span class="n">hbar</span><span class="o">=</span><span class="n">hbar</span><span class="p">,</span> <span class="n">mass</span><span class="o">=</span><span class="n">mass</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Simple harmonic oscillator wave functions in one dimension.</span>
+<span class="sd">    n --- principal quantum number (n = 0, 1, 2, ...)</span>
+<span class="sd">    x --- point to evaluate at</span>
+<span class="sd">    omega --- oscillator parameter</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mass</span> <span class="o">*</span> <span class="n">omega</span> <span class="o">/</span> <span class="n">hbar</span><span class="p">)</span> <span class="o">*</span> <span class="n">x</span>
+    <span class="n">norm</span> <span class="o">=</span> <span class="p">(</span><span class="n">mass</span> <span class="o">*</span> <span class="n">omega</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">hbar</span><span class="p">))</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">factor</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="nb">float</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">factorial</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+    
+    <span class="k">return</span> <span class="n">factor</span> <span class="o">*</span> <span class="n">norm</span> <span class="o">*</span> <span class="n">eval_hermite</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">q</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sho_integrand</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">,</span> <span class="n">omega</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">    Integrand to check orthonormality using integration function: &lt;psi_n1 | psi_n2&gt;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">SHO_1d_wf</span><span class="p">(</span><span class="n">n1</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">omega</span><span class="p">)</span> <span class="o">*</span> <span class="n">SHO_1d_wf</span><span class="p">(</span><span class="n">n2</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">omega</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Checking whether the basis functions are orthonormal</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">omega</span> <span class="o">=</span> <span class="mf">0.5</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Checking orthonormality for omega = </span><span class="si">{</span><span class="n">omega</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;n1 n2  &lt;psi_n1 | psi_n2&gt;&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">n1</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">n2</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+        <span class="n">psi_n1_psi_n2</span> <span class="o">=</span> <span class="n">quad</span><span class="p">(</span><span class="n">sho_integrand</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">n1</span><span class="p">,</span> <span class="n">n2</span><span class="p">,</span> <span class="n">omega</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39; </span><span class="si">{</span><span class="n">n1</span><span class="si">}</span><span class="s1">  </span><span class="si">{</span><span class="n">n2</span><span class="si">}</span><span class="s1">    </span><span class="si">{</span><span class="n">psi_n1_psi_n2</span><span class="si">:</span><span class="s1">.5e</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Checking orthonormality for omega = 0.500
+n1 n2  &lt;psi_n1 | psi_n2&gt;
+ 0  0    1.00000e+00
+ 0  1    0.00000e+00
+ 0  2    -2.18575e-16
+ 0  3    0.00000e+00
+ 0  4    1.61676e-15
+ 1  0    0.00000e+00
+ 1  1    1.00000e+00
+ 1  2    0.00000e+00
+ 1  3    3.60822e-16
+ 1  4    0.00000e+00
+ 2  0    -2.18575e-16
+ 2  1    0.00000e+00
+ 2  2    1.00000e+00
+ 2  3    0.00000e+00
+ 2  4    2.11419e-16
+ 3  0    0.00000e+00
+ 3  1    3.60822e-16
+ 3  2    0.00000e+00
+ 3  3    1.00000e+00
+ 3  4    0.00000e+00
+ 4  0    1.61676e-15
+ 4  1    0.00000e+00
+ 4  2    2.11419e-16
+ 4  3    0.00000e+00
+ 4  4    1.00000e+00
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Set up the Hamiltonian</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">second_derivative_matrix</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">Delta_x</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Return an N x N matrix for 2nd derivative of a vector equally spaced by delta_x</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">M_temp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> \
+              <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">N</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">M_temp</span> <span class="o">/</span> <span class="p">(</span><span class="n">Delta_x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N_pts</span> <span class="o">=</span> <span class="mi">4001</span>  
+<span class="n">x_min</span> <span class="o">=</span> <span class="o">-</span><span class="mf">10.</span>
+<span class="n">x_max</span> <span class="o">=</span> <span class="mf">10.</span>
+<span class="n">Delta_x</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_max</span> <span class="o">-</span> <span class="n">x_min</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">N_pts</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">x_mesh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span> <span class="n">N_pts</span><span class="p">)</span>  <span class="c1"># create the grid (&quot;mesh&quot;) of x points</span>
+
+<span class="n">second_deriv</span> <span class="o">=</span> <span class="n">second_derivative_matrix</span><span class="p">(</span><span class="n">N_pts</span><span class="p">,</span> <span class="n">Delta_x</span><span class="p">)</span>     
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Check orthonormality on grid</strong></p>
+<p>Here we use a simple matrix multiplication (note the factor of <span class="math notranslate nohighlight">\(\Delta x\)</span>) and then check against a trapezoid rule for integration</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Nb</span> <span class="o">=</span> <span class="mi">8</span>  <span class="c1"># basis size</span>
+<span class="k">for</span> <span class="n">n1</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">Nb</span><span class="p">):</span>
+    <span class="n">wf1</span> <span class="o">=</span> <span class="n">SHO_1d_wf</span><span class="p">(</span><span class="n">n1</span><span class="p">,</span> <span class="n">x_mesh</span><span class="p">,</span> <span class="n">omega</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">n2</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">Nb</span><span class="p">):</span>
+        <span class="n">wf2</span> <span class="o">=</span> <span class="n">SHO_1d_wf</span><span class="p">(</span><span class="n">n2</span><span class="p">,</span> <span class="n">x_mesh</span><span class="p">,</span> <span class="n">omega</span><span class="p">)</span>
+        <span class="n">norm_ij</span> <span class="o">=</span> <span class="n">wf1</span> <span class="o">@</span> <span class="n">wf2</span> <span class="o">*</span> <span class="n">Delta_x</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">norm_ij</span><span class="si">:</span><span class="s1">.2e</span><span class="si">}</span><span class="s1"> &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>        
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">n1</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">Nb</span><span class="p">):</span>
+    <span class="n">wf1</span> <span class="o">=</span> <span class="n">SHO_1d_wf</span><span class="p">(</span><span class="n">n1</span><span class="p">,</span> <span class="n">x_mesh</span><span class="p">,</span> <span class="n">omega</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">n2</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">Nb</span><span class="p">):</span>
+        <span class="n">wf2</span> <span class="o">=</span> <span class="n">SHO_1d_wf</span><span class="p">(</span><span class="n">n2</span><span class="p">,</span> <span class="n">x_mesh</span><span class="p">,</span> <span class="n">omega</span><span class="p">)</span>
+        <span class="n">norm_ij_trapz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="n">wf1</span> <span class="o">*</span> <span class="n">wf2</span><span class="p">,</span> <span class="n">x_mesh</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">norm_ij_trapz</span><span class="si">:</span><span class="s1">.2e</span><span class="si">}</span><span class="s1"> &#39;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>        
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+   
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.00e+00 3.33e-17 -5.47e-11 -3.03e-18 -7.43e-10 -4.43e-18 -5.82e-09 -1.31e-17 
+3.33e-17 1.00e+00 -2.79e-18 -1.58e-09 -3.17e-17 -1.59e-08 3.52e-18 -1.00e-07 
+-5.47e-11 -2.79e-18 1.00e+00 2.16e-17 -2.69e-08 -7.16e-18 -2.11e-07 1.64e-17 
+-3.03e-18 -1.58e-09 2.16e-17 1.00e+00 -3.70e-18 -3.20e-07 -2.16e-17 -2.02e-06 
+-7.43e-10 -3.17e-17 -2.69e-08 -3.70e-18 1.00e+00 -1.59e-17 -2.88e-06 -3.81e-18 
+-4.43e-18 -1.59e-08 -7.16e-18 -3.20e-07 -1.59e-17 1.00e+00 -5.41e-17 -2.05e-05 
+-5.82e-09 3.52e-18 -2.11e-07 -2.16e-17 -2.88e-06 -5.41e-17 1.00e+00 8.56e-17 
+-1.31e-17 -1.00e-07 1.64e-17 -2.02e-06 -3.81e-18 -2.05e-05 8.56e-17 1.00e+00 
+ 
+1.00e+00 0.00e+00 -5.54e-11 -2.78e-17 -7.52e-10 0.00e+00 -5.88e-09 -1.39e-17 
+0.00e+00 1.00e+00 -5.55e-17 -1.60e-09 0.00e+00 -1.61e-08 -4.16e-17 -1.01e-07 
+-5.54e-11 -5.55e-17 1.00e+00 5.55e-17 -2.72e-08 0.00e+00 -2.13e-07 1.39e-17 
+-2.78e-17 -1.60e-09 5.55e-17 1.00e+00 0.00e+00 -3.23e-07 -5.55e-17 -2.04e-06 
+-7.52e-10 0.00e+00 -2.72e-08 0.00e+00 1.00e+00 0.00e+00 -2.91e-06 4.16e-17 
+0.00e+00 -1.61e-08 0.00e+00 -3.23e-07 0.00e+00 1.00e+00 -5.55e-17 -2.07e-05 
+-5.88e-09 -4.16e-17 -2.13e-07 -5.55e-17 -2.91e-06 -5.55e-17 1.00e+00 0.00e+00 
+-1.39e-17 -1.01e-07 1.39e-17 -2.04e-06 4.16e-17 -2.07e-05 0.00e+00 1.00e+00 
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Load the Hamiltonian matrix</strong></p>
+<p>Each matrix element of the Hamiltonian is a calculated as a vector-matrix-vector product. This would be a double integral if written out with continuous (i.e., non-discrete) wave functions in coordinate space.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N_basis</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">omega</span> <span class="o">=</span> <span class="mi">2</span>
+
+<span class="c1"># Combine matrices to make the Hamiltonian matrix</span>
+<span class="n">V_linear</span> <span class="o">=</span> <span class="n">V_linear_matrix</span><span class="p">(</span><span class="n">x_mesh</span><span class="p">)</span>
+<span class="n">Hamiltonian</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N_basis</span><span class="p">,</span><span class="n">N_basis</span><span class="p">))</span>  <span class="c1"># Start with an Nb x Nb matrix of zeros</span>
+<span class="k">for</span> <span class="n">n1</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N_basis</span><span class="p">):</span>
+    <span class="n">wf1</span> <span class="o">=</span> <span class="n">SHO_1d_wf</span><span class="p">(</span><span class="n">n1</span><span class="p">,</span> <span class="n">x_mesh</span><span class="p">,</span> <span class="n">omega</span><span class="p">)</span>  <span class="c1"># this is the bra wave function</span>
+    <span class="k">for</span> <span class="n">n2</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N_basis</span><span class="p">):</span>
+        <span class="n">wf2</span> <span class="o">=</span> <span class="n">SHO_1d_wf</span><span class="p">(</span><span class="n">n2</span><span class="p">,</span> <span class="n">x_mesh</span><span class="p">,</span> <span class="n">omega</span><span class="p">)</span> <span class="c1"># this is the ket wave function</span>
+        <span class="n">Hamiltonian_matrix</span> <span class="o">=</span> <span class="o">-</span><span class="n">hbar</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">mass</span><span class="p">)</span> <span class="o">*</span> <span class="n">second_deriv</span> <span class="o">+</span> <span class="n">V_linear</span> 
+        <span class="n">Hamiltonian</span><span class="p">[</span><span class="n">n1</span><span class="p">][</span><span class="n">n2</span><span class="p">]</span> <span class="o">=</span> <span class="n">Delta_x</span> <span class="o">*</span> <span class="n">wf1</span> <span class="o">@</span> <span class="n">Hamiltonian_matrix</span> <span class="o">@</span> <span class="n">wf2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Try diagonalizing using numpy functions</span>
+<span class="n">eigvals</span><span class="p">,</span> <span class="n">eigvecs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">Hamiltonian</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">eigvals</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.78209205]
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Compare to exact answers</strong></p>
+<p>These are reproduced following the discussion in S&amp;N, but with more digits for the zeros by using <code class="docutils literal notranslate"><span class="pre">scipy</span></code> functions.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">airy_zeros</span><span class="p">,</span> <span class="n">airy_deriv_zeros</span><span class="p">,</span> <span class="n">dum1</span><span class="p">,</span> <span class="n">dum2</span>  <span class="o">=</span> <span class="n">ai_zeros</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">airy_zeros</span><span class="p">,</span> <span class="n">airy_deriv_zeros</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[-2.33810741 -4.08794944 -5.52055983 -6.78670809 -7.94413359] [-1.01879297 -3.24819758 -4.82009921 -6.16330736 -7.37217726]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">k_linear</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span>  <span class="c1"># hard-coded in linear potential function; should change!</span>
+
+<span class="n">num_eigs</span> <span class="o">=</span> <span class="n">N_basis</span>  <span class="c1"># use a smaller number if N_basis is large</span>
+<span class="n">airy_zeros</span><span class="p">,</span> <span class="n">airy_deriv_zeros</span><span class="p">,</span> <span class="n">dum1</span><span class="p">,</span> <span class="n">dum2</span>  <span class="o">=</span> <span class="n">ai_zeros</span><span class="p">(</span><span class="n">num_eigs</span><span class="p">)</span>
+
+<span class="c1"># The following are the numbers from S&amp;N: only 4 significant figures</span>
+<span class="c1"># airy_zeros = np.array([-2.338, -4.088, -5.521])</span>
+<span class="c1"># airy_deriv_zeros = np.array([-1.019, -3.249, -4.820])</span>
+<span class="n">even_states_linear</span> <span class="o">=</span> <span class="o">-</span><span class="n">airy_deriv_zeros</span><span class="o">/</span><span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">k_linear</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">mass</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">odd_states_linear</span> <span class="o">=</span> <span class="o">-</span><span class="n">airy_zeros</span><span class="o">/</span><span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">k_linear</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">mass</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Comparison of exact and approximated energies for omega = </span><span class="si">{</span><span class="n">omega</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1"> and basis size: </span><span class="si">{</span><span class="n">N_basis</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39; n    exact   ho basis&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">E_approx</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">eigvals</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">num_eigs</span><span class="p">]):</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2</span><span class="p">:</span>  <span class="c1"># odd states</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39; </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">  </span><span class="si">{</span><span class="n">odd_states_linear</span><span class="p">[</span><span class="nb">int</span><span class="p">((</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">)]</span><span class="si">:</span><span class="s1">.6f</span><span class="si">}</span><span class="s1">  </span><span class="si">{</span><span class="n">E_approx</span><span class="si">:</span><span class="s1">.6f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>        
+    <span class="k">else</span><span class="p">:</span>      <span class="c1"># even states</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39; </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">  </span><span class="si">{</span><span class="n">even_states_linear</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="o">/</span><span class="mi">2</span><span class="p">)]</span><span class="si">:</span><span class="s1">.6f</span><span class="si">}</span><span class="s1">  </span><span class="si">{</span><span class="n">E_approx</span><span class="si">:</span><span class="s1">.6f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Comparison of exact and approximated energies for omega = 2.00 and basis size: 1
+ n    exact   ho basis
+ 0  0.641799  0.782092
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "furnstahl/7501-JB",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "conda-env-7501-env-py"
+        },
+        kernelOptions: {
+            kernelName: "conda-env-7501-env-py",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'conda-env-7501-env-py'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="Diagonalizing_coordinate_space.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Diagonalizing coordinate space solutions</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="Airy_function_roots.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Calculate zeros of the Airy function and its derivative</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Dick Furnstahl<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
