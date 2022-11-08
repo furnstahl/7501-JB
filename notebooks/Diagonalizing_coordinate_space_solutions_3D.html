@@ -158,6 +158,11 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="Spherical_Bessel_functions_overview.html">
+   Spherical Bessel functions (and zeros)
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="Diagonalizing_coordinate_space_3D.html">
    Diagonalizing in 3D coordinate space
   </a>
@@ -654,7 +659,7 @@ title="Print to PDF"
 <p><strong>Choose values for <code class="docutils literal notranslate"><span class="pre">N_pts</span></code>, <code class="docutils literal notranslate"><span class="pre">x_min</span></code>, and <code class="docutils literal notranslate"><span class="pre">x_max</span></code></strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N_pts</span> <span class="o">=</span> <span class="mi">4001</span>   <span class="c1"># For accuracy this should be large; over 1000 </span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N_pts</span> <span class="o">=</span> <span class="mi">2001</span>   <span class="c1"># For accuracy this should be large; over 1000 </span>
 <span class="n">r_min</span> <span class="o">=</span> <span class="mf">0.</span>     <span class="c1"># For three-dimensions, r starts at zero</span>
 <span class="n">r_max</span> <span class="o">=</span> <span class="mf">5.</span>     <span class="c1"># How large to make this depends on the potential</span>
 <span class="n">Delta_r</span> <span class="o">=</span> <span class="p">(</span><span class="n">r_max</span> <span class="o">-</span> <span class="n">r_min</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">N_pts</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
@@ -741,16 +746,16 @@ title="Print to PDF"
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> *** Energy eigenvalues for l = 0 ***
  n       E       ka      ka/pi
- 0    4.0541    2.848    0.906
- 1   16.0728    5.670    1.805
- 2   35.3629    8.410    2.677
- 3   50.2976   10.030    3.193
- 4   51.1827   10.118    3.221
- 5   52.6291   10.260    3.266
- 6   54.5781   10.448    3.326
- 7   56.9121   10.669    3.396
- 8   59.5045   10.909    3.472
- 9   62.4796   11.179    3.558
+ 0    4.0404    2.843    0.905
+ 1   16.0190    5.660    1.802
+ 2   35.2503    8.396    2.673
+ 3   50.2971   10.030    3.193
+ 4   51.1804   10.117    3.220
+ 5   52.6230   10.259    3.266
+ 6   54.5640   10.446    3.325
+ 7   56.8822   10.666    3.395
+ 8   59.4578   10.905    3.471
+ 9   62.4342   11.174    3.557
 </pre></div>
 </div>
 </div>
@@ -768,7 +773,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> test normalization: 0.9999999999999998
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> test normalization: 0.9999999999999993
 </pre></div>
 </div>
 </div>
@@ -827,16 +832,16 @@ title="Print to PDF"
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> *** Energy eigenvalues for l = 1 ***
  n       E       ka    
- 0    8.2934    4.073 
- 1   24.1861    6.955 
- 2   46.2677    9.620 
- 3   50.4509   10.045 
- 4   51.4513   10.144 
- 5   53.0427   10.300 
- 6   55.2143   10.509 
- 7   57.9473   10.765 
- 8   61.2139   11.065 
- 9   64.9647   11.399 
+ 0    8.2840    4.070 
+ 1   24.1591    6.951 
+ 2   46.2234    9.615 
+ 3   50.4506   10.045 
+ 4   51.4501   10.144 
+ 5   53.0405   10.300 
+ 6   55.2109   10.508 
+ 7   57.9424   10.765 
+ 8   61.2070   11.064 
+ 9   64.9548   11.398 
 </pre></div>
 </div>
 </div>
@@ -854,7 +859,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> test normalization: 0.9999999999999994
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> test normalization: 0.9999999999999996
 </pre></div>
 </div>
 </div>
