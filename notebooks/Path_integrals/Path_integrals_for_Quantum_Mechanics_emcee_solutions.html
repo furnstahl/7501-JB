@@ -153,6 +153,16 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="../Diagonalizing_in_basis_and_variational_method.html">
+   Diagonalizing with SHO basis
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../Diagonalizing_coordinate_space_3D.html">
+   Diagonalizing in 3D coordinate space
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="../Airy_function_roots.html">
    Linear potential energies
   </a>
@@ -1086,7 +1096,6 @@ title="Print to PDF"
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k_osc</span><span class="p">,</span> <span class="n">hbar</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">mass</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">V_string</span><span class="o">=</span><span class="s1">&#39;Harmonic oscillator&#39;</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">k_osc</span> <span class="o">=</span> <span class="n">k_osc</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">mass</span> <span class="o">=</span> <span class="n">mass</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">hbar</span><span class="p">,</span> <span class="n">mass</span><span class="p">,</span> <span class="n">V_string</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">V</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="p">:</span>
@@ -1148,13 +1157,13 @@ title="Print to PDF"
 <span class="sd">    -------</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k_osc</span><span class="p">,</span> <span class="n">hbar</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">mass</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">V_string</span><span class="o">=</span><span class="s1">&#39;Anharmonic oscillator&#39;</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k_osc</span><span class="p">,</span> <span class="n">hbar</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">mass</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">V_string</span><span class="o">=</span><span class="s1">&#39;Linear Potential&#39;</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">k_osc</span> <span class="o">=</span> <span class="n">k_osc</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">mass</span> <span class="o">=</span> <span class="n">mass</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">hbar</span><span class="p">,</span> <span class="n">mass</span><span class="p">,</span> <span class="n">V_string</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">V_string</span><span class="si">}</span><span class="s1">: hbar = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">hbar</span><span class="si">}</span><span class="s1">, mass = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">mass</span><span class="si">}</span><span class="s1">, k = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">k_osc</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">V</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Anharmonic oscillator potential for particle at x&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Linear potential for particle at x&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">k_osc</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1166,12 +1175,12 @@ title="Print to PDF"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Instantiate a harmonic oscillator potential</span>
-<span class="n">mass</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span>  <span class="c1">#1.  </span>
-<span class="n">k_osc</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span>  <span class="c1">#1.  # oscillator constant </span>
+<span class="n">mass</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span> <span class="c1">#1.  </span>
+<span class="n">k_osc</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span>  <span class="c1"># 1/2  #1.  # oscillator constant </span>
 <span class="n">hbar</span> <span class="o">=</span> <span class="mf">1.</span> 
 
-<span class="n">test_ho</span> <span class="o">=</span> <span class="n">V_HO</span><span class="p">(</span><span class="n">k_osc</span><span class="p">,</span> <span class="n">hbar</span><span class="p">,</span> <span class="n">mass</span><span class="p">)</span>
-<span class="n">test_aho</span> <span class="o">=</span> <span class="n">V_aHO</span><span class="p">(</span><span class="n">k_osc</span><span class="p">,</span> <span class="n">hbar</span><span class="p">,</span> <span class="n">mass</span><span class="p">)</span>
+<span class="c1">#test_ho = V_HO(k_osc, hbar, mass)</span>
+<span class="n">test_ho</span> <span class="o">=</span> <span class="n">V_aHO</span><span class="p">(</span><span class="n">k_osc</span><span class="p">,</span> <span class="n">hbar</span><span class="p">,</span> <span class="n">mass</span><span class="p">)</span>
 <span class="c1">#test_ho = V_linear(k_osc, hbar, mass)</span>
 </pre></div>
 </div>
@@ -1190,7 +1199,7 @@ title="Print to PDF"
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;dotted&#39;</span><span class="p">)</span>
 
-<span class="n">test_ho</span><span class="o">.</span><span class="n">plot_V</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">x_pts_all</span><span class="p">,</span> <span class="n">V_label</span><span class="o">=</span><span class="s1">&#39;HO potential&#39;</span><span class="p">)</span>
+<span class="n">test_ho</span><span class="o">.</span><span class="n">plot_V</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">x_pts_all</span><span class="p">,</span> <span class="n">V_label</span><span class="o">=</span><span class="n">test_ho</span><span class="o">.</span><span class="n">V_string</span><span class="p">)</span>
 <span class="c1">#ax.plot(x_pts_all, test_ho.wf_gs(x_pts_all), color=&#39;red&#39;, alpha=1, label=&#39;gs wf&#39;)</span>
 
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">test_ho</span><span class="o">.</span><span class="n">V_string</span><span class="si">}</span><span class="s1"> with k_osc = </span><span class="si">{</span><span class="n">k_osc</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">, mass = </span><span class="si">{</span><span class="n">mass</span><span class="si">:</span><span class="s1">.1f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -1321,7 +1330,7 @@ b. If Delta S &gt; 0 (action increased), generate eta between 0 and 1. Keep new 
 <h3>Discretize time<a class="headerlink" href="#discretize-time" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Delta_T</span> <span class="o">=</span> <span class="mf">0.25</span>           <span class="c1"># DeltaT --&gt; &quot;a&quot; in Lepage</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Delta_T</span> <span class="o">=</span> <span class="mf">0.25</span> <span class="c1"># 0.5 # .25           # DeltaT --&gt; &quot;a&quot; in Lepage</span>
 <span class="n">N_pts</span> <span class="o">=</span> <span class="mi">20</span>              <span class="c1"># N_pts --&gt; &quot;N&quot; in Lepage </span>
 <span class="n">Tmax</span> <span class="o">=</span> <span class="n">Delta_T</span> <span class="o">*</span> <span class="n">N_pts</span>   <span class="c1"># Tmax --&gt; &quot;T&quot; in Lepage</span>
 
@@ -1352,8 +1361,8 @@ b. If Delta S &gt; 0 (action increased), generate eta between 0 and 1. Keep new 
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set up the probability distributions for emcee and zeus</span>
 
 <span class="c1"># range of x values</span>
-<span class="n">x_min</span> <span class="o">=</span> <span class="o">-</span><span class="mf">5.</span>
-<span class="n">x_max</span> <span class="o">=</span> <span class="o">+</span><span class="mf">5.</span>
+<span class="n">x_min</span> <span class="o">=</span> <span class="o">-</span><span class="mf">5.</span> <span class="c1">#-5.</span>
+<span class="n">x_max</span> <span class="o">=</span> <span class="o">+</span><span class="mf">5.</span> <span class="c1"># +5.</span>
 
 <span class="c1"># theta is a vector of parameters that we use to represent a path</span>
 <span class="c1">#  There are N_pts x values in the path; theta is a vector for a </span>
@@ -1402,9 +1411,9 @@ b. If Delta S &gt; 0 (action increased), generate eta between 0 and 1. Keep new 
 <span class="n">N_corr</span> <span class="o">=</span> <span class="mi">20</span>      <span class="c1"># Lepage recommends 20 or so </span>
 
 <span class="n">ndim</span> <span class="o">=</span> <span class="n">N_pts</span>  <span class="c1"># number of parameters in the model</span>
-<span class="n">nwalkers</span> <span class="o">=</span> <span class="mi">50</span>  <span class="c1"># number of MCMC walkers</span>
+<span class="n">nwalkers</span> <span class="o">=</span> <span class="mi">50</span>  <span class="c1"># 50  # number of MCMC walkers</span>
 <span class="n">nburn</span> <span class="o">=</span> <span class="mi">50</span> <span class="o">*</span> <span class="n">N_corr</span>  <span class="c1"># &quot;burn-in&quot; period to let chains stabilize</span>
-<span class="n">nsteps</span> <span class="o">=</span> <span class="mi">20000</span>  <span class="c1"># number of MCMC steps to take</span>
+<span class="n">nsteps</span> <span class="o">=</span> <span class="mi">10000</span>  <span class="c1"># number of MCMC steps to take</span>
 
 <span class="c1"># Uncomment to start at random locations within the prior volume</span>
 <span class="c1"># starting_guesses = min_theta + \</span>
@@ -1431,8 +1440,8 @@ b. If Delta S &gt; 0 (action increased), generate eta between 0 and 1. Keep new 
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MCMC sampling using emcee (affine-invariant ensamble sampler) with 50 walkers
-Mean acceptance fraction: 0.298 (in total 1000000 steps)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MCMC sampling using emcee (affine-invariant ensamble sampler) with 100 walkers
+Mean acceptance fraction: 0.270 (in total 1000000 steps)
 </pre></div>
 </div>
 </div>
@@ -1456,7 +1465,7 @@ Mean acceptance fraction: 0.298 (in total 1000000 steps)
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1000000, 20)
-Average over 1000000 configurations is 0.49952
+Average over 1000000 configurations is 0.40351
 </pre></div>
 </div>
 </div>
@@ -1474,7 +1483,7 @@ Average over 1000000 configurations is 0.49952
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(50000, 20)
-Average over 50000 configurations is 0.49871
+Average over 50000 configurations is 0.40355
 </pre></div>
 </div>
 </div>
@@ -1577,9 +1586,9 @@ The setup is very similar to <code class="docutils literal notranslate"><span cl
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MCMC sampling using zeus (ensamble slice sampler) with 50 walkers
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling progress : 100%|████████████████████| 200/200 [00:01&lt;00:00, 132.76it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sampling progress : 100%|████████████████████| 200/200 [00:01&lt;00:00, 136.71it/s]
 Initialising ensemble of 50 walkers...
-Sampling progress : 100%|██████████████████| 1000/1000 [00:07&lt;00:00, 137.87it/s]
+Sampling progress : 100%|██████████████████| 1000/1000 [00:07&lt;00:00, 137.91it/s]
 </pre></div>
 </div>
 </div>
@@ -1597,7 +1606,7 @@ Sampling progress : 100%|██████████████████|
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(2500, 20)
-Average over 2500 thinned configurations is 0.49534
+Average over 2500 thinned configurations is 0.40689
 </pre></div>
 </div>
 </div>
@@ -1614,7 +1623,7 @@ Average over 2500 thinned configurations is 0.49534
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Average over 50000 configurations is 0.49702
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Average over 50000 configurations is 0.40762
 </pre></div>
 </div>
 </div>
@@ -1683,10 +1692,10 @@ Average over 2500 thinned configurations is 0.49534
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.25
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5
 (21,)
-[0.   0.25 0.5  0.75 1.   1.25 1.5  1.75 2.   2.25 2.5  2.75 3.   3.25
- 3.5  3.75 4.   4.25 4.5  4.75 5.  ]
+[ 0.   0.5  1.   1.5  2.   2.5  3.   3.5  4.   4.5  5.   5.5  6.   6.5
+  7.   7.5  8.   8.5  9.   9.5 10. ]
 </pre></div>
 </div>
 </div>

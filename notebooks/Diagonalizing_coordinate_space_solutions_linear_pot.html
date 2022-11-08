@@ -153,6 +153,16 @@ const thebe_selector_output = ".output, .cell_output"
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="Diagonalizing_in_basis_and_variational_method.html">
+   Diagonalizing with SHO basis
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Diagonalizing_coordinate_space_3D.html">
+   Diagonalizing in 3D coordinate space
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="Airy_function_roots.html">
    Linear potential energies
   </a>
@@ -873,14 +883,30 @@ Then apply the forward difference (fd) and symmetric difference (sd) matrices to
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ktest</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span> 
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ktest</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">mass</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span>
 <span class="n">airy_deriv_zero</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.018792971647471089017</span>
-<span class="nb">print</span><span class="p">(</span><span class="o">-</span><span class="n">airy_deriv_zero</span><span class="o">/</span><span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">ktest</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="o">-</span><span class="n">airy_deriv_zero</span><span class="o">/</span><span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">ktest</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">mass</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.6417993552317998
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ktest</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">mass</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">airy_deriv_zero</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.018792971647471089017</span>
+<span class="nb">print</span><span class="p">(</span><span class="o">-</span><span class="n">airy_deriv_zero</span><span class="o">/</span><span class="mi">2</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">ktest</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">mass</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4.728818080962081
 </pre></div>
 </div>
 </div>
@@ -914,7 +940,7 @@ Then apply the forward difference (fd) and symmetric difference (sd) matrices to
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Diagonalizing_coordinate_space_solutions_linear_pot_29_0.png" src="../_images/Diagonalizing_coordinate_space_solutions_linear_pot_29_0.png" />
+<img alt="../_images/Diagonalizing_coordinate_space_solutions_linear_pot_30_0.png" src="../_images/Diagonalizing_coordinate_space_solutions_linear_pot_30_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -936,7 +962,7 @@ Then apply the forward difference (fd) and symmetric difference (sd) matrices to
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Diagonalizing_coordinate_space_solutions_linear_pot_30_0.png" src="../_images/Diagonalizing_coordinate_space_solutions_linear_pot_30_0.png" />
+<img alt="../_images/Diagonalizing_coordinate_space_solutions_linear_pot_31_0.png" src="../_images/Diagonalizing_coordinate_space_solutions_linear_pot_31_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -967,7 +993,7 @@ Then apply the forward difference (fd) and symmetric difference (sd) matrices to
   test_psi = .2 * np.exp(-x_mesh**(3/2)) / x_mesh**(1/4)  # based on asymptotic formula
 </pre></div>
 </div>
-<img alt="../_images/Diagonalizing_coordinate_space_solutions_linear_pot_31_1.png" src="../_images/Diagonalizing_coordinate_space_solutions_linear_pot_31_1.png" />
+<img alt="../_images/Diagonalizing_coordinate_space_solutions_linear_pot_32_1.png" src="../_images/Diagonalizing_coordinate_space_solutions_linear_pot_32_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
