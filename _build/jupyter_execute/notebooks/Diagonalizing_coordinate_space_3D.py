@@ -69,7 +69,7 @@ def second_derivative_matrix(N, Delta_r):
 # In[3]:
 
 
-N_pts = 4001   # For accuracy this should be large; over 1000 
+N_pts = 2001   # For accuracy this should be large; over 1000 
 r_min = 0.     # For three-dimensions, r starts at zero
 r_max = 5.     # How large to make this depends on the potential
 Delta_r = (r_max - r_min) / (N_pts - 1)
