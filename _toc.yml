@@ -22,6 +22,8 @@ parts:
     file: notebooks/Diagonalizing_coordinate_space.ipynb
   - title: Diagonalizing with SHO basis
     file: notebooks/Diagonalizing_in_basis_and_variational_method.ipynb
+  - title: Spherical Bessel functions (and zeros)
+    file: notebooks/Spherical_Bessel_functions_overview.ipynb
   - title: Diagonalizing in 3D coordinate space
     file: notebooks/Diagonalizing_coordinate_space_3D.ipynb
   - title: Linear potential energies  
