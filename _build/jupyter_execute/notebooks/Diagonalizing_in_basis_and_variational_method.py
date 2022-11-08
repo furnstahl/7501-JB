@@ -678,3 +678,9 @@ for i, E_approx in enumerate(eigvals[0:num_eigs]):
         print(f' {i}  {even_states_linear[int(i/2)]:.6f}  {E_approx:.6f}')
     
 
+
+# In[ ]:
+
+
+
+
