@@ -103,6 +103,18 @@ print(f'\n l = {ell} zeros (divided by pi): ',
       spherical_jn_zeros(ell, num_zeros) / np.pi)
 
 
+# In[6]:
+
+
+print(' l = 1 zeros: ', spherical_jn_zeros(1, 5))
+
+
+# In[7]:
+
+
+print(' l = 2 zeros: ', spherical_jn_zeros(2, 5))
+
+
 # In[ ]:
 
 

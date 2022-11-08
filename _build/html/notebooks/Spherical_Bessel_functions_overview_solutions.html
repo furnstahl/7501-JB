@@ -55,8 +55,6 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Diagonalizing coordinate space solutions in 3D" href="Diagonalizing_coordinate_space_3D.html" />
-    <link rel="prev" title="Diagonalizing in a basis and the variational method" href="Diagonalizing_in_basis_and_variational_method.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -128,7 +126,7 @@ const thebe_selector_output = ".output, .cell_output"
   Notebooks for 7501
  </span>
 </p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="Reference/linear_algebra_for_QM.html">
    Linear algebra for QM
@@ -159,8 +157,8 @@ const thebe_selector_output = ".output, .cell_output"
    Diagonalizing with SHO basis
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Spherical_Bessel_functions_overview.html">
    Spherical Bessel functions (and zeros)
   </a>
  </li>
@@ -385,7 +383,7 @@ title="Toggle navigation"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="https://mybinder.org/v2/gh/furnstahl/7501-JB/main?urlpath=tree/./notebooks/Spherical_Bessel_functions_overview.ipynb"
+        <a href="https://mybinder.org/v2/gh/furnstahl/7501-JB/main?urlpath=tree/./notebooks/Spherical_Bessel_functions_overview_solutions.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -463,7 +461,7 @@ title="Source repository"
       </li>
       
       <li>
-        <a href="https://github.com/furnstahl/7501-JB/issues/new?title=Issue%20on%20page%20%2Fnotebooks/Spherical_Bessel_functions_overview.html&body=Your%20issue%20content%20here."
+        <a href="https://github.com/furnstahl/7501-JB/issues/new?title=Issue%20on%20page%20%2Fnotebooks/Spherical_Bessel_functions_overview_solutions.html&body=Your%20issue%20content%20here."
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -491,7 +489,7 @@ title="Open an issue"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="../_sources/notebooks/Spherical_Bessel_functions_overview.ipynb"
+        <a href="../_sources/notebooks/Spherical_Bessel_functions_overview_solutions.ipynb"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -581,7 +579,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Spherical_Bessel_functions_overview_4_0.png" src="../_images/Spherical_Bessel_functions_overview_4_0.png" />
+<img alt="../_images/Spherical_Bessel_functions_overview_solutions_4_0.png" src="../_images/Spherical_Bessel_functions_overview_solutions_4_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -599,7 +597,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/Spherical_Bessel_functions_overview_5_0.png" src="../_images/Spherical_Bessel_functions_overview_5_0.png" />
+<img alt="../_images/Spherical_Bessel_functions_overview_solutions_5_0.png" src="../_images/Spherical_Bessel_functions_overview_solutions_5_0.png" />
 </div>
 </div>
 <p><strong>Look for zeros of the spherical Bessel functions <span class="math notranslate nohighlight">\(j_{\ell}(\rho)\)</span></strong></p>
@@ -668,6 +666,30 @@ title="Print to PDF"
 </div>
 </div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39; l = 1 zeros: &#39;</span><span class="p">,</span> <span class="n">spherical_jn_zeros</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> l = 1 zeros:  [ 4.49340946  7.72525184 10.90412166 14.06619391 17.22075527]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39; l = 2 zeros: &#39;</span><span class="p">,</span> <span class="n">spherical_jn_zeros</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> l = 2 zeros:  [ 5.7634592   9.09501133 12.32294097 15.51460301 18.68903636]
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 
     <script type="text/x-thebe-config">
@@ -697,20 +719,6 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="Diagonalizing_in_basis_and_variational_method.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Diagonalizing in a basis and the variational method</p>
-        </div>
-    </a>
-    <a class='right-next' id="next-link" href="Diagonalizing_coordinate_space_3D.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Diagonalizing coordinate space solutions in 3D</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
 </div>
             </footer>
         </div>
