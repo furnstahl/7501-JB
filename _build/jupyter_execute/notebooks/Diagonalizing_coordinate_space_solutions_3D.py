@@ -66,10 +66,10 @@ def second_derivative_matrix(N, Delta_r):
 # 
 # **Choose values for `N_pts`, `x_min`, and `x_max`** 
 
-# In[3]:
+# In[24]:
 
 
-N_pts = 2001   # For accuracy this should be large; over 1000 
+N_pts = 4001   # For accuracy this should be large; over 1000 
 r_min = 0.     # For three-dimensions, r starts at zero
 r_max = 5.     # How large to make this depends on the potential
 Delta_r = (r_max - r_min) / (N_pts - 1)
@@ -78,7 +78,7 @@ r_mesh = np.linspace(r_min, r_max, N_pts)  # create the grid ("mesh") of x point
 
 # Set up the derivative matrices for the specified mesh.
 
-# In[4]:
+# In[25]:
 
 
 second_deriv = second_derivative_matrix(N_pts, Delta_r)
@@ -94,7 +94,7 @@ second_deriv = second_derivative_matrix(N_pts, Delta_r)
 # 
 # which we'll implement as a sum of matrices. We'll choose units initially so that $\hbar = 1$ and $m = 1$, but these can be set to any desired values.
 
-# In[5]:
+# In[26]:
 
 
 def V_SHO_matrix(r_mesh):
@@ -108,7 +108,7 @@ def V_SHO_matrix(r_mesh):
     return V_diag * np.diag(np.ones(N), 0) 
 
 
-# In[6]:
+# In[27]:
 
 
 def Three_D_spherical_box(r_mesh, ell, a, beta, mass=1, hbar=1):
@@ -126,7 +126,7 @@ def Three_D_spherical_box(r_mesh, ell, a, beta, mass=1, hbar=1):
 
 # **Put together the Hamiltonian matrix**
 
-# In[7]:
+# In[28]:
 
 
 hbar = 1
@@ -151,7 +151,47 @@ for n, eig in enumerate(eigvals[0:10]):
           f' {np.sqrt(eig*2*mass*a**2/hbar**2)/np.pi:6.3f}')
 
 
-# In[8]:
+# In[29]:
+
+
+def get_eigvals(ell, beta, num_eigs=5):
+    """
+    Get the first num_eigs eigenvalues for specified ell and beta 
+    """
+    hbar = 1
+    mass = 1
+    a = 1
+
+    V_spherical = Three_D_spherical_box(r_mesh, ell, a, beta, 
+                                        mass=mass, hbar=hbar)
+    Hamiltonian = -hbar**2/(2*mass) * second_deriv + V_spherical
+    # Diagonalize using numpy functions
+    eigvals, eigvecs = np.linalg.eigh(Hamiltonian)
+
+    return eigvals[0:num_eigs]
+
+
+# In[32]:
+
+
+betas = np.array([4, 10, 25, 100, 1000])
+num_eigs = 5
+
+for ell in [0, 1]:
+    print(f' orbital angular momentum l = {ell}')
+    print(f' beta   {num_eigs} * [eigenvalue   sqrt(eig*2ma^2/hbar^2)]')
+    for beta in betas:
+        print(f' {beta:4.0f} ', end =" ")
+        eigs = get_eigvals(ell, beta, num_eigs)
+        for i in range(num_eigs):
+            print(f'{eigs[i]:7.3f} ', \
+                  f'{np.sqrt(eigs[i]*2*mass*a**2/hbar**2):5.3f}', 
+                  end =" ")
+        print(' ')    
+    print(' ')
+
+
+# In[ ]:
 
 
 norm = 1 / np.sqrt(Delta_r)
@@ -163,7 +203,7 @@ wf_2 = norm * eigvecs[:,2]
 print(f' test normalization: {Delta_r * wf_0 @ wf_0}')
 
 
-# In[9]:
+# In[ ]:
 
 
 fig = plt.figure(figsize=(16,6))
@@ -185,7 +225,7 @@ ax1.set_title(fr'Lowest energy eigenstates for $\ell$ = {ell}')
 ax1.legend();
 
 
-# In[10]:
+# In[ ]:
 
 
 hbar = 1
@@ -211,7 +251,7 @@ for n, eig in enumerate(eigvals[0:10]):
 
 
 
-# In[11]:
+# In[ ]:
 
 
 norm = 1 / np.sqrt(Delta_r)
@@ -223,7 +263,7 @@ wf_2 = norm * eigvecs[:,2]
 print(f' test normalization: {Delta_r * wf_0 @ wf_0}')
 
 
-# In[12]:
+# In[ ]:
 
 
 fig = plt.figure(figsize=(16,6))
