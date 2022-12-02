@@ -182,6 +182,11 @@ const thebe_selector_output = ".output, .cell_output"
    Path integral explorations -- Metropolis
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Bound_states_with_finite_difference_method.html">
+   Bound states with a finite difference method
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -659,7 +664,7 @@ title="Print to PDF"
 <p><strong>Choose values for <code class="docutils literal notranslate"><span class="pre">N_pts</span></code>, <code class="docutils literal notranslate"><span class="pre">x_min</span></code>, and <code class="docutils literal notranslate"><span class="pre">x_max</span></code></strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N_pts</span> <span class="o">=</span> <span class="mi">2001</span>   <span class="c1"># For accuracy this should be large; over 1000 </span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N_pts</span> <span class="o">=</span> <span class="mi">4001</span>   <span class="c1"># For accuracy this should be large; over 1000 </span>
 <span class="n">r_min</span> <span class="o">=</span> <span class="mf">0.</span>     <span class="c1"># For three-dimensions, r starts at zero</span>
 <span class="n">r_max</span> <span class="o">=</span> <span class="mf">5.</span>     <span class="c1"># How large to make this depends on the potential</span>
 <span class="n">Delta_r</span> <span class="o">=</span> <span class="p">(</span><span class="n">r_max</span> <span class="o">-</span> <span class="n">r_min</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">N_pts</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
@@ -746,16 +751,78 @@ title="Print to PDF"
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> *** Energy eigenvalues for l = 0 ***
  n       E       ka      ka/pi
- 0    4.0404    2.843    0.905
- 1   16.0190    5.660    1.802
- 2   35.2503    8.396    2.673
- 3   50.2971   10.030    3.193
- 4   51.1804   10.117    3.220
- 5   52.6230   10.259    3.266
- 6   54.5640   10.446    3.325
- 7   56.8822   10.666    3.395
- 8   59.4578   10.905    3.471
- 9   62.4342   11.174    3.557
+ 0    4.0541    2.848    0.906
+ 1   16.0728    5.670    1.805
+ 2   35.3629    8.410    2.677
+ 3   50.2976   10.030    3.193
+ 4   51.1827   10.118    3.221
+ 5   52.6291   10.260    3.266
+ 6   54.5781   10.448    3.326
+ 7   56.9121   10.669    3.396
+ 8   59.5045   10.909    3.472
+ 9   62.4796   11.179    3.558
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_eigvals</span><span class="p">(</span><span class="n">ell</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">num_eigs</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the first num_eigs eigenvalues for specified ell and beta </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">hbar</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">mass</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="n">V_spherical</span> <span class="o">=</span> <span class="n">Three_D_spherical_box</span><span class="p">(</span><span class="n">r_mesh</span><span class="p">,</span> <span class="n">ell</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> 
+                                        <span class="n">mass</span><span class="o">=</span><span class="n">mass</span><span class="p">,</span> <span class="n">hbar</span><span class="o">=</span><span class="n">hbar</span><span class="p">)</span>
+    <span class="n">Hamiltonian</span> <span class="o">=</span> <span class="o">-</span><span class="n">hbar</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">mass</span><span class="p">)</span> <span class="o">*</span> <span class="n">second_deriv</span> <span class="o">+</span> <span class="n">V_spherical</span>
+    <span class="c1"># Diagonalize using numpy functions</span>
+    <span class="n">eigvals</span><span class="p">,</span> <span class="n">eigvecs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">Hamiltonian</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">eigvals</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">num_eigs</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">betas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">])</span>
+<span class="n">num_eigs</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="k">for</span> <span class="n">ell</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39; orbital angular momentum l = </span><span class="si">{</span><span class="n">ell</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39; beta   </span><span class="si">{</span><span class="n">num_eigs</span><span class="si">}</span><span class="s1"> * [eigenvalue   sqrt(eig*2ma^2/hbar^2)]&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">beta</span> <span class="ow">in</span> <span class="n">betas</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39; </span><span class="si">{</span><span class="n">beta</span><span class="si">:</span><span class="s1">4.0f</span><span class="si">}</span><span class="s1"> &#39;</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+        <span class="n">eigs</span> <span class="o">=</span> <span class="n">get_eigvals</span><span class="p">(</span><span class="n">ell</span><span class="p">,</span> <span class="n">beta</span><span class="p">,</span> <span class="n">num_eigs</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_eigs</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">eigs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s1">7.3f</span><span class="si">}</span><span class="s1"> &#39;</span><span class="p">,</span> \
+                  <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">eigs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="n">mass</span><span class="o">*</span><span class="n">a</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="n">hbar</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="si">:</span><span class="s1">5.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> 
+                  <span class="n">end</span> <span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>    
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> orbital angular momentum l = 0
+ beta   5 * [eigenvalue   sqrt(eig*2ma^2/hbar^2)]
+    4    3.053  2.471   8.264  4.065   9.011  4.245  10.138  4.503  11.632  4.823  
+   10    4.054  2.848  16.073  5.670  35.363  8.410  50.298  10.030  51.183  10.118  
+   25    4.545  3.015  18.170  6.028  40.841  9.038  72.494  12.041 113.015  15.034  
+  100    4.819  3.105  19.278  6.209  43.374  9.314  77.106  12.418 120.473  15.522  
+ 1000    4.905  3.132  19.619  6.264  44.143  9.396  78.475  12.528 122.616  15.660  
+ 
+ orbital angular momentum l = 1
+ beta   5 * [eigenvalue   sqrt(eig*2ma^2/hbar^2)]
+    4    6.022  3.470   8.449  4.111   9.421  4.341  10.912  4.672  12.857  5.071  
+   10    8.293  4.073  24.186  6.955  46.268  9.620  50.451  10.045  51.451  10.144  
+   25    9.319  4.317  27.524  7.419  54.766  10.466  90.964  13.488 135.966  16.490  
+  100    9.884  4.446  29.214  7.644  58.201  10.789  96.848  13.917 145.152  17.038  
+ 1000   10.059  4.485  29.732  7.711  59.235  10.884  98.571  14.041 147.739  17.189  
+ 
 </pre></div>
 </div>
 </div>
@@ -769,11 +836,6 @@ title="Print to PDF"
 <span class="n">wf_2</span> <span class="o">=</span> <span class="n">norm</span> <span class="o">*</span> <span class="n">eigvecs</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39; test normalization: </span><span class="si">{</span><span class="n">Delta_r</span> <span class="o">*</span> <span class="n">wf_0</span> <span class="o">@</span> <span class="n">wf_0</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> test normalization: 0.9999999999999993
 </pre></div>
 </div>
 </div>
@@ -799,9 +861,6 @@ title="Print to PDF"
 <span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/Diagonalizing_coordinate_space_solutions_3D_15_0.png" src="../_images/Diagonalizing_coordinate_space_solutions_3D_15_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -829,22 +888,6 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> *** Energy eigenvalues for l = 1 ***
- n       E       ka    
- 0    8.2840    4.070 
- 1   24.1591    6.951 
- 2   46.2234    9.615 
- 3   50.4506   10.045 
- 4   51.4501   10.144 
- 5   53.0405   10.300 
- 6   55.2109   10.508 
- 7   57.9424   10.765 
- 8   61.2070   11.064 
- 9   64.9548   11.398 
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -855,11 +898,6 @@ title="Print to PDF"
 <span class="n">wf_2</span> <span class="o">=</span> <span class="n">norm</span> <span class="o">*</span> <span class="n">eigvecs</span><span class="p">[:,</span><span class="mi">2</span><span class="p">]</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39; test normalization: </span><span class="si">{</span><span class="n">Delta_r</span> <span class="o">*</span> <span class="n">wf_0</span> <span class="o">@</span> <span class="n">wf_0</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> test normalization: 0.9999999999999996
 </pre></div>
 </div>
 </div>
@@ -885,9 +923,6 @@ title="Print to PDF"
 <span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
 </pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/Diagonalizing_coordinate_space_solutions_3D_18_0.png" src="../_images/Diagonalizing_coordinate_space_solutions_3D_18_0.png" />
 </div>
 </div>
 </section>

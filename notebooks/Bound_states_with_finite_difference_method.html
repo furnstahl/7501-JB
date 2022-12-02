@@ -1,0 +1,1058 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Yet another way to solve the Schrodinger equation &#8212; Quantum Mechanics I</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"tex": {"macros": {"N": "\\mathbb{N}", "avec": ["\\boldsymbol{a}"], "floor": ["\\lfloor#1\\rfloor", 1], "bmat": ["\\left[\\begin{array}"], "emat": ["\\end{array}\\right]"]}}, "options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Quantum harmonic oscillator" href="External/harmonic_oscillator_Jendrzejewski.html" />
+    <link rel="prev" title="Path integrals for quantum mechanics" href="Path_integrals/Lepage_Lattice_QCD_for_Novices_code_selfcontained.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Quantum Mechanics I</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../about.html">
+                    About Physics 7501: Quantum Mechanics I
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Course overview
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../content/Course/overview.html">
+   Objectives
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Notebooks for 7501
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Reference/linear_algebra_for_QM.html">
+   Linear algebra for QM
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Numerical_test_of_exponential_as_Nth_power_expression.html">
+   Numerical test of exp formula
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Numerical_derivative_tests.html">
+   Exponentiating operators
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Scaling_of_derivative_errors.html">
+   Scaling of derivative errors
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Diagonalizing_coordinate_space.html">
+   Diagonalizing in coordinate space
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Diagonalizing_in_basis_and_variational_method.html">
+   Diagonalizing with SHO basis
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Spherical_Bessel_functions_overview.html">
+   Spherical Bessel functions (and zeros)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Diagonalizing_coordinate_space_3D.html">
+   Diagonalizing in 3D coordinate space
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Airy_function_roots.html">
+   Linear potential energies
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Path_integrals/Path_integrals_for_Quantum_Mechanics_emcee.html">
+   Path integral explorations -- emcee
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Path_integrals/Lepage_Lattice_QCD_for_Novices_code_selfcontained.html">
+   Path integral explorations -- Metropolis
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Bound states with a finite difference method
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  External QM notebooks
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="External/harmonic_oscillator_Jendrzejewski.html">
+   Quantum harmonic oscillator
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="External/Example_Quantum_Calculations_sympy.html">
+   QM with Sympy
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../content/External/OSSCAR_notebooks.html">
+   QM notebooks from OSSCAR
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="External/quantum-mechanics_from_OSSCAR/1quantumwell.html">
+     Finite well in 1D
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="External/quantum-mechanics_from_OSSCAR/2quantumwells.html">
+     Two finite wells in 1D
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="External/quantum-mechanics_from_OSSCAR/shooting_method.html">
+     Shooting Method with Numerov Algorithm
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="External/quantum-mechanics_from_OSSCAR/soft.html">
+     TD S-eqn using SOFT
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="External/quantum-mechanics_from_OSSCAR/msoft.html">
+     TD S-eqn using MSOFT
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="External/quantum-mechanics_from_OSSCAR/asymmetricwell.html">
+     Avoided crossing example
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Math notebooks
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="External/Quantitative_Economics_with_Python_complex_numbers_and_trig.html">
+   Complex Numbers and Trigonometry
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="External/Quantitative_Economics_with_Python_linear_algebra.html">
+   Linear Algebra
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="External/Quantitative_Economics_with_Python_svd_intro.html">
+   Singular Value Decomposition (SVD)
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Getting started with Python
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../content/Reference/installing_anaconda.html">
+   Using Anaconda
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../content/Reference/python_jupyter.html">
+   Python and Jupyter notebooks
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Reference/Jupyter_Python_intro_01.html">
+     Python and Jupyter notebooks: part 01
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="Reference/Jupyter_Python_intro_02.html">
+     Python and Jupyter notebooks: part 02
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../content/Reference/advanced.html">
+     Advanced topics
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Reference material
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../content/zbibliography.html">
+   Bibliography
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../content/Reference/using_github.html">
+   Using GitHub
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../content/jb_tests.html">
+   Examples: Jupyter jb-book
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/furnstahl/7501-JB/main?urlpath=tree/./notebooks/Bound_states_with_finite_difference_method.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="../_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="initThebeSBT()"
+  class="headerbtn headerbtn-launch-thebe"
+  data-toggle="tooltip"
+data-placement="left"
+title="Launch Thebe"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="headerbtn__text-container">Live Code</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/furnstahl/7501-JB"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/furnstahl/7501-JB/issues/new?title=Issue%20on%20page%20%2Fnotebooks/Bound_states_with_finite_difference_method.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/notebooks/Bound_states_with_finite_difference_method.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#solving-as-a-differential-equation-in-coordinate-representation">
+   Solving as a differential equation in coordinate representation.
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#solving-the-differential-equation-using-a-finite-difference-method">
+   Solving the differential equation using a finite difference method
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#set-hamiltonian-constants-nodes-and-ell-and-mesh-iteration-parameters">
+     1. Set Hamiltonian constants, nodes and
+     <span class="math notranslate nohighlight">
+      \(\ell\)
+     </span>
+     , and mesh/iteration parameters
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#main-iteration">
+     2. Main iteration
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#output-final-result">
+     3. Output final result
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Yet another way to solve the Schrodinger equation</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#solving-as-a-differential-equation-in-coordinate-representation">
+   Solving as a differential equation in coordinate representation.
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#solving-the-differential-equation-using-a-finite-difference-method">
+   Solving the differential equation using a finite difference method
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#set-hamiltonian-constants-nodes-and-ell-and-mesh-iteration-parameters">
+     1. Set Hamiltonian constants, nodes and
+     <span class="math notranslate nohighlight">
+      \(\ell\)
+     </span>
+     , and mesh/iteration parameters
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#main-iteration">
+     2. Main iteration
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#output-final-result">
+     3. Output final result
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="yet-another-way-to-solve-the-schrodinger-equation">
+<h1>Yet another way to solve the Schrodinger equation<a class="headerlink" href="#yet-another-way-to-solve-the-schrodinger-equation" title="Permalink to this headline">#</a></h1>
+<p>We have seen how to solve the Schrodinger equation for bound state energies and wave functions using a matrix representation in coordinate space, a matrix representation in a harmonic oscillator basis, and using path integrals. In this notebook we add another method to the list: direct solution of the S-equation in coordinate space as a differential equation using finite difference methods.</p>
+<section id="solving-as-a-differential-equation-in-coordinate-representation">
+<h2>Solving as a differential equation in coordinate representation.<a class="headerlink" href="#solving-as-a-differential-equation-in-coordinate-representation" title="Permalink to this headline">#</a></h2>
+<p>This works when we have a <em>local</em> potential (otherwise the Schrodinger equation is an integro-differential equation in coordinate representation).
+If we have a central potential in three dimensions, the potential is purely radial</p>
+<div class="math notranslate nohighlight">
+\[
+    V({\bf x}) = V(|{\bf x}|) \equiv V(r)
+   \ ,
+\]</div>
+<p>and we can use a partial wave decomposition (which means we
+separate the equation in spherical coordinates).  That is, we write</p>
+<div class="math notranslate nohighlight">
+\[
+   \Psi_{nlm}({\bf x}) = \frac{u_{nl}(r)}{r} Y_{lm}(\theta,\phi) \ ,
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(Y_{lm}\)</span> is a spherical harmonic, and solve the radial one-dimensional Schrodinger equation:</p>
+<div class="math notranslate nohighlight">
+\[
+   -\frac{\hbar^2}{2M}\frac{d^2u_{nl}(r)}{dr^2}
+   +  
+   \underbrace{\biggl[
+     V(r) + \frac{\hbar^2 l (l+1)}{2M r^2}
+               \biggr]}_{\equiv V_{\rm eff}(r)} 
+    u_{nl}(r)
+  = E_n u_{nl}(r)
+  \ ,
+  \label{eq:radSE}
+\]</div>
+<p>with</p>
+<div class="math notranslate nohighlight">
+\[
+  u_{nl}(r=0) = 0  \qquad \mbox{and} \qquad
+    \int_0^\infty |u_{nl}(r)|^2\, dr = 1 \ .
+    \label{eq:radbc}
+\]</div>
+<p>We’ll apply this method here for radial equations with a central potential.</p>
+<p>For the Coulomb potential <span class="math notranslate nohighlight">\(V(r)= -Ze^2/r\)</span>, we use the notation <span class="math notranslate nohighlight">\(N\)</span> instead of <span class="math notranslate nohighlight">\(n\)</span> for the number of nodes and define</p>
+<div class="math notranslate nohighlight">
+\[ n = N + \ell + 1, \]</div>
+<p>because the energies will only depend on <span class="math notranslate nohighlight">\(n\)</span> (more precisely, on <span class="math notranslate nohighlight">\(1/n^2\)</span>).</p>
+</section>
+<section id="solving-the-differential-equation-using-a-finite-difference-method">
+<h2>Solving the differential equation using a finite difference method<a class="headerlink" href="#solving-the-differential-equation-using-a-finite-difference-method" title="Permalink to this headline">#</a></h2>
+<p>Here we use a (crude) finite difference formula for the second derivative in the kinetic energy operator (here with notation appropriate to the radial equation in spherical coordinates and <span class="math notranslate nohighlight">\(h \equiv \Delta x\)</span>):</p>
+<div class="math notranslate nohighlight">
+\[
+   \frac{d^2u}{dr^2} = \frac{u(r+h) - 2 u(r) + u(r-h)}{h^2} + {\cal O}(h^2) .
+\]</div>
+<p>You can verify this approximation by expanding <span class="math notranslate nohighlight">\(u(r+h)\)</span> and <span class="math notranslate nohighlight">\(u(r-h)\)</span> in
+Taylor series about <span class="math notranslate nohighlight">\(u(r)\)</span>.
+We’ll label the points:</p>
+<div class="math notranslate nohighlight">
+\[
+   r_i = i\times h\ , \qquad i = 0,1,2,\cdots,N-1
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(N\)</span> is the number of steps and the step size <span class="math notranslate nohighlight">\(h\)</span> is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+   h = \frac{R_{\rm max}}{N-1} .
+\]</div>
+<p>Thus, <span class="math notranslate nohighlight">\(r_0 = 0\)</span>, <span class="math notranslate nohighlight">\(r_1 = h\)</span>, and so on up to <span class="math notranslate nohighlight">\(r_{N} = (N-1)h = R_{\rm
+ max}\)</span>.</p>
+<p>We can rearrange the equation to let us determine the radial wave function <span class="math notranslate nohighlight">\(u(r)\)</span> at successive steps in <span class="math notranslate nohighlight">\(h\)</span>, given the previous two values of <span class="math notranslate nohighlight">\(u\)</span>:</p>
+<div class="amsmath math notranslate nohighlight" id="equation-480f93a9-8981-4fc7-950c-730b721f8182">
+<span class="eqno">(1)<a class="headerlink" href="#equation-480f93a9-8981-4fc7-950c-730b721f8182" title="Permalink to this equation">#</a></span>\[\begin{align}
+   u(r+h) &amp;= 2 u(r) - u(r-h) + h^2\frac{d^2u}{dr^2} \\
+          &amp;= 2 u(r) - u(r-h) + h^2\left[\frac{2m}{\hbar^2}(V_{\rm eff}(r)-E)  \right]u(r)
+\end{align}\]</div>
+<p>For <span class="math notranslate nohighlight">\(h&gt;0\)</span> we integrate out from the origin, starting with two initial values, while for <span class="math notranslate nohighlight">\(h &lt; 0\)</span> we integrate in from a sufficiently large value of <span class="math notranslate nohighlight">\(r\)</span> (our approximation to <span class="math notranslate nohighlight">\(\infty\)</span>), where “sufficiently large” means that we are in the asymptotic region.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.integrate</span> <span class="kn">import</span> <span class="n">quad</span><span class="p">,</span> <span class="n">simps</span><span class="p">,</span> <span class="n">solve_ivp</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span><span class="p">;</span> <span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">&quot;darkgrid&quot;</span><span class="p">);</span> <span class="n">sns</span><span class="o">.</span><span class="n">set_context</span><span class="p">(</span><span class="s2">&quot;talk&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="set-hamiltonian-constants-nodes-and-ell-and-mesh-iteration-parameters">
+<h3>1. Set Hamiltonian constants, nodes and <span class="math notranslate nohighlight">\(\ell\)</span>, and mesh/iteration parameters<a class="headerlink" href="#set-hamiltonian-constants-nodes-and-ell-and-mesh-iteration-parameters" title="Permalink to this headline">#</a></h3>
+<p>If we set the important quantities <span class="math notranslate nohighlight">\(\hbar\)</span>, <span class="math notranslate nohighlight">\(m\)</span>, and <span class="math notranslate nohighlight">\(Ze^2\)</span> all equal to one (i.e., we measure in units where these are one), then the exact energy eigenvalues are</p>
+<div class="math notranslate nohighlight">
+\[
+  E_n = -\frac{1}{2n^2}.
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># values of constants (choose natural units)</span>
+<span class="n">hbar</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">mass</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>  
+<span class="n">Ze_sq</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>   <span class="c1"># Z factor (Z = 1 for hydrogen) times electron charge squared</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Here is where you set the desired number of nodes and the value of <span class="math notranslate nohighlight">\(\ell\)</span>. You might also want to change the initial guess of <code class="docutils literal notranslate"><span class="pre">E_trial</span></code> for some choices of nodes and <span class="math notranslate nohighlight">\(\ell\)</span>.</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nodes</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># desired number of nodes in radial wave function</span>
+<span class="n">ell</span> <span class="o">=</span> <span class="mi">0</span>    <span class="c1"># orbital angular momentum quantum number</span>
+<span class="n">E_trial</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.1</span>      <span class="c1"># initial guess for the trial wf</span>
+<span class="n">DeltaE_nodes</span> <span class="o">=</span> <span class="mf">.02</span>  <span class="c1"># small increment in energy if no. of nodes is incorrect</span>
+<span class="n">iter_max</span> <span class="o">=</span> <span class="mi">40</span>  <span class="c1"># maximum number of iterations</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Here is where you can adjust the properties of the radial mesh,
+such as the number of points, the maximum <span class="math notranslate nohighlight">\(r\)</span> value (which together sets <span class="math notranslate nohighlight">\(h \equiv \Delta r\)</span>).
+Particularly important is that you set the matching index <code class="docutils literal notranslate"><span class="pre">i_match</span></code>, which you will have to adjust
+when you change the number of nodes and the value of <span class="math notranslate nohighlight">\(\ell\)</span>.</strong></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N_pts</span> <span class="o">=</span> <span class="mi">2001</span>   <span class="c1"># For accuracy this should be large; over 1000 </span>
+<span class="n">r_min</span> <span class="o">=</span> <span class="mf">0.</span>     <span class="c1"># For three-dimensions, r starts at zero</span>
+<span class="n">r_max</span> <span class="o">=</span> <span class="mf">20.</span>    <span class="c1"># How large to make this depends on the potential</span>
+<span class="n">Delta_r</span> <span class="o">=</span> <span class="p">(</span><span class="n">r_max</span> <span class="o">-</span> <span class="n">r_min</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">N_pts</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">r_mesh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">r_min</span><span class="p">,</span> <span class="n">r_max</span><span class="p">,</span> <span class="n">N_pts</span><span class="p">)</span>  <span class="c1"># create the grid (&quot;mesh&quot;) of x points</span>
+<span class="n">i_match</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">N_pts</span> <span class="o">/</span> <span class="mi">4</span><span class="p">)</span>   <span class="c1"># where to match in and out solutions (adjust as needed)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">C_out</span> <span class="o">=</span> <span class="mf">1.</span>  <span class="c1"># coefficient for approximate analytic solution near origin</span>
+<span class="n">D_in</span> <span class="o">=</span> <span class="mf">1.e-40</span>  <span class="c1"># coefficient for approximate analytic solution at large r</span>
+<span class="n">DeltaE_tol</span> <span class="o">=</span> <span class="mf">0.0001</span>  <span class="c1"># stop iterating when DeltaE_trial &lt; DeltaE_tol</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">u_out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N_pts</span><span class="p">)</span>   <span class="c1"># initialize array for radial wf from outward integration</span>
+<span class="n">u_in</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N_pts</span><span class="p">)</span>    <span class="c1"># initialize array for radial wf from inwar integration</span>
+<span class="n">u_trial</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N_pts</span><span class="p">)</span> <span class="c1"># initial array for scaled and joined radial wf </span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="main-iteration">
+<h3>2. Main iteration<a class="headerlink" href="#main-iteration" title="Permalink to this headline">#</a></h3>
+<p>Keep going until <code class="docutils literal notranslate"><span class="pre">DeltaE_trial</span></code> is less than (or equal to) <code class="docutils literal notranslate"><span class="pre">DeltaE_tol</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Evaluate the Coulomb potential on the mesh</span>
+<span class="n">V_on_mesh</span> <span class="o">=</span> <span class="o">-</span><span class="n">Ze_sq</span> <span class="o">/</span> <span class="n">r_mesh</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">hbar</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">mass</span><span class="p">)</span> <span class="o">*</span> <span class="n">ell</span> <span class="o">*</span> <span class="p">(</span><span class="n">ell</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">r_mesh</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">u_out</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="n">DeltaE_trial</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">DeltaE_tol</span>  <span class="c1"># initialize DeltaE_trial so there is at least one iteration</span>
+<span class="n">iter_num</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">while</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">DeltaE_trial</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">DeltaE_tol</span><span class="p">:</span>
+    <span class="c1"># initialize the node count and increment the iteration number</span>
+    <span class="n">node_count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">iter_num</span> <span class="o">=</span> <span class="n">iter_num</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">iter_num</span> <span class="o">&gt;</span> <span class="n">iter_max</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39; *** Stopped at </span><span class="si">{</span><span class="n">iter_num</span><span class="si">}</span><span class="s1"> iterations ***&#39;</span><span class="p">)</span>
+        <span class="k">break</span>
+
+    <span class="c1"># Set up the array for d^2u/dr^2 </span>
+    <span class="n">T_array</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">mass</span> <span class="o">/</span> <span class="n">hbar</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">V_on_mesh</span> <span class="o">-</span> <span class="n">E_trial</span><span class="p">)</span>
+     
+    <span class="c1"># integrate out from the origin, with analytic starting points</span>
+    <span class="n">u_out</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">C_out</span> <span class="o">*</span> <span class="n">r_mesh</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="p">(</span><span class="n">ell</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">u_out</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">C_out</span> <span class="o">*</span> <span class="n">r_mesh</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">**</span><span class="p">(</span><span class="n">ell</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">i_match</span><span class="o">+</span><span class="mi">2</span><span class="p">):</span>
+        <span class="n">u_out</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">u_out</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">u_out</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">Delta_r</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">T_array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">u_out</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="c1"># check for node</span>
+        <span class="k">if</span> <span class="n">u_out</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">u_out</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">node_count</span> <span class="o">=</span> <span class="n">node_count</span> <span class="o">+</span> <span class="mi">1</span>
+       
+    <span class="c1"># integrate in from the largest mesh point, using the asymptotic for of u(r)</span>
+    <span class="n">kappa</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">mass</span><span class="o">*</span><span class="n">E_trial</span> <span class="o">/</span> <span class="n">hbar</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">u_in</span><span class="p">[</span><span class="n">N_pts</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">D_in</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">kappa</span> <span class="o">*</span> <span class="n">r_mesh</span><span class="p">[</span><span class="n">N_pts</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">u_in</span><span class="p">[</span><span class="n">N_pts</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">D_in</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">kappa</span> <span class="o">*</span> <span class="n">r_mesh</span><span class="p">[</span><span class="n">N_pts</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">N_pts</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="n">i_match</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">):</span>
+        <span class="n">u_in</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">u_in</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">u_in</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">Delta_r</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">T_array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">u_in</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="c1"># check for node</span>
+        <span class="k">if</span> <span class="n">u_in</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">u_in</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">node_count</span> <span class="o">=</span> <span class="n">node_count</span> <span class="o">+</span> <span class="mi">1</span>
+
+    <span class="n">rescale</span> <span class="o">=</span> <span class="n">u_out</span><span class="p">[</span><span class="n">i_match</span><span class="p">]</span> <span class="o">/</span> <span class="n">u_in</span><span class="p">[</span><span class="n">i_match</span><span class="p">]</span>
+    <span class="n">u_in</span> <span class="o">=</span> <span class="n">rescale</span> <span class="o">*</span> <span class="n">u_in</span>
+        
+    <span class="c1"># join the out and in solutions at i_match</span>
+    <span class="n">u_trial</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">u_out</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">i_match</span><span class="p">],</span> <span class="n">u_in</span><span class="p">[</span><span class="n">i_match</span><span class="p">:])</span>
+    
+    <span class="c1"># normalize the joined and scaled trial wave function u_trial</span>
+    <span class="n">u_trial</span> <span class="o">=</span> <span class="n">u_trial</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">simps</span><span class="p">(</span><span class="n">u_trial</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">r_mesh</span><span class="p">))</span>
+    <span class="c1"># print(f&#39;norm check {simps(u_trial**2, r_mesh)}&#39;)   # debugging check</span>
+    
+            
+    <span class="c1"># adjust trial energy, first by checking if node_count = nodes and then using formula</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">node_count</span> <span class="o">&lt;</span> <span class="n">nodes</span><span class="p">):</span>  <span class="c1"># too few nodes, increase trial energy by constant</span>
+        <span class="n">E_trial</span> <span class="o">=</span> <span class="n">E_trial</span> <span class="o">+</span> <span class="n">DeltaE_nodes</span>
+    <span class="k">elif</span> <span class="p">(</span><span class="n">node_count</span> <span class="o">&gt;</span> <span class="n">nodes</span><span class="p">):</span>  <span class="c1"># too many nodes, decrease trial energy by constant</span>
+        <span class="n">E_trial</span> <span class="o">=</span> <span class="n">E_trial</span> <span class="o">-</span> <span class="n">DeltaE_nodes</span>
+
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># correct no. of nodes; use formula to adjust trial energy         </span>
+        <span class="n">u_deriv_out</span> <span class="o">=</span> <span class="p">(</span><span class="n">u_out</span><span class="p">[</span><span class="n">i_match</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">u_out</span><span class="p">[</span><span class="n">i_match</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">Delta_r</span><span class="p">)</span>
+        <span class="n">u_deriv_in</span> <span class="o">=</span> <span class="p">(</span><span class="n">u_in</span><span class="p">[</span><span class="n">i_match</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">u_in</span><span class="p">[</span><span class="n">i_match</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">Delta_r</span><span class="p">)</span>
+        <span class="c1"># print(f&#39;u_deriv_out: {u_deriv_out},  u_deriv_in: {u_deriv_in}&#39;) # debugging</span>
+        
+        <span class="n">norm</span> <span class="o">=</span> <span class="n">simps</span><span class="p">(</span><span class="n">u_trial</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">r_mesh</span><span class="p">)</span>  <span class="c1"># Should be equal to one</span>
+        <span class="n">DeltaE_trial</span> <span class="o">=</span>  <span class="o">-</span><span class="n">u_trial</span><span class="p">[</span><span class="n">i_match</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">u_deriv_in</span> <span class="o">-</span> <span class="n">u_deriv_out</span><span class="p">)</span> <span class="o">/</span> <span class="n">norm</span>
+        <span class="n">new_E_trial</span> <span class="o">=</span> <span class="n">E_trial</span> <span class="o">+</span> <span class="n">DeltaE_trial</span> <span class="c1"># New estimate for E_trial</span>
+        <span class="k">if</span> <span class="n">new_E_trial</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">E_trial</span> <span class="o">=</span> <span class="n">E_trial</span> <span class="o">+</span> <span class="mf">0.05</span> <span class="o">*</span> <span class="n">DeltaE_trial</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">E_trial</span> <span class="o">=</span> <span class="n">new_E_trial</span>  
+        
+        <span class="c1"># make a plot of the wave function</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+        
+        <span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$r$&#39;</span><span class="p">)</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$u_{\rm trial}(r)$&#39;</span><span class="p">)</span>
+        
+        <span class="c1">#ax1.set_xlim(0, r_max)</span>
+        <span class="c1">#ax1.set_ylim(-1., 3)</span>
+        
+        <span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">r_mesh</span><span class="p">,</span> <span class="n">u_trial</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$u_{\rm trial}$&#39;</span><span class="p">)</span>
+         
+        <span class="n">title_string</span> <span class="o">=</span> <span class="sa">fr</span><span class="s1">&#39;Iteration: </span><span class="si">{</span><span class="n">iter_num</span><span class="si">}</span><span class="s1">. &#39;</span> \
+                        <span class="o">+</span> <span class="sa">fr</span><span class="s1">&#39;Trial wf for $N = </span><span class="si">{</span><span class="n">nodes</span><span class="si">}</span><span class="s1">$ and $\ell$ = </span><span class="si">{</span><span class="n">ell</span><span class="si">}</span><span class="s1">.&#39;</span> \
+                        <span class="o">+</span> <span class="sa">fr</span><span class="s1">&#39; $E_</span><span class="se">{{</span><span class="s1">\rm trial</span><span class="se">}}</span><span class="s1"> = </span><span class="si">{</span><span class="n">E_trial</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">$&#39;</span>
+        <span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title_string</span><span class="p">)</span>
+        
+        <span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+        
+
+    <span class="c1"># print current status</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">**** Iteration #</span><span class="si">{</span><span class="n">iter_num</span><span class="si">}</span><span class="s1">&#39;</span> <span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;nodes: </span><span class="si">{</span><span class="n">node_count</span><span class="si">}</span><span class="s1">, E_trial: </span><span class="si">{</span><span class="n">E_trial</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">, Delta E_trial: </span><span class="si">{</span><span class="n">DeltaE_trial</span><span class="si">:</span><span class="s1">.5f</span><span class="si">}</span><span class="s1">&#39;</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>**** Iteration #1
+nodes: 1, E_trial: -0.1200, Delta E_trial: 0.00020
+
+**** Iteration #2
+nodes: 1, E_trial: -0.1400, Delta E_trial: 0.00020
+
+**** Iteration #3
+nodes: 1, E_trial: -0.1600, Delta E_trial: 0.00020
+
+**** Iteration #4
+nodes: 1, E_trial: -0.1800, Delta E_trial: 0.00020
+
+**** Iteration #5
+nodes: 1, E_trial: -0.2000, Delta E_trial: 0.00020
+
+**** Iteration #6
+nodes: 1, E_trial: -0.2200, Delta E_trial: 0.00020
+
+**** Iteration #7
+nodes: 1, E_trial: -0.2400, Delta E_trial: 0.00020
+
+**** Iteration #8
+nodes: 1, E_trial: -0.2600, Delta E_trial: 0.00020
+
+**** Iteration #9
+nodes: 1, E_trial: -0.2800, Delta E_trial: 0.00020
+
+**** Iteration #10
+nodes: 1, E_trial: -0.3000, Delta E_trial: 0.00020
+
+**** Iteration #11
+nodes: 1, E_trial: -0.3200, Delta E_trial: 0.00020
+
+**** Iteration #12
+nodes: 1, E_trial: -0.3400, Delta E_trial: 0.00020
+
+**** Iteration #13
+nodes: 1, E_trial: -0.3600, Delta E_trial: 0.00020
+
+**** Iteration #14
+nodes: 1, E_trial: -0.3800, Delta E_trial: 0.00020
+
+**** Iteration #15
+nodes: 1, E_trial: -0.4000, Delta E_trial: 0.00020
+
+**** Iteration #16
+nodes: 1, E_trial: -0.4200, Delta E_trial: 0.00020
+
+**** Iteration #17
+nodes: 1, E_trial: -0.4400, Delta E_trial: 0.00020
+
+**** Iteration #18
+nodes: 1, E_trial: -0.4600, Delta E_trial: 0.00020
+
+**** Iteration #19
+nodes: 1, E_trial: -0.4800, Delta E_trial: 0.00020
+
+**** Iteration #20
+nodes: 0, E_trial: -0.4811, Delta E_trial: -0.00114
+
+**** Iteration #21
+nodes: 0, E_trial: -0.4820, Delta E_trial: -0.00083
+
+**** Iteration #22
+nodes: 0, E_trial: -0.4821, Delta E_trial: -0.00016
+
+**** Iteration #23
+nodes: 0, E_trial: -0.4821, Delta E_trial: 0.00001
+</pre></div>
+</div>
+<img alt="../_images/Bound_states_with_finite_difference_method_16_1.png" src="../_images/Bound_states_with_finite_difference_method_16_1.png" />
+<img alt="../_images/Bound_states_with_finite_difference_method_16_2.png" src="../_images/Bound_states_with_finite_difference_method_16_2.png" />
+<img alt="../_images/Bound_states_with_finite_difference_method_16_3.png" src="../_images/Bound_states_with_finite_difference_method_16_3.png" />
+<img alt="../_images/Bound_states_with_finite_difference_method_16_4.png" src="../_images/Bound_states_with_finite_difference_method_16_4.png" />
+</div>
+</div>
+</section>
+<section id="output-final-result">
+<h3>3. Output final result<a class="headerlink" href="#output-final-result" title="Permalink to this headline">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Final result</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n\n</span><span class="s1"> *** Calculated energy for </span><span class="si">{</span><span class="n">nodes</span><span class="si">}</span><span class="s1"> nodes and angular momentum </span><span class="si">{</span><span class="n">ell</span><span class="si">}</span><span class="s1"> is </span><span class="si">{</span><span class="n">E_trial</span><span class="si">:</span><span class="s1">.4f</span><span class="si">}</span><span class="s1">.&#39;</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> *** Calculated energy for 0 nodes and angular momentum 0 is -0.4821.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "furnstahl/7501-JB",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "conda-env-7501-env-py"
+        },
+        kernelOptions: {
+            kernelName: "conda-env-7501-env-py",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'conda-env-7501-env-py'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="Path_integrals/Lepage_Lattice_QCD_for_Novices_code_selfcontained.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Path integrals for quantum mechanics</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="External/harmonic_oscillator_Jendrzejewski.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Quantum harmonic oscillator</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Dick Furnstahl<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
