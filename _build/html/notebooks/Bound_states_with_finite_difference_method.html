@@ -652,7 +652,7 @@ title="Print to PDF"
 <section id="solving-as-a-differential-equation-in-coordinate-representation">
 <h2>Solving as a differential equation in coordinate representation.<a class="headerlink" href="#solving-as-a-differential-equation-in-coordinate-representation" title="Permalink to this headline">#</a></h2>
 <p>This works when we have a <em>local</em> potential (otherwise the Schrodinger equation is an integro-differential equation in coordinate representation).
-If we have a central potential in three dimensions, the potential is purely radial</p>
+If we have a central potential in three dimensions, the potential depends only on <span class="math notranslate nohighlight">\(r\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[
     V({\bf x}) = V(|{\bf x}|) \equiv V(r)
@@ -712,8 +712,8 @@ We’ll label the points:</p>
 <p>Thus, <span class="math notranslate nohighlight">\(r_0 = 0\)</span>, <span class="math notranslate nohighlight">\(r_1 = h\)</span>, and so on up to <span class="math notranslate nohighlight">\(r_{N} = (N-1)h = R_{\rm
  max}\)</span>.</p>
 <p>We can rearrange the equation to let us determine the radial wave function <span class="math notranslate nohighlight">\(u(r)\)</span> at successive steps in <span class="math notranslate nohighlight">\(h\)</span>, given the previous two values of <span class="math notranslate nohighlight">\(u\)</span>:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-480f93a9-8981-4fc7-950c-730b721f8182">
-<span class="eqno">(1)<a class="headerlink" href="#equation-480f93a9-8981-4fc7-950c-730b721f8182" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-bf8832fb-7090-4614-88a2-2c89f3117632">
+<span class="eqno">(1)<a class="headerlink" href="#equation-bf8832fb-7090-4614-88a2-2c89f3117632" title="Permalink to this equation">#</a></span>\[\begin{align}
    u(r+h) &amp;= 2 u(r) - u(r-h) + h^2\frac{d^2u}{dr^2} \\
           &amp;= 2 u(r) - u(r-h) + h^2\left[\frac{2m}{\hbar^2}(V_{\rm eff}(r)-E)  \right]u(r)
 \end{align}\]</div>

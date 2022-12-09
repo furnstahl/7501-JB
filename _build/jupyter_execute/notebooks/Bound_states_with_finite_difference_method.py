@@ -8,7 +8,7 @@
 
 # ## Solving as a differential equation in coordinate representation.
 # This works when we have a *local* potential (otherwise the Schrodinger equation is an integro-differential equation in coordinate representation).
-# If we have a central potential in three dimensions, the potential is purely radial
+# If we have a central potential in three dimensions, the potential depends only on $r$: 
 # 
 # $$
 #     V({\bf x}) = V(|{\bf x}|) \equiv V(r)
