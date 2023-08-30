@@ -1,7 +1,6 @@
-name: 7501-env
+name: 7501-env-small
 channels:
 - conda-forge
-- astropy
 dependencies:
 - python
 - nb_conda_kernels
@@ -13,11 +12,6 @@ dependencies:
 - jupyter
 - ipywidgets
 - nbdime
-- numdifftools
-- emcee
-- zeus-mcmc
-- corner
 - mkl-service
+- jupyter_nbextensions_configurator
 - pydoe
-- ipympl
-- sympy
