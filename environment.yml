@@ -2,7 +2,7 @@ name: 7501-env-small
 channels:
 - conda-forge
 dependencies:
-- python
+- python ==3.10
 - nb_conda_kernels
 - numpy
 - scipy
